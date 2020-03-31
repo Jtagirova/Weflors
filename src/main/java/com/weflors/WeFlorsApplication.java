@@ -1,13 +1,13 @@
-package com.weflor.jdbc;
+package com.weflors;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WeFlorApplication {
+public class WeFlorsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WeFlorApplication.class, args);
+		SpringApplication.run(WeFlorsApplication.class, args);
 	}
 
 }
