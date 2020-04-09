@@ -12,7 +12,7 @@ public class Role {
 	
 	@Id
     @GeneratedValue
-    @Column(name = "role_id", nullable = false)
+    @Column(name = "role_id", nullable = false) 	////name - название колонки в базе
 	private Integer roleID;
 	
 	
