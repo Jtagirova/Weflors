@@ -17,7 +17,7 @@ public class User{
 	
 	@Id
     @GeneratedValue
-    @Column(name = "user_Id", nullable = false)
+    @Column(name = "user_Id", nullable = false) //name - название колонки в базе
 	private Integer userID;
 	
 	@Column(name = "user_mail", nullable = false)

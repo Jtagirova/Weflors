@@ -8,7 +8,7 @@ import javax.persistence.Table;
 @Table(name = "user_role_map") 	//указывает на имя таблицы, которая будет отображаться в этой сущности.
 public class UserRoleMap {
 	
-	@Column(name = "user_Id", nullable = false)
+	@Column(name = "user_Id", nullable = false) ////name - название колонки в базе
 	private Integer userID;
 	
 	@Column(name = "role_id", nullable = false)
