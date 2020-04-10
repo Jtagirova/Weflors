@@ -1,4 +1,4 @@
-package com.entity;
+package com.weflors.entity;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -11,13 +11,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity 		//указывает, что данный бин (класс) является сущностью.
-@Table(name = "user") 	//указывает на имя таблицы, которая будет отображаться в этой сущности.
+@Table(name = "user", schema = "flowershop") 	//указывает на имя таблицы, которая будет отображаться в этой сущности.
 public class User{
 	
 	
 	@Id
     @GeneratedValue
-    @Column(name = "user_Id", nullable = false) //name - название колонки в базе
+    @Column(name = "user_id", nullable = false) //name - название колонки в базе
 	private Integer userID;
 	
 	@Column(name = "user_mail", nullable = false)

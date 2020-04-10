@@ -1,4 +1,4 @@
-package com.entity;
+package com.weflors.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity 		//указывает, что данный бин (класс) является сущностью.
-@Table(name = "role") 	//указывает на имя таблицы, которая будет отображаться в этой сущности.
+@Table(name = "role", schema = "flowershop") 	//указывает на имя таблицы, которая будет отображаться в этой сущности.
 public class Role {
 	
 	@Id
