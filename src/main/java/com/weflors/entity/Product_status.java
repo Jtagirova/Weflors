@@ -22,16 +22,12 @@ public class Product_status {
 	@Column(name = "quantity_shop", nullable = false)
 	private String quantityShop;
 
-	@Column(name = "quantity_total", nullable = false)
-	private String quantityTotal;
+	@Column(name = "total_quantity", nullable = false)
+	private String totalQuantity;
 
-	/*public Integer getArticul() {
-		return articul;
-	}
+	public Integer getArticul() { return articul;	}
 
-	public void setArticul(Integer articul) {
-		this.articul = articul;
-	}*/
+	public void setArticul(Integer articul) { this.articul = articul;	}
 
 	public String getQuantityWarehouse() {
 		return quantityWarehouse;
@@ -50,11 +46,11 @@ public class Product_status {
 	}
 
 	public String getQuantityTotal() {
-		return quantityTotal;
+		return totalQuantity;
 	}
 
 	public void setQuantityTotal(String quantityTotal) {
-		this.quantityTotal = quantityTotal;
+		this.totalQuantity = quantityTotal;
 	}
 }
 

@@ -13,8 +13,8 @@ public class Product_details {
 	@Column(name = "product_id", nullable = false)
 	private Integer productID;
 
-	@Column(name = "description", nullable = false)
-	private String description;
+	@Column(name = "product_description", nullable = false)
+	private String productDescription;
 
 	@Column(name = "height", nullable = false)
 	private String height;
@@ -37,11 +37,11 @@ public class Product_details {
 	}*/
 
 	public String getDescription() {
-		return description;
+		return productDescription;
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		this.productDescription = description;
 	}
 
 	public String getHeight() {

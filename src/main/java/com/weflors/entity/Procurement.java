@@ -25,8 +25,8 @@ public class Procurement {
 	@Column(name = "quantity", nullable = false)
 	private String quantity;
 
-	@Column(name = "procurement_details", nullable = false)
-	private String procurementDetails;
+	@Column(name = "details", nullable = false)
+	private String details;
 
 	/*public Integer getProductID() {
 		return productID;
@@ -69,11 +69,11 @@ public class Procurement {
 	}
 
 	public String getProcurementDetails() {
-		return procurementDetails;
+		return details;
 	}
 
 	public void setProcurementDetails(String procurementDetails) {
-		this.procurementDetails = procurementDetails;
+		this.details = procurementDetails;
 	}
 }
 

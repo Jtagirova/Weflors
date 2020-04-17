@@ -27,7 +27,7 @@ public class Product {
     private String articul;
 
 	@Column(name = "picture_url", nullable = false)
-	private String picture_url;
+	private String pictureUrl;
 
 
 	/*public Integer getProductID() {	return productID;	}
@@ -46,7 +46,7 @@ public class Product {
 
 	public void setArticul(String articul) { this.articul = articul;	}
 
-	public String getPicture_url() { return picture_url;	}
+	public String getPicture_url() { return pictureUrl;	}
 
-	public void setPicture_url(String picture_url) { this.picture_url = picture_url;	}
+	public void setPicture_url(String picture_url) { this.pictureUrl = picture_url;	}
 }
