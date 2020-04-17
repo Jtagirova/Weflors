@@ -11,9 +11,10 @@ import com.weflors.entity.User;
 
 //repository- это в спринге аналог DAO
 //DAO (Data Access Object) – это слой объектов которые обеспечивают доступ к данным.
+//JpaRepository -
 public interface UserRepository extends JpaRepository<User, Integer>{
 	
-	@Query("select b from User b where b.userName = :username")
+	@Query("select b from User b where b.userName = :username") //hql
 	User findByUsername(@Param("username") String username);
 
 }

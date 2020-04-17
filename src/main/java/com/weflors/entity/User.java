@@ -7,8 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+
 
 @Entity 		//указывает, что данный бин (класс) является сущностью.
 @Table(name = "user", schema = "flowershop") 	//указывает на имя таблицы, которая будет отображаться в этой сущности.
