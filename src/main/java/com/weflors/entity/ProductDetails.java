@@ -5,13 +5,16 @@ import javax.persistence.*;
 
 @Entity 		//указывает, что данный бин (класс) является сущностью.
 @Table(name = "product_details", schema = "flowershop") 	//указывает на имя таблицы, которая будет отображаться в этой сущности.
-public class Product_details {
-
+public class ProductDetails {
 
 	@Id
 	@GeneratedValue
 	@Column(name = "product_id", nullable = false)
 	private Integer productID;
+
+	@OneToOne(cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "product_id", referencedColumnName = "product_id")
+	private Product product;
 
 	@Column(name = "product_description", nullable = false)
 	private String productDescription;

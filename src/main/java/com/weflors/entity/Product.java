@@ -1,10 +1,6 @@
 package com.weflors.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity 		//указывает, что данный бин (класс) является сущностью.
@@ -16,12 +12,15 @@ public class Product {
     @GeneratedValue
     @Column(name = "product_id", nullable = false)
 	private Integer productID;
-	
+
+	@OneToOne(mappedBy = "product")
+	private ProductDetails productDetails;
+
 	@Column(name = "product_name", nullable = false)
-    private String product_name;
+    private String productName;
 	
 	@Column(name = "product_type", nullable = false)
-    private String product_type;
+    private String productType;
 	
 	@Column(name = "articul", nullable = false)
     private String articul;
@@ -29,24 +28,33 @@ public class Product {
 	@Column(name = "picture_url", nullable = false)
 	private String pictureUrl;
 
+	@Column(name = "contragent_id", nullable = false)
+	private Integer contragentID;
 
-	/*public Integer getProductID() {	return productID;	}
+	public Product() {
+	}
 
-	public void setProductID(Integer productID) { this.productID = productID;	}*/
+	public Integer getProductID() {	return productID;}
 
-	public String getProduct_name() { return product_name;	}
+	public void setProductID(Integer productID) { this.productID = productID;	}
 
-	public void setProduct_name(String product_name) { this.product_name = product_name;	}
+	public String getProductName() { return productName;	}
 
-	public String getProduct_type() { return product_type;	}
+	public void setProductName(String productName) { this.productName = productName;	}
 
-	public void setProduct_type(String product_type) { this.product_type = product_type;	}
+	public String getProductType() { return productType;	}
+
+	public void setProductType(String productType) { this.productType = productType;	}
 
 	public String getArticul() { return articul;	}
 
 	public void setArticul(String articul) { this.articul = articul;	}
 
-	public String getPicture_url() { return pictureUrl;	}
+	public String getPictureUrl() { return pictureUrl;	}
 
-	public void setPicture_url(String picture_url) { this.pictureUrl = picture_url;	}
+	public void setPictureUrl(String pictureUrl) { this.pictureUrl = pictureUrl;	}
+
+	public Integer getContragentID() {	return contragentID;}
+
+	public void setContragentID(Integer contragentID) { this.contragentID = contragentID;	}
 }
