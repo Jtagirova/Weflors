@@ -1,4 +1,4 @@
-package com.weflors.entityidea;
+package com.weflors.entity;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -13,7 +13,7 @@ public class UserEntity {
     private String userLastname;
     private String login;
     private String phone;
-    private Collection<UserRoleMapEntity> userRoleMapsByUserId;
+ //   private Collection<UserRoleMapEntity> userRoleMapsByUserId;
 
     @Id
     @Column(name = "user_id", nullable = false)
@@ -115,12 +115,12 @@ public class UserEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<UserRoleMapEntity> getUserRoleMapsByUserId() {
-        return userRoleMapsByUserId;
-    }
+//    @OneToMany(mappedBy = "userByUserId")
+//    public Collection<UserRoleMapEntity> getUserRoleMapsByUserId() {
+//        return userRoleMapsByUserId;
+//    }
 
-    public void setUserRoleMapsByUserId(Collection<UserRoleMapEntity> userRoleMapsByUserId) {
-        this.userRoleMapsByUserId = userRoleMapsByUserId;
-    }
+//    public void setUserRoleMapsByUserId(Collection<UserRoleMapEntity> userRoleMapsByUserId) {
+//        this.userRoleMapsByUserId = userRoleMapsByUserId;
+//    }
 }

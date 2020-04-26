@@ -1,4 +1,4 @@
-package com.weflors.entityidea;
+package com.weflors.entity;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -14,7 +14,7 @@ public class ContragentsEntity {
     private String unk;
     private String unn;
     private String zipCode;
-    private Collection<ProductEntity> productsByContragentId;
+//    private Collection<ProductEntity> productsByContragentId;
 
     @Basic
     @Column(name = "address", nullable = true, length = 100)
@@ -129,12 +129,12 @@ public class ContragentsEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "contragentsByContragentId")
-    public Collection<ProductEntity> getProductsByContragentId() {
-        return productsByContragentId;
-    }
-
-    public void setProductsByContragentId(Collection<ProductEntity> productsByContragentId) {
-        this.productsByContragentId = productsByContragentId;
-    }
+//    @OneToMany(mappedBy = "contragentsByContragentId")
+//    public Collection<ProductEntity> getProductsByContragentId() {
+//        return productsByContragentId;
+//    }
+//
+//    public void setProductsByContragentId(Collection<ProductEntity> productsByContragentId) {
+//        this.productsByContragentId = productsByContragentId;
+//    }
 }

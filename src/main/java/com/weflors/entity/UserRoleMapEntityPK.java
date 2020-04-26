@@ -1,4 +1,4 @@
-package com.weflors.entityidea;
+/*package com.weflors.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -47,4 +47,4 @@ public class UserRoleMapEntityPK implements Serializable {
         result = 31 * result + roleId;
         return result;
     }
-}
+}*/

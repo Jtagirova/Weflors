@@ -3,6 +3,7 @@ package com.weflors.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.weflors.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.weflors.entity.User;
 import com.weflors.repository.UserRepository;
 
 @Service//сказать  Spring управлять им как  Spring BEAN.
@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		//List<User> users = userRepository.findAll();
-		User user = userRepository.findByUsername(username);
+		UserEntity user = userRepository.findByUsername(username);
   
         // [ROLE_USER, ROLE_ADMIN,..]
         //@TO_DO

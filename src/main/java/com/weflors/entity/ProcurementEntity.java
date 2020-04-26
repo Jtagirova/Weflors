@@ -1,16 +1,16 @@
-package com.weflors.entityidea;
+package com.weflors.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "sale", schema = "flowershop", catalog = "postgres")
-public class SaleEntity {
+@Table(name = "procurement", schema = "flowershop", catalog = "postgres")
+public class ProcurementEntity {
     private int productId;
     private String articul;
-    private BigDecimal salePrice;
-    private Timestamp saleDate;
+    private BigDecimal procurementPrice;
+    private Timestamp procurementDate;
     private int quantity;
     private String details;
     private ProductEntity productByProductId;
@@ -36,23 +36,23 @@ public class SaleEntity {
     }
 
     @Basic
-    @Column(name = "sale_price", nullable = false, precision = 2)
-    public BigDecimal getSalePrice() {
-        return salePrice;
+    @Column(name = "procurement_price", nullable = false, precision = 2)
+    public BigDecimal getProcurementPrice() {
+        return procurementPrice;
     }
 
-    public void setSalePrice(BigDecimal salePrice) {
-        this.salePrice = salePrice;
+    public void setProcurementPrice(BigDecimal procurementPrice) {
+        this.procurementPrice = procurementPrice;
     }
 
     @Basic
-    @Column(name = "sale_date", nullable = false)
-    public Timestamp getSaleDate() {
-        return saleDate;
+    @Column(name = "procurement_date", nullable = false)
+    public Timestamp getProcurementDate() {
+        return procurementDate;
     }
 
-    public void setSaleDate(Timestamp saleDate) {
-        this.saleDate = saleDate;
+    public void setProcurementDate(Timestamp procurementDate) {
+        this.procurementDate = procurementDate;
     }
 
     @Basic
@@ -80,13 +80,15 @@ public class SaleEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SaleEntity that = (SaleEntity) o;
+        ProcurementEntity that = (ProcurementEntity) o;
 
         if (productId != that.productId) return false;
         if (quantity != that.quantity) return false;
         if (articul != null ? !articul.equals(that.articul) : that.articul != null) return false;
-        if (salePrice != null ? !salePrice.equals(that.salePrice) : that.salePrice != null) return false;
-        if (saleDate != null ? !saleDate.equals(that.saleDate) : that.saleDate != null) return false;
+        if (procurementPrice != null ? !procurementPrice.equals(that.procurementPrice) : that.procurementPrice != null)
+            return false;
+        if (procurementDate != null ? !procurementDate.equals(that.procurementDate) : that.procurementDate != null)
+            return false;
         if (details != null ? !details.equals(that.details) : that.details != null) return false;
 
         return true;
@@ -96,8 +98,8 @@ public class SaleEntity {
     public int hashCode() {
         int result = productId;
         result = 31 * result + (articul != null ? articul.hashCode() : 0);
-        result = 31 * result + (salePrice != null ? salePrice.hashCode() : 0);
-        result = 31 * result + (saleDate != null ? saleDate.hashCode() : 0);
+        result = 31 * result + (procurementPrice != null ? procurementPrice.hashCode() : 0);
+        result = 31 * result + (procurementDate != null ? procurementDate.hashCode() : 0);
         result = 31 * result + quantity;
         result = 31 * result + (details != null ? details.hashCode() : 0);
         return result;

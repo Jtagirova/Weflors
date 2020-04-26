@@ -1,4 +1,4 @@
-package com.weflors.entityidea;
+package com.weflors.entity;
 
 import javax.persistence.*;
 
