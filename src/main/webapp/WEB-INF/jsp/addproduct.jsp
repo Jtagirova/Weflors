@@ -33,23 +33,23 @@
 
         <div class="form-group">
             <div class="col-md-4 mb-3">
-                <label for="productarticul">Product articul</label>
-                <input type="text" class="form-control" id="productarticul" placeholder="Product articul"  required>
+                <label for="productarticul">Артикул</label>
+                <input type="text" class="form-control" id="productarticul" placeholder="Артикул товара"  required>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-4 mb-3">
-                <label for="validationServer01">Product name</label>
-                <input type="text" class="form-control" id="validationServer01" placeholder="Product name" required>
+                <label for="validationServer01">Наименование товара</label>
+                <input type="text" class="form-control" id="validationServer01" placeholder="Введите наименование товара" required>
 
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-4 mb-3">
-                <label for="validationServer02">Product type</label>
-                <input type="text" class="form-control" id="validationServer02" placeholder="Product type" required>
+                <label for="validationServer02">Категория товара</label>
+                <input type="text" class="form-control" id="validationServer02" placeholder="Выберите категорию товара" required>
             </div>
 
         </div>
@@ -57,7 +57,7 @@
         <div class="form-group">
             <div class="col-md-3 mb-3">
                 <div class="custom-file">
-                    <label class="custom-file-label" for="customFileLang">Picture url</label>
+                    <label class="custom-file-label" for="customFileLang">Загрузите фото товара</label>
                     <input type="file" class="custom-file-input" id="customFileLang" >
                 </div>
             </div>
@@ -65,7 +65,7 @@
 
         <div class="form-group">
             <div class="col-md-3 mb-3">
-                <label class="custom-file-label" for="customFileLang">Contragent</label>
+                <label class="custom-file-label" for="customFileLang">Поставщик</label>
                 <form:select path="contragents">
                     <form:option value="NONE" label="--- Select ---" />
                     <form:options items="${contragents}" itemValue="contragentId" itemLabel="contragentName" />
@@ -75,36 +75,36 @@
 
         <div class="form-group">
             <div class="col-md-4 mb-3">
-                <label for="productdescription">Product description</label>
-                <input type="text" class="form-control" id="productdescription" placeholder="Product description">
+                <label for="productdescription">Описание товара</label>
+                <input type="text" class="form-control" id="productdescription" placeholder="Опишите кратко товар">
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-4 mb-3">
-                <label for="productheight">Product height</label>
-                <input type="text" class="form-control" id="productheight" placeholder="Product height">
+                <label for="productheight">Высота</label>
+                <input type="text" class="form-control" id="productheight" placeholder="Высота">
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-4 mb-3">
-                <label for="productlength">Product length</label>
-                <input type="text" class="form-control" id="productlength" placeholder="Product length">
+                <label for="productlength">Длина</label>
+                <input type="text" class="form-control" id="productlength" placeholder="Длина">
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-4 mb-3">
-                <label for="productwidth">Product width</label>
-                <input type="text" class="form-control" id="productwidth" placeholder="Product width">
+                <label for="productwidth">Ширина</label>
+                <input type="text" class="form-control" id="productwidth" placeholder="Ширина">
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-4 mb-3">
-                <label for="productcolor">Product color</label>
-                <input type="text" class="form-control" id="productcolor" placeholder="Product color">
+                <label for="productcolor">Цвет</label>
+                <input type="text" class="form-control" id="productcolor" placeholder="цвет">
             </div>
         </div>
 
@@ -170,7 +170,7 @@
                 </div>
             </div>
         </div>--%>
-        <button class="btn btn-primary" type="submit">Submit form</button>
+        <button class="btn btn-primary" type="submit">Сохранить</button>
     </form>
 </div>
 
