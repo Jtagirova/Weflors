@@ -1,4 +1,4 @@
-/*package com.weflors.entity;
+package com.weflors.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -8,7 +8,7 @@ public class UserRoleMapEntityPK implements Serializable {
     private int userId;
     private int roleId;
 
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
     @Id
     public int getUserId() {
         return userId;
@@ -18,7 +18,7 @@ public class UserRoleMapEntityPK implements Serializable {
         this.userId = userId;
     }
 
-    @Column(name = "role_id", nullable = false)
+    @Column(name = "role_id", nullable = false,  insertable = false, updatable = false)
     @Id
     public int getRoleId() {
         return roleId;
@@ -47,4 +47,4 @@ public class UserRoleMapEntityPK implements Serializable {
         result = 31 * result + roleId;
         return result;
     }
-}*/
+}

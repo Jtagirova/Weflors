@@ -11,7 +11,7 @@ public class ProductEntity {
     private String articul;
     private String pictureUrl;
     private ProcurementEntity procurementByProductId;
-   // private ContragentsEntity contragentsByContragentId;
+    private ContragentsEntity contragentsByContragentId;
     private ProductDetailsEntity productDetailsByProductId;
     private ProductStatusEntity productStatusByProductId;
     private SaleEntity saleByProductId;
@@ -101,15 +101,15 @@ public class ProductEntity {
         this.procurementByProductId = procurementByProductId;
     }
 
-//    @ManyToOne
-//    @JoinColumn(name = "contragent_id", referencedColumnName = "contragent_id")
-//    public ContragentsEntity getContragentsByContragentId() {
-//        return contragentsByContragentId;
-//    }
-//
-//    public void setContragentsByContragentId(ContragentsEntity contragentsByContragentId) {
-//        this.contragentsByContragentId = contragentsByContragentId;
-//    }
+    @ManyToOne
+    @JoinColumn(name = "contragent_id", referencedColumnName = "contragent_id")
+    public ContragentsEntity getContragentsByContragentId() {
+        return contragentsByContragentId;
+    }
+
+    public void setContragentsByContragentId(ContragentsEntity contragentsByContragentId) {
+        this.contragentsByContragentId = contragentsByContragentId;
+    }
 
     @OneToOne(mappedBy = "productByProductId")
     public ProductDetailsEntity getProductDetailsByProductId() {

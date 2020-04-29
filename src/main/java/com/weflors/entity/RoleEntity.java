@@ -8,7 +8,7 @@ import java.util.Collection;
 public class RoleEntity {
     private int roleId;
     private String roleName;
-    //private Collection<UserRoleMapEntity> userRoleMapsByRoleId;
+    private Collection<UserRoleMapEntity> userRoleMapsByRoleId;
 
     @Id
     @Column(name = "role_id", nullable = false)
@@ -50,12 +50,12 @@ public class RoleEntity {
         return result;
     }
 
-//    @OneToMany(mappedBy = "roleByRoleId")
-//    public Collection<UserRoleMapEntity> getUserRoleMapsByRoleId() {
-//        return userRoleMapsByRoleId;
-//    }
+    @OneToMany(mappedBy = "roleByRoleId")
+    public Collection<UserRoleMapEntity> getUserRoleMapsByRoleId() {
+        return userRoleMapsByRoleId;
+    }
 
-//    public void setUserRoleMapsByRoleId(Collection<UserRoleMapEntity> userRoleMapsByRoleId) {
-//        this.userRoleMapsByRoleId = userRoleMapsByRoleId;
-//    }
+    public void setUserRoleMapsByRoleId(Collection<UserRoleMapEntity> userRoleMapsByRoleId) {
+        this.userRoleMapsByRoleId = userRoleMapsByRoleId;
+    }
 }
