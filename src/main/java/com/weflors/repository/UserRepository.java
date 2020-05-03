@@ -13,7 +13,7 @@ import org.springframework.data.repository.query.Param;
 //JpaRepository -
 public interface UserRepository extends JpaRepository<UserEntity, Integer>{
 	
-	@Query("select b from UserEntity b where b.userName = :username") //hql
-	UserEntity findByUsername(@Param("username") String username);
+	@Query("select b from UserEntity b where b.login = :login") //hql
+	UserEntity findByUsername(@Param("login") String username);
 
 }

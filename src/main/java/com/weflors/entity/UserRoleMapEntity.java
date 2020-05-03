@@ -10,8 +10,20 @@ public class UserRoleMapEntity {
     private int roleId;
     private UserEntity userByUserId;
     private RoleEntity roleByRoleId;
+    
+    
 
-    @Id
+    public UserRoleMapEntity() {
+		
+	}
+
+	public UserRoleMapEntity( int roleId, int userId) {
+		this.roleId = roleId;
+		this.userId = userId;
+		
+	}
+
+	@Id
     @Column(name = "user_id", nullable = false)
     public int getUserId() {
         return userId;

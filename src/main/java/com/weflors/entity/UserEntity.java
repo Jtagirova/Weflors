@@ -10,12 +10,21 @@ public class UserEntity {
     private String eMail;
     private String userName;
     private String password;
+    private String passwordConfirm;
     private String userLastname;
     private String login;
     private String phone;
     private Collection<UserRoleMapEntity> userRoleMapsByUserId;
+    
 
+    
+    public UserEntity() {
+    }
+    
+    
     @Id
+    @SequenceGenerator(name = "hibernateSeq", sequenceName = "HIBERNATE_SEQUENCE")
+    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "hibernateSeq")
     @Column(name = "user_id", nullable = false)
     public int getUserId() {
         return userId;
@@ -54,6 +63,15 @@ public class UserEntity {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    @Transient
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
 
     @Basic
     @Column(name = "user_lastname", nullable = true, length = 50)
@@ -123,4 +141,7 @@ public class UserEntity {
     public void setUserRoleMapsByUserId(Collection<UserRoleMapEntity> userRoleMapsByUserId) {
         this.userRoleMapsByUserId = userRoleMapsByUserId;
     }
+    
+    
+    
 }

@@ -9,8 +9,17 @@ public class RoleEntity {
     private int roleId;
     private String roleName;
     private Collection<UserRoleMapEntity> userRoleMapsByRoleId;
+    
+    
 
-    @Id
+    public RoleEntity(int roleId, String roleName) {
+		super();
+		this.roleId = roleId;
+		this.roleName = roleName;
+	}
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id", nullable = false)
     public int getRoleId() {
         return roleId;
