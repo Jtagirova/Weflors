@@ -6,8 +6,8 @@ import javax.persistence.*;
 @Table(name = "user_role_map", schema = "flowershop", catalog = "postgres")
 @IdClass(UserRoleMapEntityPK.class)
 public class UserRoleMapEntity {
-    private int userId;
-    private int roleId;
+    private Integer userId;
+    private Integer roleId;
     private UserEntity userByUserId;
     private RoleEntity roleByRoleId;
     
@@ -25,21 +25,21 @@ public class UserRoleMapEntity {
 
 	@Id
     @Column(name = "user_id", nullable = false)
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
     @Id
     @Column(name = "role_id", nullable = false)
-    public int getRoleId() {
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(int roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 
