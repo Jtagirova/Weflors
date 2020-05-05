@@ -11,6 +11,9 @@ public class RoleEntity {
     private Collection<UserRoleMapEntity> userRoleMapsByRoleId;
     
     
+    public RoleEntity() {
+		
+	}
 
     public RoleEntity(int roleId, String roleName) {
 		super();

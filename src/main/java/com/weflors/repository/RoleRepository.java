@@ -14,8 +14,6 @@ import com.weflors.entity.UserRoleMapEntity;
 
 public interface RoleRepository extends JpaRepository<RoleEntity, Integer>{
 
-//	@Query("select b from RoleEntity b where b.userRoleMapsByUserId = :userRoleMapsByUserId")
-//	//написать запрос к базе 
-//	//TO_DO
-//	List<String> getRoleNames(@Param("userRoleMapsByUserId") Collection<UserRoleMapEntity> userId);
+	@Query("select role.roleName from RoleEntity role where role.roleId = :roleId")
+	String getRoleNames(@Param("roleId") Integer roleId);
 }

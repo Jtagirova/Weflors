@@ -42,22 +42,10 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 		//List<User> users = userRepository.findAll();
 		UserEntity user = userRepository.findByUsername(login);
-  
-        // [ROLE_USER, ROLE_ADMIN,..]
-        //@TO_DO
-        List<String> roleNames = new ArrayList<String>();//написать потом с базой
-        roleNames.add("user");
-       // roleNames.add("admin");
-        //this.appRoleDAO.getRoleNames(user.getUserId());
- 
-        List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
-        if (roleNames != null) {
-            for (String role : roleNames) {
-                // ROLE_USER, ROLE_ADMIN,..
-                GrantedAuthority authority = new SimpleGrantedAuthority(role);
-                grantList.add(authority);
-            }
-        }
+		List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
+		for (Integer roleId : userRoleMapRepository.getUserRoleId(user.getUserId())) {
+			grantList.add(new SimpleGrantedAuthority(roleRepository.getRoleNames(roleId)));
+		}
  
         UserDetails userDetails = (UserDetails) new org.springframework.security.core.userdetails.User(user.getUserName(), 
         		user.getPassword(), grantList);
