@@ -73,10 +73,8 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         
-        UserRoleMapEntity usrme = new UserRoleMapEntity(1, user.getUserId());
-        
         userRepository.save(user);
-        userRoleMapRepository.saveUserRoleMap(user.getUserId(), 1);
+        userRoleMapRepository.saveUserRoleMap(user.getUserId(), 2);
         return true;
     }
 
