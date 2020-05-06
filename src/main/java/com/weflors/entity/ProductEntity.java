@@ -10,6 +10,7 @@ public class ProductEntity {
     private String productType;
     private String articul;
     private String pictureUrl;
+    private String originOfProduct;
     private ProcurementEntity procurementByProductId;
     private ContragentsEntity contragentsByContragentId;
     private ProductDetailsEntity productDetailsByProductId;
@@ -64,6 +65,16 @@ public class ProductEntity {
 
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
+    }
+
+    @Basic
+    @Column(name = "origin_of_product", nullable = true, length = 50)
+    public String getOriginOfProduct() {
+        return originOfProduct;
+    }
+
+    public void setOriginOfProduct(String originOfProduct) {
+        this.originOfProduct = originOfProduct;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.weflors.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -13,7 +14,10 @@ public class ProcurementEntity {
     private Timestamp procurementDate;
     private int quantity;
     private String details;
+    private Date validityDate;
     private ProductEntity productByProductId;
+    private ContragentsEntity contragentsByContragentId;
+
 
     @Id
     @Column(name = "product_id", nullable = false)
@@ -75,6 +79,16 @@ public class ProcurementEntity {
         this.details = details;
     }
 
+    @Basic
+    @Column(name = "validity_date", nullable = true)
+    public Date getValidityDate() {
+        return validityDate;
+    }
+
+    public void setValidityDate(Date validityDate) {
+        this.validityDate = validityDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,6 +104,7 @@ public class ProcurementEntity {
         if (procurementDate != null ? !procurementDate.equals(that.procurementDate) : that.procurementDate != null)
             return false;
         if (details != null ? !details.equals(that.details) : that.details != null) return false;
+        if (validityDate != null ? !validityDate.equals(that.validityDate) : that.validityDate != null) return false;
 
         return true;
     }
@@ -102,6 +117,7 @@ public class ProcurementEntity {
         result = 31 * result + (procurementDate != null ? procurementDate.hashCode() : 0);
         result = 31 * result + quantity;
         result = 31 * result + (details != null ? details.hashCode() : 0);
+        result = 31 * result + (validityDate != null ? validityDate.hashCode() : 0);
         return result;
     }
 
@@ -113,5 +129,15 @@ public class ProcurementEntity {
 
     public void setProductByProductId(ProductEntity productByProductId) {
         this.productByProductId = productByProductId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "contragent_id", referencedColumnName = "contragent_id")
+    public ContragentsEntity getContragentsByContragentId() {
+        return contragentsByContragentId;
+    }
+
+    public void setContragentsByContragentId(ContragentsEntity contragentsByContragentId) {
+        this.contragentsByContragentId = contragentsByContragentId;
     }
 }

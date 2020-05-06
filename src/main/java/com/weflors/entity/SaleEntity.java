@@ -13,7 +13,10 @@ public class SaleEntity {
     private Timestamp saleDate;
     private int quantity;
     private String details;
+    private BigDecimal productPrice;
     private ProductEntity productByProductId;
+    private ClientEntity clientByClientId;
+
 
     @Id
     @Column(name = "product_id", nullable = false)
@@ -75,6 +78,16 @@ public class SaleEntity {
         this.details = details;
     }
 
+    @Basic
+    @Column(name = "product_price", nullable = true, precision = 2)
+    public BigDecimal getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(BigDecimal productPrice) {
+        this.productPrice = productPrice;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -88,6 +101,7 @@ public class SaleEntity {
         if (salePrice != null ? !salePrice.equals(that.salePrice) : that.salePrice != null) return false;
         if (saleDate != null ? !saleDate.equals(that.saleDate) : that.saleDate != null) return false;
         if (details != null ? !details.equals(that.details) : that.details != null) return false;
+        if (productPrice != null ? !productPrice.equals(that.productPrice) : that.productPrice != null) return false;
 
         return true;
     }
@@ -100,6 +114,7 @@ public class SaleEntity {
         result = 31 * result + (saleDate != null ? saleDate.hashCode() : 0);
         result = 31 * result + quantity;
         result = 31 * result + (details != null ? details.hashCode() : 0);
+        result = 31 * result + (productPrice != null ? productPrice.hashCode() : 0);
         return result;
     }
 
@@ -112,4 +127,14 @@ public class SaleEntity {
     public void setProductByProductId(ProductEntity productByProductId) {
         this.productByProductId = productByProductId;
     }
+    @ManyToOne
+    @JoinColumn(name = "client_id", referencedColumnName = "client_id")
+    public ClientEntity getClientByClientId() {
+        return clientByClientId;
+    }
+
+    public void setClientByClientId(ClientEntity clientByClientId) {
+        this.clientByClientId = clientByClientId;
+    }
+
 }

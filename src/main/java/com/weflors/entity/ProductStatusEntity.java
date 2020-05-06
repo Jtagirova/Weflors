@@ -1,6 +1,7 @@
 package com.weflors.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Table(name = "product_status", schema = "flowershop", catalog = "postgres")
@@ -8,8 +9,9 @@ public class ProductStatusEntity {
     private int productId;
     private String articul;
     private int quantityWarehouse;
-    private int quantityShop;
-    private int totalQuantity;
+    private int quantityShopSale;
+    private int totalQuantityWriteoff;
+    private Date validityDate;
     private ProductEntity productByProductId;
 
     @Id
@@ -43,23 +45,33 @@ public class ProductStatusEntity {
     }
 
     @Basic
-    @Column(name = "quantity_shop", nullable = false)
-    public int getQuantityShop() {
-        return quantityShop;
+    @Column(name = "quantity_shop_sale", nullable = false)
+    public int getQuantityShopSale() {
+        return quantityShopSale;
     }
 
-    public void setQuantityShop(int quantityShop) {
-        this.quantityShop = quantityShop;
+    public void setQuantityShopSale(int quantityShopSale) {
+        this.quantityShopSale = quantityShopSale;
     }
 
     @Basic
-    @Column(name = "total_quantity", nullable = false)
-    public int getTotalQuantity() {
-        return totalQuantity;
+    @Column(name = "total_quantity_writeoff", nullable = false)
+    public int getTotalQuantityWriteoff() {
+        return totalQuantityWriteoff;
     }
 
-    public void setTotalQuantity(int totalQuantity) {
-        this.totalQuantity = totalQuantity;
+    public void setTotalQuantityWriteoff(int totalQuantityWriteoff) {
+        this.totalQuantityWriteoff = totalQuantityWriteoff;
+    }
+
+    @Basic
+    @Column(name = "validity_date", nullable = true)
+    public Date getValidityDate() {
+        return validityDate;
+    }
+
+    public void setValidityDate(Date validityDate) {
+        this.validityDate = validityDate;
     }
 
     @Override
@@ -71,9 +83,10 @@ public class ProductStatusEntity {
 
         if (productId != that.productId) return false;
         if (quantityWarehouse != that.quantityWarehouse) return false;
-        if (quantityShop != that.quantityShop) return false;
-        if (totalQuantity != that.totalQuantity) return false;
+        if (quantityShopSale != that.quantityShopSale) return false;
+        if (totalQuantityWriteoff != that.totalQuantityWriteoff) return false;
         if (articul != null ? !articul.equals(that.articul) : that.articul != null) return false;
+        if (validityDate != null ? !validityDate.equals(that.validityDate) : that.validityDate != null) return false;
 
         return true;
     }
@@ -83,8 +96,9 @@ public class ProductStatusEntity {
         int result = productId;
         result = 31 * result + (articul != null ? articul.hashCode() : 0);
         result = 31 * result + quantityWarehouse;
-        result = 31 * result + quantityShop;
-        result = 31 * result + totalQuantity;
+        result = 31 * result + quantityShopSale;
+        result = 31 * result + totalQuantityWriteoff;
+        result = 31 * result + (validityDate != null ? validityDate.hashCode() : 0);
         return result;
     }
 

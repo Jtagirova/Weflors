@@ -12,8 +12,9 @@ public class ContragentsEntity {
     private String phone1;
     private String phone2;
     private String unk;
-    private String unn;
+    private String inn;
     private String zipCode;
+    private Collection<ProcurementEntity> procurementsByContragentId;
     private Collection<ProductEntity> productsByContragentId;
 
     @Basic
@@ -77,13 +78,13 @@ public class ContragentsEntity {
     }
 
     @Basic
-    @Column(name = "unn", nullable = false, length = 15)
-    public String getUnn() {
-        return unn;
+    @Column(name = "inn", nullable = false, length = 15)
+    public String getInn() {
+        return inn;
     }
 
-    public void setUnn(String unn) {
-        this.unn = unn;
+    public void setInn(String inn) {
+        this.inn = inn;
     }
 
     @Basic
@@ -110,7 +111,7 @@ public class ContragentsEntity {
         if (phone1 != null ? !phone1.equals(that.phone1) : that.phone1 != null) return false;
         if (phone2 != null ? !phone2.equals(that.phone2) : that.phone2 != null) return false;
         if (unk != null ? !unk.equals(that.unk) : that.unk != null) return false;
-        if (unn != null ? !unn.equals(that.unn) : that.unn != null) return false;
+        if (inn != null ? !inn.equals(that.inn) : that.inn != null) return false;
         if (zipCode != null ? !zipCode.equals(that.zipCode) : that.zipCode != null) return false;
 
         return true;
@@ -124,9 +125,18 @@ public class ContragentsEntity {
         result = 31 * result + (phone1 != null ? phone1.hashCode() : 0);
         result = 31 * result + (phone2 != null ? phone2.hashCode() : 0);
         result = 31 * result + (unk != null ? unk.hashCode() : 0);
-        result = 31 * result + (unn != null ? unn.hashCode() : 0);
+        result = 31 * result + (inn != null ? inn.hashCode() : 0);
         result = 31 * result + (zipCode != null ? zipCode.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "contragentsByContragentId")
+    public Collection<ProcurementEntity> getProcurementsByContragentId() {
+        return procurementsByContragentId;
+    }
+
+    public void setProcurementsByContragentId(Collection<ProcurementEntity> procurementsByContragentId) {
+        this.procurementsByContragentId = procurementsByContragentId;
     }
 
     @OneToMany(mappedBy = "contragentsByContragentId")
