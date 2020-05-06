@@ -30,13 +30,13 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	private UserRepository userRepository;
 	
 	@Autowired
-    RoleRepository roleRepository;
+	private RoleRepository roleRepository;
 	
 	@Autowired
-	UserRoleMapRepository userRoleMapRepository;
+	private UserRoleMapRepository userRoleMapRepository;
 	
 	@Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
