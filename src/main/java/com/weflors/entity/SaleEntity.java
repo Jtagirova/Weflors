@@ -1,5 +1,7 @@
 package com.weflors.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -17,6 +19,8 @@ public class SaleEntity {
     private ProductEntity productByProductId;
     private ClientEntity clientByClientId;
 
+    public SaleEntity() {
+    }
 
     @Id
     @Column(name = "product_id", nullable = false)
@@ -119,6 +123,7 @@ public class SaleEntity {
     }
 
     @OneToOne
+    @JsonBackReference
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
     public ProductEntity getProductByProductId() {
         return productByProductId;

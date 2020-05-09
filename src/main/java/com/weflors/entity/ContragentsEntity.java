@@ -1,5 +1,7 @@
 package com.weflors.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -140,6 +142,7 @@ public class ContragentsEntity {
     }
 
     @OneToMany(mappedBy = "contragentsByContragentId")
+    @JsonManagedReference
     public Collection<ProductEntity> getProductsByContragentId() {
         return productsByContragentId;
     }

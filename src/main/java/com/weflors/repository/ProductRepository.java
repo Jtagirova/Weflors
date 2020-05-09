@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
 
     @Query("select prod from ProductEntity prod where prod.productId = :productID")
-    ProductEntity findByProductID(@Param("productID") String productID);
+    ProductEntity findByProductID(@Param("productID") Integer productID);
 
     @Query("select prod from ProductEntity prod where prod.productType = :productType")
     ProductEntity findByProductType(@Param("productType") String productType);

@@ -18,6 +18,9 @@ public class ClientEntity {
     private String zipCode;
     private Collection<SaleEntity> salesByClientId;
 
+    public ClientEntity() {
+    }
+
     @Id
     @Column(name = "client_id", nullable = false)
     public int getClientId() {

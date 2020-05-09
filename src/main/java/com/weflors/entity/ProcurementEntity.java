@@ -1,5 +1,7 @@
 package com.weflors.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -122,6 +124,7 @@ public class ProcurementEntity {
     }
 
     @OneToOne
+    @JsonBackReference
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
     public ProductEntity getProductByProductId() {
         return productByProductId;

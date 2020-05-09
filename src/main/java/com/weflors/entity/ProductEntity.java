@@ -1,5 +1,9 @@
 package com.weflors.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,6 +20,10 @@ public class ProductEntity {
     private ProductDetailsEntity productDetailsByProductId;
     private ProductStatusEntity productStatusByProductId;
     private SaleEntity saleByProductId;
+
+
+    public ProductEntity() {
+    }
 
     @Id
     @Column(name = "product_id", nullable = false)
@@ -104,6 +112,7 @@ public class ProductEntity {
     }
 
     @OneToOne(mappedBy = "productByProductId")
+    @JsonManagedReference
     public ProcurementEntity getProcurementByProductId() {
         return procurementByProductId;
     }
@@ -113,6 +122,7 @@ public class ProductEntity {
     }
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "contragent_id", referencedColumnName = "contragent_id")
     public ContragentsEntity getContragentsByContragentId() {
         return contragentsByContragentId;
@@ -123,6 +133,7 @@ public class ProductEntity {
     }
 
     @OneToOne(mappedBy = "productByProductId")
+    @JsonManagedReference
     public ProductDetailsEntity getProductDetailsByProductId() {
         return productDetailsByProductId;
     }
@@ -132,6 +143,7 @@ public class ProductEntity {
     }
 
     @OneToOne(mappedBy = "productByProductId")
+    @JsonManagedReference
     public ProductStatusEntity getProductStatusByProductId() {
         return productStatusByProductId;
     }
@@ -141,6 +153,7 @@ public class ProductEntity {
     }
 
     @OneToOne(mappedBy = "productByProductId")
+    @JsonManagedReference
     public SaleEntity getSaleByProductId() {
         return saleByProductId;
     }
