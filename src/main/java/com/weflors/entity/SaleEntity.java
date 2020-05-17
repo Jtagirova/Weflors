@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "sale", schema = "flowershop", catalog = "postgres")
+@IdClass(SaleEntityPK.class)
 public class SaleEntity {
     private int productId;
     private String articul;
@@ -32,7 +33,7 @@ public class SaleEntity {
         this.productId = productId;
     }
 
-    @Basic
+    @Id
     @Column(name = "articul", nullable = false, length = 50)
     public String getArticul() {
         return articul;
@@ -42,7 +43,7 @@ public class SaleEntity {
         this.articul = articul;
     }
 
-    @Basic
+    @Id
     @Column(name = "sale_price", nullable = false, precision = 2)
     public BigDecimal getSalePrice() {
         return salePrice;
@@ -124,7 +125,7 @@ public class SaleEntity {
 
     @OneToOne
     @JsonBackReference
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
     public ProductEntity getProductByProductId() {
         return productByProductId;
     }
@@ -133,6 +134,7 @@ public class SaleEntity {
         this.productByProductId = productByProductId;
     }
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
     public ClientEntity getClientByClientId() {
         return clientByClientId;

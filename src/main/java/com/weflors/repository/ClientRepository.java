@@ -16,4 +16,7 @@ public interface ClientRepository extends JpaRepository<ClientEntity, Integer> {
 
     @Query("select c.discount from ClientEntity c where c.eMail = :eMail")
     Integer getDiscountByClientEmail(@Param("eMail") String eMail);
+
+    @Query("select c from ClientEntity c where c.eMail = :eMail")
+    ClientEntity getClientByEmail(@Param("eMail") String eMail);
 }

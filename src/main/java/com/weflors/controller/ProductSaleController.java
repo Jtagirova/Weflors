@@ -2,6 +2,7 @@ package com.weflors.controller;
 
 import java.util.List;
 
+import com.weflors.entity.ClientEntity;
 import com.weflors.entity.ProcurementEntity;
 import com.weflors.entity.SaleEntity;
 import com.weflors.service.ClientServiceImpl;
@@ -33,7 +34,7 @@ public class ProductSaleController {
 
 
         model.addAttribute("products", products);
-        model.addAttribute("allClientsEmail", clientService.getAllClientsEmail());
+        model.addAttribute("allClientsEmail", clientService.getAllClients());
         model.addAttribute("saleForm", new SaleEntity());
         return "productsale";
     }
@@ -51,21 +52,21 @@ public class ProductSaleController {
     @RequestMapping(value = "/loadClientDiscont", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    Integer loadClientDiscont(@RequestBody String email) {
-
-        int a = clientService.getClientDiscount(email);
-        return clientService.getClientDiscount(email);
+    ClientEntity loadClientDiscont(@RequestBody String eMail) {
+        return clientService.getClientByEmail(eMail);
     }
 
 
 
-/*    @RequestMapping(method = RequestMethod.POST)
-    public String addSaleProduct(@ModelAttribute("saleProduct") UserEntity userForm, Model model) {
-//        List<ProductEntity> products = productSaleServiceImpl.getAllProduct();
-//        model.addAttribute("products", products);
-//        model.addAttribute("saleProduct", new SaleEntity());
-        return "productsale";
-    }*/
+    @RequestMapping(value = "/addSaleProduct", method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody void addSaleProduct(@RequestBody List<SaleEntity> saleEntityList) {
+//        for (SaleEntity saleEntity: saleEntityList ) {
+//            saleServiceImpl.addSale(saleEntity);
+//        }
+        saleServiceImpl.addAllToSales(saleEntityList);
+//        return "productsale";
+    }
 
 
 

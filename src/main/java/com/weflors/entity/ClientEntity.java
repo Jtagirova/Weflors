@@ -1,5 +1,7 @@
 package com.weflors.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -147,6 +149,7 @@ public class ClientEntity {
     }
 
     @OneToMany(mappedBy = "clientByClientId")
+    @JsonManagedReference
     public Collection<SaleEntity> getSalesByClientId() {
         return salesByClientId;
     }

@@ -24,6 +24,13 @@ public class ClientServiceImpl {
     }
 
 
+    public ClientEntity getClientByEmail(String eMail){
+        ClientEntity client = clientRepository.getClientByEmail(eMail);
+        return client;
+    }
+
+
+
     public Integer getClientDiscount(String email){
         return clientRepository.getDiscountByClientEmail(email);
     }

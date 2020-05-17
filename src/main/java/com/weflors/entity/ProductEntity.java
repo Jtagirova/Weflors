@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "product", schema = "flowershop", catalog = "postgres")
@@ -113,6 +114,7 @@ public class ProductEntity {
 
     @OneToOne(mappedBy = "productByProductId")
     @JsonManagedReference
+    //@Column(insertable=false, updatable=false)
     public ProcurementEntity getProcurementByProductId() {
         return procurementByProductId;
     }
@@ -134,6 +136,7 @@ public class ProductEntity {
 
     @OneToOne(mappedBy = "productByProductId")
     @JsonManagedReference
+   // @Column(insertable=false, updatable=false)
     public ProductDetailsEntity getProductDetailsByProductId() {
         return productDetailsByProductId;
     }
@@ -144,6 +147,7 @@ public class ProductEntity {
 
     @OneToOne(mappedBy = "productByProductId")
     @JsonManagedReference
+   // @Column(insertable=false, updatable=false)
     public ProductStatusEntity getProductStatusByProductId() {
         return productStatusByProductId;
     }
@@ -154,6 +158,7 @@ public class ProductEntity {
 
     @OneToOne(mappedBy = "productByProductId")
     @JsonManagedReference
+    //@Column(insertable=false, updatable=false)
     public SaleEntity getSaleByProductId() {
         return saleByProductId;
     }
@@ -161,4 +166,15 @@ public class ProductEntity {
     public void setSaleByProductId(SaleEntity saleByProductId) {
         this.saleByProductId = saleByProductId;
     }
+
+/*    private Collection<SaleEntity> salesByProductId;
+    @OneToMany(mappedBy = "productByProductId")
+    @JsonManagedReference
+    public Collection<SaleEntity> getSalesByProductId() {
+        return salesByProductId;
+    }
+
+    public void setSalesByProductId(Collection<SaleEntity> salessByProductId) {
+        this.salesByProductId = salesByProductId;
+    }*/
 }
