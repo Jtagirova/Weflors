@@ -132,7 +132,8 @@ public class ContragentsEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "contragentsByContragentId")
+    @OneToMany(mappedBy = "contragentsByContragentId", orphanRemoval = true)
+    @JsonManagedReference(value = "contragents-procurement")
     public Collection<ProcurementEntity> getProcurementsByContragentId() {
         return procurementsByContragentId;
     }
@@ -141,8 +142,8 @@ public class ContragentsEntity {
         this.procurementsByContragentId = procurementsByContragentId;
     }
 
-    @OneToMany(mappedBy = "contragentsByContragentId")
-    @JsonManagedReference
+    @OneToMany(mappedBy = "contragentsByContragentId", orphanRemoval = true)
+    @JsonManagedReference(value = "contragents-product")
     public Collection<ProductEntity> getProductsByContragentId() {
         return productsByContragentId;
     }

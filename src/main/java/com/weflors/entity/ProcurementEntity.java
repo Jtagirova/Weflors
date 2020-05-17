@@ -124,8 +124,8 @@ public class ProcurementEntity {
         return result;
     }
 
-    @OneToOne
-    @JsonBackReference
+    @ManyToOne
+    @JsonBackReference(value = "product-procurement")
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
     public ProductEntity getProductByProductId() {
         return productByProductId;
@@ -136,6 +136,7 @@ public class ProcurementEntity {
     }
 
     @ManyToOne
+    @JsonBackReference(value = "contragents-procurement")
     @JoinColumn(name = "contragent_id", referencedColumnName = "contragent_id")
     public ContragentsEntity getContragentsByContragentId() {
         return contragentsByContragentId;

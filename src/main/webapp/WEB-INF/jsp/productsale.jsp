@@ -153,7 +153,8 @@
 				success : function(data) {
 					console.log(data);
 					 $('#articul').val(data.articul);
-					 $('#productPrice').val(data.procurementByProductId.procurementPrice * 3);
+					//console.log(data.procurementsByProductId.procurementPrice);
+					 $('#productPrice').val(data.procurementsByProductId[0].procurementPrice * 3);
 				},
 				 error : function(e) {
 					 $('#articul').val("");
@@ -249,7 +250,13 @@
 			$('#saleTable > tbody').append(rowl);
 			//var totalRowCount = $('#saleTable > tbody').rows.length;
 			$('#saleTable > tfoot > tr > td').text(tableTotalSum);
-
+			$('#products').prop('selectedIndex',0);
+			$('#articul').val("");
+			$('#productPrice').val("");
+			$("#allClientsEmail").prop('selectedIndex',0);;
+			$('#discount').val("");
+			$('#productQuantity').val("");
+			$("#productPriceAfterDiscount").val("");
 /*			$("#saleTable").find('tbody')
 					.append($('<tr>')
 							.append($('<td>')
@@ -271,14 +278,14 @@
 				cache : false,
 				timeout : 600000,
 				success : function(data) {
-					// $('#discount').val(data);
-					// if($('#discount').val(data) != '' && $('#discount').val(data) != 0) {
-					// 	$("#productPriceAfterDiscount").val($('#productPrice').val() - ($('#productPrice').val() * ($('#discount').val() / 100)));
-					// }else{
-					// 	$("#productPriceAfterDiscount").val($('#productPrice').val());
-					// }
+					tableTotalSum = 0;
+					tableNumOfRows = 0;
+					$('#saleTable > tbody').empty();
+
+					$('#saleTable > tfoot > tr > td').text(tableTotalSum);
 				},
 				error : function(e) {
+					alert("error occured while trying update the database");
 					// $('#discount').val("");
 					// $("#productPriceAfterDiscount").val($('#productPrice').val());
 				}

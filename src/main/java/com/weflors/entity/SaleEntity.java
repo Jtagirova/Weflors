@@ -123,8 +123,8 @@ public class SaleEntity {
         return result;
     }
 
-    @OneToOne
-    @JsonBackReference
+    @ManyToOne
+    @JsonBackReference(value = "product-sale")
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
     public ProductEntity getProductByProductId() {
         return productByProductId;
@@ -134,7 +134,7 @@ public class SaleEntity {
         this.productByProductId = productByProductId;
     }
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "client-sale")
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
     public ClientEntity getClientByClientId() {
         return clientByClientId;

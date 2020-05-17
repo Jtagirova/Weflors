@@ -16,11 +16,12 @@ public class ProductEntity {
     private String articul;
     private String pictureUrl;
     private String originOfProduct;
-    private ProcurementEntity procurementByProductId;
+    private Collection<ProcurementEntity> procurementsByProductId;
     private ContragentsEntity contragentsByContragentId;
     private ProductDetailsEntity productDetailsByProductId;
     private ProductStatusEntity productStatusByProductId;
-    private SaleEntity saleByProductId;
+    private Collection<SaleEntity> salesByProductId;
+   // private SaleEntity saleByProductId;
 
 
     public ProductEntity() {
@@ -112,19 +113,30 @@ public class ProductEntity {
         return result;
     }
 
-    @OneToOne(mappedBy = "productByProductId")
-    @JsonManagedReference
+//    @OneToOne(mappedBy = "productByProductId")
+//    @JsonManagedReference(value = "product-procurement")
+//    //@Column(insertable=false, updatable=false)
+//    public ProcurementEntity getProcurementByProductId() {
+//        return procurementByProductId;
+//    }
+//
+//    public void setProcurementByProductId(ProcurementEntity procurementByProductId) {
+//        this.procurementByProductId = procurementByProductId;
+//    }
+
+    @OneToMany(mappedBy = "productByProductId", orphanRemoval = true)
+    @JsonManagedReference(value = "product-procurement")
     //@Column(insertable=false, updatable=false)
-    public ProcurementEntity getProcurementByProductId() {
-        return procurementByProductId;
+    public Collection<ProcurementEntity> getProcurementsByProductId() {
+        return procurementsByProductId;
     }
 
-    public void setProcurementByProductId(ProcurementEntity procurementByProductId) {
-        this.procurementByProductId = procurementByProductId;
+    public void setProcurementsByProductId(Collection<ProcurementEntity> procurementsByContragentId) {
+        this.procurementsByProductId = procurementsByContragentId;
     }
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "contragents-product")
     @JoinColumn(name = "contragent_id", referencedColumnName = "contragent_id")
     public ContragentsEntity getContragentsByContragentId() {
         return contragentsByContragentId;
@@ -135,7 +147,7 @@ public class ProductEntity {
     }
 
     @OneToOne(mappedBy = "productByProductId")
-    @JsonManagedReference
+    @JsonManagedReference(value = "product-product_details")
    // @Column(insertable=false, updatable=false)
     public ProductDetailsEntity getProductDetailsByProductId() {
         return productDetailsByProductId;
@@ -146,7 +158,7 @@ public class ProductEntity {
     }
 
     @OneToOne(mappedBy = "productByProductId")
-    @JsonManagedReference
+    @JsonManagedReference(value = "product-product_status")
    // @Column(insertable=false, updatable=false)
     public ProductStatusEntity getProductStatusByProductId() {
         return productStatusByProductId;
@@ -156,25 +168,27 @@ public class ProductEntity {
         this.productStatusByProductId = productStatusByProductId;
     }
 
-    @OneToOne(mappedBy = "productByProductId")
-    @JsonManagedReference
-    //@Column(insertable=false, updatable=false)
-    public SaleEntity getSaleByProductId() {
-        return saleByProductId;
-    }
+//    @OneToOne(mappedBy = "productByProductId")
+//    @JsonManagedReference(value = "product-sale")
+//    //@Column(insertable=false, updatable=false)
+//    public SaleEntity getSaleByProductId() {
+//        return saleByProductId;
+//    }
+//
+//    public void setSaleByProductId(SaleEntity saleByProductId) {
+//        this.saleByProductId = saleByProductId;
+//    }
 
-    public void setSaleByProductId(SaleEntity saleByProductId) {
-        this.saleByProductId = saleByProductId;
-    }
 
-/*    private Collection<SaleEntity> salesByProductId;
+
+
     @OneToMany(mappedBy = "productByProductId")
-    @JsonManagedReference
+    @JsonManagedReference(value = "product-sale")
     public Collection<SaleEntity> getSalesByProductId() {
         return salesByProductId;
     }
 
     public void setSalesByProductId(Collection<SaleEntity> salessByProductId) {
         this.salesByProductId = salesByProductId;
-    }*/
+    }
 }

@@ -105,7 +105,7 @@ public class ProductStatusEntity {
     }
 
     @OneToOne
-    @JsonBackReference
+    @JsonBackReference(value = "product-product_status")
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
     public ProductEntity getProductByProductId() {
         return productByProductId;

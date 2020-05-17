@@ -1,5 +1,6 @@
 package com.weflors.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.weflors.entity.ClientEntity;
@@ -45,7 +46,10 @@ public class ProductSaleController {
     ProductEntity loadProductInfoByProductName(@RequestBody ProductEntity productEntity) {
 	    ProductEntity selectedProduct = saleServiceImpl.getProductByProductId(productEntity.getProductId());
 	    ProcurementEntity selectedProductPocurementInfo = procurementServiceImpl.findByProcurementProductID(productEntity.getProductId());
-	    selectedProduct.setProcurementByProductId(selectedProductPocurementInfo);
+	   // selectedProduct.setProcurementsByProductId(selectedProductPocurementInfo);
+        ArrayList<ProcurementEntity> procurementEntityArrayList = new ArrayList<ProcurementEntity>();
+        procurementEntityArrayList.add(selectedProductPocurementInfo);
+        selectedProduct.setProcurementsByProductId(procurementEntityArrayList);
 	    return selectedProduct;
     }
 
@@ -60,12 +64,9 @@ public class ProductSaleController {
 
     @RequestMapping(value = "/addSaleProduct", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody void addSaleProduct(@RequestBody List<SaleEntity> saleEntityList) {
-//        for (SaleEntity saleEntity: saleEntityList ) {
-//            saleServiceImpl.addSale(saleEntity);
-//        }
-        saleServiceImpl.addAllToSales(saleEntityList);
-//        return "productsale";
+    public @ResponseBody boolean addSaleProduct(@RequestBody List<SaleEntity> saleEntityList) {
+
+        return saleServiceImpl.addAllToSales(saleEntityList);
     }
 
 

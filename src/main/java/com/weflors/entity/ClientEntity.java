@@ -148,8 +148,8 @@ public class ClientEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "clientByClientId")
-    @JsonManagedReference
+    @OneToMany(mappedBy = "clientByClientId", orphanRemoval = true)
+    @JsonManagedReference(value = "client-sale")
     public Collection<SaleEntity> getSalesByClientId() {
         return salesByClientId;
     }
