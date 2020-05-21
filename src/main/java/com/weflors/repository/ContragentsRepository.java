@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface ContragentsRepository extends JpaRepository<ContragentsEntity, Integer> {
 
-    @Query("select ca from ContragentsEntity ca where ca.contragentId = :contragentID")
+    @Query("select DISTINCT ca from ContragentsEntity ca where ca.contragentId = :contragentID")
     ContragentsEntity findByContragentID(@Param("contragentID") Integer contragentID);
 
 

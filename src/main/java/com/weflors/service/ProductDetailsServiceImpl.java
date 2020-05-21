@@ -1,7 +1,7 @@
 package com.weflors.service;
 
-import com.weflors.repository.ProductRepository;
-import com.weflors.repository.UserRepository;
+import com.weflors.entity.ProductDetailsEntity;
+import com.weflors.repository.ProductDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 public class ProductDetailsServiceImpl {
 
     @Autowired
-    private ProductRepository productRepository;
+    ProductDetailsRepository productDetailsRepository;
+
+    public ProductDetailsEntity saveProductDetail(ProductDetailsEntity productDetailsEntity){
+        return productDetailsRepository.save(productDetailsEntity);
+    }
 
 }

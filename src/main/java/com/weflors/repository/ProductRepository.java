@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
 
     @Query("select prod from ProductEntity prod where prod.productId = :productID")
@@ -18,4 +20,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
 
     @Query("select prod, prodDetails from ProductEntity prod, ProductDetailsEntity prodDetails where prod.productId = :productID")
     ProductEntity findProductDetailsByProductID(@Param("productID") String productID);
+
+    @Query("select DISTINCT b.productType from ProductEntity b")
+    List<String> getAllUniqProductType();
 }

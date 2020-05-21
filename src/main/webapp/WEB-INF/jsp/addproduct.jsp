@@ -37,281 +37,197 @@
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="../css/main.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <![endif]-->
-</head>
 
+    <script src="webjars/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/4.0.0/css/jasny-bootstrap.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/4.0.0/js/jasny-bootstrap.min.js"></script>
+
+</head>
 
 
 
 <body>
 
-<%--<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">WeFlors</a>
-&lt;%&ndash;    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>&ndash;%&gt;
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-        </ul>
-    </div>
-</nav>--%>
-<header>
-<!-- Классы navbar и navbar-default (базовые классы меню) -->
-<nav class="navbar navbar-default">
-    <!-- Контейнер (определяет ширину Navbar) -->
-    <div class="container-fluid">
-        <!-- Заголовок -->
-        <div class="navbar-header">
-            <!-- Кнопка «Гамбургер» отображается только в мобильном виде (предназначена для открытия основного содержимого Navbar) вдруг пригодится -->
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-main">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <!-- Название бренда (WeFlors) или название сайта (отображаем в левой части меню) -->
-            <a class="navbar-brand" href="#">WeFlors</a>
-        </div>
+<div class="container-fluid ">
+    <div class="row">
+        <jsp:include page="/WEB-INF/jsp/base_layout/leftnav.jsp"></jsp:include>
+        <div class="col-md-8">
+            <jsp:include page="/WEB-INF/jsp/base_layout/topnav.jsp"></jsp:include>
 
-        <!-- Основная часть меню (ссылки, формы и другие элементы) -->
-        <div class="collapse navbar-collapse" id="navbar-main">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Log In</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="active"></li>
+            <!-- Form Content Here -->
+            <form>
+                <div class="col-md-8 form-group">
 
-            </ul>
-            <!-- Содержимое основной части -->
-        </div>
-    </div>
-</nav>
-
-    <div class="container-fluid">
-
-        <div class="row">
-            <div class="col-sm-3 col-lg-2">
-                <nav class="navbar navbar-default navbar-fixed-side">
-                    <!-- normal collapsible navbar markup -->
-                    <ul class="custom-scrollbar">
-                        <!--/.Search Form-->
-                        <!-- Side navigation links -->
-                        <li>
-                            <ul class="collapsible collapsible-accordion">
-                                <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-chevron-right"></i> Учет товара
-                                    <i class="fas fa-angle-down rotate-icon"></i></a>
-                                    <div class="collapsible-body">
-                                        <ul>
-                                            <li><a href="#" class="waves-effect">Добавить товар</a>
-                                            </li>
-                                            <li><a href="#" class="waves-effect">Список товаров</a>
-                                            </li>
-                                            <li><a href="#" class="waves-effect">Списание товаров</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-hand-point-up"></i>
-                                    Справочники<i class="fas fa-angle-down rotate-icon"></i></a>
-                                    <div class="collapsible-body">
-                                        <ul>
-                                            <li><a href="#" class="waves-effect">Поставщики</a>
-                                            </li>
-                                            <li><a href="#" class="waves-effect">Категории товара</a>
-                                            </li>
-                                            <li><a href="#" class="waves-effect">Клиенты</a>
-                                            </li>
-                                            <li><a href="#" class="waves-effect">Пользователи</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-eye"></i>Отчеты<i class="fas fa-angle-down rotate-icon"></i></a>
-                                    <div class="collapsible-body">
-                                        <ul>
-                                            <li><a href="#" class="waves-effect">Отчет о продажах</a>
-                                            </li>
-                                            <li><a href="#" class="waves-effect">Отчет о списанном товаре</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <!--/. Side navigation links -->
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-sm-9 col-lg-10">
-                <div class="container" style="">
-                    <form class="form-horizontal">
-                        <br>
-
-                        <div class="form-group">
-                            <div class="col-md-4 mb-3">
-                                <label for="productarticul">Артикул</label>
-                                <input type="text" class="form-control" id="productarticul" placeholder="Артикул товара"  required>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label for="nomernakladnoj">Номер накладной</label>
+                            <input type="text" class="form-control" id="nomernakladnoj" placeholder="Номер накладной"
+                                   required>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-4 mb-3">
-                                <label for="validationServer01">Наименование товара</label>
-                                <input type="text" class="form-control" id="validationServer01" placeholder="Введите наименование товара" required>
-
-                            </div>
+                        <div class="col-md-6 mb-4">
+                            <label for="productheight">Высота</label>
+                            <input type="text" class="form-control" id="productheight" placeholder="Высота">
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <div class="col-md-4 mb-3">
-                                <label for="validationServer02">Категория товара</label>
-                                <input type="text" class="form-control" id="validationServer02" placeholder="Выберите категорию товара" required>
-                            </div>
-
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label for="productarticul">Артикул</label>
+                            <input type="text" class="form-control" id="productarticul" placeholder="Артикул товара"
+                                   required>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-3 mb-3">
-                                <div class="custom-file">
-                                    <label class="custom-file-label" for="customFileLang">Загрузите фото товара</label>
-                                    <input type="file" class="custom-file-input" id="customFileLang" >
-                                </div>
-                            </div>
+                        <div class="col-md-6 mb-4">
+                            <label for="productlength">Длина</label>
+                            <input type="text" class="form-control" id="productlength" placeholder="Длина">
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <div class="col-md-3 mb-3">
-                                <label class="custom-file-label" for="customFileLang">Поставщик</label>
-                                <form:select path="contragents">
-                                    <form:option value="NONE" label="--- Select ---" />
-                                    <form:options items="${contragents}" itemValue="contragentId" itemLabel="contragentName" />
-                                </form:select>
-                            </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label for="productname">Наименование товара</label>
+                            <input type="text" class="form-control" id="productname" placeholder="Наименование товара"
+                                   required>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-4 mb-3">
-                                <label for="productdescription">Описание товара</label>
-                                <input type="text" class="form-control" id="productdescription" placeholder="Опишите кратко товар">
-                            </div>
+                        <div class="col-md-6 mb-4">
+                            <label for="productwidth">Ширина</label>
+                            <input type="text" class="form-control" id="productwidth" placeholder="Ширина">
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <div class="col-md-4 mb-3">
-                                <label for="productheight">Высота</label>
-                                <input type="text" class="form-control" id="productheight" placeholder="Высота">
-                            </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label for="productTypeList">Категория товара</label>
+                            <form:select class="form-control" path="productTypeList" id="productTypeList">
+                                <form:option value="NONE" label="Категория товара"/>
+                                <form:options items="${productTypeList}"/>
+                            </form:select>
+                            <%--                                    <input type="text" class="form-control" id="producttype" placeholder="Выберите категорию товара" required>--%>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-4 mb-3">
-                                <label for="productlength">Длина</label>
-                                <input type="text" class="form-control" id="productlength" placeholder="Длина">
-                            </div>
+                        <div class="col-md-6 mb-4">
+                            <label for="productcolor">Цвет</label>
+                            <input type="text" class="form-control" id="productcolor" placeholder="Цвет">
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <div class="col-md-4 mb-3">
-                                <label for="productwidth">Ширина</label>
-                                <input type="text" class="form-control" id="productwidth" placeholder="Ширина">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-4 mb-3">
-                                <label for="productcolor">Цвет</label>
-                                <input type="text" class="form-control" id="productcolor" placeholder="цвет">
-                            </div>
-                        </div>
-
-
-
-                        <%--        <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Check me out
-                                    </label>
-                                </div>--%>
-
-                        <%--        <form:form modelAttribute="contragents" method="get">
-                                    <form:select path="contragents">
-                                        <form:option value="NONE" label="--- Select ---" />
-                                        <form:options items="${contragents}" itemValue="contragentId" itemLabel="contragentName" />
-                                    </form:select>
-                                    <input type="submit" />
-                                </form:form>--%>
-
-                        <%--        <tr>
-                                    <td>Contragents :</td>
-                                    <td>
-                                        <form:select path="contragents">
-                                        <form:option value="NONE" label="--- Select ---" />
-                                        <form:options items="${contragents}" itemValue="contragentId" itemLabel="contragentName" />
-                                    </form:select>
-                                    </td>
-                                </tr>--%>
-                        <%--
-                                <h2 class="hello-title">Hello ${name}!</h2>--%>
-                        <%--
-                                <div class="form-row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="validationServer03">City</label>
-                                        <input type="text" class="form-control is-invalid" id="validationServer03" placeholder="City" required>
-                                        <div class="invalid-feedback">
-                                            Please provide a valid city.
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mb-3">
-                                        <label for="validationServer04">State</label>
-                                        <input type="text" class="form-control is-invalid" id="validationServer04" placeholder="State" required>
-                                        <div class="invalid-feedback">
-                                            Please provide a valid state.
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mb-3">
-                                        <label for="validationServer05">Zip</label>
-                                        <input type="text" class="form-control is-invalid" id="validationServer05" placeholder="Zip" required>
-                                        <div class="invalid-feedback">
-                                            Please provide a valid zip.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
-                                        <label class="form-check-label" for="invalidCheck3">
-                                            Agree to terms and conditions
-                                        </label>
-                                        <div class="invalid-feedback">
-                                            You must agree before submitting.
-                                        </div>
-                                    </div>
-                                </div>--%>
-                        <button class="btn btn-primary" type="submit">Сохранить</button>
-                    </form>
                 </div>
-            </div>
+                <div class="col-md-4 form-group">
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="fileinput-new thumbnail" style="width: 397px; height: 243px;">
+                                    <img src="/img/product_photo_by_articul.png" alt="...">
+                                </div>
+                                <div class="fileinput-preview fileinput-exists thumbnail"
+                                     style="max-width: 397px; max-height: 243px;"></div>
+                                <div>
+                                    <span class="btn btn-default btn-file">
+                                        <span class="fileinput-new">Выбрать фотографию</span>
+                                        <span class="fileinput-exists">Изменить</span><input type="file" name="...">
+                                    </span>
+                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Удалить</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-12 form-group">
+
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="productdescription">Описание товара</label>
+                            <textarea class="form-control rounded-0" id="productdescription"
+                                      placeholder="Опишите товар кратко" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <label for="procurementcountry">Страна поставки</label>
+                            <input type="text" class="form-control" id="procurementcountry"
+                                   placeholder="Страна поставки">
+                        </div>
+
+                        <div class="col-md-4 mb-4">
+                            <label class="custom-file-label" for="contragents">Поставщик</label>
+                            <form:select class="form-control" path="contragents" id="contragents">
+                                <form:option value="NONE" label="Выбрать поставщика"/>
+                                <form:options items="${contragents}" itemValue="contragentId"
+                                              itemLabel="contragentName"/>--%>
+                            </form:select>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label for="procurementdate">Дата поставки</label>
+                            <input type="date" class="form-control" id="procurementdate">
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+
+                        <div class="col-md-2 mb-4">
+                            <label for="productquantity">Количество</label>
+                            <input type="text" class="form-control" id="productquantity" placeholder="Количество">
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label for="validitydate">Срок годности</label>
+                            <input type="date" class="form-control" id="validitydate">
+                        </div>
+
+                        <div class="col-md-3 mb-4">
+                            <label for="procurementprice">Цена закупки</label>
+                            <input type="text" class="form-control" id="procurementprice" placeholder="Цена закупки">
+                        </div>
+
+                        <div class="col-md-3 mb-4">
+                            <label for="productprice">Цена продажи</label>
+                            <input type="text" class="form-control" id="productprice" placeholder="Цена продажи">
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="procurementdetails">Детали поставки</label>
+                            <textarea class="form-control rounded-0" id="procurementdetails"
+                                      placeholder="Детали поставки" rows="1"></textarea>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div class="col-md-offset-11">
+                            <button class="btn btn-primary" type="submit" id="addproduct">Сохранить</button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </form>
+
         </div>
+
     </div>
-
-</header>
-
-
-
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
@@ -319,4 +235,166 @@
         crossorigin="anonymous"></script>
 
 </body>
+<script>
+    $(document).ready(function() {
+        function addDataToDatabase(dataToAdd, handleUrl, entity) {
+            $.ajax({
+                type : "POST",
+                contentType : "application/json",
+                url : handleUrl,
+                data : JSON.stringify(dataToAdd),//productStr,
+                dataType : 'json',
+                cache : false,
+                timeout : 600000,
+                success : function(data) {
+                    console.log(entity + " has been successfully added")
+                },
+                error : function(e) {
+                    alert("error occured while trying update the database with " + entity);
+                }
+            });
+        }
+
+        $("#addproduct").click(function() {
+            var pictureUrl = "lol";
+            var nomernakladnoj = $('#nomernakladnoj').val();
+            var productheight = $('#productheight').val();
+            var productarticul = $('#productarticul').val();
+            var productlength = $('#productlength').val();
+            var productname = $('#productname').val();
+            var productwidth = $('#productwidth').val();
+            var productTypeList = $("#productTypeList").find('option:selected').text();
+            var productcolor = $('#productcolor').val();
+            var productdescription = $('#productdescription').val();
+            var procurementcountry = $('#procurementcountry').val();
+            var contragents = $("#contragents").find('option:selected').val();
+            var contragentName = $("#contragents").find('option:selected').text();
+            var procurementdate = $('#procurementdate').val();
+            var productquantity = $('#productquantity').val();
+            var validitydate = $('#validitydate').val();
+            var procurementprice = $('#procurementprice').val();
+            var productprice = $('#productprice').val();
+            var procurementdetails = $('#procurementdetails').val();
+
+
+
+            //
+            // procurement.push(procurementJson);
+            // var conrtagentEntity = $.ajax({
+            //     type : "POST",
+            //     contentType : "application/json",
+            //     url : "/getContragentById",
+            //     data : JSON.stringify(contragents),//productStr,
+            //     dataType : 'json',
+            //     cache : false,
+            //     timeout : 600000,
+            //     success : function(data) {
+            //         console.log(data);
+            //         return data;
+            //     },
+            //     error : function(e) {
+            //         // console.log(data);
+            //         // alert("error occured while trying update the database");
+            //         // $('#discount').val("");
+            //         // $("#productPriceAfterDiscount").val($('#productPrice').val());
+            //     }
+            // });
+
+            var conrtagent = {
+                "contragentId" : contragents,
+                "contragentName" : contragentName
+            }
+
+            var procurement = [];
+            var procurementJson = {
+                "articul" : productarticul,
+                "procurementPrice" : procurementprice,
+                "procurementDate" : procurementdate,
+                "quantity" : productquantity,
+                "details" : procurementdetails,
+                "validityDate" : validitydate,
+                "contragentsByContragentId" : conrtagent
+            };
+           var productDetails = {
+                "productDescription" : productdescription,
+                "height" : productheight,
+                "length" : productlength,
+                "width" : productwidth,
+                "color" : productcolor
+            };
+            procurement.push(procurementJson);
+
+            // productStatus : {
+            //     productId : "",
+            //     articul : productarticul,
+            //     procurementprice : procurementprice,
+            //     productprice : productprice,
+            //     productquantity : productquantity,
+            //     validitydate : validitydate
+            // }
+            var product = {
+                "productName" : productname,
+                "productType" : productTypeList,
+                "articul" : productarticul,
+                "pictureUrl" : pictureUrl,
+                "originOfProduct" : procurementcountry,
+                "procurementsByProductId" : procurement,
+                "contragentsByContragentId" : conrtagent,
+                "productDetailsByProductId" : productDetails
+            };
+               // procurement : procurement,
+               // contragents : contragents
+
+
+
+            //var productStr = JSON.stringify(product);
+
+            //var stringifyproduct = JSON.stringify(product);
+
+
+
+            $.ajax({
+                type : "POST",
+                contentType : "application/json",
+                url : "/addproduct",
+                data : JSON.stringify(product),//productStr,
+                dataType : 'json',
+                cache : false,
+                timeout : 600000,
+                success : function(data) {
+                    console.log(data);
+/*                    addDataToDatabase(procurement, "/addProcurement", "Procurement Entity");
+                    addDataToDatabase(productdetails, "/addProductDetails", "Product Details Entity");
+                    addDataToDatabase(productstatus, "/addProductStatus", "Product Status Entity");*/
+                },
+                error : function(e) {
+                    console.log(e);
+                    alert("error occured while trying update the database");
+                    // $('#discount').val("");
+                    // $("#productPriceAfterDiscount").val($('#productPrice').val());
+                }
+            });
+            // var procurementJson = {
+            //     productId : "",
+            //     articul : productarticul,
+            //     procurementprice : procurementprice,
+            //     procurementdate : procurementdate,
+            //     productquantity : productquantity,
+            //     procurementdetails : procurementdetails,
+            //     validitydate : validitydate,
+            //     productentity: {
+            //         productId : "",
+            //         productname : productname,
+            //         productType : productTypeList,
+            //         articul: productarticul,
+            //         pictureUrl : pictureUrl,
+            //         contragentsId : contragents,
+            //         procurementcountry : procurementcountry
+            //     },
+            //
+            // };
+        });
+
+    });
+</script>
 </html>

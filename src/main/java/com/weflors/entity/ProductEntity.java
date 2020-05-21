@@ -3,6 +3,8 @@ package com.weflors.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.weflors.repository.ContragentsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -23,12 +25,30 @@ public class ProductEntity {
     private Collection<SaleEntity> salesByProductId;
    // private SaleEntity saleByProductId;
 
+//    @Autowired
+//    ContragentsRepository contragentsRepository;
+//
+//    public ProductEntity(String productName, String productType, String articul, String pictureUrl, String originOfProduct, Collection<ProcurementEntity> procurementsByProductId, Integer contragentsByContragentId, ProductDetailsEntity productDetailsByProductId, ProductStatusEntity productStatusByProductId, Collection<SaleEntity> salesByProductId) {
+//        this.productName = productName;
+//        this.productType = productType;
+//        this.articul = articul;
+//        this.pictureUrl = pictureUrl;
+//        this.originOfProduct = originOfProduct;
+//        this.procurementsByProductId = procurementsByProductId;
+//        this.contragentsByContragentId = contragentsRepository.findByContragentID(contragentsByContragentId);
+//        this.productDetailsByProductId = productDetailsByProductId;
+//        this.productStatusByProductId = productStatusByProductId;
+//        this.salesByProductId = salesByProductId;
+//    }
 
     public ProductEntity() {
     }
 
     @Id
-    @Column(name = "product_id", nullable = false)
+   // @SequenceGenerator(name = "hibernateSeq", sequenceName = "HIBERNATE_SEQUENCE")
+    @GeneratedValue( strategy = GenerationType.AUTO)//, generator = "hibernateSeq")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id", unique=true, nullable = false)
     public int getProductId() {
         return productId;
     }

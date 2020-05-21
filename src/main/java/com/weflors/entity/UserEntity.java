@@ -23,8 +23,8 @@ public class UserEntity {
     
     
     @Id
-    @SequenceGenerator(name = "hibernateSeq", sequenceName = "HIBERNATE_SEQUENCE")
-    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "hibernateSeq")
+   // @SequenceGenerator(name = "hibernateSeq", sequenceName = "HIBERNATE_SEQUENCE")
+    @GeneratedValue( strategy = GenerationType.AUTO)//, generator = "hibernateSeq")
     @Column(name = "user_id", nullable = false)
     public int getUserId() {
         return userId;

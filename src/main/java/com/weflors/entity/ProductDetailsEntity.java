@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "product_details", schema = "flowershop", catalog = "postgres")
 public class ProductDetailsEntity {
-    private int productId;
+    private Integer productId;
     private String productDescription;
     private Integer height;
     private Integer length;

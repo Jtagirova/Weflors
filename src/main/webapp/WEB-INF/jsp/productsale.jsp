@@ -15,116 +15,129 @@
 </head>
 <body>
 
-<div class="container-fluid">
-	<br>
-	<div class="col-sm-9 col-lg-10">
-		<div class="container" style="">
-			<div class="row">
-				<div class="form-group">
-					<div class="col-md-2 mb-3">
-						<label for="products">Наименование</label>
-						<form:select id="products" path="products">
-							<form:option value="NONE" label="--- Select ---" />
-							<form:options items="${products}" itemValue="productId"
-									  itemLabel="productName" />
-						</form:select>
-					</div>
+<div class="container-fluid bg">
+    <div class="row">
+        <jsp:include page="/WEB-INF/jsp/base_layout/leftnav.jsp"></jsp:include>
+        <div class="col-md-8">
+            <jsp:include page="/WEB-INF/jsp/base_layout/topnav.jsp"></jsp:include>
 
-					<div class="col-md-2 mb-3">
-						<label for="articul">Артикул</label>
-						<input type="text" id="articul" name="articul" />
-					</div>
-					<div class="col-md-2 mb-3">
-						<label for="productPrice">Цена</label>
-						<input type="text" id="productPrice" name="productPrice" />
-					</div>
-					<div class="col-md-2 mb-3">
-						<label for="allClientsEmail">Клиент</label>
-						<form:select id="allClientsEmail" path="allClientsEmail">
-							<form:option value="NONE" label="--- Select ---" />
-							<form:options items="${allClientsEmail}" itemValue="clientId"
-										  itemLabel="eMail"/>
-						</form:select>
-					</div>
+            <form>
+                <div class="col-md-8 form-group">
+                    <div class="row">
 
-					<div class="col-md-2 mb-3">
-						<label for="discount">Скидка %</label>
-						<input type="text" id="discount" name="discount" />
-					</div>
+                            <div class="col-md-4 mb-4">
+                                <label for="products">Наименование</label>
+                                <form:select id="products" class="form-control" path="products">
+                                    <form:option value="NONE" label="--- Select ---" />
+                                    <form:options items="${products}" itemValue="productId"
+                                                  itemLabel="productName" />
+                                </form:select>
+                            </div>
 
-			</div>
-			</div>
-			<br><br>
-			<div class="row">
-				<div class="form-group">
-					<div class="col-md-2 mb-3">
-						<label for="productQuantity">Количество товара </label>
-						<input type="text" id="productQuantity" name="productQuantity" />
-					</div>
-					<div class="col-md-2 mb-3">
-						<label for="productPriceAfterDiscount">Стоимость товара</label>
-						<input type="text" id="productPriceAfterDiscount" name="productPriceAfterDiscount" />
-					</div>
+                            <div class="col-md-4 mb-4">
+                                <label for="articul">Артикул</label>
+                                <input type="text" class="form-control" id="articul" name="articul" />
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <label for="productPrice">Цена</label>
+                                <input type="text" class="form-control" id="productPrice" name="productPrice" />
+                            </div>
 
-					<div class="col-md-6 mb-3">
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-md-3 mb-4">
+                            <label for="allClientsEmail">Клиент</label>
+                            <form:select id="allClientsEmail" class="form-control" path="allClientsEmail">
+                                <form:option value="NONE" label="--- Select ---" />
+                                <form:options items="${allClientsEmail}" itemValue="clientId"
+                                              itemLabel="eMail"/>
+                            </form:select>
+                        </div>
 
+                        <div class="col-md-3 mb-4">
+                            <label for="discount">Скидка %</label>
+                            <input type="text" class="form-control" id="discount" name="discount" />
+                        </div>
 
-						<div class="text-right">
-							<button class="btn-info btn" type="submit" id="addtocheck">Добавить чек</button>
-						</div>
+                        <div class="col-md-3 mb-4">
+                            <label for="productQuantity">Количество товара </label>
+                            <input type="text" class="form-control" id="productQuantity" name="productQuantity" />
+                        </div>
 
-					</div>
-				</div>
-			</div>
+                        <div class="col-md-3 mb-4">
+                            <label for="productPriceAfterDiscount">Стоимость товара</label>
+                            <input type="text" class="form-control" id="productPriceAfterDiscount" name="productPriceAfterDiscount" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="fileinput-new thumbnail" style="width: 397px; height: 243px;">
+                                    <img src="/img/product_photo_by_articul.png" alt="...">
+                                </div>
+                                <div class="fileinput-preview fileinput-exists thumbnail"
+                                     style="max-width: 397px; max-height: 243px;"></div>
+                                <div>
+                                    <span class="btn btn-default btn-file">
+                                        <span class="fileinput-new">Выбрать фотографию</span>
+                                        <span class="fileinput-exists">Изменить</span><input type="file" name="...">
+                                    </span>
+                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Удалить</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group">
+                    <br>
+                    <div class="row">
+                        <div class="text-right">
+                            <button class="btn-info btn" type="submit" id="addtocheck">Добавить в чек</button>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <table class="table table-striped table-bordered table-hover table-responsive" id="saleTable">
+                            <thead>
+                            <tr>
+                                <th scope="col">Наименование товара</th>
+                                <th scope="col">Артикул</th>
+                                <th scope="col">Количество товара</th>
+                                <th scope="col">Цена за еденицу</th>
+                                <th scope="col">Скидка %</th>
+                                <th scope="col">Стоимость товара за еденицу</th>
+                                <th scope="col">Итого</th>
+                                <th scope="col" hidden>Email</th>
+                            </tr>
 
+                            </thead>
 
-			<br><br><br><br><br><br>
-			<div class="row">
-				<div class="form-group">
-					<div class="col-lg-6 mb-3">
-						<div>
-<%--							<form:form method="POST" id="saleForm">--%>
-								<table class="table table-striped table-bordered table-hover table-responsive" id="saleTable">
-									<thead>
-										<tr>
-											<th scope="col">Наименование товара</th>
-											<th scope="col">Артикул</th>
-											<th scope="col">Количество товара</th>
-											<th scope="col">Цена за еденицу</th>
-											<th scope="col">Скидка %</th>
-											<th scope="col">Стоимость товара за еденицу</th>
-											<th scope="col">Итого</th>
-											<th scope="col" hidden>Email</th>
-										</tr>
+                            <tfoot>
+                            <tr>
+                                <th>Всего: </th>
+                                <td>0</td>
+                            </tr>
+                            </tfoot>
+                            <tbody>
 
-									</thead>
+                            </tbody>
 
-									<tfoot>
-										<tr>
-											<th>Всего: </th>
-											<td>0</td>
-										</tr>
-									</tfoot>
-									<tbody>
+                        </table>
+                        <div class="text-right">
+                            <button class="btn-info btn" type="submit" id="addSaleProducts">Продать</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
 
-									</tbody>
+        </div>
 
-								</table>
-								<div class="text-right">
-									<button class="btn-info btn" type="submit" id="addSaleProducts">Добавить чек</button>
-								</div>
-<%--							</form:form>--%>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
-
-
-		</div>
-	</div>
+    </div>
 </div>
+
 
 
 
