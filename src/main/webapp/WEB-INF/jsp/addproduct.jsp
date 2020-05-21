@@ -324,6 +324,13 @@
             };
             procurement.push(procurementJson);
 
+            var productStatusByProductId = {
+                "articul" : productarticul,
+                "validityDate" : validitydate
+            };
+
+
+
             // productStatus : {
             //     productId : "",
             //     articul : productarticul,
@@ -340,7 +347,8 @@
                 "originOfProduct" : procurementcountry,
                 "procurementsByProductId" : procurement,
                 "contragentsByContragentId" : conrtagent,
-                "productDetailsByProductId" : productDetails
+                "productDetailsByProductId" : productDetails,
+                "productStatusByProductId" : productStatusByProductId
             };
                // procurement : procurement,
                // contragents : contragents

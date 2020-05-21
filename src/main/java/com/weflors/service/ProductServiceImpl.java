@@ -22,4 +22,9 @@ public class ProductServiceImpl {
         return productRepository.save(productEntity);
     }
 
+    public List<Integer> getAllProductId()
+    {
+        return productRepository.getAllProductId();
+    }
+
 }

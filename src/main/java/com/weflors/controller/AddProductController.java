@@ -51,6 +51,26 @@ public class AddProductController {
         productDetailsService.saveProductDetail(productDetailsEntity);
     }
 
+    private boolean validateProductStatus(ProductEntity saveProduct){
+        for (Integer productId:
+        productService.getAllProductId()) {
+            if(productId.equals(saveProduct.getProductId()))
+                return false; // если есть запись, то апдейтим
+        }
+        return true; // если нет есть записи, то сохраняем
+    }
+
+    private void saveStatusByProductId(ProductEntity saveProduct){
+        if(validateProductStatus(saveProduct)){
+            //save
+        } else {
+            // update
+        }
+//        ProductDetailsEntity productDetailsEntity = saveProduct.getProductDetailsByProductId();
+//        productDetailsEntity.setProductId(saveProduct.getProductId());
+//        productDetailsService.saveProductDetail(productDetailsEntity);
+    }
+
     @RequestMapping(value = "/addproduct", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
