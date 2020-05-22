@@ -6,15 +6,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
+import org.springframework.transaction.annotation.Transactional;
 
 
 public interface ProductStatusRepository extends JpaRepository<ProductStatusEntity, Integer> {
 	
 	@Modifying
+	@Transactional
 	@Query(value ="update flowershop.product_status set quantity_warehouse = quantity_warehouse - :quantity,"
-			+ "quantity_shop_sale = quantity_shop_sale - :quantity,"
-			+ "total_quantity_writeoff = :quantity where product_id = :productId", nativeQuery = true)
+			+ "quantity_shop_sale = quantity_shop_sale - :quantity, total_quantity_writeoff = :quantity where product_id = :productId", nativeQuery = true)
 	void updateQuantities(@Param("quantity") int quantity, @Param("productId") int productId);
 								
 }

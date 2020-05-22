@@ -126,7 +126,7 @@
 			$.ajax({
 				type : "POST",
 				contentType : "application/json",
-				url : "/productwriteoff/loadProductInfoByProduct",
+				url : "/productWriteOff/loadProductInfoByProduct",
 				data : JSON.stringify(json),
 				dataType : 'json',
 				cache : false,
@@ -144,14 +144,11 @@
 				 }
 			});
 		});
-		
-
 		let tableNumOfRows = 0;
 		let tableTotalSum = 0;
 		var writeOffArr = [];
 		
-	
-		$( "#addToListWriteOffs" ).click(function() {
+		$("#addToListWriteOffs").click(function() {
 			var productName = $("#products").find('option:selected').text();
 			var productId = $("#products").find('option:selected').val();
 			var articul = $('#articul').val();
@@ -179,7 +176,7 @@
 					+'<td>' + validityDate + '</td>'
 					+'<td>' + saleDate + '</td>'
 					+'<td>' + productPrice + '</td>'
-					+'<td>' + productQuantity + '</td>'
+					+'<td><input type="text" value="' + productQuantity + '"></td>'						
 					+'<td >' + total + '</td>'
 					+'</tr>';
 			tableTotalSum = tableTotalSum + total;
@@ -198,19 +195,19 @@
 			$.ajax({
 				type : "POST",
 				contentType : "application/json",
-				url : "/productwriteoff/addWriteOffs",
+				url : "/productWriteOff/addWriteOffs",
 				data : saleEntitylist,
 				dataType : 'json',
 				cache : false,
 				timeout : 600000,
 				success : function(data) {
-					tableTotalSum = 0;
-					tableNumOfRows = 0;
-					$('#saleTable > tbody').empty();
-					$('#saleTable > tfoot > tr > td').text(tableTotalSum);
+					alert(data);
 				},
-				error : function(e) {
-					alert("error occured while trying update the database");
+				error : function(data) {	
+					alert(data.responseText);
+					
+//					alert(e);
+//					alert("error occured while trying update the database");
 				}
 			});
 		});

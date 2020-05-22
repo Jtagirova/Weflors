@@ -1,7 +1,9 @@
 package com.weflors.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,13 +18,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.weflors.entity.ProcurementEntity;
 import com.weflors.entity.ProductEntity;
 import com.weflors.entity.SaleEntity;
+import com.weflors.repository.ProductRepository;
 import com.weflors.repository.ProductStatusRepository;
 import com.weflors.service.ClientServiceImpl;
 import com.weflors.service.ProcurementServiceImpl;
 import com.weflors.service.SaleServiceImpl;
 
 @Controller
-@RequestMapping("/productwriteoff")
+@RequestMapping("/productWriteOff")
 public class ProductWriteOffCotroller {
 	
 	@Autowired
@@ -30,6 +33,9 @@ public class ProductWriteOffCotroller {
 	
 	@Autowired
 	private ProductStatusRepository productStatusRepository;
+	
+	@Autowired
+	private ProductRepository productRepository;
 	
 	@Autowired
     private ClientServiceImpl clientService;
@@ -58,14 +64,87 @@ public class ProductWriteOffCotroller {
 	    
     @PostMapping(value = "/addWriteOffs", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public boolean addWriteOffProduct(@RequestBody List <SaleEntity> saleEntitylist) { 	
-    	for(SaleEntity saleEntity : saleEntitylist) {	
-    		
-    		//если quantityWarehouse меньше чем поступающая, то вернуть в форму уведомление о нехватке
-    		productStatusRepository.updateQuantities(saleEntity.getQuantity(),saleEntity.getProductId());	
+    public String addWriteOffProduct(@RequestBody List <SaleEntity> saleEntitylist){ 
+    	
+    	Map<Integer, Integer> mapProductId = new HashMap<>();
+    	for(SaleEntity entity : saleEntitylist) {
+    		if(mapProductId.containsKey(entity.getProductId())) {
+    			mapProductId.put(entity.getProductId(),(mapProductId.get(entity.getProductId()) + entity.getQuantity()));
+    		}	else {
+    			mapProductId.put(entity.getProductId(), entity.getQuantity());
+    		}
     	}
-        return saleServiceImpl.addAllToSales(saleEntitylist);
-    }
+    	
+    	
+    	
+    	for(Map.Entry<Integer, Integer> item : mapProductId.entrySet()) {
+    		if(item.getValue() != productStatusRepository.getOne(item.getKey()).getQuantityWarehouse()) {
+    			return "Вы хотите списать " + productRepository.findByProductID(item.getKey()).getProductName() + " в количестве " + item.getValue() +
+    					" На складе есть: " + productStatusRepository.getOne(item.getKey()).getQuantityWarehouse() + " единиц товара.";
+    		} else {
+    			productStatusRepository.updateQuantities(item.getValue(),item.getKey());
+    		}
+    	}
+		return "Товар Списан";
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+ /*   	
+//    	List <SaleEntity> newSaleEntitylist ;
+    	for(SaleEntity saleEntity : saleEntitylist) {
+    		int quantityWarehouse = productStatusRepository.getOne(saleEntity.getProductId()).getQuantityWarehouse();
+    		if(quantityWarehouse - saleEntity.getQuantity() < 0) {
+    			return false;
+    		} else {
+    		//если quantityWarehouse меньше чем поступающая, то вернуть в форму уведомление о нехватке
+//    		productStatusRepository.updateQuantities(saleEntity.getQuantity(),saleEntity.getProductId());
+    		saleServiceImpl.addAllToSales(saleEntitylist);
+    		}
+    	}
+    	return true;
+*/
+    }  
+    
+    
+    
+    
+    
+    
+    
+    
+   /* 
+    @PostMapping(value = "/addWriteOffs", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public boolean addWriteOffProduct(@RequestBody List <SaleEntity> saleEntitylist) throws IOException { 
+    	
+//    	List <SaleEntity> newSaleEntitylist ;
+    	for(SaleEntity saleEntity : saleEntitylist) {
+    		int quantityWarehouse = productStatusRepository.getOne(saleEntity.getProductId()).getQuantityWarehouse();
+    		if(quantityWarehouse - saleEntity.getQuantity() < 0) {
+    			return false;
+    		} else {
+    		//если quantityWarehouse меньше чем поступающая, то вернуть в форму уведомление о нехватке
+//    		productStatusRepository.updateQuantities(saleEntity.getQuantity(),saleEntity.getProductId());
+    		saleServiceImpl.addAllToSales(saleEntitylist);
+    		}
+    	}
+    	return true;
+    } 
+    
+ */  
+    
+    
+    
+    
+    
+    
+    
     
     
     
