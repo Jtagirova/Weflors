@@ -23,4 +23,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
 
     @Query("select DISTINCT b.productType from ProductEntity b")
     List<String> getAllUniqProductType();
+
+    @Query("select b.productId from ProductEntity b")
+    List<Integer> getAllProductId();
 }
