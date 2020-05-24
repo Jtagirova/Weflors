@@ -4,78 +4,78 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>Списание товара</title>
-	<!-- Bootstrap core CSS -->
-	<link rel="stylesheet"
-		  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-		  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<script src="webjars/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+<head lang="en">
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Списание товара</title>
+	<jsp:include page="/WEB-INF/jsp/base_layout/head_links.jsp"></jsp:include>
 </head>
-
-
-
 <body>
-<div class="container-fluid ">
-    <div class="row">
-        <jsp:include page="/WEB-INF/jsp/base_layout/leftnav.jsp"></jsp:include>
-        <div class="col-md-8">
-            <jsp:include page="/WEB-INF/jsp/base_layout/topnav.jsp"></jsp:include>
-<div class="container-fluid">
-	<br>
-	<div class="col-sm-9 col-lg-10">
-		<div class="container" style="">
-			<div class="row">
-				<div class="form-group">
-					<div class="col-md-2 mb-3">
-						<label for="products">Наименование</label>
-						<form:select id="products" path="products">
-							<form:option value="NONE" label="--- Select ---" />
-							<form:options items="${products}" itemValue="productId"
-									  itemLabel="productName" />
-						</form:select>
-					</div>
 
-					<div class="col-md-2 mb-3">
-						<label for="articul">Артикул</label>
-						<input type="text" id="articul" name="articul" />
-						<input type="hidden" id="validityDate" name="validityDate" />
-					</div>	
-					
-					<div class="col-md-2 mb-3">
-						<label for="productPrice">Цена товара</label>
-						<input type="text" id="productPrice" name="productPrice" />
-					</div>
-			</div>
-			</div>
-			<br><br>
-			<div class="row">
-				<div class="form-group">
-					<div class="col-md-2 mb-3">
-						<label for="productQuantity">Количество товара </label>
-						<input type="text" id="productQuantity" name="productQuantity" />
-					</div>
-					<div class="col-md-2 mb-3">
-						<label for="details">Причина</label>
-						<input type="text" id="details" name="details" />
-					</div>
-					<div class="col-md-6 mb-3">
-						<div class="text-right">
-							<button class="btn-info btn" type="submit" id="addToListWriteOffs">Добавить в список</button>
+<div class="container-fluid ">
+	<div class="row">
+		<jsp:include page="/WEB-INF/jsp/base_layout/leftnav.jsp"></jsp:include>
+		<div class="col-md-8">
+			<jsp:include page="/WEB-INF/jsp/base_layout/topnav.jsp"></jsp:include>
+
+			<!-- Form Content Here -->
+			<form>
+				<div class="col-md-12 form-group">
+					<div class="row">
+						<div class="col-md-4 mb-3">
+							<label for="products">Наименование</label>
+							<form:select class="form-control" id="products" path="products">
+								<form:option value="NONE" label="--- Select ---" />
+								<form:options items="${products}" itemValue="productId"
+											  itemLabel="productName" />
+							</form:select>
+						</div>
+
+						<div class="col-md-4 mb-3">
+							<label for="articul">Артикул</label>
+							<input type="text" class="form-control" id="articul" name="articul" />
+							<input type="hidden" class="form-control" id="validityDate" name="validityDate" />
+						</div>
+
+						<div class="col-md-4 mb-3">
+							<label for="productPrice">Цена товара</label>
+							<input type="text" class="form-control" id="productPrice" name="productPrice" />
 						</div>
 					</div>
-				</div>
-			</div>
 
-			<br><br><br><br><br><br>
-			<div class="row">
-				<div class="form-group">
-					<div class="col-lg-6 mb-3">
-						<div>
-<%--							<form:form method="POST" id="writeoffForm">--%>
-								<table class="table table-striped table-bordered table-hover table-responsive" id="saleTable">
-									<thead>
+					<br><br>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-md-4 mb-3">
+								<label for="productQuantity">Количество товара </label>
+								<input type="text" class="form-control" id="productQuantity" name="productQuantity" />
+							</div>
+							<div class="col-md-8 mb-3">
+								<label for="details">Причина</label>
+								<input type="text" class="form-control" id="details" name="details" />
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-md-12 form-group">
+					<br>
+					<div class="row">
+						<div class="text-right">
+							<button class="btn btn-primary" type="submit" id="addtocheck">Добавить</button>
+						</div>
+					</div>
+					<br><br>
+					<div class="row">
+
+								<div>
+									<%--							<form:form method="POST" id="writeoffForm">--%>
+									<table class="table table-striped table-bordered table-hover table-responsive" id="saleTable">
+										<thead>
 										<tr>
 											<th scope="col">Наименование</th>
 											<th scope="col">Артикул</th>
@@ -85,33 +85,31 @@
 											<th scope="col">Количество</th>
 											<th scope="col">Сумма</th>
 										</tr>
-									</thead>
-									<tfoot>
+										</thead>
+										<tfoot>
 										<tr>
 											<th>Всего: </th>
 											<td>0</td>
 										</tr>
-									</tfoot>
-									<tbody>
-									</tbody>
-								</table>
-								<div class="text-right">
-									<button class="btn-info btn" type="submit" id="addWriteOffs">Списать</button>
+										</tfoot>
+										<tbody>
+										</tbody>
+									</table>
+									<div class="text-right">
+										<button class="btn btn-primary" type="submit" id="addWriteOffs">Списать</button>
+									</div>
+
 								</div>
-						</div>
-					</div>
+							</div>
 				</div>
-			</div>
+
+			</form>
+
 		</div>
 	</div>
 </div>
 
-
-
-</div>
-</div>
-</div>
-
+</body>
 
 
 	
@@ -148,7 +146,7 @@
 		let tableTotalSum = 0;
 		var writeOffArr = [];
 		
-		$("#addToListWriteOffs").click(function() {
+		$("#addtocheck").click(function() {
 			var productName = $("#products").find('option:selected').text();
 			var productId = $("#products").find('option:selected').val();
 			var articul = $('#articul').val();
@@ -215,5 +213,3 @@
 	});
 
 </script>
-
-</body>

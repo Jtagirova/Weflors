@@ -37,6 +37,7 @@ public class ProductSaleController {
         model.addAttribute("products", products);
         model.addAttribute("allClientsEmail", clientService.getAllClients());
         model.addAttribute("saleForm", new SaleEntity());
+        model.addAttribute("formName", "Продажа товара");
         return "productsale";
     }
 

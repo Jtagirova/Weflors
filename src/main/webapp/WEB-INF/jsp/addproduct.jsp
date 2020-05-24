@@ -23,40 +23,17 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head lang="en">
 
-    <title>Add Product</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/main.css">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <![endif]-->
-
-    <script src="webjars/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/4.0.0/css/jasny-bootstrap.min.css">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/4.0.0/js/jasny-bootstrap.min.js"></script>
-
+<title>Добавить товар</title>
+<jsp:include page="/WEB-INF/jsp/base_layout/head_links.jsp"></jsp:include>
 </head>
-
-
-
 <body>
 
 <div class="container-fluid ">
@@ -68,7 +45,6 @@
             <!-- Form Content Here -->
             <form>
                 <div class="col-md-8 form-group">
-
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <label for="nomernakladnoj">Номер накладной</label>
@@ -128,17 +104,19 @@
                     <div class="row">
                         <div class="col-md-12 mb-4">
                             <div class="fileinput fileinput-new" data-provides="fileinput">
-                                <div class="fileinput-new thumbnail" style="width: 397px; height: 243px;">
-                                    <img src="/img/product_photo_by_articul.png" alt="...">
+                                <div class="fileinput-new thumbnail" style="width: 384px; height: 243px;">
+                                    <img src="/img/product_photo.png" alt="...">
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"
-                                     style="max-width: 397px; max-height: 243px;"></div>
+                                     style="max-width: 384px; max-height: 243px;"></div>
                                 <div>
-                                    <span class="btn btn-default btn-file">
+                                    <span class="btn btn-primary btn-file">
                                         <span class="fileinput-new">Выбрать фотографию</span>
                                         <span class="fileinput-exists">Изменить</span><input type="file" name="...">
                                     </span>
-                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Удалить</a>
+                                    <span class="btn btn-default fileinput-exists" data-dismiss="fileinput">Удалить</span>
+                                    <%--<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Удалить</a>--%>
+
                                 </div>
                             </div>
                         </div>
@@ -214,11 +192,10 @@
 
                     <br>
                     <div class="row">
-                        <div class="col-md-offset-11">
+                        <div class="text-right">
                             <button class="btn btn-primary" type="submit" id="addproduct">Сохранить</button>
                         </div>
                     </div>
-
 
                 </div>
 
@@ -229,10 +206,7 @@
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
+
 
 </body>
 <script>

@@ -48,6 +48,7 @@ public class ProductWriteOffCotroller {
         List<ProductEntity> products = saleServiceImpl.getAllProduct();
         model.addAttribute("products", products);
         model.addAttribute("allClientsEmail", clientService.getAllClients());
+		model.addAttribute("formName", "Списание товара");
         return "productwriteoff";
     }
 	
