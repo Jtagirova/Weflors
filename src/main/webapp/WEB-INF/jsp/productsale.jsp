@@ -6,21 +6,18 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Добавление товара</title>
-	<!-- Bootstrap core CSS -->
-	<link rel="stylesheet"
-		  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-		  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<script src="webjars/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+    <title>Продажа товара</title>
+    <jsp:include page="/WEB-INF/jsp/base_layout/head_links.jsp"></jsp:include>
 </head>
 <body>
 
-<div class="container-fluid bg">
+<div class="container-fluid ">
     <div class="row">
         <jsp:include page="/WEB-INF/jsp/base_layout/leftnav.jsp"></jsp:include>
         <div class="col-md-8">
             <jsp:include page="/WEB-INF/jsp/base_layout/topnav.jsp"></jsp:include>
 
+            <!-- Form Content Here -->
             <form>
                 <div class="col-md-8 form-group">
                     <div class="row">
@@ -75,17 +72,18 @@
                     <div class="row">
                         <div class="col-md-12 mb-4">
                             <div class="fileinput fileinput-new" data-provides="fileinput">
-                                <div class="fileinput-new thumbnail" style="width: 397px; height: 243px;">
-                                    <img src="/img/product_photo_by_articul.png" alt="...">
+                                <div class="fileinput-new thumbnail" style="width: 384px; height: 243px;">
+                                    <img src="/img/product_photo.png" alt="...">
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"
-                                     style="max-width: 397px; max-height: 243px;"></div>
+                                     style="max-width: 384px; max-height: 243px;"></div>
                                 <div>
-                                    <span class="btn btn-default btn-file">
+                                    <span class="btn btn-primary btn-file">
                                         <span class="fileinput-new">Выбрать фотографию</span>
                                         <span class="fileinput-exists">Изменить</span><input type="file" name="...">
                                     </span>
-                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Удалить</a>
+                                    <span class="btn btn-default fileinput-exists" data-dismiss="fileinput">Удалить</span>
+                                    <%--<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Удалить</a>--%>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +93,7 @@
                     <br>
                     <div class="row">
                         <div class="text-right">
-                            <button class="btn-info btn" type="submit" id="addtocheck">Добавить в чек</button>
+                            <button class="btn btn-primary" type="submit" id="addtocheck">Добавить</button>
                         </div>
                     </div>
                     <br><br>
@@ -127,7 +125,7 @@
 
                         </table>
                         <div class="text-right">
-                            <button class="btn-info btn" type="submit" id="addSaleProducts">Продать</button>
+                            <button class="btn btn-primary" type="submit" id="addSaleProducts">Продать</button>
                         </div>
                     </div>
                 </div>

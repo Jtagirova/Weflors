@@ -34,6 +34,7 @@ public class AddProductController {
         model.addAttribute("contragents", contragents);
         List<String> productTypeList = productService.getAllUniqProductType();
         model.addAttribute("productTypeList", productTypeList);
+        model.addAttribute("formName", "Добавить товар");
         return "addproduct";
     }
 

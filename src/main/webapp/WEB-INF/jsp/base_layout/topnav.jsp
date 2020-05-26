@@ -5,9 +5,9 @@
 
                 <div class="navbar-header">
                     <!-- Бренд или название сайта -->
+<h2>                        <i class="glyphicon glyphicon-grain"></i>
+                            <large><b>${formName}</b></large></h2>
 
-                    <a class="navbar-brand" href="#"><i class="glyphicon glyphicon-grain"></i>
-                        <large><b>Система учета товаров и продаж</b></large></a>
                     <%--<p class="navbar-text">Система учета товаров и продаж</p>--%>
 
                 </div>
@@ -16,7 +16,7 @@
 
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="#">Алексей Тагиров</a></li>
+                        <li class="active"><a href="#">Юлия Тагирова</a></li>
                         <li class="active"><a href="#">Выход</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="active"></li>

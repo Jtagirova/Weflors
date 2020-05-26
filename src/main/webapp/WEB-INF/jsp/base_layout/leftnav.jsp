@@ -4,10 +4,12 @@
 
     <!-- It can be fixed with bootstrap affix http://getbootstrap.com/javascript/#affix-->
     <nav class="navbar navbar-collapse" >
-        <ul id="sidebar" style="padding-bottom: 25%;" class="well sidebar-nav  bg">
-            <a href="#" class="navbar-left"><img src="/img/weflors_logo_grey.jpg" height="60"></a>
-            <h3>&nbsp
-            </h3>
+        <ul id="sidebar" style="padding-bottom: 25%;" class="well sidebar-nav bg">
+            <a href="/" class="navbar-center">
+                <h2>Цветочный магазин</h2>
+                <h1>WeFlors</h1></span>
+            </a>
+
 
             <%--                    <h3><i class="glyphicon glyphicon-grain"></i>
                                     <large><b>WeFlors</b></large>
@@ -18,8 +20,7 @@
 
             <hr>
             <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#">Главная</a></li>
-                <hr>
+
                 <h4><i class="glyphicon glyphicon-briefcase"></i>
                     <b>Учет товара</b>
                 </h4>
