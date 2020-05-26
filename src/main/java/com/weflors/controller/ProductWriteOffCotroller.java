@@ -48,6 +48,7 @@ public class ProductWriteOffCotroller {
         List<ProductEntity> products = saleServiceImpl.getAllProduct();
         model.addAttribute("products", products);
         model.addAttribute("allClientsEmail", clientService.getAllClients());
+		model.addAttribute("formName", "Списание товара");
         return "productwriteoff";
     }
 	
@@ -75,41 +76,17 @@ public class ProductWriteOffCotroller {
     		}
     	}
     	
-    	
-    	
     	for(Map.Entry<Integer, Integer> item : mapProductId.entrySet()) {
-    		if(item.getValue() != productStatusRepository.getOne(item.getKey()).getQuantityWarehouse()) {
+    		if(item.getValue() > productStatusRepository.getOne(item.getKey()).getQuantityWarehouse()) {
     			return "Вы хотите списать " + productRepository.findByProductID(item.getKey()).getProductName() + " в количестве " + item.getValue() +
     					" На складе есть: " + productStatusRepository.getOne(item.getKey()).getQuantityWarehouse() + " единиц товара.";
     		} else {
     			productStatusRepository.updateQuantities(item.getValue(),item.getKey());
     		}
+    		
     	}
-		return "Товар Списан";
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
- /*   	
-//    	List <SaleEntity> newSaleEntitylist ;
-    	for(SaleEntity saleEntity : saleEntitylist) {
-    		int quantityWarehouse = productStatusRepository.getOne(saleEntity.getProductId()).getQuantityWarehouse();
-    		if(quantityWarehouse - saleEntity.getQuantity() < 0) {
-    			return false;
-    		} else {
-    		//если quantityWarehouse меньше чем поступающая, то вернуть в форму уведомление о нехватке
-//    		productStatusRepository.updateQuantities(saleEntity.getQuantity(),saleEntity.getProductId());
-    		saleServiceImpl.addAllToSales(saleEntitylist);
-    		}
-    	}
-    	return true;
-*/
-    }  
+		return "Товар Списан"; 	
+}  
     
     
     
