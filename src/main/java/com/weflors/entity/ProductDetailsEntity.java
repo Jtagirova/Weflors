@@ -106,7 +106,7 @@ public class ProductDetailsEntity {
 
     @OneToOne
     @JsonBackReference(value = "product-product_details")
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
     public ProductEntity getProductByProductId() {
         return productByProductId;
     }

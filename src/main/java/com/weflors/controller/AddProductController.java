@@ -1,10 +1,7 @@
 package com.weflors.controller;
 
 import com.weflors.entity.*;
-import com.weflors.repository.ProcurementRepository;
-import com.weflors.service.ContragentsServiceImpl;
-import com.weflors.service.ProductDetailsServiceImpl;
-import com.weflors.service.ProductServiceImpl;
+import com.weflors.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -22,19 +19,26 @@ public class AddProductController {
     private ProductServiceImpl productService;
 
     @Autowired
-    private ProcurementRepository procurementRepository;
+    private ProcurementServiceImpl procurementRepository;
 
     @Autowired
     private ProductDetailsServiceImpl productDetailsService;
+
+    @Autowired
+    private ProductStatusService productStatusService;
+
+    @Autowired
+    private ProductTypeService productTypeService;
 
     @RequestMapping(value = {"/addproduct"}, method = RequestMethod.GET)
     public String addProductPage(Model model, @RequestParam(value="name", required=false, defaultValue="World") String name) {
         model.addAttribute("name", name);
         List<ContragentsEntity> contragents = contragentsServiceImpl.loadContragents();
         model.addAttribute("contragents", contragents);
-        List<String> productTypeList = productService.getAllUniqProductType();
+        List<ProductTypesEntity> productTypeList = productTypeService.getAllProductType();
         model.addAttribute("productTypeList", productTypeList);
         model.addAttribute("formName", "Добавить товар");
+
         return "addproduct";
     }
 
@@ -42,43 +46,43 @@ public class AddProductController {
         for (ProcurementEntity procurementEntity:
                 saveProduct.getProcurementsByProductId()) {
             procurementEntity.setProductId(saveProduct.getProductId());
-            procurementRepository.save(procurementEntity);
+            procurementRepository.saveProcurement(procurementEntity);
         }
     }
 
-    private void saveProductDetailsEntity(ProductEntity saveProduct){
-        ProductDetailsEntity productDetailsEntity = saveProduct.getProductDetailsByProductId();
+    private void saveProductDetailsEntity(ProductEntity saveProduct, ProductDetailsEntity productDetailsEntity){
+
         productDetailsEntity.setProductId(saveProduct.getProductId());
         productDetailsService.saveProductDetail(productDetailsEntity);
     }
 
-    private boolean validateProductStatus(ProductEntity saveProduct){
-        for (Integer productId:
-        productService.getAllProductId()) {
-            if(productId.equals(saveProduct.getProductId()))
-                return false; // если есть запись, то апдейтим
-        }
-        return true; // если нет есть записи, то сохраняем
-    }
+//    private boolean validateProductStatus(ProductEntity saveProduct){
+//        for (Integer productId:
+//        productService.getAllProductId()) {
+//            if(productId.equals(saveProduct.getProductId()))
+//                return false; // если есть запись, то апдейтим
+//        }
+//        return true; // если нет записи, то сохраняем
+//    }
 
-    private void saveStatusByProductId(ProductEntity saveProduct){
-        if(validateProductStatus(saveProduct)){
-            //save
-        } else {
-            // update
+    private void saveProductStatus(ProductEntity saveProduct){
+        for (ProductStatusEntity productStatusEntity:
+                saveProduct.getProductStatusByProductId()) {
+            productStatusEntity.setProductId(saveProduct.getProductId());
+            productStatusService.saveProductStatus(productStatusEntity);
         }
-//        ProductDetailsEntity productDetailsEntity = saveProduct.getProductDetailsByProductId();
-//        productDetailsEntity.setProductId(saveProduct.getProductId());
-//        productDetailsService.saveProductDetail(productDetailsEntity);
     }
 
     @RequestMapping(value = "/addproduct", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    ProductEntity addSaleProduct(@RequestBody ProductEntity productEntity) {
+    ProductEntity addProduct(@RequestBody ProductEntity productEntity) {
+        ProductDetailsEntity productDetailsEntity = productEntity.getProductDetailsByProductId();
+        productEntity.setProductDetailsByProductId(null);
         ProductEntity saveProduct = productService.saveProduct(productEntity);
         saveProcurementEntity(saveProduct);
-        saveProductDetailsEntity(saveProduct);
+        saveProductDetailsEntity(saveProduct, productDetailsEntity);
+        saveProductStatus(saveProduct);
         return saveProduct;
     }
 

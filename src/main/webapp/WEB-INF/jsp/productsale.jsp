@@ -18,35 +18,48 @@
             <jsp:include page="/WEB-INF/jsp/base_layout/topnav.jsp"></jsp:include>
 
             <!-- Form Content Here -->
-            <form>
+<%--            <form>--%>
                 <div class="col-md-8 form-group">
                     <div class="row">
 
                             <div class="col-md-4 mb-4">
                                 <label for="products">Наименование</label>
                                 <form:select id="products" class="form-control" path="products">
-                                    <form:option value="NONE" label="--- Select ---" />
+                                    <form:option value="NONE" label="Наименование" />
                                     <form:options items="${products}" itemValue="productId"
                                                   itemLabel="productName" />
                                 </form:select>
                             </div>
 
                             <div class="col-md-4 mb-4">
+                                <label for="products">Срок годности</label>
+                                <select id="productValidityDate" class="form-control" >
+                                    <option value="NONE" label="Срок годности" />
+<%--                                    <options items="${productValidityDate}"  />--%>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 mb-4">
                                 <label for="articul">Артикул</label>
                                 <input type="text" class="form-control" id="articul" name="articul" />
                             </div>
-                            <div class="col-md-4 mb-4">
-                                <label for="productPrice">Цена</label>
-                                <input type="text" class="form-control" id="productPrice" name="productPrice" />
-                            </div>
+
+
 
                     </div>
-                    <br><br>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <label for="productPrice">Цена</label>
+                            <input type="text" class="form-control" id="productPrice" name="productPrice" />
+                        </div>
+                    </div>
+                    <br>
                     <div class="row">
                         <div class="col-md-3 mb-4">
                             <label for="allClientsEmail">Клиент</label>
                             <form:select id="allClientsEmail" class="form-control" path="allClientsEmail">
-                                <form:option value="NONE" label="--- Select ---" />
+                                <form:option value="NONE" label="Клиент" />
                                 <form:options items="${allClientsEmail}" itemValue="clientId"
                                               itemLabel="eMail"/>
                             </form:select>
@@ -129,7 +142,7 @@
                         </div>
                     </div>
                 </div>
-            </form>
+<%--            </form>--%>
 
         </div>
 
@@ -156,20 +169,35 @@
 			$.ajax({
 				type : "POST",
 				contentType : "application/json",
-				url : "/loadProductInfoByProductName",
+				url : "/loadproductinfobyproduct",
 				data : JSON.stringify(json),
 				dataType : 'json',
 				cache : false,
 				timeout : 600000,
 				success : function(data) {
-					console.log(data);
+					//console.log(data);
 					 $('#articul').val(data.articul);
 					//console.log(data.procurementsByProductId.procurementPrice);
-					 $('#productPrice').val(data.procurementsByProductId[0].procurementPrice * 3);
+					 $('#productPrice').val(data.productPrice);
+					 //$('#productValidityDate').val(data.productStatusByProductId);
+
+                    let validityDateOptions = document.getElementById('productValidityDate').options;
+                    $('#productValidityDate').find('option:not(:first)').remove();
+                    let productStatusArray = data.productStatusByProductId;
+
+                    for (let i=0; i<productStatusArray.length; i++) {
+                        let value = productStatusArray[i].validityDate;
+                        validityDateOptions.add(
+                            new Option(value, value)
+                        );
+                    }
+
+
 				},
 				 error : function(e) {
 					 $('#articul').val("");
 					 $('#productPrice').val("");
+                     $('#productValidityDate').find('option:not(:first)').remove();
 				 }
 			});
 		});
@@ -211,9 +239,12 @@
 		+'<td><a href='#' id = productId class='table-delete-row'>Delete</a></td>'*/
 		let tableNumOfRows = 0;
 		let tableTotalSum = 0;
-		var saleArr = [];
+
+		//var productArr = [];
+        var saleArr = [];
 		$( "#addtocheck" ).click(function() {
 
+            var productStatusArr = [];
 			var productName = $("#products").find('option:selected').text();
 			var productId = $("#products").find('option:selected').val();
 
@@ -222,7 +253,7 @@
 			var productQuantity =$('#productQuantity').val();
 			var productPrice = $('#productPrice').val();
 			var discount = $('#discount').val();
-
+            var productValidityDate = $('#productValidityDate').find('option:selected').text();
 			var saleDate = Date.now();
 			var clientEmail =  $("#allClientsEmail").find('option:selected').text();
 			var clientId =  $("#allClientsEmail").find('option:selected').val();
@@ -232,19 +263,40 @@
 			}
 			var productSaleDetails = '';
 
-			var json = {
-				"productId" : productId,
-				"articul" : articul,
-				"salePrice" : productPriceAfterDiscount,
-				"saleDate": saleDate,
-				"quantity": productQuantity,
-				"details" : productSaleDetails,
-				"clientByClientId": clientByClientId,
-				"productPrice" : productPrice
+            var productStatus = {
+                "productId" : productId,
+                "articul" : articul,
+                "quantityShopSale" : productQuantity,
+                "validityDate" : productValidityDate
 
-			};
+            }
 
-			saleArr.push(json);
+            productStatusArr.push(productStatus);
+            var product = {
+                "productId" : productId,
+                "productName" : productName,
+                "articul" : articul,
+                "productPrice" : productPrice,
+                "productStatusByProductId" : productStatusArr,
+                //"salesByProductId" : saleArr
+            };
+
+            var sale = {
+                "productId" : productId,
+                "articul" : articul,
+                "salePrice" : productPriceAfterDiscount,
+                "saleDate": saleDate,
+                "quantity": productQuantity,
+                "details" : productSaleDetails,
+                "productPrice" : productPrice,
+                "productByProductId" : product,
+                "clientByClientId": clientByClientId
+            };
+
+            saleArr.push(sale);
+
+         //   productArr.push(product);
+
 
 			var total = productPriceAfterDiscount * productQuantity;
 			var rowId = '$<tr id="' + ++tableNumOfRows + '">';
@@ -264,27 +316,21 @@
 			$('#products').prop('selectedIndex',0);
 			$('#articul').val("");
 			$('#productPrice').val("");
-			$("#allClientsEmail").prop('selectedIndex',0);;
+			$("#allClientsEmail").prop('selectedIndex',0);
 			$('#discount').val("");
 			$('#productQuantity').val("");
 			$("#productPriceAfterDiscount").val("");
-/*			$("#saleTable").find('tbody')
-					.append($('<tr>')
-							.append($('<td>')
-									.append($('<p>').text(products)
-									)
-							)
-					);*/
+            $('#productValidityDate').find('option:not(:first)').remove();
 
 		});
 
 		$( "#addSaleProducts" ).click(function() {
-			var ololo = JSON.stringify(saleArr);
+			var prod = JSON.stringify(saleArr);
 			$.ajax({
 				type : "POST",
 				contentType : "application/json",
 				url : "/addSaleProduct",
-				data : ololo,
+				data : prod,
 				dataType : 'json',
 				cache : false,
 				timeout : 600000,

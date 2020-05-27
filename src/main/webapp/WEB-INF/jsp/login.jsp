@@ -32,14 +32,18 @@
 <div class="container" style="width: 300px;">
     <c:url value="/j_spring_security_check" var="loginUrl" />
     <form action="${loginUrl}" method="post">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" class="form-control" name="j_username" placeholder="Email address">
-        <input type="password" class="form-control" name="j_password" placeholder="Password">
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+        <div class="container-fluid">
+            <h3 class="form-signin-heading">Пожалуйста войдите:</h3>
+            <input type="text" class="form-control" name="j_username" placeholder="Адрес электронной почты ">
+            <input type="password" class="form-control" name="j_password" placeholder="Пароль">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+            <h4><a href="/registration">Зарегистрироваться</a></h4>
+        </div>
+
     </form>
 </div>
 
-<h4><a href="/registration">Зарегистрироваться</a></h4>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"

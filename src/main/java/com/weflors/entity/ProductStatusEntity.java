@@ -6,7 +6,9 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
+//@EqualsAndHashCode(exclude = "invoice")
 @Table(name = "product_status", schema = "flowershop", catalog = "postgres")
+@IdClass(ProductStatusEntityPK.class)
 public class ProductStatusEntity {
     private int productId;
     private String articul;
@@ -66,8 +68,8 @@ public class ProductStatusEntity {
         this.totalQuantityWriteoff = totalQuantityWriteoff;
     }
 
-    @Basic
-    @Column(name = "validity_date", nullable = true)
+    @Id
+    @Column(name = "validity_date", nullable = false)
     public Date getValidityDate() {
         return validityDate;
     }
@@ -104,9 +106,9 @@ public class ProductStatusEntity {
         return result;
     }
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference(value = "product-product_status")
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
     public ProductEntity getProductByProductId() {
         return productByProductId;
     }

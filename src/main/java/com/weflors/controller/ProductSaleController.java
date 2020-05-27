@@ -3,31 +3,31 @@ package com.weflors.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.weflors.entity.ClientEntity;
-import com.weflors.entity.ProcurementEntity;
-import com.weflors.entity.SaleEntity;
+import com.weflors.entity.*;
 import com.weflors.service.ClientServiceImpl;
 import com.weflors.service.ProcurementServiceImpl;
+import com.weflors.service.ProductStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.weflors.entity.ProductEntity;
-
 import com.weflors.service.SaleServiceImpl;
 
 @Controller
 public class ProductSaleController {
 	@Autowired
-    SaleServiceImpl saleServiceImpl;
+    private SaleServiceImpl saleServiceImpl;
 
     @Autowired
-    ProcurementServiceImpl procurementServiceImpl;
+    private ProcurementServiceImpl procurementServiceImpl;
 
     @Autowired
-    ClientServiceImpl clientService;
+    private ClientServiceImpl clientService;
+
+    @Autowired
+    private ProductStatusService productStatusService;
 
 	@RequestMapping(value = {"/productsale"}, method = RequestMethod.GET)
     public String addProductPage(Model model) {
@@ -37,6 +37,7 @@ public class ProductSaleController {
         model.addAttribute("products", products);
         model.addAttribute("allClientsEmail", clientService.getAllClients());
         model.addAttribute("saleForm", new SaleEntity());
+        //model.addAllAttributes("productValidityDaty", null);
         model.addAttribute("formName", "Продажа товара");
         return "productsale";
     }
@@ -46,11 +47,11 @@ public class ProductSaleController {
     public @ResponseBody
     ProductEntity loadProductInfoByProductName(@RequestBody ProductEntity productEntity) {
 	    ProductEntity selectedProduct = saleServiceImpl.getProductByProductId(productEntity.getProductId());
-	    ProcurementEntity selectedProductPocurementInfo = procurementServiceImpl.findByProcurementProductID(productEntity.getProductId());
+//	    ProcurementEntity selectedProductPocurementInfo = procurementServiceImpl.findByProcurementProductID(productEntity.getProductId());
 	   // selectedProduct.setProcurementsByProductId(selectedProductPocurementInfo);
-        ArrayList<ProcurementEntity> procurementEntityArrayList = new ArrayList<ProcurementEntity>();
-        procurementEntityArrayList.add(selectedProductPocurementInfo);
-        selectedProduct.setProcurementsByProductId(procurementEntityArrayList);
+//        ArrayList<ProcurementEntity> procurementEntityArrayList = new ArrayList<ProcurementEntity>();
+//        procurementEntityArrayList.add(selectedProductPocurementInfo);
+//        selectedProduct.setProcurementsByProductId(procurementEntityArrayList);
 	    return selectedProduct;
     }
 
@@ -67,6 +68,23 @@ public class ProductSaleController {
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody boolean addSaleProduct(@RequestBody List<SaleEntity> saleEntityList) {
 
+        for (SaleEntity saleEntity:
+        saleEntityList) {
+            for (ProductStatusEntity productStatusEntity:
+                 saleEntity.getProductByProductId().getProductStatusByProductId()) {
+                 productStatusService.updateQuantityShopSaleAndQuantityWarehouse(productStatusEntity.getProductId(),
+                         productStatusEntity.getQuantityShopSale());
+            }
+        }
+//        for (ProductEntity product:
+//        productEntityList) {
+//            saleServiceImpl.addAllToSales(new ArrayList<SaleEntity>(product.getSalesByProductId()));
+//            for (ProductStatusEntity productStatusEntity:
+//            product.getProductStatusByProductId()) {
+//                productStatusService.updateQuantityShopSaleAndQuantityWarehouse(productStatusEntity.getProductId(),
+//                        productStatusEntity.getQuantityWarehouse(), productStatusEntity.getQuantityShopSale());
+//            }
+//        }
         return saleServiceImpl.addAllToSales(saleEntityList);
     }
 

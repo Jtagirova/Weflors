@@ -23,7 +23,7 @@
 			<jsp:include page="/WEB-INF/jsp/base_layout/topnav.jsp"></jsp:include>
 
 			<!-- Form Content Here -->
-			<form>
+
 				<div class="col-md-12 form-group">
 					<div class="row">
 						<div class="col-md-4 mb-3">
@@ -35,10 +35,18 @@
 							</form:select>
 						</div>
 
+						<div class="col-md-4 mb-4">
+							<label for="products">Срок годности</label>
+							<select id="productValidityDate" class="form-control" >
+								<option value="NONE" label="Срок годности" />
+								<%--                                    <options items="${productValidityDate}"  />--%>
+							</select>
+						</div>
+
 						<div class="col-md-4 mb-3">
 							<label for="articul">Артикул</label>
 							<input type="text" class="form-control" id="articul" name="articul" />
-							<input type="hidden" class="form-control" id="validityDate" name="validityDate" />
+<%--							<input type="hidden" class="form-control" id="validityDate" name="validityDate" />--%>
 						</div>
 
 						<div class="col-md-4 mb-3">
@@ -103,7 +111,7 @@
 							</div>
 				</div>
 
-			</form>
+
 
 		</div>
 	</div>
@@ -124,7 +132,7 @@
 			$.ajax({
 				type : "POST",
 				contentType : "application/json",
-				url : "/productWriteOff/loadProductInfoByProduct",
+				url : "/productwriteoff/loadproductinfobyproduct",
 				data : JSON.stringify(json),
 				dataType : 'json',
 				cache : false,
@@ -132,13 +140,25 @@
 				success : function(data) {
 					console.log(data);
 					 $('#articul').val(data.articul);
-					 $('#productPrice').val(data.procurementsByProductId[0].procurementPrice * 3);
-					 $('#validityDate').val(data.procurementsByProductId[0].validityDate);
+					$('#productPrice').val(data.productPrice);
+					 // $('#productPrice').val(data.procurementsByProductId[0].procurementPrice * 3);
+					 // $('#validityDate').val(data.procurementsByProductId[0].validityDate);
+					let validityDateOptions = document.getElementById('productValidityDate').options;
+					$('#productValidityDate').find('option:not(:first)').remove();
+					let productStatusArray = data.productStatusByProductId;
+
+					for (let i=0; i<productStatusArray.length; i++) {
+						let value = productStatusArray[i].validityDate;
+						validityDateOptions.add(
+								new Option(value, value)
+						);
+					}
 				},
 				 error : function(e) {
 					 $('#articul').val("");
 					 $('#productPrice').val("");
-					 $('#validityDate').val("");
+					 $('#productValidityDate').find('option:not(:first)').remove();
+					 // $('#validityDate').val("");
 				 }
 			});
 		});
@@ -155,7 +175,29 @@
 			var details = $('#details').val();
 			var productPrice = $('#productPrice').val();
 			var saleDate = new Date();
-			var validityDate = $('#validityDate').val();
+			var validityDate = $('#productValidityDate').find('option:selected').text();
+
+			var productStatusArr = [];
+
+			var productStatus = {
+				"productId" : productId,
+				"articul" : articul,
+				"totalQuantityWriteoff" : productQuantity,
+				"validityDate" : validityDate
+
+			}
+
+
+			productStatusArr.push(productStatus);
+
+			var product = {
+				"productId" : productId,
+				"productName" : productName,
+				"articul" : articul,
+				"productPrice" : productPrice,
+				"productStatusByProductId" : productStatusArr,
+				//"salesByProductId" : saleArr
+			};
 			var json = {
 				"productId" : productId,
 				"articul" : articul,
@@ -163,7 +205,8 @@
 				"saleDate": saleDate,
 				"quantity": productQuantity,
 				"details" : details,
-				"productPrice" : productPrice
+				"productPrice" : productPrice,
+				"productByProductId" : product
 			};
 			writeOffArr.push(json);
 			var total = 0;
@@ -182,7 +225,7 @@
 			$('#saleTable > tfoot > tr > td').text(tableTotalSum);
 			$('#products').prop('selectedIndex',0);
 			$('#articul').val("");
-			$('#validityDate').val("");
+			$('#productValidityDate').find('option:not(:first)').remove();
 			$('#saleDate').val("");
 			$('#productPrice').val("");
 			$('#productQuantity').val("")	
@@ -198,7 +241,7 @@
 			$.ajax({
 				type : "POST",
 				contentType : "application/json",
-				url : "/productWriteOff/addWriteOffs",
+				url : "/productwriteoff/addwriteoffs",
 				data : saleEntitylist,
 				dataType : 'json',
 				cache : false,

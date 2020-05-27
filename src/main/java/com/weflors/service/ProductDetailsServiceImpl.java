@@ -11,8 +11,10 @@ public class ProductDetailsServiceImpl {
     @Autowired
     ProductDetailsRepository productDetailsRepository;
 
-    public ProductDetailsEntity saveProductDetail(ProductDetailsEntity productDetailsEntity){
-        return productDetailsRepository.save(productDetailsEntity);
+    public void saveProductDetail(ProductDetailsEntity productDetailsEntity){
+        productDetailsRepository.saveProductDetail(productDetailsEntity.getProductId(),
+                productDetailsEntity.getProductDescription(), productDetailsEntity.getHeight(),
+                productDetailsEntity.getLength(), productDetailsEntity.getWidth(), productDetailsEntity.getColor());
     }
 
 }

@@ -89,7 +89,8 @@
                             <label for="productTypeList">Категория товара</label>
                             <form:select class="form-control" path="productTypeList" id="productTypeList">
                                 <form:option value="NONE" label="Категория товара"/>
-                                <form:options items="${productTypeList}"/>
+                                <form:options items="${productTypeList}" itemValue="productTypeId"
+                                              itemLabel="productTypeName"/>
                             </form:select>
                             <%--                                    <input type="text" class="form-control" id="producttype" placeholder="Выберите категорию товара" required>--%>
                         </div>
@@ -237,7 +238,8 @@
             var productlength = $('#productlength').val();
             var productname = $('#productname').val();
             var productwidth = $('#productwidth').val();
-            var productTypeList = $("#productTypeList").find('option:selected').text();
+            var productTypeId = $("#productTypeList").find('option:selected').val();
+            var productTypeName = $("#productTypeList").find('option:selected').text();
             var productcolor = $('#productcolor').val();
             var productdescription = $('#productdescription').val();
             var procurementcountry = $('#procurementcountry').val();
@@ -251,32 +253,14 @@
             var procurementdetails = $('#procurementdetails').val();
 
 
-
-            //
-            // procurement.push(procurementJson);
-            // var conrtagentEntity = $.ajax({
-            //     type : "POST",
-            //     contentType : "application/json",
-            //     url : "/getContragentById",
-            //     data : JSON.stringify(contragents),//productStr,
-            //     dataType : 'json',
-            //     cache : false,
-            //     timeout : 600000,
-            //     success : function(data) {
-            //         console.log(data);
-            //         return data;
-            //     },
-            //     error : function(e) {
-            //         // console.log(data);
-            //         // alert("error occured while trying update the database");
-            //         // $('#discount').val("");
-            //         // $("#productPriceAfterDiscount").val($('#productPrice').val());
-            //     }
-            // });
-
             var conrtagent = {
                 "contragentId" : contragents,
                 "contragentName" : contragentName
+            }
+
+            var productType = {
+                "productTypeId" : productTypeId,
+                "productTypeName" : productTypeName
             }
 
             var procurement = [];
@@ -290,6 +274,7 @@
                 "contragentsByContragentId" : conrtagent
             };
            var productDetails = {
+                //"productId" : 0,
                 "productDescription" : productdescription,
                 "height" : productheight,
                 "length" : productlength,
@@ -298,11 +283,13 @@
             };
             procurement.push(procurementJson);
 
+            var productStatus = [];
             var productStatusByProductId = {
                 "articul" : productarticul,
                 "validityDate" : validitydate
             };
 
+            productStatus.push(productStatusByProductId);
 
 
             // productStatus : {
@@ -315,14 +302,17 @@
             // }
             var product = {
                 "productName" : productname,
-                "productType" : productTypeList,
                 "articul" : productarticul,
                 "pictureUrl" : pictureUrl,
                 "originOfProduct" : procurementcountry,
+                "invoiceNumber" : nomernakladnoj,
+                "productPrice" : productprice,
                 "procurementsByProductId" : procurement,
-                "contragentsByContragentId" : conrtagent,
+                "contragentsByContragentId": conrtagent,
+                "productTypesByProductTypeId" : productType,
                 "productDetailsByProductId" : productDetails,
-                "productStatusByProductId" : productStatusByProductId
+                "productStatusByProductId" : productStatus
+
             };
                // procurement : procurement,
                // contragents : contragents

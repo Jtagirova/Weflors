@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.weflors.entity.*;
+import com.weflors.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -15,27 +17,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.weflors.entity.ProcurementEntity;
-import com.weflors.entity.ProductEntity;
-import com.weflors.entity.SaleEntity;
 import com.weflors.repository.ProductRepository;
 import com.weflors.repository.ProductStatusRepository;
-import com.weflors.service.ClientServiceImpl;
-import com.weflors.service.ProcurementServiceImpl;
-import com.weflors.service.SaleServiceImpl;
 
 @Controller
-@RequestMapping("/productWriteOff")
+@RequestMapping("/productwriteoff")
 public class ProductWriteOffCotroller {
 	
 	@Autowired
     private SaleServiceImpl saleServiceImpl;
 	
 	@Autowired
-	private ProductStatusRepository productStatusRepository;
+	private ProductStatusService productStatusService;
 	
 	@Autowired
-	private ProductRepository productRepository;
+	private ProductServiceImpl productService;
 	
 	@Autowired
     private ClientServiceImpl clientService;
@@ -52,7 +48,7 @@ public class ProductWriteOffCotroller {
         return "productwriteoff";
     }
 	
-	@PostMapping(value = "/loadProductInfoByProduct", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/loadproductinfobyproduct", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
     public ProductEntity loadProductInfoByProductName(@RequestBody ProductEntity productEntity) {
 	    ProductEntity selectedProduct = saleServiceImpl.getProductByProductId(productEntity.getProductId());
@@ -63,30 +59,72 @@ public class ProductWriteOffCotroller {
 	    return selectedProduct;
     }
 	    
-    @PostMapping(value = "/addWriteOffs", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/addwriteoffs", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String addWriteOffProduct(@RequestBody List <SaleEntity> saleEntitylist){ 
-    	
-    	Map<Integer, Integer> mapProductId = new HashMap<>();
-    	for(SaleEntity entity : saleEntitylist) {
-    		if(mapProductId.containsKey(entity.getProductId())) {
-    			mapProductId.put(entity.getProductId(),(mapProductId.get(entity.getProductId()) + entity.getQuantity()));
-    		}	else {
-    			mapProductId.put(entity.getProductId(), entity.getQuantity());
-    		}
+    public String addWriteOffProduct(@RequestBody List <SaleEntity> saleEntityList){
+
+		saleServiceImpl.addAllToSales(saleEntityList);
+
+		for (SaleEntity saleEntity:
+				saleEntityList) {
+			for (ProductStatusEntity productStatusEntity:
+					saleEntity.getProductByProductId().getProductStatusByProductId()) {
+				ProductStatusEntityPK productStatusEntityPK = new ProductStatusEntityPK(productStatusEntity.getProductId(), productStatusEntity.getValidityDate());
+				if(productStatusEntity.getTotalQuantityWriteoff() > productStatusService.getOne(productStatusEntityPK).getQuantityWarehouse()) {
+					return "Вы хотите списать " + productService.findByProductId(productStatusEntity.getProductId()).getProductName() + " в количестве " + productStatusEntity.getTotalQuantityWriteoff() +
+							" На складе есть: " + productStatusService.getOne(productStatusEntityPK).getQuantityWarehouse() + " единиц товара.";
+				}else {
+					productStatusService.updateQuantity(
+							productStatusEntity.getTotalQuantityWriteoff(), productStatusEntity.getProductId());
+				}
+			}
+		}
+
+//    	Map<Integer, Integer> mapProductId = new HashMap<>();
+//    	for(SaleEntity entity : saleEntityList) {
+//    		if(mapProductId.containsKey(entity.getProductId())) {
+//    			mapProductId.put(entity.getProductId(),(mapProductId.get(entity.getProductId()) + entity.getQuantity()));
+//    		}	else {
+//    			mapProductId.put(entity.getProductId(), entity.getQuantity());
+//    		}
+//    	}
+//
+//
+//
+//    	for(Map.Entry<Integer, Integer> item : mapProductId.entrySet()) {
+//    		if(item.getValue() != productStatusRepository.getOne(item.getKey()).getQuantityWarehouse()) {
+//    			return "Вы хотите списать " + productRepository.findByProductID(item.getKey()).getProductName() + " в количестве " + item.getValue() +
+//    					" На складе есть: " + productStatusRepository.getOne(item.getKey()).getQuantityWarehouse() + " единиц товара.";
+//    		} else {
+//    			productStatusRepository.updateQuantities(item.getValue(),item.getKey());
+//    		}
+		return "Товар Списан";
     	}
-    	
-    	for(Map.Entry<Integer, Integer> item : mapProductId.entrySet()) {
-    		if(item.getValue() > productStatusRepository.getOne(item.getKey()).getQuantityWarehouse()) {
-    			return "Вы хотите списать " + productRepository.findByProductID(item.getKey()).getProductName() + " в количестве " + item.getValue() +
-    					" На складе есть: " + productStatusRepository.getOne(item.getKey()).getQuantityWarehouse() + " единиц товара.";
+
+
+
+
+
+
+
+
+
+
+ /*
+//    	List <SaleEntity> newSaleEntitylist ;
+    	for(SaleEntity saleEntity : saleEntitylist) {
+    		int quantityWarehouse = productStatusRepository.getOne(saleEntity.getProductId()).getQuantityWarehouse();
+    		if(quantityWarehouse - saleEntity.getQuantity() < 0) {
+    			return false;
     		} else {
-    			productStatusRepository.updateQuantities(item.getValue(),item.getKey());
+    		//если quantityWarehouse меньше чем поступающая, то вернуть в форму уведомление о нехватке
+//    		productStatusRepository.updateQuantities(saleEntity.getQuantity(),saleEntity.getProductId());
+    		saleServiceImpl.addAllToSales(saleEntitylist);
     		}
-    		
     	}
-		return "Товар Списан"; 	
-}  
+    	return true;
+*/
+
     
     
     

@@ -1,12 +1,10 @@
 package com.weflors.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.weflors.repository.ContragentsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Collection;
 
 @Entity
@@ -14,14 +12,18 @@ import java.util.Collection;
 public class ProductEntity {
     private int productId;
     private String productName;
-    private String productType;
     private String articul;
     private String pictureUrl;
+//    private Integer contragentId;
     private String originOfProduct;
+    private String invoiceNumber;
+    private BigDecimal productPrice;
+//    private int productTypeId;
     private Collection<ProcurementEntity> procurementsByProductId;
     private ContragentsEntity contragentsByContragentId;
+    private ProductTypesEntity productTypesByProductTypeId;
     private ProductDetailsEntity productDetailsByProductId;
-    private ProductStatusEntity productStatusByProductId;
+    private Collection<ProductStatusEntity> productStatusByProductId;
     private Collection<SaleEntity> salesByProductId;
    // private SaleEntity saleByProductId;
 
@@ -68,16 +70,6 @@ public class ProductEntity {
     }
 
     @Basic
-    @Column(name = "product_type", nullable = false, length = 50)
-    public String getProductType() {
-        return productType;
-    }
-
-    public void setProductType(String productType) {
-        this.productType = productType;
-    }
-
-    @Basic
     @Column(name = "articul", nullable = false, length = 50)
     public String getArticul() {
         return articul;
@@ -97,6 +89,16 @@ public class ProductEntity {
         this.pictureUrl = pictureUrl;
     }
 
+//    @Basic
+//    @Column(name = "contragent_id", nullable = true)
+//    public Integer getContragentId() {
+//        return contragentId;
+//    }
+//
+//    public void setContragentId(Integer contragentId) {
+//        this.contragentId = contragentId;
+//    }
+
     @Basic
     @Column(name = "origin_of_product", nullable = true, length = 50)
     public String getOriginOfProduct() {
@@ -107,6 +109,36 @@ public class ProductEntity {
         this.originOfProduct = originOfProduct;
     }
 
+    @Basic
+    @Column(name = "invoice_number", nullable = false, length = 30)
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    @Basic
+    @Column(name = "product_price", nullable = false, precision = 2)
+    public BigDecimal getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(BigDecimal productPrice) {
+        this.productPrice = productPrice;
+    }
+
+//    @Basic
+//    @Column(name = "product_type_id", nullable = false)
+//    public int getProductTypeId() {
+//        return productTypeId;
+//    }
+//
+//    public void setProductTypeId(int productTypeId) {
+//        this.productTypeId = productTypeId;
+//    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -115,10 +147,16 @@ public class ProductEntity {
         ProductEntity that = (ProductEntity) o;
 
         if (productId != that.productId) return false;
+        //if (productTypeId != that.productTypeId) return false;
         if (productName != null ? !productName.equals(that.productName) : that.productName != null) return false;
-        if (productType != null ? !productType.equals(that.productType) : that.productType != null) return false;
         if (articul != null ? !articul.equals(that.articul) : that.articul != null) return false;
         if (pictureUrl != null ? !pictureUrl.equals(that.pictureUrl) : that.pictureUrl != null) return false;
+       // if (contragentId != null ? !contragentId.equals(that.contragentId) : that.contragentId != null) return false;
+        if (originOfProduct != null ? !originOfProduct.equals(that.originOfProduct) : that.originOfProduct != null)
+            return false;
+        if (invoiceNumber != null ? !invoiceNumber.equals(that.invoiceNumber) : that.invoiceNumber != null)
+            return false;
+        if (productPrice != null ? !productPrice.equals(that.productPrice) : that.productPrice != null) return false;
 
         return true;
     }
@@ -127,9 +165,13 @@ public class ProductEntity {
     public int hashCode() {
         int result = productId;
         result = 31 * result + (productName != null ? productName.hashCode() : 0);
-        result = 31 * result + (productType != null ? productType.hashCode() : 0);
         result = 31 * result + (articul != null ? articul.hashCode() : 0);
         result = 31 * result + (pictureUrl != null ? pictureUrl.hashCode() : 0);
+       // result = 31 * result + (contragentId != null ? contragentId.hashCode() : 0);
+        result = 31 * result + (originOfProduct != null ? originOfProduct.hashCode() : 0);
+        result = 31 * result + (invoiceNumber != null ? invoiceNumber.hashCode() : 0);
+        result = 31 * result + (productPrice != null ? productPrice.hashCode() : 0);
+       // result = 31 * result + productTypeId;
         return result;
     }
 
@@ -166,9 +208,20 @@ public class ProductEntity {
         this.contragentsByContragentId = contragentsByContragentId;
     }
 
-    @OneToOne(mappedBy = "productByProductId")
+    @ManyToOne
+    @JsonBackReference(value = "product_types-product")
+    @JoinColumn(name = "product_type_id", referencedColumnName = "product_type_id", nullable = false)
+    public ProductTypesEntity getProductTypesByProductTypeId() {
+        return productTypesByProductTypeId;
+    }
+
+    public void setProductTypesByProductTypeId(ProductTypesEntity productTypesByProductTypeId) {
+        this.productTypesByProductTypeId = productTypesByProductTypeId;
+    }
+
+    @OneToOne(mappedBy = "productByProductId" , orphanRemoval = true)
     @JsonManagedReference(value = "product-product_details")
-   // @Column(insertable=false, updatable=false)
+   //@Column(insertable=false, updatable=false)
     public ProductDetailsEntity getProductDetailsByProductId() {
         return productDetailsByProductId;
     }
@@ -177,30 +230,16 @@ public class ProductEntity {
         this.productDetailsByProductId = productDetailsByProductId;
     }
 
-    @OneToOne(mappedBy = "productByProductId")
+    @OneToMany(mappedBy = "productByProductId", fetch = FetchType.EAGER)
     @JsonManagedReference(value = "product-product_status")
    // @Column(insertable=false, updatable=false)
-    public ProductStatusEntity getProductStatusByProductId() {
+    public Collection<ProductStatusEntity> getProductStatusByProductId() {
         return productStatusByProductId;
     }
 
-    public void setProductStatusByProductId(ProductStatusEntity productStatusByProductId) {
+    public void setProductStatusByProductId(Collection<ProductStatusEntity> productStatusByProductId) {
         this.productStatusByProductId = productStatusByProductId;
     }
-
-//    @OneToOne(mappedBy = "productByProductId")
-//    @JsonManagedReference(value = "product-sale")
-//    //@Column(insertable=false, updatable=false)
-//    public SaleEntity getSaleByProductId() {
-//        return saleByProductId;
-//    }
-//
-//    public void setSaleByProductId(SaleEntity saleByProductId) {
-//        this.saleByProductId = saleByProductId;
-//    }
-
-
-
 
     @OneToMany(mappedBy = "productByProductId")
     @JsonManagedReference(value = "product-sale")

@@ -18,5 +18,9 @@ public class ProcurementServiceImpl {
         return procurementRepository.findByProcurementProductID(productID);
     }
 
+    public ProcurementEntity saveProcurement(ProcurementEntity procurementEntity){
+        return procurementRepository.save(procurementEntity);
+    }
+
 
 }
