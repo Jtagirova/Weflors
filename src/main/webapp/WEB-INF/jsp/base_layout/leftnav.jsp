@@ -27,14 +27,14 @@
                 <li><a href="/addproduct">Добавить товар</a></li>
                 <li><a href="#">Список товаров</a></li>
                 <li><a href="/productsale">Продажа товара</a></li>
-                <li><a href="#">Списание товара</a></li>
+                <li><a href="/productwriteoff">Списание товара</a></li>
             </ul>
             <hr>
             <h4><i class="glyphicon glyphicon-book"></i>
                 <b>Справочники</b>
             </h4>
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="#">Поставщики</a></li>
+                <li><a href="/contragentinfo">Поставщики</a></li>
                 <li><a href="#">Категории товара</a></li>
                 <li><a href="#">Клиенты</a></li>
                 <li><a href="#">Пользователи</a></li>

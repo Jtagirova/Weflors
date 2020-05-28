@@ -26,17 +26,24 @@
 			<form>
 				<div class="col-md-12 form-group">
 					<div class="row">
+						<div class="col-md-4 mb-4">
+							<h3>Добавить нового поставщика</h3>
+						</div>
+					</div>
+				</div>	
+				<div class="col-md-12 form-group">
+					<div class="row">
 						<div class="col-md-4 mb-3">
 							<label for="articul">Наименование поставщика*</label>
-							<input type="text" class="form-control" id="nameContragent" name="nameContragent" />
+							<input type="text" class="form-control" id="nameContragent" name="nameContragent" placeholder="Наименование поставщика"/>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="productPrice">Адрес</label>
-							<input type="text" class="form-control" id="addressContragent" name="addressContragent" />
+							<input type="text" class="form-control" id="addressContragent" name="addressContragent" placeholder="Адрес"/>
 						</div>
 						<div class="col-md-4 mb-3">
-								<label for="details">Zip code</label>
-								<input type="text" class="form-control" id="zipCodeContragent" name="zipCodeContragent" />
+								<label for="details">Индекс</label>
+								<input type="text" class="form-control" id="zipCodeContragent" name="zipCodeContragent" placeholder="Индекс"/>
 							</div>
 					</div>
 					
@@ -45,11 +52,11 @@
 					<div class="row">
 						<div class="col-md-4 mb-3">
 							<label for="articul">Контактный телефон №1</label>
-							<input type="text" class="form-control" id="phone1Contragent" name="phone1Contragent" />
+							<input type="text" class="form-control" id="phone1Contragent" name="phone1Contragent" placeholder="Контактный телефон №1"/>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="productPrice">Контактный телефон №2</label>
-							<input type="text" class="form-control" id="phone2Contragent" name="phone2Contragent" />
+							<input type="text" class="form-control" id="phone2Contragent" name="phone2Contragent" placeholder="Контактный телефон №2"/>
 						</div>
 					</div>
 					
@@ -59,26 +66,37 @@
 						<div class="form-group">
 							<div class="col-md-4 mb-3">
 								<label for="productQuantity">ИНН*</label>
-								<input type="text" class="form-control" id="innContragent" name="innContragent" />
+								<input type="text" class="form-control" id="innContragent" name="innContragent" placeholder="ИНН"/>
 							</div>
 							<div class="col-md-4 mb-3">
 								<label for="details">УНК*</label>
-								<input type="text" class="form-control" id="unkContragent" name="unkContragent" />
+								<input type="text" class="form-control" id="unkContragent" name="unkContragent" placeholder="УНК"/>
+							</div>
+							<div class="col-md-4 mb-3">
+							<br>	
+								<div class="text-right">
+									<button class="btn btn-primary" type="submit" id="addContragent">Добавить</button>
+								</div>
 							</div>
 						</div>
 					</div>
-					
-					<br><br>
-					
+				</div>
+				<div class="col-md-12 form-group">
 					<div class="row">
-						<div class="text-right">
-							<button class="btn btn-primary" type="submit" id="addContragent">Добавить</button>
+						<div class="text-left col-md-4 mb-4">
+							<h6>*поля обязательны к заполнению</h6>
 						</div>
 					</div>
 				</div>
 				
-				<div class="col-md-12 form-group">
-					<br><br><br>
+				<div class="col-md-12">
+					<br><br>
+					<div class="row">
+						<div class="text-left col-md-4 mb-3">
+							<h3>Список поставщиков</h3>
+						</div>
+					</div>
+					<br>
 					<div class="row">
 						<div>
 									<%--							<form:form method="POST" id="writeoffForm">--%>
@@ -95,7 +113,10 @@
 								<tbody>
 								</tbody>
 							</table>
+							
 						</div>
+						
+						
 					</div>
 				</div>
 			</form>
@@ -120,27 +141,33 @@ $(document).ready(function() {
 				'<td>' + item.phone1 + '</td>' +
 				'<td>' + item.inn + '</td>' +
 				'<td>' + item.unk + '</td>' + 
-				'<td><button id="'+ item.contragentId +'" class="delete btn btn-primary" type="submit">Удалить</button></td></tr>';
+				'<td class="text-center"><button id="'+ item.contragentId +'" class="delete btn btn-primary" type="submit">Удалить</button></td></tr>';
 			$('#contragentTable > tbody').append(rowl);
-			var sel = "[id='" + item.contragentId + "']";	
+			var sel = "[id='" + item.contragentId + "']";
+
 			$(sel).click(function (id) {	
 				var json = { "contragentId" : item.contragentId };
-				$.ajax({
-					type : "DELETE",
-					contentType : "application/json",
-					url : "/contragentinfo/deleteContragent",
-					data : JSON.stringify(json),
-					dataType : 'json',
-					cache : false,
-					timeout : 600000,
-					success : function(data) {
-						alert(data.responseText);
-					},
-					error : function(data) {	
-						alert(data.responseText);
-					}
-				});
+				var isConfirmed = confirm('Вы желаете удалить данного поставщика из вашей базы?');
+		        if (isConfirmed) {
+		        	$.ajax({
+						type : "DELETE",
+						contentType : "application/json",
+						url : "/contragentinfo/deleteContragent",
+						data : JSON.stringify(json),
+						dataType : 'json',
+						cache : false,
+						timeout : 600000,
+						success : function(data) {
+							alert(data.responseText);
+						},
+						error : function(data) {	
+							alert(data.responseText);
+						}
+					});
+		        }
+				
 			});
+			
 			});    	
 	    }
 	});	
@@ -163,22 +190,25 @@ $(document).ready(function() {
 			"zipCode" : zipCode		
 		}; 
 		var contragentsEntity = JSON.stringify(json);
-		$.ajax({
-			type : "POST",
-			contentType : "application/json",
-			url : "/contragentinfo/addNewContagent",
-			data : contragentsEntity,
-			dataType : 'json',
-			cache : false,
-			timeout : 600000,
-			success : function(data) {
-				alert(data.responseText);
-			},
-			error : function(data) {	
-				alert(data.responseText);
-			}
-		});	
 		
+		var isConfirmed = confirm('Вы желаете добавить данного поставщика в вашу базу?');
+        if (isConfirmed) {
+        	$.ajax({
+    			type : "POST",
+    			contentType : "application/json",
+    			url : "/contragentinfo/addNewContagent",
+    			data : contragentsEntity,
+    			dataType : 'json',
+    			cache : false,
+    			timeout : 600000,
+    			success : function(data) {
+    				alert(data.responseText);
+    			},
+    			error : function(data) {	
+    				alert(data.responseText);
+    			}
+    		});	
+        }
 	});
 
 });
