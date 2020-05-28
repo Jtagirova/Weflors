@@ -24,4 +24,14 @@ public class ContragentsServiceImpl {
         ContragentsEntity contragent = contragentsRepository.findByContragentID(contragentId);
         return contragent;
     }
+    
+    public ContragentsEntity saveNewContagent(ContragentsEntity contragentsEntity)  {
+        ContragentsEntity newContragent = contragentsRepository.save(contragentsEntity);
+        return newContragent;
+    }
+    
+    public Boolean existByContragentName(String contragentName) {
+    	Boolean exist = contragentsRepository.existByName(contragentName);
+    	return exist;
+    }
 }
