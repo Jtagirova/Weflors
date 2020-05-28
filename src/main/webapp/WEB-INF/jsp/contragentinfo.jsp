@@ -111,7 +111,7 @@ $(document).ready(function() {
 	
 	$.ajax({ 
 	    type: 'GET', 
-	    url: "/addcontragent/listContragents",
+	    url: "/contragentinfo/listContragents",
 	    dataType: 'json',
 	    contentType: 'application/json',
 	    success: function (data) {
@@ -122,18 +122,14 @@ $(document).ready(function() {
 				'<td>' + item.unk + '</td>' + 
 				'<td><button id="'+ item.contragentId +'" class="delete btn btn-primary" type="submit">Удалить</button></td></tr>';
 			$('#contragentTable > tbody').append(rowl);
-	
-			
-			
-			
-//			var id = item.contragentId;
-			
-/*			$(".delete").click(function (id) {	
+				
+			$(".delete").click(function (id) {	
+				var json = { "contragentId" : this.id };
 				$.ajax({
 					type : "DELETE",
 					contentType : "application/json",
-					url : "/addcontragent/deleteContragent",
-					data : JSON.stringify(id),
+					url : "/contragentinfo/deleteContragent",
+					data : JSON.stringify(json),
 					dataType : 'json',
 					cache : false,
 					timeout : 600000,
@@ -145,16 +141,9 @@ $(document).ready(function() {
 					}
 				});
 			});
-*/	
-			
-			
-			
 			});    	
 	    }
 	});	
-	
-	
-	
 	
 	$("#addContragent").click(function() {		
 		var contragentName = $('#nameContragent').val();
@@ -177,7 +166,7 @@ $(document).ready(function() {
 		$.ajax({
 			type : "POST",
 			contentType : "application/json",
-			url : "/addcontragent/addNewContagent",
+			url : "/contragentinfo/addNewContagent",
 			data : contragentsEntity,
 			dataType : 'json',
 			cache : false,
@@ -191,27 +180,6 @@ $(document).ready(function() {
 		});	
 		
 	});
-	
-/*	$(".delete").click(function () {	
-
-
-		$.ajax({
-			type : "DELETE",
-			contentType : "application/json",
-			url : "/addcontragent/deleteContragent",
-			data : id,
-			dataType : 'json',
-			cache : false,
-			timeout : 600000,
-			success : function(data) {
-				alert(data.responseText);
-			},
-			error : function(data) {	
-				alert(data.responseText);
-			}
-		});
-	});
-*/
 
 });
 	

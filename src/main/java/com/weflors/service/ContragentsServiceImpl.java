@@ -34,4 +34,8 @@ public class ContragentsServiceImpl {
     	Boolean exist = contragentsRepository.existByName(contragentName);
     	return exist;
     }
+    
+    public void deleteContragent(Integer contragentId) {
+    	contragentsRepository.deleteByContragentId(contragentId);
+    }
 }

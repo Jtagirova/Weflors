@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.weflors.entity.ContragentsEntity;
@@ -18,8 +17,8 @@ import com.weflors.service.ContragentsServiceImpl;
 
 
 @Controller
-@RequestMapping("/addcontragent")
-public class AddContragentController {
+@RequestMapping("/contragentinfo")
+public class ContragentController {
 	
 	@Autowired
 	private ContragentsServiceImpl contragentsServiceImpl;
@@ -27,7 +26,7 @@ public class AddContragentController {
 	@GetMapping
     public String addContragentPage(Model model) {
 		model.addAttribute("formName", "Справочник поставщиков");
-        return "addcontragent";
+        return "contragentinfo";
     }
 	
 	@GetMapping("/listContragents")
@@ -40,7 +39,6 @@ public class AddContragentController {
 	@PostMapping("/addNewContagent")
 	@ResponseBody
 	public String addNewContagent(@RequestBody ContragentsEntity contragentsEntity) {
-		
 		if(contragentsEntity.getContragentName().isEmpty() || contragentsEntity.getInn().isEmpty() || contragentsEntity.getUnk().isEmpty()) {
 			return "Поля Наименования поставщика, ИНН и УНК обязательны к заполнению";
 		}
@@ -48,16 +46,15 @@ public class AddContragentController {
 			return "Поставщик с таким именем уже существует в БД";
 		} else {
 			contragentsServiceImpl.saveNewContagent(contragentsEntity);
-			return "Новый поставщик добвлен";
+			return "Новый поставщик добавлен";
 		}
 	}	
 	
 	@DeleteMapping("/deleteContragent")
 	@ResponseBody
-	public String seleteContragents(@RequestParam Integer contragentId) {
-		String deleteText = "Поставщик " + " был удален из базы";
-		
-	    return deleteText;
+	public String deleteContragent(@RequestBody ContragentsEntity contragentsEntity) {
+		contragentsServiceImpl.deleteContragent(contragentsEntity.getContragentId());
+		return "Поставщик был удален";
 	}
 	
 }
