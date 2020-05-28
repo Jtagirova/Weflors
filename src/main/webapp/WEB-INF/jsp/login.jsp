@@ -4,51 +4,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Spring Security</title>
-
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet"
-		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- Custom styles for this template -->
-    <%--<link href="<c:url value="/pages/css/signin.css" />" rel="stylesheet">--%>
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
+    <title>Страница входа</title>
+    <jsp:include page="/WEB-INF/jsp/base_layout/head_links.jsp"></jsp:include>
 </head>
 
 <body>
 
-<div class="container" style="width: 300px;">
     <c:url value="/j_spring_security_check" var="loginUrl" />
-    <form action="${loginUrl}" method="post">
-        <div class="container-fluid">
-            <h3 class="form-signin-heading">Пожалуйста войдите:</h3>
-            <input type="text" class="form-control" name="j_username" placeholder="Адрес электронной почты ">
-            <input type="password" class="form-control" name="j_password" placeholder="Пароль">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
-            <h4><a href="/registration">Зарегистрироваться</a></h4>
+    <form action="${loginUrl}" class="limiter" method="post">
+
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-form-title" style="background-image: url('../img/background_theme2_opacity70.png')">
+					<span class="login100-form-title-1">
+                        Вход в систему учета деятельности цветочного магазина
+					</span>
+                </div>
+                <br class="form-group">
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-md-8 mb-4 col-md-offset-2">
+                        <label for="j_username">Логин</label>
+                        <input class="form-control" type="text" id="j_username" name="j_username" placeholder="Введите адрес электронной почты">
+                    </div>
+
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-8 mb-4 col-md-offset-2">
+                        <label for="j_password">Пароль</label>
+                        <input class="form-control" type="password" id="j_password" name="j_password" placeholder="Введите пароль">
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-md-4 mb-4 col-md-offset-2">
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Регистрация</button>
+                    </div>
+
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        Пожалуйста, введите логин и пароль для входа в систему, если вы уже зарегистрированы, или пройдите регистрацию в системе
+                    </div>
+                </div>
+
+                <br>
+                <br>
+            </div>
+
+
+
+
         </div>
-
     </form>
-</div>
-
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-crossorigin="anonymous"></script>
 
 </body>
 </html>
