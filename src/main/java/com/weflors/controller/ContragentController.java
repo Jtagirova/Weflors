@@ -56,4 +56,7 @@ public class ContragentController {
 		contragentsServiceImpl.deleteContragent(contragentsEntity.getContragentId());
 		return "Поставщик был удален";
 	}
+	
 }
+
+

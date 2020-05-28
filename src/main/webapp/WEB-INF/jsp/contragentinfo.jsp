@@ -122,9 +122,9 @@ $(document).ready(function() {
 				'<td>' + item.unk + '</td>' + 
 				'<td><button id="'+ item.contragentId +'" class="delete btn btn-primary" type="submit">Удалить</button></td></tr>';
 			$('#contragentTable > tbody').append(rowl);
-				
-			$(".delete").click(function (id) {	
-				var json = { "contragentId" : this.id };
+			var sel = "[id='" + item.contragentId + "']";	
+			$(sel).click(function (id) {	
+				var json = { "contragentId" : item.contragentId };
 				$.ajax({
 					type : "DELETE",
 					contentType : "application/json",
