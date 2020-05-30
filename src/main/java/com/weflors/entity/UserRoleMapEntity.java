@@ -1,5 +1,7 @@
 package com.weflors.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -65,6 +67,7 @@ public class UserRoleMapEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    @JsonBackReference(value = "user-userrolemap")
     public UserEntity getUserByUserId() {
         return userByUserId;
     }
@@ -75,6 +78,7 @@ public class UserRoleMapEntity {
 
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "role_id", nullable = false)
+    @JsonBackReference(value = "role-userrolemap")
     public RoleEntity getRoleByRoleId() {
         return roleByRoleId;
     }

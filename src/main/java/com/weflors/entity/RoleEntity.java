@@ -1,5 +1,7 @@
 package com.weflors.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -63,6 +65,7 @@ public class RoleEntity {
     }
 
     @OneToMany(mappedBy = "roleByRoleId")
+    @JsonManagedReference(value = "role-userrolemap")
     public Collection<UserRoleMapEntity> getUserRoleMapsByRoleId() {
         return userRoleMapsByRoleId;
     }
