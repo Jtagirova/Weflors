@@ -67,12 +67,12 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         return true;
     }
 	
-/*	
+	
 	public List<UserEntity> getAllUsers(){
 		List<UserEntity> users = userRepository.findAll();
 		return users;
 	}
-	*/
+	
 	
 
 }

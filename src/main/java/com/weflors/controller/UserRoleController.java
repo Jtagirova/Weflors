@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.weflors.entity.UserEntity;
 import com.weflors.service.UserDetailsServiceImpl;
 
@@ -28,14 +27,14 @@ public class UserRoleController {
         return "users";
     }
 
-/*	
+
 	@GetMapping("/listUsers")
 	@ResponseBody
 	public List<UserEntity> addListOfUser() {
-		List<UserEntity> listUsers = userDetailsServiceImpl.getAllUsers();
-	    return listUsers;
+		List<UserEntity> listUser = userDetailsServiceImpl.getAllUsers();
+	    return listUser;
 	}
-*/
+
 	
 	
 	

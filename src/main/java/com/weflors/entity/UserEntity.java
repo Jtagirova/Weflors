@@ -2,7 +2,7 @@ package com.weflors.entity;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.Collection;
 
@@ -141,6 +141,7 @@ public class UserEntity {
     }
 
     @OneToMany(mappedBy = "userByUserId")
+    @JsonManagedReference(value = "user-userrolemap")
     public Collection<UserRoleMapEntity> getUserRoleMapsByUserId() {
         return userRoleMapsByUserId;
     }
