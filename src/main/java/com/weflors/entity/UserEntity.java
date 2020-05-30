@@ -1,14 +1,20 @@
 package com.weflors.entity;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Collection;
+
 
 @Entity
 @Table(name = "user", schema = "flowershop", catalog = "postgres")
 public class UserEntity {
+	
     private int userId;
     private String eMail;
     private String userName;
+    
     private String password;
     private String passwordConfirm;
     private String userLastname;
@@ -54,12 +60,13 @@ public class UserEntity {
         this.userName = userName;
     }
 
+    
     @Basic
     @Column(name = "password", nullable = false, length = 100)
     public String getPassword() {
         return password;
     }
-
+    
     public void setPassword(String password) {
         this.password = password;
     }

@@ -5,9 +5,8 @@ import com.weflors.repository.ContragentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class ContragentsServiceImpl {
 
@@ -21,13 +20,11 @@ public class ContragentsServiceImpl {
     }
 
     public ContragentsEntity loadContragentByContragentID(Integer contragentId)  {
-        ContragentsEntity contragent = contragentsRepository.findByContragentID(contragentId);
-        return contragent;
+        return contragentsRepository.findByContragentID(contragentId);
     }
     
     public ContragentsEntity saveNewContagent(ContragentsEntity contragentsEntity)  {
-        ContragentsEntity newContragent = contragentsRepository.save(contragentsEntity);
-        return newContragent;
+        return contragentsRepository.save(contragentsEntity);
     }
     
     public Boolean existByContragentName(String contragentName) {

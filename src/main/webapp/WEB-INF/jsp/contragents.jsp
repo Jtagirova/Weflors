@@ -23,72 +23,78 @@
 			<jsp:include page="/WEB-INF/jsp/base_layout/topnav.jsp"></jsp:include>
 
 			<!-- Form Content Here -->
-			<form>
-				<div class="col-md-12 form-group">
+			<form>			
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-6 mb-6">
+							<h3>Поиск поставщика</h3>
+						</div>
+					</div>
 					<div class="row">
 						<div class="col-md-4 mb-4">
-							<h3>Добавить нового поставщика</h3>
+							<input type="text" class="form-control" id="findContragent" placeholder="Введите имя поставщика"/>
+						</div>
+					</div>	
+					<br><br>
+				</div>			
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-4 mb-4">
+							<h3>Добавление нового поставщика</h3>
 						</div>
 					</div>
 				</div>	
 				<div class="col-md-12 form-group">
 					<div class="row">
 						<div class="col-md-4 mb-3">
-							<label for="articul">Наименование поставщика*</label>
+							<label for="nameContragent">Наименование поставщика*</label>
 							<input type="text" class="form-control" id="nameContragent" name="nameContragent" placeholder="Наименование поставщика"/>
 						</div>
 						<div class="col-md-4 mb-3">
-							<label for="productPrice">Адрес</label>
+							<label for="addressContragent">Адрес</label>
 							<input type="text" class="form-control" id="addressContragent" name="addressContragent" placeholder="Адрес"/>
 						</div>
 						<div class="col-md-4 mb-3">
-								<label for="details">Индекс</label>
-								<input type="text" class="form-control" id="zipCodeContragent" name="zipCodeContragent" placeholder="Индекс"/>
-							</div>
-					</div>
-					
-					<br><br>
-					
+							<label for="zipCodeContragent">Индекс</label>
+							<input type="text" class="form-control" id="zipCodeContragent" name="zipCodeContragent" placeholder="Индекс"/>
+						</div>
+					</div>					
+					<br><br>					
 					<div class="row">
 						<div class="col-md-4 mb-3">
-							<label for="articul">Контактный телефон №1</label>
+							<label for="phone1Contragent">Контактный телефон №1</label>
 							<input type="text" class="form-control" id="phone1Contragent" name="phone1Contragent" placeholder="Контактный телефон №1"/>
 						</div>
 						<div class="col-md-4 mb-3">
-							<label for="productPrice">Контактный телефон №2</label>
+							<label for="phone2Contragent">Контактный телефон №2</label>
 							<input type="text" class="form-control" id="phone2Contragent" name="phone2Contragent" placeholder="Контактный телефон №2"/>
 						</div>
 					</div>
-					
 					<br><br>
-
 					<div class="row">
-						<div class="form-group">
-							<div class="col-md-4 mb-3">
-								<label for="productQuantity">ИНН*</label>
-								<input type="text" class="form-control" id="innContragent" name="innContragent" placeholder="ИНН"/>
-							</div>
-							<div class="col-md-4 mb-3">
-								<label for="details">УНК*</label>
-								<input type="text" class="form-control" id="unkContragent" name="unkContragent" placeholder="УНК"/>
-							</div>
-							<div class="col-md-4 mb-3">
-							<br>	
-								<div class="text-right">
-									<button class="btn btn-primary" type="submit" id="addContragent">Добавить</button>
-								</div>
+						<div class="col-md-4 mb-3">
+							<label for="innContragent">ИНН*</label>
+							<input type="text" class="form-control" id="innContragent" name="innContragent" placeholder="ИНН"/>
+						</div>
+						<div class="col-md-4 mb-3">
+							<label for="unkContragent">УНК*</label>
+							<input type="text" class="form-control" id="unkContragent" name="unkContragent" placeholder="УНК"/>
+						</div>
+						<div class="col-md-4 mb-3">
+						<br>	
+							<div class="text-right">
+								<button class="btn btn-primary" type="submit" id="addContragent">Добавить</button>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-12 form-group">
+				<div class="col-md-12">
 					<div class="row">
 						<div class="text-left col-md-4 mb-4">
 							<h6>*поля обязательны к заполнению</h6>
 						</div>
 					</div>
 				</div>
-				
 				<div class="col-md-12">
 					<br><br>
 					<div class="row">
@@ -113,10 +119,7 @@
 								<tbody>
 								</tbody>
 							</table>
-							
 						</div>
-						
-						
 					</div>
 				</div>
 			</form>
@@ -132,7 +135,7 @@ $(document).ready(function() {
 	
 	$.ajax({ 
 	    type: 'GET', 
-	    url: "/contragentinfo/listContragents",
+	    url: "/contragents/listContragents",
 	    dataType: 'json',
 	    contentType: 'application/json',
 	    success: function (data) {
@@ -144,15 +147,13 @@ $(document).ready(function() {
 				'<td class="text-center"><button id="'+ item.contragentId +'" class="delete btn btn-primary" type="submit">Удалить</button></td></tr>';
 			$('#contragentTable > tbody').append(rowl);
 			var sel = "[id='" + item.contragentId + "']";
-
 			$(sel).click(function (id) {	
 				var json = { "contragentId" : item.contragentId };
-				var isConfirmed = confirm('Вы желаете удалить данного поставщика из вашей базы?');
-		        if (isConfirmed) {
+		        if (confirm('Вы желаете удалить данного поставщика из вашей базы?')) {
 		        	$.ajax({
 						type : "DELETE",
 						contentType : "application/json",
-						url : "/contragentinfo/deleteContragent",
+						url : "/contragents/deleteContragent",
 						data : JSON.stringify(json),
 						dataType : 'json',
 						cache : false,
@@ -165,9 +166,7 @@ $(document).ready(function() {
 						}
 					});
 		        }
-				
 			});
-			
 			});    	
 	    }
 	});	
@@ -190,13 +189,11 @@ $(document).ready(function() {
 			"zipCode" : zipCode		
 		}; 
 		var contragentsEntity = JSON.stringify(json);
-		
-		var isConfirmed = confirm('Вы желаете добавить данного поставщика в вашу базу?');
-        if (isConfirmed) {
+        if (confirm('Вы желаете добавить данного поставщика в вашу базу?')) {
         	$.ajax({
     			type : "POST",
     			contentType : "application/json",
-    			url : "/contragentinfo/addNewContagent",
+    			url : "/contragents/addNewContagent",
     			data : contragentsEntity,
     			dataType : 'json',
     			cache : false,
@@ -210,7 +207,11 @@ $(document).ready(function() {
     		});	
         }
 	});
-
+	
+	$("#contragentTable").searcher({
+	    inputSelector: "#findContragent"
+	});
+	
 });
 	
 

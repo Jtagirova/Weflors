@@ -13,6 +13,7 @@ public class ProductTypesEntity {
     private Collection<ProductEntity> productsByProductTypeId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "product_type_id", nullable = false)
     public int getProductTypeId() {
         return productTypeId;

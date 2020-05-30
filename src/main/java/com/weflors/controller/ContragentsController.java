@@ -17,8 +17,8 @@ import com.weflors.service.ContragentsServiceImpl;
 
 
 @Controller
-@RequestMapping("/contragentinfo")
-public class ContragentController {
+@RequestMapping("/contragents")
+public class ContragentsController {
 	
 	@Autowired
 	private ContragentsServiceImpl contragentsServiceImpl;
@@ -26,14 +26,13 @@ public class ContragentController {
 	@GetMapping
     public String addContragentPage(Model model) {
 		model.addAttribute("formName", "Справочник поставщиков");
-        return "contragentinfo";
+        return "contragents";
     }
 	
 	@GetMapping("/listContragents")
 	@ResponseBody
 	public List<ContragentsEntity> addListOfContragents() {
-		List<ContragentsEntity> listContragents = contragentsServiceImpl.loadContragents();
-	    return listContragents;
+	    return contragentsServiceImpl.loadContragents();
 	}
 	
 	@PostMapping("/addNewContagent")

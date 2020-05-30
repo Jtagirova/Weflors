@@ -34,10 +34,10 @@
                 <b>Справочники</b>
             </h4>
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="/contragentinfo">Поставщики</a></li>
-                <li><a href="#">Категории товара</a></li>
+                <li><a href="/contragents">Поставщики</a></li>
+                <li><a href="/typeproduct">Категории товара</a></li>
                 <li><a href="#">Клиенты</a></li>
-                <li><a href="#">Пользователи</a></li>
+                <li><a href="/users">Пользователи</a></li>
             </ul>
             <hr>
             <h4><i class="glyphicon glyphicon-stats"></i>

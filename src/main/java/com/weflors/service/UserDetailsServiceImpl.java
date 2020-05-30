@@ -12,6 +12,7 @@ import com.weflors.entity.UserRoleMapEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -37,7 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-
+	
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 		//List<User> users = userRepository.findAll();
@@ -65,5 +66,13 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         userRoleMapRepository.saveUserRoleMap(user.getUserId(), 2);
         return true;
     }
+	
+/*	
+	public List<UserEntity> getAllUsers(){
+		List<UserEntity> users = userRepository.findAll();
+		return users;
+	}
+	*/
+	
 
 }
