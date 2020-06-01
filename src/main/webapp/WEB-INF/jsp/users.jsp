@@ -40,39 +40,40 @@
 				<div class="col-md-12 form-group">
 					<div class="row">
 						<div class="col-md-4 mb-4">
-							<h3>Добавление нового пользователя</h3>
+							<h3>Изменение данных пользователя</h3>
 						</div>
 					</div>
 				</div>	
 				<div class="col-md-12 form-group">
 					<div class="row">
 						<div class="col-md-3 mb-3">
+							<input type="hidden" id="userId" name="userId" >
 							<label for="userName">Имя</label>
-							<input type="text" class="form-control" id="userName" name="userName" placeholder="Имя"/>
+							<input type="text" class="form-control" id="userName" name="userName" placeholder="Имя" />
 						</div>
 						<div class="col-md-3 mb-3">
-							<label for="userSurname">Фамилия</label>
-							<input type="text" class="form-control" id="userSurname" name="userSurname" placeholder="Фамилия"/>
+							<label for="userLastName">Фамилия</label>
+							<input type="text" class="form-control" id="userLastName" name="userLastName"  placeholder="Фамилия"/>
 						</div>
 						<div class="col-md-3 mb-3">
-							<label for="adminRole">Роль</label>
+							<label for="adminRole">Роль*</label>
 							<br>	
-							Администратор   <input type="checkbox" id="adminRole" name="adminRole"/>
+							Администратор   	<label><input type="checkbox" id="adminRole"  name="adminRole" value="1"/></label>
 						</div>
 					</div>					
 					<br><br>					
 					<div class="row">
 						<div class="col-md-3 mb-3">
 							<label for="userEmail">E-mail*</label>
-							<input type="text" class="form-control" id="userEmail" name="userEmail" placeholder="E-mail"/>
+							<input type="text" class="form-control" id="userEmail" name="userEmail"  value="" placeholder="E-mail"/>
 						</div>
 						<div class="col-md-3 mb-3">
-							<label for="userTelephoneNumber">Телефон</label>
-							<input type="text" class="form-control" id="userTelephoneNumber" name="userTelephoneNumber" placeholder="Телефон"/>
+							<label for="userPhone">Телефон</label>
+							<input type="text" class="form-control" id="userPhone" name="userPhone" placeholder="Телефон"/>
 						</div>
 						<div class="col-md-3 mb-3">
 						<br>
-							Пользователь   <input type="checkbox" id="userRole" name="userRole" class="mt-3"/>
+							Пользователь  	<label> <input type="checkbox" id="userRole" name="userRole" value="2" /></label>
 						</div>
 					</div>
 					<br><br>
@@ -83,16 +84,16 @@
 						</div>
 						<div class="col-md-3 mb-3">
 							<label for="userPass">Пароль*</label>
-							<input type="text" class="form-control" id="userPass" name="userPass" placeholder="Пароль"/>
+							<input type="password" class="form-control" id="userPass" name="userPass" placeholder="Пароль"/>
 						</div>
 						<div class="col-md-3 mb-3">
 							<label for="userRepeatPass">Повторить пароль</label>
-							<input type="text" class="form-control" id="userRepeatPass" name="userRepeatPass" placeholder="Повторить пароль"/>
+							<input type="password" class="form-control" id="userRepeatPass" name="userRepeatPass" placeholder="Повторить пароль" />
 						</div>
 						<div class="col-md-3 mb-3">
 						<br>	
 							<div class="text-center">
-								<button class="btn btn-primary" type="submit" id="addNewUser">Добавить</button>
+								<button class="btn btn-primary" type="submit" id="saveChangedUser" disabled>Сохранить изменения</button>
 							</div>
 						</div>
 					</div>
@@ -124,7 +125,9 @@
 										<th scope="col">Email</th>
 										<th scope="col">Телефон</th>
 										<th scope="col">Роль</th>
-										<th scope="col">Удалить</th>
+										<th scope="col">Изменить / Удалить</th>
+<!--  									<th scope="col">Изменить</th>
+										<th scope="col">Удалить</th>-->	
 									</tr>
 								</thead>
 								<tbody>
@@ -151,16 +154,29 @@ $(document).ready(function() {
 	    contentType: 'application/json',
 	    success: function (data) {
 			data.forEach(function (item){	
-			var rowl = '<tr><td>' + item.contragentName + '</td>' +
-				'<td>' + item.phone1 + '</td>' +
-				'<td>' + item.inn + '</td>' +
-				'<td>' + item.unk + '</td>' + 
-				'<td class="text-center"><button id="'+ item.contragentId +'" class="delete btn btn-primary" type="submit">Удалить</button></td></tr>';
-			$('#contragentTable > tbody').append(rowl);
-			var sel = "[id='" + item.contragentId + "']";
-			$(sel).click(function (id) {	
-				var json = { "contragentId" : item.contragentId };
-		        if (confirm('Вы желаете удалить данного поставщика из вашей базы?')) {
+			var roleName;
+			if(item.userRoleMapsByUserId[0].roleId == 1){
+				roleName = "admin";
+			} else {
+				roleName = "user";
+			}
+			var rowl = '<tr id = "' +  item.userId + '">' +
+				'<td>' + item.userName + '</td>' +
+				'<td>' + item.userLastname + '</td>' +
+				'<td>' + item.login + '</td>' +
+				'<td>' + item.eMail + '</td>' +
+				'<td>' + item.phone + '</td>' + 
+				'<td>' + roleName + '</td>' + 
+				'<td class="text-center"><input type="button" changeId="'+ item.userId +'" class="change btn btn-primary" value="Изменить">' + ' / ' +
+				'<button deleteId="'+ item.userId +'" class="delete btn btn-primary" type="submit">Удалить</button></td></tr>';
+<!--				'<td class="text-center"><input type="button" changeId="'+ item.userId +'" class="change btn btn-primary" value="Изменить"></td>' +
+				'<td class="text-center"><button deleteId="'+ item.userId +'" class="delete btn btn-primary" type="submit">Удалить</button></td></tr>'; 
+				-->	
+			$('#usersTable > tbody').append(rowl);	
+			var did = "[deleteId='" + item.userId + "']";
+			$(did).click(function (id) {	
+				var json = { "userId" : item.userId };
+		        if (confirm('Вы желаете удалить данного пользователя из вашей базы?')) {
 		        	$.ajax({
 						type : "DELETE",
 						contentType : "application/json",
@@ -178,34 +194,58 @@ $(document).ready(function() {
 					});
 		        }
 			});
+			var cid = "[changeId='" + item.userId + "']";
+			$(cid).click(function (cid) {
+				$('#userId').val(item.userId);
+				$('#userName').val(item.userName);
+				$('#userLastName').val(item.userLastname);
+				$('#userLogin').val(item.login);
+				$('#userEmail').val(item.eMail);
+				$('#userPhone').val(item.phone);	
+				item.userRoleMapsByUserId.forEach(function (item){
+					if(item.roleId == 1){
+						document.querySelector('#adminRole').checked = true;
+					} else if(item.roleId == 2) {
+						document.querySelector('#userRole').checked = true;
+					}	
+				});
+			});
 			});    	
 	    }
 	});	
 	
-	$("#addNewUser").click(function() {		
-		var contragentName = $('#nameContragent').val();
-		var address = $('#addressContragent').val();
-		var phone1 = $('#phone1Contragent').val();
-		var phone2 = $('#phone2Contragent').val();
-		var inn = $('#innContragent').val();
-		var unk = $('#unkContragent').val();
-		var zipCode = $('#zipCodeContragent').val();
+	$("#saveChangedUser").click(function() {	
+		var userId = $('#userId').val();
+		var userName = $('#userName').val();
+		var userLastName = $('#userLastName').val();
+		var userLogin = $('#userLogin').val();
+		var userEmail = $('#userEmail').val();
+		var userPhone = $('#userPhone').val();
+		var userPass = $('#userPass').val();
+		var userRoleMap = [];
+		var roleId = $('input:checkbox:checked').each(function(){
+			var userRole = {
+				"userId" : userId,
+				"roleId" : $(this).val()	
+			}
+			userRoleMap.push(userRole);
+		});
 		var json = {
-			"contragentName" : contragentName,
-			"address" : address,
-			"phone1" : phone1,
-			"phone2" : phone2,
-			"inn" : inn,
-			"unk" : unk,
-			"zipCode" : zipCode		
+			"eMail" : userEmail,	
+			"login" : userLogin,	
+			"password" : userPass,
+			"phone" : userPhone,
+			"userId" : userId,
+			"userLastname" : userLastName,
+			"userName" : userName,
+			"userRoleMapsByUserId" : userRoleMap
 		}; 
-		var contragentsEntity = JSON.stringify(json);
-        if (confirm('Вы желаете добавить данного поставщика в вашу базу?')) {
+        if (confirm('Вы желаете изменить данные пользователя в вашей базе?')) {
         	$.ajax({
     			type : "POST",
     			contentType : "application/json",
-    			url : "/users/addNewUser",
-    			data : contragentsEntity,
+    			url : "/users/updateUser",
+    			data : JSON.stringify(json),
     			dataType : 'json',
     			cache : false,
     			timeout : 600000,
@@ -216,11 +256,24 @@ $(document).ready(function() {
     				alert(data.responseText);
     			}
     		});	
+        	location.reload(true)
         }
 	});
 	
 	$("#usersTable").searcher({
 	    inputSelector: "#findUser"
+	});
+	
+	$("#userRepeatPass").on("keyup", function() { 
+		var passwordValue = $("#userPass").val();
+		var passwordRepeatValue = $("#userRepeatPass").val();
+		if(passwordValue != passwordRepeatValue || passwordRepeatValue.replace(/^\s+|\s+$/g, '') == 0) { 
+			alert("Пароли не совпадают!"); 
+			$("#saveChangedUser").attr("disabled", "disabled");
+		} else { 
+//			buttons.filter(".disabled").removeClass("disabled").attr('disabled',false);
+			$("#saveChangedUser").removeAttr("disabled");
+		}
 	});
 	
 });

@@ -25,7 +25,7 @@
                     <b>Учет товара</b>
                 </h4>
                 <li><a href="/addproduct">Добавить товар</a></li>
-                <li><a href="#">Список товаров</a></li>
+                <li><a href="/listproduct">Список товаров</a></li>
                 <li><a href="/productsale">Продажа товара</a></li>
                 <li><a href="/productwriteoff">Списание товара</a></li>
             </ul>

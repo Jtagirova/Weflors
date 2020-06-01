@@ -16,5 +16,8 @@ public class ProductDetailsServiceImpl {
                 productDetailsEntity.getProductDescription(), productDetailsEntity.getHeight(),
                 productDetailsEntity.getLength(), productDetailsEntity.getWidth(), productDetailsEntity.getColor());
     }
+    
+    
+    
 
 }

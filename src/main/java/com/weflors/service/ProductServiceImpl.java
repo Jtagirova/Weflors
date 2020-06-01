@@ -13,19 +13,20 @@ public class ProductServiceImpl {
     @Autowired
     private ProductRepository productRepository;
 
-
-
     public ProductEntity saveProduct(ProductEntity productEntity){
         return productRepository.save(productEntity);
     }
 
-    public List<Integer> getAllProductId()
-    {
+    public List<Integer> getAllProductId(){
         return productRepository.getAllProductId();
     }
 
     public ProductEntity findByProductId(Integer productId){
         return productRepository.findByProductID(productId);
+    }
+    
+    public List<ProductEntity> getFullListOfProducts(){
+        return productRepository.findAll();
     }
 
 }

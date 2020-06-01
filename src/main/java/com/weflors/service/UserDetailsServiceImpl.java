@@ -1,18 +1,14 @@
 package com.weflors.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
-import com.weflors.entity.RoleEntity;
 import com.weflors.entity.UserEntity;
 import com.weflors.entity.UserRoleMapEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -69,10 +65,29 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	
 	
 	public List<UserEntity> getAllUsers(){
-		List<UserEntity> users = userRepository.findAll();
-		return users;
+		return userRepository.findAll();
 	}
 	
-	
-
+	 public void deleteUser(Integer userId) {
+		 userRepository.deleteByUserId(userId);
+	 }
+	 
+	 public Boolean updateUser(UserEntity userEntity) {
+		 String password = bCryptPasswordEncoder.encode(userEntity.getPassword());
+		 userRepository.updateUserInformation(userEntity.geteMail(), userEntity.getUserName(),password,
+				 		userEntity.getUserLastname(), userEntity.getLogin(), userEntity.getPhone(), userEntity.getUserId());
+		 for(UserRoleMapEntity userMap : userEntity.getUserRoleMapsByUserId()) {
+			 userRoleMapRepository.deleteUserRoleById(userMap.getUserId()); 
+		 }	
+		 for(UserRoleMapEntity userMap : userEntity.getUserRoleMapsByUserId()) {
+			 userRoleMapRepository.saveUserRoleMap(userMap.getUserId(), userMap.getRoleId());
+		 }	 
+		 return true;
+	 }
+	 
+	 public Boolean existUser(Integer userId) {
+		 userRepository.existById(userId);
+		 return true;
+	 }
+	 
 }

@@ -4,7 +4,6 @@ import com.weflors.entity.ProductStatusEntity;
 import com.weflors.entity.ProductStatusEntityPK;
 import com.weflors.repository.ProductStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -36,6 +35,5 @@ public class ProductStatusService {
     public ProductStatusEntity getOne(ProductStatusEntityPK productStatusEntityPK){
         return productStatusRepository.getOne(productStatusEntityPK);
     }
-
 
 }

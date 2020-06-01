@@ -15,7 +15,6 @@ public class UserEntity {
     private int userId;
     private String eMail;
     private String userName;
-    
     private String password;
     private String passwordConfirm;
     private String userLastname;
@@ -23,13 +22,22 @@ public class UserEntity {
     private String phone;
     private Collection<UserRoleMapEntity> userRoleMapsByUserId;
     
-
-    
     public UserEntity() {
     }
-    
-    
-    @Id
+
+    public UserEntity(int userId, String eMail, String userName, String password, String userLastname, String login,
+			String phone, Collection<UserRoleMapEntity> userRoleMapsByUserId) {
+		this.userId = userId;
+		this.eMail = eMail;
+		this.userName = userName;
+		this.password = password;
+		this.userLastname = userLastname;
+		this.login = login;
+		this.phone = phone;
+		this.userRoleMapsByUserId = userRoleMapsByUserId;
+	}
+
+	@Id
    // @SequenceGenerator(name = "hibernateSeq", sequenceName = "HIBERNATE_SEQUENCE")
     @GeneratedValue( strategy = GenerationType.AUTO)//, generator = "hibernateSeq")
     @Column(name = "user_id", nullable = false)

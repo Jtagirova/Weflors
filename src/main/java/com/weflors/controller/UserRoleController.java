@@ -5,12 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.weflors.entity.UserEntity;
+import com.weflors.entity.UserRoleMapEntity;
 import com.weflors.service.UserDetailsServiceImpl;
 
 
@@ -27,39 +31,32 @@ public class UserRoleController {
         return "users";
     }
 
-
 	@GetMapping("/listUsers")
 	@ResponseBody
 	public List<UserEntity> addListOfUser() {
-		List<UserEntity> listUser = userDetailsServiceImpl.getAllUsers();
-	    return listUser;
+	    return userDetailsServiceImpl.getAllUsers();
 	}
 
-	
-	
-	
-	
-/*	
-	@PostMapping("/addNewUser")
-	@ResponseBody
-	public String addNewProductType(@RequestBody ProductTypesEntity productTypesEntity) {
-		if(productTypesEntity.getProductTypeName().isEmpty()) {
-			return "Поле Категория товара обязательна к заполнению";
-		}
-		if(productTypeService.existByProductName(productTypesEntity.getProductTypeName())  != null) { 
-			return "Категория товара с таким именем уже существует в БД";
-		} else {
-			productTypeService.saveNewProductType(productTypesEntity);
-			return "Новая категория товара добавлена";
-		}
-	}
-	
 	@DeleteMapping("/deleteUser")
 	@ResponseBody
-	public String deleteProductType(@RequestBody ProductTypesEntity productTypesEntity) {
-		productTypeService.deleteProductType(productTypesEntity.getProductTypeId());
-		return "Категория товара была удалена";
+	public String deleteUser(@RequestBody UserEntity userEntity) {
+		userDetailsServiceImpl.deleteUser(userEntity.getUserId());
+		return "Пользователь был удалена";
 	}
-	*/
+	
+	@PostMapping("/updateUser")
+	@ResponseBody
+	public String updateUserInfo(@RequestBody UserEntity userEntity) {
+		if(!userDetailsServiceImpl.existUser(userEntity.getUserId())) {
+			return "Такого пользователя нет в базе данных";
+		}
+		if(userEntity.geteMail().isEmpty() || userEntity.getPassword().isEmpty() || userEntity.getUserRoleMapsByUserId().isEmpty()) {
+			return "Поля Email, Пароль и Роль обязательна к заполнению";
+		}
+		if(userDetailsServiceImpl.updateUser(userEntity) == true) {;
+			return "Данные пользователя обновлены в базе";
+		}
+		return "Проблема с обновлением данных пользователя в базе";
+	}
 	
 }

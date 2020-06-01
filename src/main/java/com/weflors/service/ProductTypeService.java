@@ -1,6 +1,5 @@
 package com.weflors.service;
 
-import com.weflors.entity.ContragentsEntity;
 import com.weflors.entity.ProductTypesEntity;
 import com.weflors.repository.ProductTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

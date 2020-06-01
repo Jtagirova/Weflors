@@ -45,8 +45,30 @@ public class ProductEntity {
 
     public ProductEntity() {
     }
+ 
+    
 
-    @Id
+    public ProductEntity(int productId, String productName, String articul, String pictureUrl, String originOfProduct,
+		String invoiceNumber, BigDecimal productPrice, Collection<ProcurementEntity> procurementsByProductId,
+		ContragentsEntity contragentsByContragentId, ProductTypesEntity productTypesByProductTypeId,
+		ProductDetailsEntity productDetailsByProductId, Collection<ProductStatusEntity> productStatusByProductId,
+		Collection<SaleEntity> salesByProductId) {
+		this.productId = productId;
+		this.productName = productName;
+		this.articul = articul;
+		this.pictureUrl = pictureUrl;
+		this.originOfProduct = originOfProduct;
+		this.invoiceNumber = invoiceNumber;
+		this.productPrice = productPrice;
+		this.procurementsByProductId = procurementsByProductId;
+		this.contragentsByContragentId = contragentsByContragentId;
+		this.productTypesByProductTypeId = productTypesByProductTypeId;
+		this.productDetailsByProductId = productDetailsByProductId;
+		this.productStatusByProductId = productStatusByProductId;
+		this.salesByProductId = salesByProductId;
+    }
+
+	@Id
    // @SequenceGenerator(name = "hibernateSeq", sequenceName = "HIBERNATE_SEQUENCE")
     @GeneratedValue( strategy = GenerationType.AUTO)//, generator = "hibernateSeq")
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
