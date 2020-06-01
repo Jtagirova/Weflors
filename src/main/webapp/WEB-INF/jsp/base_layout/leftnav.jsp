@@ -36,7 +36,7 @@
             <ul class="nav nav-pills nav-stacked">
                 <li><a href="/contragents">Поставщики</a></li>
                 <li><a href="/typeproduct">Категории товара</a></li>
-                <li><a href="#">Клиенты</a></li>
+                <li><a href="/clients">Клиенты</a></li>
                 <li><a href="/users">Пользователи</a></li>
             </ul>
             <hr>
@@ -44,7 +44,7 @@
                 <b>Отчеты</b>
             </h4>
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="#">Отчет о продажах</a></li>
+                <li><a href="/salesreport">Отчет о продажах</a></li>
                 <li><a href="#">Отчет о списанном товаре</a></li>
 
             </ul>
