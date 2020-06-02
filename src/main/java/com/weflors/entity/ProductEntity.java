@@ -2,6 +2,7 @@ package com.weflors.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -10,6 +11,8 @@ import java.util.Collection;
 @Entity
 @Table(name = "product", schema = "flowershop", catalog = "postgres")
 public class ProductEntity {
+	
+//	@JsonProperty("myProductId")
     private int productId;
     private String productName;
     private String articul;
@@ -47,18 +50,15 @@ public class ProductEntity {
     }
  
     
-
-    public ProductEntity(int productId, String productName, String articul, String pictureUrl, String originOfProduct,
-		String invoiceNumber, BigDecimal productPrice, Collection<ProcurementEntity> procurementsByProductId,
+/*
+    public ProductEntity(int productId, String productName, String articul,  BigDecimal productPrice, 
+    	Collection<ProcurementEntity> procurementsByProductId,
 		ContragentsEntity contragentsByContragentId, ProductTypesEntity productTypesByProductTypeId,
 		ProductDetailsEntity productDetailsByProductId, Collection<ProductStatusEntity> productStatusByProductId,
 		Collection<SaleEntity> salesByProductId) {
 		this.productId = productId;
 		this.productName = productName;
 		this.articul = articul;
-		this.pictureUrl = pictureUrl;
-		this.originOfProduct = originOfProduct;
-		this.invoiceNumber = invoiceNumber;
 		this.productPrice = productPrice;
 		this.procurementsByProductId = procurementsByProductId;
 		this.contragentsByContragentId = contragentsByContragentId;
@@ -67,7 +67,7 @@ public class ProductEntity {
 		this.productStatusByProductId = productStatusByProductId;
 		this.salesByProductId = salesByProductId;
     }
-
+*/
 	@Id
    // @SequenceGenerator(name = "hibernateSeq", sequenceName = "HIBERNATE_SEQUENCE")
     @GeneratedValue( strategy = GenerationType.AUTO)//, generator = "hibernateSeq")
@@ -269,7 +269,7 @@ public class ProductEntity {
         return salesByProductId;
     }
 
-    public void setSalesByProductId(Collection<SaleEntity> salessByProductId) {
+    public void setSalesByProductId(Collection<SaleEntity> salesByProductId) {
         this.salesByProductId = salesByProductId;
     }
 }

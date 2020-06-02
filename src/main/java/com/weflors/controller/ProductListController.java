@@ -19,25 +19,27 @@ import com.weflors.service.ProductServiceImpl;
 
 
 @Controller
-@RequestMapping("/listproduct")
+@RequestMapping("/productslist")
 public class ProductListController {
 	
 	@Autowired
 	private ProductServiceImpl productServiceImpl;
-		
+	
 	@GetMapping
     public String addProductListPage(Model model) {
+		List<ProductEntity> productList = productServiceImpl.getFullListOfProducts();
 		model.addAttribute("formName", "Список продуктов");
-        return "listproduct";
+//		model.addAttribute("productList", productList);
+        return "productslist";
     }
-	
+/*	
 	@GetMapping("/listOfProducts")
 	@ResponseBody
 	public List<ProductEntity> addFullListProducts() {
 		List<ProductEntity> list = productServiceImpl.getFullListOfProducts();
 	    return list;
 	}
-	
+*/	
 }
 
 

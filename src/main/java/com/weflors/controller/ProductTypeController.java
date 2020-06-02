@@ -39,7 +39,7 @@ public class ProductTypeController {
 	@ResponseBody
 	public String addNewProductType(@RequestBody ProductTypesEntity productTypesEntity) {
 		if(productTypesEntity.getProductTypeName().isEmpty()) {
-			return "Поле Название категории товара обязательно к заполнению";
+			return "Поле Наименование категории обязательно к заполнению";
 		}
 		if(productTypeService.existByProductName(productTypesEntity.getProductTypeName())  != null) { 
 			return "Категория товара с таким именем уже существует в БД";

@@ -50,8 +50,10 @@ public class UserRoleController {
 		if(!userDetailsServiceImpl.existUser(userEntity.getUserId())) {
 			return "Такого пользователя нет в базе данных";
 		}
-		if(userEntity.geteMail().isEmpty() || userEntity.getPassword().isEmpty() || userEntity.getUserRoleMapsByUserId().isEmpty()) {
-			return "Поля Email, Пароль и Роль обязательна к заполнению";
+		if(userEntity.getUserName().isEmpty() || userEntity.getUserLastname().isEmpty() ||
+		   userEntity.geteMail().isEmpty() || userEntity.getPassword().isEmpty() || 
+		   userEntity.getUserRoleMapsByUserId().isEmpty() || userEntity.getLogin().isEmpty()) {
+			return "Поля Имя, Фамилия, Email, Логин, Пароль и Роль обязательна к заполнению";
 		}
 		if(userDetailsServiceImpl.updateUser(userEntity) == true) {;
 			return "Данные пользователя обновлены в базе";

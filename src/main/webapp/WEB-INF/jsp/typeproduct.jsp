@@ -32,7 +32,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-4 mb-4">
-							<input type="text" class="form-control" id="findNameProductType" placeholder="Введите имя категории товара"/>
+							<input type="text" class="form-control" id="findNameProductType" placeholder="По наименованию"/>
 						</div>
 					</div>	
 					<br><br>
@@ -40,12 +40,12 @@
 				<div class="col-md-12 form-group">
 					<div class="row">
 						<div class="col-md-6 mb-6">
-							<h3>Добавление новой категории товара</h3>
+							<h3>Добавление категории товара</h3>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-4 mb-3">
-							<input type="text" class="form-control" id="productTypeName" name="productTypeName" placeholder="Название категории товара*"/>
+							<input type="text" class="form-control" id="productTypeName" name="productTypeName" placeholder="Наименование категории"/>
 						</div>
 						<div class="col-md-4 mb-3">
 						</div>

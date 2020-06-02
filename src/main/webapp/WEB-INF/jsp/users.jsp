@@ -48,11 +48,11 @@
 					<div class="row">
 						<div class="col-md-3 mb-3">
 							<input type="hidden" id="userId" name="userId" >
-							<label for="userName">Имя</label>
+							<label for="userName">Имя*</label>
 							<input type="text" class="form-control" id="userName" name="userName" placeholder="Имя" />
 						</div>
 						<div class="col-md-3 mb-3">
-							<label for="userLastName">Фамилия</label>
+							<label for="userLastName">Фамилия*</label>
 							<input type="text" class="form-control" id="userLastName" name="userLastName"  placeholder="Фамилия"/>
 						</div>
 						<div class="col-md-3 mb-3">
@@ -79,7 +79,7 @@
 					<br><br>
 					<div class="row">
 						<div class="col-md-3 mb-3">
-							<label for="userLogin">Логин</label>
+							<label for="userLogin">Логин*</label>
 							<input type="text" class="form-control" id="userLogin" name="userLogin" placeholder="Логин"/>
 						</div>
 						<div class="col-md-3 mb-3">
@@ -87,7 +87,7 @@
 							<input type="password" class="form-control" id="userPass" name="userPass" placeholder="Пароль"/>
 						</div>
 						<div class="col-md-3 mb-3">
-							<label for="userRepeatPass">Повторить пароль</label>
+							<label for="userRepeatPass">Повторить пароль*</label>
 							<input type="password" class="form-control" id="userRepeatPass" name="userRepeatPass" placeholder="Повторить пароль" />
 						</div>
 						<div class="col-md-3 mb-3">
@@ -156,9 +156,9 @@ $(document).ready(function() {
 			data.forEach(function (item){	
 			var roleName;
 			if(item.userRoleMapsByUserId[0].roleId == 1){
-				roleName = "admin";
+				roleName = "Администратор";
 			} else {
-				roleName = "user";
+				roleName = "Пользователь";
 			}
 			var rowl = '<tr id = "' +  item.userId + '">' +
 				'<td>' + item.userName + '</td>' +
@@ -209,6 +209,7 @@ $(document).ready(function() {
 						document.querySelector('#userRole').checked = true;
 					}	
 				});
+				
 			});
 			});    	
 	    }
@@ -264,14 +265,13 @@ $(document).ready(function() {
 	    inputSelector: "#findUser"
 	});
 	
-	$("#userRepeatPass").on("keyup", function() { 
+	$("#userRepeatPass").on("blur", function() { 
 		var passwordValue = $("#userPass").val();
 		var passwordRepeatValue = $("#userRepeatPass").val();
-		if(passwordValue != passwordRepeatValue || passwordRepeatValue.replace(/^\s+|\s+$/g, '') == 0) { 
+		if(passwordValue != passwordRepeatValue ) { 
 			alert("Пароли не совпадают!"); 
 			$("#saveChangedUser").attr("disabled", "disabled");
 		} else { 
-//			buttons.filter(".disabled").removeClass("disabled").attr('disabled',false);
 			$("#saveChangedUser").removeAttr("disabled");
 		}
 	});
