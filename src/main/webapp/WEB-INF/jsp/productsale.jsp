@@ -135,7 +135,7 @@
                                 <th scope="col" class="text-center">Количество товара</th>
                                 <th scope="col" class="text-center">Цена за еденицу</th>
                                 <th scope="col" class="text-center">Скидка %</th>
-                                <th scope="col" class="text-center">Стоимость товара за еденицу</th>
+                                <th scope="col" class="text-center">Стоимость товара за единицу</th>
                                 <th scope="col" class="text-center">Итого</th>
                                 <th scope="col" class="text-center">Удаление</th>
                                 <th scope="col" hidden>Email</th>
@@ -272,10 +272,10 @@
 			var productName = $("#products").find('option:selected').text();
 			var productId = $("#products").find('option:selected').val();
 			var articul = $('#articul').val();
-			var productPriceAfterDiscount = $('#productPriceAfterDiscount').val();
-			var productQuantity =$('#productQuantity').val();
-			var productPrice = $('#productPrice').val();
-			var discount = $('#discount').val();
+			let productPriceAfterDiscount = Number($('#productPriceAfterDiscount').val()).toFixed(2);
+			let productQuantity = Number($('#productQuantity').val());
+			let productPrice = Number($('#productPrice').val());
+			let discount = Number($('#discount').val());
             var productValidityDate = $('#productValidityDate').find('option:selected').text();
 			var saleDate = Date.now();
 			var clientEmail =  $("#allClientsEmail").find('option:selected').text();
@@ -300,7 +300,6 @@
                 "productStatusByProductId" : productStatusArr,
                 //"salesByProductId" : saleArr
             };
-
             var sale = {
                 "productId" : productId,
                 "articul" : articul,
@@ -313,28 +312,31 @@
                 "clientByClientId": clientByClientId
             };
             saleArr.push(sale);  
-			var total = productPriceAfterDiscount * productQuantity;
+			let priceForOneAfterDiscont = Number(productPriceAfterDiscount/productQuantity).toFixed(2);
 			var rowId = '$<tr id="' + ++tableNumOfRows + '">';
 			var rowl = rowId + '<td>' + productName + '</td>'
 					+'<td>' + articul + '</td>'
 					+'<td>' + productQuantity + '</td>'
 					+'<td>' + productPrice + '</td>'
 					+'<td>' + discount + '</td>'
-					+'<td>' + productPriceAfterDiscount + '</td>'
-					+'<td>' + total + '</td>'
-					+'<td> <button class="deleteRow btn btn-primary" id="' + tableNumOfRows + ' type="submit"">Удалить</button></td>'
+					+'<td>' + priceForOneAfterDiscont + '</td>'
+					+'<td class="summPrices">' + productPriceAfterDiscount + '</td>'
+					+'<td class="text-center"> <button class="deleteRow btn btn-primary" id="' + tableNumOfRows + ' type="submit"">Удалить</button></td>'
 					+'</tr>';
-			
-						
+
 			saleTable.addEventListener('click', function(evt){
-	          	  if(evt.target.closest('.deleteRow')) {
-	          	  	evt.target.closest('tr').remove();
-	          	  $('#saleTable > tfoot > tr > td').text(tableTotalSum);
-	          	  };
-	          	  
+	          	if(evt.target.closest('.deleteRow')) {
+	          		evt.target.closest('tr').remove();
+	          		var elems = $(".summPrices"); 	
+	          		var sum = 0;       			
+	          		for (var i = 0; i < elems.length; ++i){
+	          			sum = sum + Number(elems[i].innerText);
+	          		};
+	          	  	$('#saleTable > tfoot > tr > td').text(sum);
+	          	};  
 	        });
-			
-			tableTotalSum = tableTotalSum + total;
+
+			tableTotalSum = tableTotalSum + Number(productPriceAfterDiscount);
 			$('#saleTable > tbody').append(rowl);
 			//var totalRowCount = $('#saleTable > tbody').rows.length;
 			$('#saleTable > tfoot > tr > td').text(tableTotalSum);
@@ -346,7 +348,6 @@
 			$('#productQuantity').val("");
 			$("#productPriceAfterDiscount").val("");
             $('#productValidityDate').find('option:not(:first)').remove();
-
             $("#addtocheck").attr("disabled", "disabled");
 		});
 
@@ -398,9 +399,9 @@
 			($("#productPrice").val() *  $('#productQuantity').val()) - ($("#productPrice").val() * $("#discount").val()/100 )
 		);
 		$("#addtocheck").removeAttr("disabled");
-		if ($("#productPrice").val() == 0 && $('#productQuantity').val() == 0 && $("#discount").val() == 0){
+		if ( $('#productQuantity').val() == '' || $("#discount").val() == ''){
+			alert("Для добавления в чек необходимо заполнить поля Скидка и Количество товара");
 			$("#addtocheck").attr("disabled", "disabled");
-			alert("Для добавления в чек необходимо заполнить поля Цена, Скидка и Количество товара");
 		}
 	});
 
