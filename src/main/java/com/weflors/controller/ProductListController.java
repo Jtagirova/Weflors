@@ -28,7 +28,7 @@ public class ProductListController {
 		List<ProductEntity> productList = productServiceImpl.getFullListOfProducts();
 //		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 //	    String productList = ow.writeValueAsString(list);
-		model.addAttribute("formName", "Список продуктов");
+		model.addAttribute("formName", "Список товаров");
 		model.addAttribute("productList", productList);
         return "productslist";
     }
