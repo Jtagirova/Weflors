@@ -21,37 +21,41 @@
 <%--            <form>--%>
                 <div class="col-md-8 form-group">
                     <div class="row">
+                          <div class="col-md-4 mb-4">
+                               <label for="products">Наименование</label>
+                               <form:select id="products" class="form-control" path="products">
+                                   <form:option value="NONE" label="Наименование" />
+                                   <form:options items="${products}" itemValue="productId"
+                                                 itemLabel="productName" />
+                               </form:select>
+                          </div>
 
-                            <div class="col-md-4 mb-4">
-                                <label for="products">Наименование</label>
-                                <form:select id="products" class="form-control" path="products">
-                                    <form:option value="NONE" label="Наименование" />
-                                    <form:options items="${products}" itemValue="productId"
-                                                  itemLabel="productName" />
-                                </form:select>
-                            </div>
-
-                            <div class="col-md-4 mb-4">
+                          <div class="col-md-4 mb-4">
+                               <label for="articul">Артикул</label>
+ <!--                               
+                               <form:select id="products" class="form-control" path="products">
+                                   <form:option value="NONE" label="Наименование" />
+                                   <form:options items="${products}" itemValue="productId"
+                                                 itemLabel="productName" />
+                               </form:select>
+ -->                                                           
+                               <input type="text" class="form-control" id="articul" name="articul" />
+                          </div>
+                           
+                          <div class="col-md-4 mb-4">
                                 <label for="products">Срок годности</label>
                                 <select id="productValidityDate" class="form-control" >
                                     <option value="NONE" label="Срок годности" />
 <%--                                    <options items="${productValidityDate}"  />--%>
                                 </select>
-                            </div>
-
-                            <div class="col-md-4 mb-4">
-                                <label for="articul">Артикул</label>
-                                <input type="text" class="form-control" id="articul" name="articul" />
-                            </div>
-
-
+                          </div>
 
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-4 mb-4">
                             <label for="productPrice">Цена</label>
-                            <input type="text" class="form-control" id="productPrice" name="productPrice" />
+                            <input type="text" class="form-control" id="productPrice" name="productPrice" value="20"/>
                         </div>
                     </div>
                     <br>
@@ -106,7 +110,7 @@
                     <br>
                     <div class="row">
                         <div class="text-right">
-                            <button class="btn btn-primary" type="submit" id="addtocheck">Добавить</button>
+                            <button class="btn btn-primary" type="submit" id="addtocheck" disabled>Добавить</button>
                         </div>
                     </div>
                     <br><br>
@@ -158,14 +162,13 @@
 
 	
 <script>
-
 	$(document).ready(function() {
+		
 		$("#products").change(function() {
 			var products = $(this).find(":selected").val();
 			var json = {
 				"productId" : products
 			};
-
 			$.ajax({
 				type : "POST",
 				contentType : "application/json",
@@ -180,7 +183,6 @@
 					//console.log(data.procurementsByProductId.procurementPrice);
 					 $('#productPrice').val(data.productPrice);
 					 //$('#productValidityDate').val(data.productStatusByProductId);
-
                     let validityDateOptions = document.getElementById('productValidityDate').options;
                     $('#productValidityDate').find('option:not(:first)').remove();
                     let productStatusArray = data.productStatusByProductId;
@@ -191,8 +193,6 @@
                             new Option(value, value)
                         );
                     }
-
-
 				},
 				 error : function(e) {
 					 $('#articul').val("");
@@ -217,11 +217,12 @@
 				timeout : 600000,
 				success : function(data) {
 					$('#discount').val(data.discount);
-					if(data.discount != '' && data.discount != 0) {
+/*					if(data.discount != '' && data.discount != 0) {
 						$("#productPriceAfterDiscount").val($('#productPrice').val() - ($('#productPrice').val() * ($('#discount').val() / 100)));
 					}else{
 						$("#productPriceAfterDiscount").val($('#productPrice').val());
 					}
+*/					
 				},
 				error : function(e) {
 					$('#discount').val("");
@@ -243,11 +244,9 @@
 		//var productArr = [];
         var saleArr = [];
 		$( "#addtocheck" ).click(function() {
-
             var productStatusArr = [];
 			var productName = $("#products").find('option:selected').text();
 			var productId = $("#products").find('option:selected').val();
-
 			var articul = $('#articul').val();
 			var productPriceAfterDiscount = $('#productPriceAfterDiscount').val();
 			var productQuantity =$('#productQuantity').val();
@@ -262,15 +261,12 @@
 				"eMail": clientEmail
 			}
 			var productSaleDetails = '';
-
             var productStatus = {
                 "productId" : productId,
                 "articul" : articul,
                 "quantityShopSale" : productQuantity,
                 "validityDate" : productValidityDate
-
             }
-
             productStatusArr.push(productStatus);
             var product = {
                 "productId" : productId,
@@ -280,7 +276,6 @@
                 "productStatusByProductId" : productStatusArr,
                 //"salesByProductId" : saleArr
             };
-
             var sale = {
                 "productId" : productId,
                 "articul" : articul,
@@ -292,12 +287,7 @@
                 "productByProductId" : product,
                 "clientByClientId": clientByClientId
             };
-
             saleArr.push(sale);
-
-         //   productArr.push(product);
-
-
 			var total = productPriceAfterDiscount * productQuantity;
 			var rowId = '$<tr id="' + ++tableNumOfRows + '">';
 			var rowl = rowId + '<td>' + productName + '</td>'
@@ -308,7 +298,6 @@
 					+'<td>' + productPriceAfterDiscount + '</td>'
 					+'<td >' + total + '</td>'
 					+'</tr>';
-
 			tableTotalSum = tableTotalSum + total;
 			$('#saleTable > tbody').append(rowl);
 			//var totalRowCount = $('#saleTable > tbody').rows.length;
@@ -321,7 +310,8 @@
 			$('#productQuantity').val("");
 			$("#productPriceAfterDiscount").val("");
             $('#productValidityDate').find('option:not(:first)').remove();
-
+            
+            $("#addtocheck").attr("disabled", "disabled");
 		});
 
 		$( "#addSaleProducts" ).click(function() {
@@ -350,7 +340,7 @@
 		});
 
 
-	});
+	
 	// const productElement = document.querySelector('#products');
 	// productElement.addEventListener('change', (event) => {
 	// 	document.querySelector('#articul').value = productElement.options[productElement.selectedIndex].value;
@@ -361,6 +351,24 @@
 	// clientElement.addEventListener('change', (event) => {
 	// 	document.querySelector('#discount').value = clientElement.value;
 	// });
+
+	
+	$("#allClientsEmail").change('click', function () {
+        $('#productQuantity').val("0");
+    });
+	
+	$('input').change(function(){
+		$("#productPriceAfterDiscount").val(
+			($("#productPrice").val() *  $('#productQuantity').val()) - ($("#productPrice").val() * $("#discount").val()/100 )		
+		);
+		$("#addtocheck").removeAttr("disabled");
+		if ($("#productPrice").val() == 0 && $('#productQuantity').val() == 0 && $("#discount").val() == 0){
+			$("#addtocheck").attr("disabled", "disabled");
+			alert("Для добавления в чек необходимо заполнить поля Цена, Скидка и Количество товара");
+		}
+	});
+	
+});	
 
 </script>
 

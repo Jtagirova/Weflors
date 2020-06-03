@@ -32,8 +32,7 @@ public class ProductSaleController {
 	@RequestMapping(value = {"/productsale"}, method = RequestMethod.GET)
     public String addProductPage(Model model) {
         List<ProductEntity> products = saleServiceImpl.getAllProduct();
-
-
+        
         model.addAttribute("products", products);
         model.addAttribute("allClientsEmail", clientService.getAllClients());
         model.addAttribute("saleForm", new SaleEntity());

@@ -34,11 +34,3 @@ public class ProductServiceImpl {
     }
 
 }
-
-/*
-List<ProductEntity> productList = new ArrayList<>();
-productList = list.stream().map(a -> new ProductEntity(a.getProductId(), a.getProductName(), 
-		a.getArticul(), a.getProductPrice(), a.getProcurementsByProductId(),a.getContragentsByContragentId(),
-		a.getProductTypesByProductTypeId(), a.getProductDetailsByProductId(), a.getProductStatusByProductId(), 
-		a.getSalesByProductId())).collect(Collectors.toList());
-*/
