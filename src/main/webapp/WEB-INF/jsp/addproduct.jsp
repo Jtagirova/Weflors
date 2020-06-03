@@ -47,7 +47,7 @@
                 <div class="col-md-8 form-group">
                     <div class="row">
                         <div class="col-md-6 mb-4">
-                            <label for="nomernakladnoj">Номер накладной</label>
+                            <label for="nomernakladnoj">Номер накладной*</label>
                             <input type="text" class="form-control" id="nomernakladnoj" placeholder="Номер накладной"
                                    required>
                         </div>
@@ -60,7 +60,7 @@
                     <br>
                     <div class="row">
                         <div class="col-md-6 mb-4">
-                            <label for="productarticul">Артикул</label>
+                            <label for="productarticul">Артикул*</label>
                             <input type="text" class="form-control" id="productarticul" placeholder="Артикул товара"
                                    required>
                         </div>
@@ -73,7 +73,7 @@
                     <br>
                     <div class="row">
                         <div class="col-md-6 mb-4">
-                            <label for="productname">Наименование товара</label>
+                            <label for="productname">Наименование товара*</label>
                             <input type="text" class="form-control" id="productname" placeholder="Наименование товара"
                                    required>
                         </div>
@@ -86,7 +86,7 @@
                     <br>
                     <div class="row">
                         <div class="col-md-6 mb-4">
-                            <label for="productTypeList">Категория товара</label>
+                            <label for="productTypeList">Категория товара*</label>
                             <form:select class="form-control" path="productTypeList" id="productTypeList">
                                 <form:option value="NONE" label="Категория товара"/>
                                 <form:options items="${productTypeList}" itemValue="productTypeId"
@@ -140,13 +140,13 @@
                     <br>
                     <div class="row">
                         <div class="col-md-4 mb-4">
-                            <label for="procurementcountry">Страна поставки</label>
+                            <label for="procurementcountry">Страна поставки*</label>
                             <input type="text" class="form-control" id="procurementcountry"
                                    placeholder="Страна поставки">
                         </div>
 
                         <div class="col-md-4 mb-4">
-                            <label class="custom-file-label" for="contragents">Поставщик</label>
+                            <label class="custom-file-label" for="contragents">Поставщик*</label>
                             <form:select class="form-control" path="contragents" id="contragents">
                                 <form:option value="NONE" label="Выбрать поставщика"/>
                                 <form:options items="${contragents}" itemValue="contragentId"
@@ -154,7 +154,7 @@
                             </form:select>
                         </div>
                         <div class="col-md-4 mb-4">
-                            <label for="procurementdate">Дата поставки</label>
+                            <label for="procurementdate">Дата поставки*</label>
                             <input type="date" class="form-control" id="procurementdate">
                         </div>
                     </div>
@@ -163,7 +163,7 @@
                     <div class="row">
 
                         <div class="col-md-2 mb-4">
-                            <label for="productquantity">Количество</label>
+                            <label for="productquantity">Количество*</label>
                             <input type="text" class="form-control" id="productquantity" placeholder="Количество">
                         </div>
                         <div class="col-md-4 mb-4">
@@ -172,12 +172,12 @@
                         </div>
 
                         <div class="col-md-3 mb-4">
-                            <label for="procurementprice">Цена закупки</label>
+                            <label for="procurementprice">Цена закупки*</label>
                             <input type="text" class="form-control" id="procurementprice" placeholder="Цена закупки">
                         </div>
 
                         <div class="col-md-3 mb-4">
-                            <label for="productprice">Цена продажи</label>
+                            <label for="productprice">Цена продажи*</label>
                             <input type="text" class="form-control" id="productprice" placeholder="Цена продажи">
                         </div>
                     </div>
@@ -191,14 +191,21 @@
                         </div>
                     </div>
 
-                    <br>
+                </div>
+
+                <div class="col-md-12 form-group">
                     <div class="row">
-                        <div class="text-right">
-                            <button class="btn btn-primary" type="submit" id="addproduct">Сохранить</button>
+                        <div class="text-left col-md-4 mb-4">
+                            <h6>*поля обязательны к заполнению</h6>
+                        </div>
+                        <div class="col-md-4 col-md-offset-8">
+                            <div class="text-right">
+                                <button class="btn btn-primary" type="submit" id="addproduct">Добавить</button>
+                            </div>
                         </div>
                     </div>
-
                 </div>
+
 
             </form>
 

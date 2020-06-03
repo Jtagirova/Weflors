@@ -21,34 +21,30 @@
 <%--            <form>--%>
                 <div class="col-md-8 form-group">
                     <div class="row">
-                          <div class="col-md-4 mb-4">
-                               <label for="products">Наименование</label>
-                               <form:select id="products" class="form-control" path="products">
-                                   <form:option value="NONE" label="Наименование" />
-                                   <form:options items="${products}" itemValue="productId"
-                                                 itemLabel="productName" />
-                               </form:select>
-                          </div>
 
-                          <div class="col-md-4 mb-4">
-                               <label for="articul">Артикул</label>
- <!--                               
-                               <form:select id="products" class="form-control" path="products">
-                                   <form:option value="NONE" label="Наименование" />
-                                   <form:options items="${products}" itemValue="productId"
-                                                 itemLabel="productName" />
-                               </form:select>
- -->                                                           
-                               <input type="text" class="form-control" id="articul" name="articul" />
-                          </div>
-                           
-                          <div class="col-md-4 mb-4">
+                            <div class="col-md-4 mb-4">
+                                <label for="products">Наименование*</label>
+                                <form:select id="products" class="form-control" path="products">
+                                    <form:option value="NONE" label="Наименование" />
+                                    <form:options items="${products}" itemValue="productId"
+                                                  itemLabel="productName" />
+                                </form:select>
+                            </div>
+
+                            <div class="col-md-4 mb-4">
                                 <label for="products">Срок годности</label>
                                 <select id="productValidityDate" class="form-control" >
                                     <option value="NONE" label="Срок годности" />
 <%--                                    <options items="${productValidityDate}"  />--%>
                                 </select>
-                          </div>
+                            </div>
+
+                            <div class="col-md-4 mb-4">
+                                <label for="articul">Артикул</label>
+                                <input type="text" class="form-control" id="articul" name="articul" />
+                            </div>
+
+
 
                     </div>
                     <br>
@@ -57,10 +53,8 @@
                             <label for="productPrice">Цена</label>
                             <input type="text" class="form-control" id="productPrice" name="productPrice" value="20"/>
                         </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-3 mb-4">
+
+                        <div class="col-md-4 mb-4">
                             <label for="allClientsEmail">Клиент</label>
                             <form:select id="allClientsEmail" class="form-control" path="allClientsEmail">
                                 <form:option value="NONE" label="Клиент" />
@@ -69,17 +63,21 @@
                             </form:select>
                         </div>
 
-                        <div class="col-md-3 mb-4">
+                        <div class="col-md-4 mb-4">
                             <label for="discount">Скидка %</label>
                             <input type="text" class="form-control" id="discount" name="discount" />
                         </div>
 
-                        <div class="col-md-3 mb-4">
-                            <label for="productQuantity">Количество товара </label>
+                    </div>
+                    <br>
+                    <div class="row">
+
+                        <div class="col-md-4 mb-4">
+                            <label for="productQuantity">Количество товара*</label>
                             <input type="text" class="form-control" id="productQuantity" name="productQuantity" />
                         </div>
 
-                        <div class="col-md-3 mb-4">
+                        <div class="col-md-4 mb-4">
                             <label for="productPriceAfterDiscount">Стоимость товара</label>
                             <input type="text" class="form-control" id="productPriceAfterDiscount" name="productPriceAfterDiscount" />
                         </div>
@@ -106,25 +104,40 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 form-group">
-                    <br>
-                    <div class="row">
+            <div class="col-md-12 form-group">
+                <div class="row">
+                    <div class="text-left col-md-4 mb-4">
+                        <h6>*поля обязательны к заполнению</h6>
+                    </div>
+                    <div class="col-md-4 col-md-offset-8">
                         <div class="text-right">
-                            <button class="btn btn-primary" type="submit" id="addtocheck" disabled>Добавить</button>
+                            <button class="btn btn-primary" type="submit" id="addtocheck" disabled>Добавить в чек</button>
                         </div>
                     </div>
+                </div>
+            </div>
+
+                <div class="col-md-12 form-group">
                     <br><br>
                     <div class="row">
+                        <div class="text-left col-md-4 mb-4">
+                            <h3>Формирование чека</h3>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
                         <table class="table table-striped table-bordered table-hover table-responsive" id="saleTable">
                             <thead>
                             <tr>
-                                <th scope="col">Наименование товара</th>
-                                <th scope="col">Артикул</th>
-                                <th scope="col">Количество товара</th>
-                                <th scope="col">Цена за еденицу</th>
-                                <th scope="col">Скидка %</th>
-                                <th scope="col">Стоимость товара за еденицу</th>
-                                <th scope="col">Итого</th>
+                                <th scope="col" class="text-center">Наименование товара</th>
+                                <th scope="col" class="text-center">Артикул</th>
+                                <th scope="col" class="text-center">Количество товара</th>
+                                <th scope="col" class="text-center">Цена за еденицу</th>
+                                <th scope="col" class="text-center">Скидка %</th>
+                                <th scope="col" class="text-center">Стоимость товара за еденицу</th>
+                                <th scope="col" class="text-center">Итого</th>
+                                <th scope="col" class="text-center">Удаление</th>
                                 <th scope="col" hidden>Email</th>
                             </tr>
 
@@ -132,7 +145,7 @@
 
                             <tfoot>
                             <tr>
-                                <th>Всего: </th>
+                                <th class="text-center">Всего: </th>
                                 <td>0</td>
                             </tr>
                             </tfoot>
@@ -141,11 +154,21 @@
                             </tbody>
 
                         </table>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            <div class="col-md-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-8">
                         <div class="text-right">
                             <button class="btn btn-primary" type="submit" id="addSaleProducts">Продать</button>
                         </div>
                     </div>
                 </div>
+            </div>
 <%--            </form>--%>
 
         </div>
@@ -163,12 +186,13 @@
 	
 <script>
 	$(document).ready(function() {
-		
+
 		$("#products").change(function() {
 			var products = $(this).find(":selected").val();
 			var json = {
 				"productId" : products
 			};
+
 			$.ajax({
 				type : "POST",
 				contentType : "application/json",
@@ -222,7 +246,7 @@
 					}else{
 						$("#productPriceAfterDiscount").val($('#productPrice').val());
 					}
-*/					
+*/
 				},
 				error : function(e) {
 					$('#discount').val("");
@@ -276,6 +300,7 @@
                 "productStatusByProductId" : productStatusArr,
                 //"salesByProductId" : saleArr
             };
+
             var sale = {
                 "productId" : productId,
                 "articul" : articul,
@@ -287,6 +312,7 @@
                 "productByProductId" : product,
                 "clientByClientId": clientByClientId
             };
+
             saleArr.push(sale);
 			var total = productPriceAfterDiscount * productQuantity;
 			var rowId = '$<tr id="' + ++tableNumOfRows + '">';
@@ -298,6 +324,7 @@
 					+'<td>' + productPriceAfterDiscount + '</td>'
 					+'<td >' + total + '</td>'
 					+'</tr>';
+
 			tableTotalSum = tableTotalSum + total;
 			$('#saleTable > tbody').append(rowl);
 			//var totalRowCount = $('#saleTable > tbody').rows.length;
@@ -310,7 +337,7 @@
 			$('#productQuantity').val("");
 			$("#productPriceAfterDiscount").val("");
             $('#productValidityDate').find('option:not(:first)').remove();
-            
+
             $("#addtocheck").attr("disabled", "disabled");
 		});
 
@@ -340,7 +367,7 @@
 		});
 
 
-	
+
 	// const productElement = document.querySelector('#products');
 	// productElement.addEventListener('change', (event) => {
 	// 	document.querySelector('#articul').value = productElement.options[productElement.selectedIndex].value;
@@ -352,14 +379,14 @@
 	// 	document.querySelector('#discount').value = clientElement.value;
 	// });
 
-	
+
 	$("#allClientsEmail").change('click', function () {
         $('#productQuantity').val("0");
     });
-	
+
 	$('input').change(function(){
 		$("#productPriceAfterDiscount").val(
-			($("#productPrice").val() *  $('#productQuantity').val()) - ($("#productPrice").val() * $("#discount").val()/100 )		
+			($("#productPrice").val() *  $('#productQuantity').val()) - ($("#productPrice").val() * $("#discount").val()/100 )
 		);
 		$("#addtocheck").removeAttr("disabled");
 		if ($("#productPrice").val() == 0 && $('#productQuantity').val() == 0 && $("#discount").val() == 0){
@@ -367,8 +394,8 @@
 			alert("Для добавления в чек необходимо заполнить поля Цена, Скидка и Количество товара");
 		}
 	});
-	
-});	
+
+});
 
 </script>
 

@@ -27,7 +27,7 @@ public class UserRoleController {
 	
 	@GetMapping
     public String addUsersPage(Model model) {
-		model.addAttribute("formName", "Справочник пользователей");
+		model.addAttribute("formName", "Справочник Пользователи");
         return "users";
     }
 

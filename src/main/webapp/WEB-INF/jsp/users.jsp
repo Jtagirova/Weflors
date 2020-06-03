@@ -30,12 +30,13 @@
 							<h3>Поиск пользователя</h3>
 						</div>
 					</div>
+					<br>
 					<div class="row">
 						<div class="col-md-4 mb-4">
 							<input type="text" class="form-control" id="findUser" placeholder="Введите имя пользователя"/>
 						</div>
 					</div>	
-					<br><br>
+					<br>
 				</div>			
 				<div class="col-md-12 form-group">
 					<div class="row">
@@ -46,16 +47,16 @@
 				</div>	
 				<div class="col-md-12 form-group">
 					<div class="row">
-						<div class="col-md-3 mb-3">
+						<div class="col-md-4 mb-4">
 							<input type="hidden" id="userId" name="userId" >
 							<label for="userName">Имя*</label>
 							<input type="text" class="form-control" id="userName" name="userName" placeholder="Имя" />
 						</div>
-						<div class="col-md-3 mb-3">
+						<div class="col-md-4 mb-4">
 							<label for="userLastName">Фамилия*</label>
 							<input type="text" class="form-control" id="userLastName" name="userLastName"  placeholder="Фамилия"/>
 						</div>
-						<div class="col-md-3 mb-3">
+						<div class="col-md-4 mb-4">
 							<label for="adminRole">Роль*</label>
 							<br>	
 							Администратор   	<label><input type="checkbox" id="adminRole"  name="adminRole" value="1"/></label>
@@ -63,69 +64,69 @@
 					</div>					
 					<br><br>					
 					<div class="row">
-						<div class="col-md-3 mb-3">
+						<div class="col-md-4 mb-4">
 							<label for="userEmail">E-mail*</label>
 							<input type="text" class="form-control" id="userEmail" name="userEmail"  value="" placeholder="E-mail"/>
 						</div>
-						<div class="col-md-3 mb-3">
-							<label for="userPhone">Телефон</label>
+						<div class="col-md-4 mb-4">
+							<label for="userPhone">Телефон*</label>
 							<input type="text" class="form-control" id="userPhone" name="userPhone" placeholder="Телефон"/>
 						</div>
-						<div class="col-md-3 mb-3">
+						<div class="col-md-4 mb-4">
 						<br>
 							Пользователь  	<label> <input type="checkbox" id="userRole" name="userRole" value="2" /></label>
 						</div>
 					</div>
 					<br><br>
 					<div class="row">
-						<div class="col-md-3 mb-3">
+						<div class="col-md-4 mb-4">
 							<label for="userLogin">Логин*</label>
 							<input type="text" class="form-control" id="userLogin" name="userLogin" placeholder="Логин"/>
 						</div>
-						<div class="col-md-3 mb-3">
+						<div class="col-md-4 mb-4">
 							<label for="userPass">Пароль*</label>
 							<input type="password" class="form-control" id="userPass" name="userPass" placeholder="Пароль"/>
 						</div>
-						<div class="col-md-3 mb-3">
+						<div class="col-md-4 mb-4">
 							<label for="userRepeatPass">Повторить пароль*</label>
 							<input type="password" class="form-control" id="userRepeatPass" name="userRepeatPass" placeholder="Повторить пароль" />
 						</div>
-						<div class="col-md-3 mb-3">
-						<br>	
-							<div class="text-center">
+					</div>
+				</div>
+				<div class="col-md-12 form-group">
+					<div class="row">
+						<div class="text-left col-md-4 mb-4">
+							<h6>*поля обязательны к заполнению</h6>
+						</div>
+						<div class="col-md-4 col-md-offset-8">
+							<div class="text-right">
 								<button class="btn btn-primary" type="submit" id="saveChangedUser" disabled>Сохранить изменения</button>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-12">
-					<div class="row">
-						<div class="text-left col-md-4 mb-4">
-							<h6>*поля обязательны к заполнению</h6>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-12">
+
+				<div class="col-md-12 form-group">
 					<br><br>
 					<div class="row">
-						<div class="text-left col-md-4 mb-3">
+						<div class="text-left col-md-4 mb-4">
 							<h3>Список пользователей</h3>
 						</div>
 					</div>
 					<br>
 					<div class="row">
-						<div>
+						<div class="col-md-12">
 									<%--							<form:form method="POST" id="writeoffForm">--%>
 							<table class="table table-striped table-bordered table-hover table-responsive" id="usersTable">
 								<thead>
 									<tr>
-										<th scope="col">Имя</th>
-										<th scope="col">Фамилия</th>
-										<th scope="col">Логин</th>
-										<th scope="col">Email</th>
-										<th scope="col">Телефон</th>
-										<th scope="col">Роль</th>
-										<th scope="col">Изменить / Удалить</th>
+										<th scope="col" class="text-center">Имя</th>
+										<th scope="col" class="text-center">Фамилия</th>
+										<th scope="col" class="text-center">Логин</th>
+										<th scope="col" class="text-center">Email</th>
+										<th scope="col" class="text-center">Телефон</th>
+										<th scope="col" class="text-center">Роль</th>
+										<th scope="col" class="text-center">Изменение / Удаление</th>
 <!--  									<th scope="col">Изменить</th>
 										<th scope="col">Удалить</th>-->	
 									</tr>

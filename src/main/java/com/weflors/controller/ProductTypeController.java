@@ -25,7 +25,7 @@ public class ProductTypeController {
 	
 	@GetMapping
     public String addProductTypePage(Model model) {
-		model.addAttribute("formName", "Справочник категорий товара");
+		model.addAttribute("formName", "Справочник Категории товара");
         return "typeproduct";
     }
 	
