@@ -24,34 +24,35 @@
 
 			<!-- Form Content Here -->
 			<form>			
-				<div class="col-md-12">
+				<div class="col-md-12 form-group">
 					<div class="row">
-						<div class="col-md-6 mb-6">
+						<div class="col-md-4 mb-4">
 							<h3>Поиск поставщика</h3>
 						</div>
 					</div>
+					<br>
 					<div class="row">
 						<div class="col-md-4 mb-4">
-							<input type="text" class="form-control" id="findContragent" placeholder="Введите имя поставщика"/>
+							<input type="text" class="form-control" id="findContragent" placeholder="Введите наименование поставщика"/>
 						</div>
 					</div>	
-					<br><br>
-				</div>			
-				<div class="col-md-12">
+					<br>
+				</div>
+
+				<div class="col-md-12 form-group">
 					<div class="row">
 						<div class="col-md-4 mb-4">
 							<h3>Добавление поставщика</h3>
 						</div>
 					</div>
-				</div>	
-				<div class="col-md-12 form-group">
+					<br>
 					<div class="row">
 						<div class="col-md-4 mb-3">
 							<label for="nameContragent">Наименование поставщика*</label>
 							<input type="text" class="form-control" id="nameContragent" name="nameContragent" placeholder="Наименование поставщика"/>
 						</div>
 						<div class="col-md-4 mb-3">
-							<label for="addressContragent">Адрес</label>
+							<label for="addressContragent">Адрес*</label>
 							<input type="text" class="form-control" id="addressContragent" name="addressContragent" placeholder="Адрес"/>
 						</div>
 						<div class="col-md-4 mb-3">
@@ -62,7 +63,7 @@
 					<br><br>					
 					<div class="row">
 						<div class="col-md-4 mb-3">
-							<label for="phone1Contragent">Контактный телефон №1</label>
+							<label for="phone1Contragent">Контактный телефон №1*</label>
 							<input type="text" class="form-control" id="phone1Contragent" name="phone1Contragent" placeholder="Контактный телефон №1"/>
 						</div>
 						<div class="col-md-4 mb-3">
@@ -80,40 +81,40 @@
 							<label for="unkContragent">УНК*</label>
 							<input type="text" class="form-control" id="unkContragent" name="unkContragent" placeholder="УНК"/>
 						</div>
-						<div class="col-md-4 mb-3">
-						<br>	
+					</div>
+				</div>
+
+				<div class="col-md-12 form-group">
+					<div class="row">
+						<div class="text-left col-md-4 mb-4">
+							<h6>*поля обязательны к заполнению</h6>
+						</div>
+						<div class="col-md-4 col-md-offset-8">
 							<div class="text-right">
 								<button class="btn btn-primary" type="submit" id="addContragent">Добавить</button>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-12">
-					<div class="row">
-						<div class="text-left col-md-4 mb-4">
-							<h6>*поля обязательны к заполнению</h6>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-12">
+				<div class="col-md-12 form-group">
 					<br><br>
 					<div class="row">
-						<div class="text-left col-md-4 mb-3">
+						<div class="text-left col-md-4 mb-4">
 							<h3>Список поставщиков</h3>
 						</div>
 					</div>
 					<br>
 					<div class="row">
-						<div>
+						<div class="col-md-12">
 									<%--							<form:form method="POST" id="writeoffForm">--%>
 							<table class="table table-striped table-bordered table-hover table-responsive" id="contragentTable">
 								<thead>
 									<tr>
-										<th scope="col">Наименование поставщика</th>
-										<th scope="col">Контактный телефон №1</th>
-										<th scope="col">ИНН</th>
-										<th scope="col">УНК</th>
-										<th scope="col">Удалить</th>
+										<th scope="col" class="text-center">Наименование поставщика</th>
+										<th scope="col" class="text-center">Контактный телефон №1</th>
+										<th scope="col" class="text-center">ИНН</th>
+										<th scope="col" class="text-center">УНК</th>
+										<th scope="col" class="text-center">Удаление</th>
 									</tr>
 								</thead>
 								<tbody>

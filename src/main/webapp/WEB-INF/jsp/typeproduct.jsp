@@ -24,53 +24,64 @@
 
 			<!-- Form Content Here -->
 			<form>
-				<div class="col-md-12">
+				<div class="col-md-12 form-group">
 					<div class="row">
-						<div class="col-md-6 mb-6">
+						<div class="col-md-4 mb-4">
 							<h3>Поиск категории товара</h3>
 						</div>
 					</div>
+					<br>
 					<div class="row">
 						<div class="col-md-4 mb-4">
-							<input type="text" class="form-control" id="findNameProductType" placeholder="По наименованию"/>
+							<input type="text" class="form-control" id="findNameProductType" placeholder="Введите наименование категории"/>
 						</div>
 					</div>	
-					<br><br>
-				</div>	
+					<br>
+				</div>
+
 				<div class="col-md-12 form-group">
 					<div class="row">
-						<div class="col-md-6 mb-6">
+						<div class="col-md-4 mb-4">
 							<h3>Добавление категории товара</h3>
 						</div>
 					</div>
+					<br>
 					<div class="row">
 						<div class="col-md-4 mb-3">
+							<label for="productTypeName">Наименование категории*</label>
 							<input type="text" class="form-control" id="productTypeName" name="productTypeName" placeholder="Наименование категории"/>
 						</div>
-						<div class="col-md-4 mb-3">
+					</div>
+				</div>
+				<div class="col-md-12 form-group">
+					<div class="row">
+						<div class="text-left col-md-4 mb-4">
+							<h6>*поля обязательны к заполнению</h6>
 						</div>
-						<div class="text-center col-md-4 mb-3">
-							<button class="btn btn-primary" type="submit" id="addNewProductType">Добавить</button>
+						<div class="col-md-4 col-md-offset-8">
+							<div class="text-right">
+								<button class="btn btn-primary" type="submit" id="addNewProductType">Добавить</button>
+							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="col-md-12">
+				<div class="col-md-12 form-group">
 					<br><br>
 					<div class="row">
-						<div class="text-left col-md-6 mb-6">
+						<div class="text-left col-md-4 mb-4">
 							<h3>Список категорий товара</h3>
 						</div>
 					</div>
 					<br>
 					<div class="row">
-						<div>
+						<div class="col-md-12">
 									<%--							<form:form method="POST" id="writeoffForm">--%>
 							<table class="table table-striped table-bordered table-hover table-responsive" id="typeProductTable">
 								<thead>
 									<tr>
-										<th scope="col">Наименование категории товара</th>
-										<th scope="col">Удалить</th>
+										<th scope="col" class="text-center">Наименование категории товара</th>
+										<th scope="col" class="text-center">Удаление</th>
 									</tr>
 								</thead>
 								<tbody>

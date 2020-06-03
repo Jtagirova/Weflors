@@ -25,7 +25,7 @@ public class ContragentsController {
 		
 	@GetMapping
     public String addContragentPage(Model model) {
-		model.addAttribute("formName", "Справочник поставщиков");
+		model.addAttribute("formName", "Справочник Поставщики");
         return "contragents";
     }
 	

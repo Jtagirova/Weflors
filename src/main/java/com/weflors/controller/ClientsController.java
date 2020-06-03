@@ -20,7 +20,7 @@ public class ClientsController {
 
     @GetMapping
     public String addClientPage(Model model) {
-        model.addAttribute("formName", "Справочник клиентов");
+        model.addAttribute("formName", "Справочник Клиенты");
         return "clients";
     }
 
