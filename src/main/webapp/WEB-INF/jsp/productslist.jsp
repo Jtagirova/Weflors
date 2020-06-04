@@ -162,79 +162,44 @@
 <script>
 
 $(document).ready(function() {
+	
+	tableProducts.addEventListener('click', function(evt){
+		var productId = parseInt(evt.path[0].id.match(/\d+/));
+		var json = { "productId" : productId };	
+		if (confirm('Вы желаете удалить данный товар из вашей базы?')) {
+			$.ajax({
+				type : "DELETE",
+				contentType : "application/json",
+				url : "/productslist/deleteProduct",
+				data : JSON.stringify(json),
+				dataType : 'json',
+				cache : false,
+				timeout : 600000,
+				success : function(data) {					
+					alert(data.responseText);			
+				},
+				error : function(data) {	
+					alert(data.responseText);
+				}
+			});		     	
+		}
+//		window.location.reload();
+//		document.location.reload(true);
+    });
+	
+	$("#tableProducts").searcher({
+	    inputSelector: "#findProduct"
+	});
+	
 
 /*	//var a = ${product.productId};
 	$('openProductPhoto' +  ${product.productId}).click(function(){
 		console.log('Modal view opened');
 		$('#myModalNorm').modal('show');
-	});*/
+	});
+*/
 
-	
-	
-/*	
-	$.ajax({ 
-	    type: 'GET', 
-	    url: "/typeproduct/listProductTypes",
-	    dataType: 'json',
-	    contentType: 'application/json',
-	    success: function (data) {
-			data.forEach(function (item){	
-			var rowl = '<tr><td>' + item.productTypeName + '</td>' +
-				'<td class="text-center"><button id="'+ item.productTypeId +'" class="delete btn btn-primary" type="submit">Удалить</button></td></tr>';
-			$('#typeProductTable > tbody').append(rowl);
-			var sel = "[id='" + item.productTypeId + "']";
-			$(sel).click(function (id) {	
-				var json = { "productTypeId" : item.productTypeId };
-		        if (confirm('Вы желаете удалить данную категорию товара из вашей базы?')) {
-		        	$.ajax({
-						type : "DELETE",
-						contentType : "application/json",
-						url : "/typeproduct/deleteProductType",
-						data : JSON.stringify(json),
-						dataType : 'json',
-						cache : false,
-						timeout : 600000,
-						success : function(data) {
-							alert(data.responseText);
-						},
-						error : function(data) {	
-							alert(data.responseText);
-						}
-					});
-		        }	
-			});
-			});    	
-	    }
-	});	
-	
-	$("#addNewProductType").click(function() {		
-		var json = {
-			"productTypeName" : $('#productTypeName').val()
-		}; 
-		var productTypeEntity = JSON.stringify(json);
-        if (confirm('Вы желаете добавить новую категорию товара в вашу базу?')) {
-        	$.ajax({
-    			type : "POST",
-    			contentType : "application/json",
-    			url : "/typeproduct/addNewProductType",
-    			data : productTypeEntity,
-    			dataType : 'json',
-    			cache : false,
-    			timeout : 600000,
-    			success : function(data) {
-    				alert(data.responseText);
-    			},
-    			error : function(data) {	
-    				alert(data.responseText);
-    			}
-    		});	
-        }
-	});
-*/	
-	$("#tableProducts").searcher({
-	    inputSelector: "#findProduct"
-	});
-	
+
 });
 	
 

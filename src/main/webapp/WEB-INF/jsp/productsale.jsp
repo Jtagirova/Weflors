@@ -328,7 +328,7 @@
 	          	if(evt.target.closest('.deleteRow')) {
 	          		evt.target.closest('tr').remove();
 	          		var elems = $(".summPrices"); 	
-	          		var sum = 0;       			
+	          		let sum = 0;       			
 	          		for (var i = 0; i < elems.length; ++i){
 	          			sum = sum + Number(elems[i].innerText);
 	          		};

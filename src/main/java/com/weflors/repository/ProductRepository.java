@@ -28,5 +28,10 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
 
     @Query("select b.productId from ProductEntity b")
     List<Integer> getAllProductId();
+    
+    @Modifying
+    @Transactional
+    @Query("delete from ProductEntity where productId = :productId")
+    public void deleteByProductId(@Param("productId") Integer productId);
 
 }

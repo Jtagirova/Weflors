@@ -32,5 +32,9 @@ public class ProductServiceImpl {
     	List<ProductEntity> productList = productRepository.findAll();
         return productList;
     }
+    
+    public void deleteProduct(Integer productId) {
+    	productRepository.deleteByProductId(productId);
+    }
 
 }
