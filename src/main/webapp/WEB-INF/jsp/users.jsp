@@ -225,13 +225,11 @@ $(document).ready(function() {
 		var userPhone = $('#userPhone').val();
 		var userPass = $('#userPass').val();
 		var userRoleMap = [];
-		var roleId = $('input:checkbox:checked').each(function(){
-			var userRole = {
-				"userId" : userId,
-				"roleId" : $(this).val()	
-			}
-			userRoleMap.push(userRole);
-		});
+		var roleId = $('input:checkbox:checked').val();
+		var userRole = {
+			"userId" : userId,
+			"roleId" : roleId
+		};
 		var json = {
 			"eMail" : userEmail,	
 			"login" : userLogin,	
@@ -240,7 +238,7 @@ $(document).ready(function() {
 			"userId" : userId,
 			"userLastname" : userLastName,
 			"userName" : userName,
-			"userRoleMapsByUserId" : userRoleMap
+			"userRoleMapsByUserId" : userRole
 		}; 
         if (confirm('Вы желаете изменить данные пользователя в вашей базе?')) {
         	$.ajax({

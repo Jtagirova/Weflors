@@ -72,7 +72,7 @@
 									<td>${product.productPrice}</td>
 									<td>${product.productStatusByProductId[0].validityDate}</td>
 									<td class="text-center"><button id="openProductPhoto${product.productId}" data-toggle="modal" data-target="#myModalNorm" class="btn btn-primary">Фото</button>
-										 / <button id="Delete ${product.productId}" class="btn btn-primary">Удалить</button></td>
+										 / <button id="${product.productId}" class="Delete btn btn-primary">Удалить</button></td>
 								</tr>
 							</c:forEach>	
 							</tbody>
@@ -163,35 +163,44 @@
 
 $(document).ready(function() {
 	
-	tableProducts.addEventListener('click', function(evt){
-		var productId = parseInt(evt.path[0].id.match(/\d+/));
-		var json = { "productId" : productId };	
-		if (confirm('Вы желаете удалить данный товар из вашей базы?')) {
-			$.ajax({
-				type : "DELETE",
-				contentType : "application/json",
-				url : "/productslist/deleteProduct",
-				data : JSON.stringify(json),
-				dataType : 'json',
-				cache : false,
-				timeout : 600000,
-				success : function(data) {					
-					alert(data.responseText);			
-				},
-				error : function(data) {	
-					alert(data.responseText);
-				}
-			});		     	
-		}
-//		window.location.reload();
-//		document.location.reload(true);
-    });
+	tableProducts.querySelectorAll('.Delete').forEach(function (item){
+		item.addEventListener('click', function(evt){
+			var productId = parseInt(event.path[0].id.match(/\d+/));
+			var row = this.closest('tr');
+			var json = { "productId" : productId };	
+			if (confirm('Вы желаете удалить данный товар из вашей базы?')) {
+				$.ajax({
+					type : "DELETE",
+					contentType : "application/json",
+					url : "/productslist/deleteProduct",
+					data : JSON.stringify(json),
+					dataType : 'json',
+					cache : false,
+					timeout : 600000,
+					success : function(data) {	
+						alert(data.responseText);
+					},
+					error : function(data) {	
+						alert(data.responseText);
+					}
+				});	
+				row.parentElement.removeChild(row);	
+//				location.reload(true)
+			}
+	    });	
+	});
 	
 	$("#tableProducts").searcher({
 	    inputSelector: "#findProduct"
 	});
 	
 
+
+
+	
+	
+	
+	
 /*	//var a = ${product.productId};
 	$('openProductPhoto' +  ${product.productId}).click(function(){
 		console.log('Modal view opened');
@@ -201,6 +210,4 @@ $(document).ready(function() {
 
 
 });
-	
-
 </script>
