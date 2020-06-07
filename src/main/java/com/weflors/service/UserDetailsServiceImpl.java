@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.weflors.entity.UserEntity;
-import com.weflors.entity.UserRoleMapEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -63,7 +62,6 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         return true;
     }
 	
-	
 	public List<UserEntity> getAllUsers(){
 		return userRepository.findAll();
 	}
@@ -76,12 +74,8 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		 String password = bCryptPasswordEncoder.encode(userEntity.getPassword());
 		 userRepository.updateUserInformation(userEntity.geteMail(), userEntity.getUserName(),password,
 				 		userEntity.getUserLastname(), userEntity.getLogin(), userEntity.getPhone(), userEntity.getUserId());
-		 for(UserRoleMapEntity userMap : userEntity.getUserRoleMapsByUserId()) {
-			 userRoleMapRepository.deleteUserRoleById(userMap.getUserId()); 
-		 }	
-		 for(UserRoleMapEntity userMap : userEntity.getUserRoleMapsByUserId()) {
-			 userRoleMapRepository.saveUserRoleMap(userMap.getUserId(), userMap.getRoleId());
-		 }	 
+		 userRoleMapRepository.deleteUserRoleById(userEntity.getUserId()); 
+	     userRoleMapRepository.saveUserRoleMap(userEntity.getUserId(), userEntity.getUserId());
 		 return true;
 	 }
 	 

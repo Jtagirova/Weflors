@@ -10,7 +10,8 @@ import java.util.Collection;
 public class RoleEntity {
     private int roleId;
     private String roleName;
-    private Collection<UserRoleMapEntity> userRoleMapsByRoleId;
+    private UserRoleMapEntity userRoleMapsByRoleId;
+//    private Collection<UserRoleMapEntity> userRoleMapsByRoleId;
     
     
     public RoleEntity() {
@@ -64,13 +65,14 @@ public class RoleEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "roleByRoleId")
+//    @OneToMany(mappedBy = "roleByRoleId")
+    @OneToOne(mappedBy = "roleByRoleId")
     @JsonManagedReference(value = "role-userrolemap")
-    public Collection<UserRoleMapEntity> getUserRoleMapsByRoleId() {
+    public UserRoleMapEntity getUserRoleMapsByRoleId() {
         return userRoleMapsByRoleId;
     }
 
-    public void setUserRoleMapsByRoleId(Collection<UserRoleMapEntity> userRoleMapsByRoleId) {
+    public void setUserRoleMapsByRoleId(UserRoleMapEntity userRoleMapsByRoleId) {
         this.userRoleMapsByRoleId = userRoleMapsByRoleId;
     }
 }

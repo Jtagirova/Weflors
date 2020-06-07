@@ -146,7 +146,7 @@
                             <tfoot>
                             <tr>
                                 <th class="text-center">Всего: </th>
-                                <td>0</td>
+                                <td id="changeSum">0</td>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -189,10 +189,7 @@
 
 		$("#products").change(function() {
 			var products = $(this).find(":selected").val();
-			var json = {
-				"productId" : products
-			};
-
+			var json = { "productId" : products	};
 			$.ajax({
 				type : "POST",
 				contentType : "application/json",
@@ -228,9 +225,7 @@
 
 		$("#allClientsEmail").change(function() {
 			var eMail = $(this).find(":selected").text();
-			// var json = {
-			// 	"eMail" : eMail
-			// };
+			// var json = {"eMail" : eMail };
 			$.ajax({
 				type : "POST",
 				contentType : "application/json",
@@ -323,23 +318,22 @@
 					+'<td class="summPrices">' + productPriceAfterDiscount + '</td>'
 					+'<td class="text-center"> <button class="deleteRow btn btn-primary" id="' + tableNumOfRows + ' type="submit"">Удалить</button></td>'
 					+'</tr>';
-
+					
+			tableTotalSum = tableTotalSum + Number(productPriceAfterDiscount);
 			saleTable.addEventListener('click', function(evt){
 	          	if(evt.target.closest('.deleteRow')) {
 	          		evt.target.closest('tr').remove();
 	          		var elems = $(".summPrices"); 	
-	          		let sum = 0;       			
+	          		let sum = 0;
 	          		for (var i = 0; i < elems.length; ++i){
 	          			sum = sum + Number(elems[i].innerText);
 	          		};
 	          	  	$('#saleTable > tfoot > tr > td').text(sum);
-	          	};  
-	        });
-
-			tableTotalSum = tableTotalSum + Number(productPriceAfterDiscount);
+	          	};           	
+	        }); 
 			$('#saleTable > tbody').append(rowl);
 			//var totalRowCount = $('#saleTable > tbody').rows.length;
-			$('#saleTable > tfoot > tr > td').text(tableTotalSum);
+      		$('#saleTable > tfoot > tr > td').text(tableTotalSum);
 			$('#products').prop('selectedIndex',0);
 			$('#articul').val("");
 			$('#productPrice').val("");
@@ -350,6 +344,15 @@
             $('#productValidityDate').find('option:not(:first)').remove();
             $("#addtocheck").attr("disabled", "disabled");
 		});
+
+		addtocheck.addEventListener('click', function(){
+          	var elems = $(".summPrices"); 	
+          	let sum = 0;
+          	for (var i = 0; i < elems.length; ++i){
+          		sum = sum + Number(elems[i].innerText);
+          	};
+          	$('#saleTable > tfoot > tr > td').text(sum);
+        });
 
 		$( "#addSaleProducts" ).click(function() {
 			var prod = JSON.stringify(saleArr);
@@ -375,9 +378,6 @@
 				}
 			});
 		});
-
-
-
 	// const productElement = document.querySelector('#products');
 	// productElement.addEventListener('change', (event) => {
 	// 	document.querySelector('#articul').value = productElement.options[productElement.selectedIndex].value;

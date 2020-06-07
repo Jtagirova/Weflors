@@ -51,8 +51,7 @@ public class UserRoleController {
 			return "Такого пользователя нет в базе данных";
 		}
 		if(userEntity.getUserName().isEmpty() || userEntity.getUserLastname().isEmpty() ||
-		   userEntity.geteMail().isEmpty() || userEntity.getPassword().isEmpty() || 
-		   userEntity.getUserRoleMapsByUserId().isEmpty() || userEntity.getLogin().isEmpty()) {
+		   userEntity.geteMail().isEmpty() || userEntity.getPassword().isEmpty() || userEntity.getLogin().isEmpty()) {
 			return "Поля Имя, Фамилия, Email, Логин, Пароль и Роль обязательна к заполнению";
 		}
 		if(userDetailsServiceImpl.updateUser(userEntity) == true) {;

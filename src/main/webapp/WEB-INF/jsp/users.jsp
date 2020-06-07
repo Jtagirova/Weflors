@@ -59,7 +59,7 @@
 						<div class="col-md-4 mb-4">
 							<label for="adminRole">Роль*</label>
 							<br>	
-							Администратор   	<label><input type="checkbox" id="adminRole"  name="adminRole" value="1"/></label>
+							Администратор   	<label><input type="radio" id="adminRole"  name="radio" value="1"/></label>
 						</div>
 					</div>					
 					<br><br>					
@@ -74,7 +74,7 @@
 						</div>
 						<div class="col-md-4 mb-4">
 						<br>
-							Пользователь  	<label> <input type="checkbox" id="userRole" name="userRole" value="2" /></label>
+							Пользователь  	<label> <input type="radio" id="userRole" name="radio" value="2" /></label>
 						</div>
 					</div>
 					<br><br>
@@ -225,7 +225,7 @@ $(document).ready(function() {
 		var userPhone = $('#userPhone').val();
 		var userPass = $('#userPass').val();
 		var userRoleMap = [];
-		var roleId = $('input:checkbox:checked').val();
+		var roleId = $('input:radio:checked').val();
 		var userRole = {
 			"userId" : userId,
 			"roleId" : roleId
