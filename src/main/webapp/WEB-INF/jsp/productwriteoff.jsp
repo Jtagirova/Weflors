@@ -81,7 +81,7 @@
 					</div>
 					<div class="col-md-4 col-md-offset-8">
 						<div class="text-right">
-							<button class="btn btn-primary" type="submit" id="addtocheck">Добавить в чек</button>
+							<button class="btn btn-primary" type="submit" id="addtocheck">Добавить</button>
 						</div>
 					</div>
 				</div>
