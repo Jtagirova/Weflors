@@ -1,7 +1,9 @@
 package com.weflors.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
+import com.weflors.entity.ProcurementEntity;
 import com.weflors.entity.SaleEntity;
 import com.weflors.repository.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,4 +40,18 @@ public class SaleServiceImpl {
 		saleRepository.save(saleEntity);
 		return true;
 	}
+
+	public List<SaleEntity> findAllSalesByProductID(Integer productID) {
+		return saleRepository.findAllSalesByProductID(productID);
+	}
+
+	public List<SaleEntity> findAllSalesByDate(Timestamp date) {
+		return saleRepository.findAllSalesByDate(date);
+	}
+
+	public List<SaleEntity> findAllSalesByProductDate(Integer productId, Timestamp date) {
+		return saleRepository.findAllSalesByProductIDAndDate(productId, date);
+	}
+
+
 }

@@ -38,7 +38,7 @@ public class ProductListController {
 		productServiceImpl.deleteProduct(productEntity.getProductId());
 		return "Товар был удален";
 	}
-	
+
 }
 
 

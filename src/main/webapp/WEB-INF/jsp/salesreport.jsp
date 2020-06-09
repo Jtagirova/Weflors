@@ -23,6 +23,27 @@
         <div class="col-md-8">
             <jsp:include page="/WEB-INF/jsp/base_layout/topnav.jsp"></jsp:include>
             <!-- Form Content Here -->
+            <div class="col-md-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <label for="date">Выберите период*</label>
+                        <select id="date" class="form-control" path="">
+                            <option value="Day" label="За Сегодня" />
+                            <option value="Week" label="За Неделю" />
+                            <option value="Month" label="За Месяц" />
+                            <option value="Year" label="За Год" />
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <label for="allproducts">Выберите Продукты*</label>
+                        <form:select id="allproducts" class="form-control" path="allproducts">
+                            <form:option value="ALL" label="Все" />
+                            <form:options items="${allproducts}" itemValue="productId"
+                                          itemLabel="productName" />
+                        </form:select>
+                    </div>
+                </div>
+            </div>
 
             <div class="col-md-4">
                 <canvas id="myChart" width="100" height="100"></canvas>
