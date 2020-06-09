@@ -30,6 +30,12 @@ public class AddProductController {
     @Autowired
     private ProductTypeService productTypeService;
 
+    private CheckForNull check = param -> {
+        if(param == null)
+            return 0;
+        else return param;
+    };
+
     @RequestMapping(value = {"/addproduct"}, method = RequestMethod.GET)
     public String addProductPage(Model model, @RequestParam(value="name", required=false, defaultValue="World") String name) {
         model.addAttribute("name", name);
@@ -53,6 +59,7 @@ public class AddProductController {
     private void saveProductDetailsEntity(ProductEntity saveProduct, ProductDetailsEntity productDetailsEntity){
 
         productDetailsEntity.setProductId(saveProduct.getProductId());
+        productDetailsEntity = validateProductDetailsEntityForNulls(productDetailsEntity);
         productDetailsService.saveProductDetail(productDetailsEntity);
     }
 
@@ -71,6 +78,19 @@ public class AddProductController {
             productStatusEntity.setProductId(saveProduct.getProductId());
             productStatusService.saveProductStatus(productStatusEntity);
         }
+    }
+
+
+    private ProductDetailsEntity validateProductDetailsEntityForNulls(ProductDetailsEntity productDetailsEntity) {
+
+        productDetailsEntity.setHeight(check.checkForNull(productDetailsEntity.getHeight()));
+        productDetailsEntity.setLength(check.checkForNull(productDetailsEntity.getLength()));
+        productDetailsEntity.setWidth(check.checkForNull(productDetailsEntity.getWidth()));
+//        if (productDetailsEntity.getHeight() == null) productDetailsEntity.setHeight(0);
+//        if (productDetailsEntity.getLength() == null) productDetailsEntity.setLength(0);
+//        if (productDetailsEntity.getWidth() == null) productDetailsEntity.setWidth(0);
+
+        return productDetailsEntity;
     }
 
     @RequestMapping(value = "/addproduct", method = RequestMethod.POST,
@@ -93,4 +113,9 @@ public class AddProductController {
         ContragentsEntity a = contragentsServiceImpl.loadContragentByContragentID(contragentId);
         return a;
     }
+}
+
+@FunctionalInterface
+interface CheckForNull{
+    Integer checkForNull(Integer param);
 }

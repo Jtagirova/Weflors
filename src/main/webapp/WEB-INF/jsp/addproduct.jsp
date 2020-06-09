@@ -293,6 +293,7 @@
             var productStatus = [];
             var productStatusByProductId = {
                 "articul" : productarticul,
+                "quantityWarehouse" : productquantity,
                 "validityDate" : validitydate
             };
 
