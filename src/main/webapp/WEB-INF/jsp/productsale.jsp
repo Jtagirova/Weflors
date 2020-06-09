@@ -51,7 +51,7 @@
                     <div class="row">
                         <div class="col-md-4 mb-4">
                             <label for="productPrice">Цена*</label>
-                            <input type="number" class="form-control" id="productPrice" name="productPrice" value="20"/>
+                            <input type="number" class="form-control" id="productPrice" name="productPrice"/>
                         </div>
 
                         <div class="col-md-4 mb-4">

@@ -81,11 +81,7 @@
 					</div>
 					<div class="col-md-4 col-md-offset-8">
 						<div class="text-right">
-<<<<<<< HEAD
 							<button class="btn btn-primary" type="submit" id="addtocheck" disabled>Добавить</button>
-=======
-							<button class="btn btn-primary" type="submit" id="addtocheck">Добавить</button>
->>>>>>> branch 'master' of https://github.com/Jtagirova/Weflors.git
 						</div>
 					</div>
 				</div>
@@ -96,7 +92,7 @@
 				<br><br>
 				<div class="row">
 					<div class="text-left col-md-4 mb-4">
-						<h3>Формирование чека</h3>
+						<h3>Списанный товар</h3>
 					</div>
 				</div>
 				<br>
