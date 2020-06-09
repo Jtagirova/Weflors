@@ -81,7 +81,7 @@
 					</div>
 					<div class="col-md-4 col-md-offset-8">
 						<div class="text-right">
-							<button class="btn btn-primary" type="submit" id="addtocheck">Добавить в чек</button>
+							<button class="btn btn-primary" type="submit" id="addtocheck" disabled>Добавить</button>
 						</div>
 					</div>
 				</div>
@@ -109,28 +109,18 @@
 											<th scope="col" class="text-center">Цена товара</th>
 											<th scope="col" class="text-center">Количество</th>
 											<th scope="col" class="text-center">Итого</th>
-											<th scope="col" class="text-center">Удаление</th>
+											<th scope="col" class="text-center">Удалить из чека</th>
 										</tr>
 										</thead>
-										<tfoot>
-										<tr>
-											<th class="text-center">Всего: </th>
-											<td>0</td>
-										</tr>
-										</tfoot>
 										<tbody>
 										</tbody>
 									</table>
 									<div class="text-right">
-										<button class="btn btn-primary" type="submit" id="addWriteOffs">Списать</button>
+										<button class="btn btn-primary" type="submit" id="addWriteOffs" >Списать</button>
 									</div>
-
 								</div>
 							</div>
 				</div>
-
-
-
 		</div>
 	</div>
 </div>
@@ -141,12 +131,11 @@
 	
 <script>
 
-	$(document).ready(function() {
+$(document).ready(function() {
+	
 		$("#products").change(function() {
 			var products = $(this).find(":selected").val();
-			var json = {
-				"productId" : products
-			};
+			var json = { "productId" : products };
 			$.ajax({
 				type : "POST",
 				contentType : "application/json",
@@ -189,23 +178,18 @@
 			var productId = $("#products").find('option:selected').val();
 			var articul = $('#articul').val();
 			var salePrice = 0;
-			var productQuantity =$('#productQuantity').val();
+			let productQuantity = Number($('#productQuantity').val());
+			let productPrice = Number($('#productPrice').val());
 			var details = $('#details').val();
-			var productPrice = $('#productPrice').val();
 			var saleDate = new Date();
 			var validityDate = $('#productValidityDate').find('option:selected').text();
-
 			var productStatusArr = [];
-
 			var productStatus = {
 				"productId" : productId,
 				"articul" : articul,
 				"totalQuantityWriteoff" : productQuantity,
 				"validityDate" : validityDate
-
 			}
-
-
 			productStatusArr.push(productStatus);
 
 			var product = {
@@ -214,7 +198,6 @@
 				"articul" : articul,
 				"productPrice" : productPrice,
 				"productStatusByProductId" : productStatusArr,
-				//"salesByProductId" : saleArr
 			};
 			var json = {
 				"productId" : productId,
@@ -227,7 +210,7 @@
 				"productByProductId" : product
 			};
 			writeOffArr.push(json);
-			var total = 0;
+			var total = productPrice*productQuantity;
 			var rowId = '$<tr id="' + ++tableNumOfRows + '">';
 			var rowl = rowId 
 					+'<td>' + productName + '</td>'
@@ -235,12 +218,21 @@
 					+'<td>' + validityDate + '</td>'
 					+'<td>' + saleDate + '</td>'
 					+'<td>' + productPrice + '</td>'
-					+'<td><input type="text" class ="productQuantityChange" value="' + productQuantity + '"></td>'						
-					+'<td >' + total + '</td>'
+					+'<td><input type="text" class="productQuantityChange" value="' + productQuantity + '"></td>'
+//					+'<td class="total summPrices">' + total + '</td>'
+					
+					+'<td class="summPrices">' + total + '</td>'
+					+'<td class="text-center"><button class="deleteRow btn btn-primary" id="'+ ++tableNumOfRows + ' type="submit"">Удалить</button></td>'
 					+'</tr>';
 			tableTotalSum = tableTotalSum + total;
+			
+
+			
+			
+			
+			
+			
 			$('#saleTable > tbody').append(rowl);
-			$('#saleTable > tfoot > tr > td').text(tableTotalSum);
 			$('#products').prop('selectedIndex',0);
 			$('#articul').val("");
 			$('#productValidityDate').find('option:not(:first)').remove();
@@ -252,32 +244,48 @@
 				var saleDate = row.childNodes[3].innerText;
 				var object = writeOffArr.find(obj => obj.saleDate == saleDate);
 				object.quantity = row.querySelector('input').value;
-			});						
+			});	
+			
+			$("#addtocheck").attr("disabled", "disabled");
 		});
+		
 		$("#addWriteOffs").click(function() {				
 			var saleEntitylist = JSON.stringify(writeOffArr);
-			$.ajax({
-				type : "POST",
-				contentType : "application/json",
-				url : "/productwriteoff/addwriteoffs",
-				data : saleEntitylist,
-				dataType : 'json',
-				cache : false,
-				timeout : 600000,
-				success : function(data) {
-					writeOffArr = [];
-					tableTotalSum = 0;
-					tableNumOfRows = 0;
-					$('#saleTable > tbody').empty();
-					$('#saleTable > tfoot > tr > td').text(tableTotalSum);
-					alert(data.responseText);
-				},
-				error : function(data) {	
-					alert(data.responseText);
-				}
-			});
+			if (confirm('Вы действительно желаете списать данный товар?')) {
+				$.ajax({
+					type : "POST",
+					contentType : "application/json",
+					url : "/productwriteoff/addwriteoffs",
+					data : saleEntitylist,
+					dataType : 'json',
+					cache : false,
+					timeout : 600000,
+					success : function(data) {
+						location.reload(true);
+						writeOffArr = [];
+						tableTotalSum = 0;
+						tableNumOfRows = 0;
+						$('#saleTable > tbody').empty();
+						$('#saleTable > tfoot > tr > td').text(tableTotalSum);
+						alert(data.responseText);
+					},
+					error : function(data) {	
+						alert(data.responseText);
+					}
+				});
+			}
 		});
+		
+		$('input').change(function(){	
+			if ( $("#products").find('option:selected').text()=='' || $('#productQuantity').val() == '' || $('#details').val() == ''){
+				alert("Для списания товара необходимо заполнить поля Наименование, Количество товара и Причина");
+				$("#addtocheck").attr("disabled", "disabled");
+			} else {
+				$("#addtocheck").removeAttr("disabled");
+			}
+		});
+			
 
-	});
+});
 
 </script>

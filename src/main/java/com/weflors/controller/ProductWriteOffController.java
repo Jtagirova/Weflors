@@ -1,9 +1,7 @@
 package com.weflors.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.weflors.entity.*;
 import com.weflors.service.*;
@@ -17,12 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.weflors.repository.ProductRepository;
-import com.weflors.repository.ProductStatusRepository;
 
 @Controller
 @RequestMapping("/productwriteoff")
-public class ProductWriteOffCotroller {
+public class ProductWriteOffController {
 	
 	@Autowired
     private SaleServiceImpl saleServiceImpl;

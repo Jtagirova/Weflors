@@ -34,7 +34,8 @@ public class UserRoleController {
 	@GetMapping("/listUsers")
 	@ResponseBody
 	public List<UserEntity> addListOfUser() {
-	    return userDetailsServiceImpl.getAllUsers();
+		List<UserEntity> list = userDetailsServiceImpl.getAllUsers();
+	    return list;
 	}
 
 	@DeleteMapping("/deleteUser")

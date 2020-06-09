@@ -198,9 +198,6 @@ $(document).ready(function() {
 
 
 	
-	
-	
-	
 /*	//var a = ${product.productId};
 	$('openProductPhoto' +  ${product.productId}).click(function(){
 		console.log('Modal view opened');
