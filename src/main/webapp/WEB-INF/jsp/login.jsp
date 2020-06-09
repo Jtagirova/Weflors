@@ -24,7 +24,7 @@
             <div class="wrap-login100">
                 <div class="login100-form-title" style="background-image: url('../img/background_theme2_opacity70.png')">
 					<span class="login100-form-title-1">
-                        <h4>Вход в систему учета деятельности цветочного магазина</h4>
+                      <h4>  Вход в систему учета деятельности цветочного магазина </h4>
 					</span>
                 </div>
                 <br class="form-group">

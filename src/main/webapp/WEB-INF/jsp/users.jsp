@@ -100,7 +100,7 @@
 						</div>
 						<div class="col-md-4 col-md-offset-8">
 							<div class="text-right">
-								<button class="btn btn-primary" type="submit" id="saveChangedUser" disabled>Сохранить изменения</button>
+								<button class="btn btn-primary" type="submit" id="saveChangedUser" disabled>Добавить</button>
 							</div>
 						</div>
 					</div>

@@ -30,8 +30,7 @@ public class ProductDetailsEntity {
     public String getProductDescription() {
         return productDescription;
     }
-
-    public void setProductDescription(String productDescription) {
+   public void setProductDescription(String productDescription) {
         this.productDescription = productDescription;
     }
 
@@ -60,7 +59,6 @@ public class ProductDetailsEntity {
     public Integer getWidth() {
         return width;
     }
-
     public void setWidth(Integer width) {
         this.width = width;
     }
@@ -70,7 +68,6 @@ public class ProductDetailsEntity {
     public String getColor() {
         return color;
     }
-
     public void setColor(String color) {
         this.color = color;
     }
@@ -81,7 +78,6 @@ public class ProductDetailsEntity {
         if (o == null || getClass() != o.getClass()) return false;
 
         ProductDetailsEntity that = (ProductDetailsEntity) o;
-
         if (productId != that.productId) return false;
         if (productDescription != null ? !productDescription.equals(that.productDescription) : that.productDescription != null)
             return false;
@@ -110,7 +106,6 @@ public class ProductDetailsEntity {
     public ProductEntity getProductByProductId() {
         return productByProductId;
     }
-
     public void setProductByProductId(ProductEntity productByProductId) {
         this.productByProductId = productByProductId;
     }

@@ -81,7 +81,11 @@
 					</div>
 					<div class="col-md-4 col-md-offset-8">
 						<div class="text-right">
+<<<<<<< HEAD
 							<button class="btn btn-primary" type="submit" id="addtocheck" disabled>Добавить</button>
+=======
+							<button class="btn btn-primary" type="submit" id="addtocheck">Добавить</button>
+>>>>>>> branch 'master' of https://github.com/Jtagirova/Weflors.git
 						</div>
 					</div>
 				</div>
