@@ -193,17 +193,15 @@
 			$.ajax({
 				type : "POST",
 				contentType : "application/json",
-				url : "/loadproductinfobyproduct",
+				url : "/loadroductinfobyproductid",
 				data : JSON.stringify(json),
 				dataType : 'json',
 				cache : false,
 				timeout : 600000,
 				success : function(data) {
-					//console.log(data);
-					 $('#articul').val(data.articul);
-					//console.log(data.procurementsByProductId.procurementPrice);
-					 $('#productPrice').val(data.productPrice);
-					 //$('#productValidityDate').val(data.productStatusByProductId);
+				    $('#articul').val(data.articul);
+                    $('#productPrice').val(data.productPrice);
+                    //$('#productValidityDate').val(data.productStatusByProductId);
                     let validityDateOptions = document.getElementById('productValidityDate').options;
                     $('#productValidityDate').find('option:not(:first)').remove();
                     let productStatusArray = data.productStatusByProductId;

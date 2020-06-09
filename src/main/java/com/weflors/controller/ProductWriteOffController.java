@@ -44,11 +44,11 @@ public class ProductWriteOffController {
         return "productwriteoff";
     }
 	
-	@PostMapping(value = "/loadproductinfobyproduct", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/loadproductinfobyproductid", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
     public ProductEntity loadProductInfoByProductName(@RequestBody ProductEntity productEntity) {
 	    ProductEntity selectedProduct = saleServiceImpl.getProductByProductId(productEntity.getProductId());
-	    ProcurementEntity selectedProductPocurementInfo = procurementServiceImpl.findByProcurementProductID(productEntity.getProductId());
+	    ProcurementEntity selectedProductPocurementInfo = procurementServiceImpl.findProcurementByProductID(productEntity.getProductId());
         ArrayList<ProcurementEntity> procurementEntityArrayList = new ArrayList<ProcurementEntity>();
         procurementEntityArrayList.add(selectedProductPocurementInfo);
         selectedProduct.setProcurementsByProductId(procurementEntityArrayList);

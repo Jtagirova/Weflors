@@ -41,16 +41,15 @@ public class ProductSaleController {
         return "productsale";
     }
 
-    @RequestMapping(value = "/loadProductInfoByProductName", method = RequestMethod.POST,
+    @RequestMapping(value = "/loadroductinfobyproductid", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ProductEntity loadProductInfoByProductName(@RequestBody ProductEntity productEntity) {
 	    ProductEntity selectedProduct = saleServiceImpl.getProductByProductId(productEntity.getProductId());
-//	    ProcurementEntity selectedProductPocurementInfo = procurementServiceImpl.findByProcurementProductID(productEntity.getProductId());
-	   // selectedProduct.setProcurementsByProductId(selectedProductPocurementInfo);
-//        ArrayList<ProcurementEntity> procurementEntityArrayList = new ArrayList<ProcurementEntity>();
-//        procurementEntityArrayList.add(selectedProductPocurementInfo);
-//        selectedProduct.setProcurementsByProductId(procurementEntityArrayList);
+	    ProcurementEntity selectedProductPocurementInfo = procurementServiceImpl.findProcurementByProductID(productEntity.getProductId());
+        ArrayList<ProcurementEntity> procurementEntityArrayList = new ArrayList<ProcurementEntity>();
+        procurementEntityArrayList.add(selectedProductPocurementInfo);
+        selectedProduct.setProcurementsByProductId(procurementEntityArrayList);
 	    return selectedProduct;
     }
 

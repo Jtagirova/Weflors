@@ -143,7 +143,7 @@ $(document).ready(function() {
 			$.ajax({
 				type : "POST",
 				contentType : "application/json",
-				url : "/productwriteoff/loadproductinfobyproduct",
+				url : "/productwriteoff/loadproductinfobyproductid",
 				data : JSON.stringify(json),
 				dataType : 'json',
 				cache : false,
