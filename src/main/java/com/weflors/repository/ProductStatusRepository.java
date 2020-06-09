@@ -22,7 +22,7 @@ public interface ProductStatusRepository extends JpaRepository<ProductStatusEnti
 			+ "total_quantity_writeoff = total_quantity_writeoff + :quantity where product_id = :productId", nativeQuery = true)
 	void updateQuantityWriteoff(@Param("quantity") int quantity, @Param("productId") int productId);
 
-
+//	updateQuantityWriteoffAndWarehouse	
 	@Query("select b.validityDate from ProductStatusEntity b where b.productId = :productId")
 	List<Date> getValidityDateByProdictId(@Param("productId")Integer productId);
 
@@ -36,5 +36,5 @@ public interface ProductStatusRepository extends JpaRepository<ProductStatusEnti
 													 @Param("quantityShopSale") int quantityShopSale);
 
 
-								
+//	updateQuantityShopSaleAndWarehouse						
 }

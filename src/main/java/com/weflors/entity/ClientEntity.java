@@ -24,6 +24,7 @@ public class ClientEntity {
     }
 
     @Id
+    @GeneratedValue( strategy = GenerationType.AUTO)
     @Column(name = "client_id", nullable = false)
     public int getClientId() {
         return clientId;

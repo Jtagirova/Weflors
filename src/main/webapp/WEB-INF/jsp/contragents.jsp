@@ -91,7 +91,7 @@
 						</div>
 						<div class="col-md-4 col-md-offset-8">
 							<div class="text-right">
-								<button class="btn btn-primary" type="submit" id="addContragent">Добавить</button>
+								<button class="btn btn-primary" type="submit" id="addContragent" disabled>Добавить</button>
 							</div>
 						</div>
 					</div>
@@ -206,7 +206,22 @@ $(document).ready(function() {
     				alert(data.responseText);
     			}
     		});	
+        	location.reload(true);
         }
+        $("#addContragent").attr("disabled", "disabled");
+	});
+	
+	$('input').change(function(){
+		var contragentName = $('#nameContragent').val();
+		var address = $('#addressContragent').val();
+		var phone1 = $('#phone1Contragent').val();
+		var inn = $('#innContragent').val();
+		var unk = $('#unkContragent').val();
+		if ( contragentName !='' && address !='' && phone1 !='' && inn !='' && unk !=''){
+			$("#addContragent").removeAttr("disabled");
+		} else {
+			$("#addContragent").attr("disabled", "disabled");
+		}
 	});
 	
 	$("#contragentTable").searcher({

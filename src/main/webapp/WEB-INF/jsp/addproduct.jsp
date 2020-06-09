@@ -48,12 +48,12 @@
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <label for="nomernakladnoj">Номер накладной*</label>
-                            <input type="text" class="form-control" id="nomernakladnoj" placeholder="Номер накладной"
+                            <input type="number" class="form-control" id="nomernakladnoj" placeholder="Номер накладной"
                                    required>
                         </div>
                         <div class="col-md-6 mb-4">
                             <label for="productheight">Высота</label>
-                            <input type="text" class="form-control" id="productheight" placeholder="Высота">
+                            <input type="number" class="form-control" id="productheight" placeholder="Высота">
                         </div>
                     </div>
 
@@ -66,7 +66,7 @@
                         </div>
                         <div class="col-md-6 mb-4">
                             <label for="productlength">Длина</label>
-                            <input type="text" class="form-control" id="productlength" placeholder="Длина">
+                            <input type="number" class="form-control" id="productlength" placeholder="Длина">
                         </div>
                     </div>
 
@@ -79,7 +79,7 @@
                         </div>
                         <div class="col-md-6 mb-4">
                             <label for="productwidth">Ширина</label>
-                            <input type="text" class="form-control" id="productwidth" placeholder="Ширина">
+                            <input type="number" class="form-control" id="productwidth" placeholder="Ширина">
                         </div>
                     </div>
 
@@ -164,7 +164,7 @@
 
                         <div class="col-md-2 mb-4">
                             <label for="productquantity">Количество*</label>
-                            <input type="text" class="form-control" id="productquantity" placeholder="Количество">
+                            <input type="number" class="form-control" id="productquantity" placeholder="Количество">
                         </div>
                         <div class="col-md-4 mb-4">
                             <label for="validitydate">Срок годности</label>
@@ -173,12 +173,12 @@
 
                         <div class="col-md-3 mb-4">
                             <label for="procurementprice">Цена закупки*</label>
-                            <input type="text" class="form-control" id="procurementprice" placeholder="Цена закупки">
+                            <input type="number" class="form-control" id="procurementprice" placeholder="Цена закупки">
                         </div>
 
                         <div class="col-md-3 mb-4">
                             <label for="productprice">Цена продажи*</label>
-                            <input type="text" class="form-control" id="productprice" placeholder="Цена продажи">
+                            <input type="number" class="form-control" id="productprice" placeholder="Цена продажи">
                         </div>
                     </div>
 
@@ -200,7 +200,7 @@
                         </div>
                         <div class="col-md-4 col-md-offset-8">
                             <div class="text-right">
-                                <button class="btn btn-primary" type="submit" id="addproduct">Добавить</button>
+                                <button class="btn btn-primary" type="submit" id="addproduct" disabled>Добавить</button>
                             </div>
                         </div>
                     </div>
@@ -217,6 +217,7 @@
 
 
 </body>
+
 <script>
     $(document).ready(function() {
         function addDataToDatabase(dataToAdd, handleUrl, entity) {
@@ -259,12 +260,11 @@
             var productprice = $('#productprice').val();
             var procurementdetails = $('#procurementdetails').val();
 
-
             var conrtagent = {
                 "contragentId" : contragents,
                 "contragentName" : contragentName
             }
-
+            
             var productType = {
                 "productTypeId" : productTypeId,
                 "productTypeName" : productTypeName
@@ -353,6 +353,8 @@
                     // $("#productPriceAfterDiscount").val($('#productPrice').val());
                 }
             });
+            location.reload(true);
+            $("#addNewProductType").attr("disabled", "disabled");
             // var procurementJson = {
             //     productId : "",
             //     articul : productarticul,
@@ -373,6 +375,30 @@
             //
             // };
         });
+        
+        
+        
+        $('input').change(function(){
+    		var nomernakladnoj = $('#nomernakladnoj').val();
+    		var productarticul = $('#productarticul').val();
+    		var productname = $('#productname').val();
+    		var productTypeName = $("#productTypeList").find('option:selected').text()
+    		var procurementcountry = $('#procurementcountry').val();
+    		var contragentName = $("#contragents").find('option:selected').text();
+    		var procurementdate = $('#procurementdate').val();
+    		var productquantity = $('#productquantity').val();
+    		var procurementprice = $('#procurementprice').val();
+            var productprice = $('#productprice').val();
+    		if ( nomernakladnoj !='' && productarticul !='' && productname !='' && productTypeName !='' && 
+    			 procurementcountry !='' && contragentName !='' && procurementdate !='' && productquantity !='' &&
+    			 procurementprice !='' && productprice !=''){
+    			$("#addproduct").removeAttr("disabled");
+    		} else {
+    			$("#addproduct").attr("disabled", "disabled");
+    		}
+    	});
+        
+        
 
     });
 </script>

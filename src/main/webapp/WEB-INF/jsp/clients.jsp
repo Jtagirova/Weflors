@@ -72,12 +72,12 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="clientPhone">Tелефон*</label>
-                            <input type="text" class="form-control" id="clientPhone" name="clientPhone"
+                            <input type="number" class="form-control" id="clientPhone" name="clientPhone"
                                    placeholder="Телефон"/>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="clientDiscount">Скидка%</label>
-                            <input type="text" class="form-control" id="clientDiscount" name="clientDiscount"
+                            <input type="number" class="form-control" id="clientDiscount" name="clientDiscount"
                                    placeholder="Скидка%"/>
                         </div>
 
@@ -91,7 +91,7 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="clientZipCode">Индекс</label>
-                            <input type="text" class="form-control" id="clientZipCode" name="clientZipCode"
+                            <input type="number" class="form-control" id="clientZipCode" name="clientZipCode"
                                    placeholder="Индекс"/>
                         </div>
 
@@ -106,7 +106,7 @@
                         </div>
                         <div class="col-md-4 col-md-offset-8">
                             <div class="text-right">
-                                <button class="btn btn-primary" type="submit" id="addClient">Добавить</button>
+                                <button class="btn btn-primary" type="submit" id="addClient" disabled>Добавить</button>
                             </div>
                         </div>
                     </div>
@@ -147,7 +147,7 @@
 </div>
 </div>
 <script>
-    $(document).ready(function () {
+$(document).ready(function () {
         $.ajax({
             type: 'GET',
             url: "/clients/listClients",
@@ -224,14 +224,30 @@
                         alert(data.responseText);
                     }
                 });
+                location.reload(true);
             }
+            $("#addClient").attr("disabled", "disabled");
         });
+         
+        $('input').change(function(){
+    		var clientName = $('#clientName').val();
+    		var clientSurname = $('#clientSurname').val();
+    		var clientBirthday = $('#clientBirthday').val();
+    		var clientEmail = $('#clientEmail').val();
+    		var clientPhone = $('#clientPhone').val();
+    		if ( clientName !='' && clientSurname !='' && clientBirthday !='' && clientEmail !='' && clientPhone !=''){
+    			$("#addClient").removeAttr("disabled");
+    		} else {
+    			$("#addClient").attr("disabled", "disabled");
+    		}
+    	});
+        
 
         $("#clientTable").searcher({
             inputSelector: "#findClient"
         });
 
-    });
+});
 
 </script>
 

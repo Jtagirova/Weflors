@@ -55,7 +55,7 @@
 					<div class="row">
 						<div class="col-md-4 mb-4">
 							<label for="productPrice">Цена товара</label>
-							<input type="text" class="form-control" id="productPrice" name="productPrice" />
+							<input type="number" class="form-control" id="productPrice" name="productPrice" />
 						</div>
 					</div>
 
@@ -64,7 +64,7 @@
 						<div class="form-group">
 							<div class="col-md-4 mb-3">
 								<label for="productQuantity">Количество товара*</label>
-								<input type="text" class="form-control" id="productQuantity" name="productQuantity" />
+								<input type="number" class="form-control" id="productQuantity" name="productQuantity" />
 							</div>
 							<div class="col-md-8 mb-3">
 								<label for="details">Причина*</label>
@@ -170,7 +170,6 @@ $(document).ready(function() {
 			});
 		});
 		let tableNumOfRows = 0;
-		let tableTotalSum = 0;
 		var writeOffArr = [];
 		
 		$("#addtocheck").click(function() {
@@ -178,8 +177,8 @@ $(document).ready(function() {
 			var productId = $("#products").find('option:selected').val();
 			var articul = $('#articul').val();
 			var salePrice = 0;
-			let productQuantity = Number($('#productQuantity').val());
-			let productPrice = Number($('#productPrice').val());
+			var productQuantity = $('#productQuantity').val();
+			var productPrice = $('#productPrice').val();
 			var details = $('#details').val();
 			var saleDate = new Date();
 			var validityDate = $('#productValidityDate').find('option:selected').text();
@@ -210,7 +209,8 @@ $(document).ready(function() {
 				"productByProductId" : product
 			};
 			writeOffArr.push(json);
-			var total = productPrice*productQuantity;
+			
+			let total = Number(productPrice*productQuantity).toFixed(2);
 			var rowId = '$<tr id="' + ++tableNumOfRows + '">';
 			var rowl = rowId 
 					+'<td>' + productName + '</td>'
@@ -219,19 +219,9 @@ $(document).ready(function() {
 					+'<td>' + saleDate + '</td>'
 					+'<td>' + productPrice + '</td>'
 					+'<td><input type="text" class="productQuantityChange" value="' + productQuantity + '"></td>'
-//					+'<td class="total summPrices">' + total + '</td>'
-					
 					+'<td class="summPrices">' + total + '</td>'
 					+'<td class="text-center"><button class="deleteRow btn btn-primary" id="'+ ++tableNumOfRows + ' type="submit"">Удалить</button></td>'
 					+'</tr>';
-			tableTotalSum = tableTotalSum + total;
-			
-
-			
-			
-			
-			
-			
 			$('#saleTable > tbody').append(rowl);
 			$('#products').prop('selectedIndex',0);
 			$('#articul').val("");
@@ -263,28 +253,30 @@ $(document).ready(function() {
 					success : function(data) {
 						location.reload(true);
 						writeOffArr = [];
-						tableTotalSum = 0;
 						tableNumOfRows = 0;
 						$('#saleTable > tbody').empty();
-						$('#saleTable > tfoot > tr > td').text(tableTotalSum);
 						alert(data.responseText);
 					},
 					error : function(data) {	
 						alert(data.responseText);
 					}
 				});
+			};
+			location.reload(true);
+	        $("#addNewProductType").attr("disabled", "disabled");
+		});
+		
+		$('input').change(function(){
+			var productName = $("#products").find('option:selected').text();
+			var productQuantity = Number($('#productQuantity').val());
+			var details = $('#details').val();
+			if ( productName !='' && productQuantity !='' && details !='' ){
+				$("#addtocheck").removeAttr("disabled");
+			} else {
+				$("#addtocheck").attr("disabled", "disabled");
 			}
 		});
 		
-		$('input').change(function(){	
-			if ( $("#products").find('option:selected').text()=='' || $('#productQuantity').val() == '' || $('#details').val() == ''){
-				alert("Для списания товара необходимо заполнить поля Наименование, Количество товара и Причина");
-				$("#addtocheck").attr("disabled", "disabled");
-			} else {
-				$("#addtocheck").removeAttr("disabled");
-			}
-		});
-			
 
 });
 

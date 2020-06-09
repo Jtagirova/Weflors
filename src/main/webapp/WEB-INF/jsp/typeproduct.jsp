@@ -60,7 +60,7 @@
 						</div>
 						<div class="col-md-4 col-md-offset-8">
 							<div class="text-right">
-								<button class="btn btn-primary" type="submit" id="addNewProductType">Добавить</button>
+								<button class="btn btn-primary" type="submit" id="addNewProductType" disabled>Добавить</button>
 							</div>
 						</div>
 					</div>
@@ -137,9 +137,7 @@ $(document).ready(function() {
 	});	
 	
 	$("#addNewProductType").click(function() {		
-		var json = {
-			"productTypeName" : $('#productTypeName').val()
-		}; 
+		var json = { "productTypeName" : $('#productTypeName').val()	}; 
 		var productTypeEntity = JSON.stringify(json);
         if (confirm('Вы желаете добавить новую категорию товара в вашу базу?')) {
         	$.ajax({
@@ -157,7 +155,22 @@ $(document).ready(function() {
     				alert(data.responseText);
     			}
     		});	
-        }
+        };
+        location.reload(true);
+        $("#addNewProductType").attr("disabled", "disabled");
+	});
+	
+	$('input').change(function(){
+		var contragentName = $('#nameContragent').val();
+		var address = $('#addressContragent').val();
+		var phone1 = $('#phone1Contragent').val();
+		var inn = $('#innContragent').val();
+		var unk = $('#unkContragent').val();
+		if ( contragentName !='' && address !='' && phone1 !='' && inn !='' && unk !=''){
+			$("#addNewProductType").removeAttr("disabled");
+		} else {
+			$("#addNewProductType").attr("disabled", "disabled");
+		}
 	});
 	
 	$("#typeProductTable").searcher({

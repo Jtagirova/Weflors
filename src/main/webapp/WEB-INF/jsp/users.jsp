@@ -59,7 +59,7 @@
 						<div class="col-md-4 mb-4">
 							<label for="adminRole">Роль*</label>
 							<br>	
-							Администратор   	<label><input type="radio" id="adminRole"  name="radio" value="1"/></label>
+							Администратор   	<label><input type="radio" id="adminRole" name="radio" value="1"/></label>
 						</div>
 					</div>					
 					<br><br>					
@@ -70,11 +70,11 @@
 						</div>
 						<div class="col-md-4 mb-4">
 							<label for="userPhone">Телефон*</label>
-							<input type="text" class="form-control" id="userPhone" name="userPhone" placeholder="Телефон"/>
+							<input type="number" class="form-control" id="userPhone" name="userPhone" placeholder="Телефон"/>
 						</div>
 						<div class="col-md-4 mb-4">
 						<br>
-							Пользователь  	<label> <input type="radio" id="userRole" name="radio" value="2" /></label>
+							Пользователь  	<label><input type="radio" id="userRole" name="radio" value="2" /></label>
 						</div>
 					</div>
 					<br><br>
@@ -256,7 +256,8 @@ $(document).ready(function() {
     				alert(data.responseText);
     			}
     		});	
-        	location.reload(true)
+        	 location.reload(true);
+             $("#addNewProductType").attr("disabled", "disabled");
         }
 	});
 	
@@ -264,14 +265,26 @@ $(document).ready(function() {
 	    inputSelector: "#findUser"
 	});
 	
-	$("#userRepeatPass").on("blur", function() { 
-		var passwordValue = $("#userPass").val();
-		var passwordRepeatValue = $("#userRepeatPass").val();
-		if(passwordValue != passwordRepeatValue ) { 
+	$("#userRepeatPass").on("blur", function(){ 
+		if($("#userPass").val() != $("#userRepeatPass").val() ) { 
 			alert("Пароли не совпадают!"); 
-			$("#saveChangedUser").attr("disabled", "disabled");
-		} else { 
+		}
+	});
+	
+	$('input').change(function(){
+		var userName = $('#userName').val();
+		var userLastName = $('#userLastName').val();
+		var userEmail = $('#userEmail').val();
+		var userPhone = $('#userPhone').val();
+		var userLogin = $('#userLogin').val();
+		var userPass = $('#userPass').val();
+		var passwordRepeatValue = $("#userRepeatPass").val();
+		var roleId = $('input:radio:checked').val();
+		if ( userName !='' && userLastName !='' && userEmail !='' && userPhone !='' && 
+			 userLogin !='' && userPass !='' && passwordRepeatValue !='' && roleId !=null){
 			$("#saveChangedUser").removeAttr("disabled");
+		} else {
+			$("#saveChangedUser").attr("disabled", "disabled");
 		}
 	});
 	
