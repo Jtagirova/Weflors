@@ -89,8 +89,8 @@ public class AddProductController {
     @RequestMapping(value = "/getContragentById", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    ContragentsEntity getContragentById(@RequestBody Integer contagentId) {
-        ContragentsEntity a = contragentsServiceImpl.loadContragentByContragentID(contagentId);
+    ContragentsEntity getContragentById(@RequestBody Integer contragentId) {
+        ContragentsEntity a = contragentsServiceImpl.loadContragentByContragentID(contragentId);
         return a;
     }
 }

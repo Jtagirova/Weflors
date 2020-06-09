@@ -57,29 +57,29 @@
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="zipCodeContragent">Индекс</label>
-							<input type="text" class="form-control" id="zipCodeContragent" name="zipCodeContragent" placeholder="Индекс"/>
+							<input type="number" class="form-control" id="zipCodeContragent" name="zipCodeContragent" placeholder="Индекс"/>
 						</div>
 					</div>					
 					<br><br>					
 					<div class="row">
 						<div class="col-md-4 mb-3">
 							<label for="phone1Contragent">Контактный телефон №1*</label>
-							<input type="text" class="form-control" id="phone1Contragent" name="phone1Contragent" placeholder="Контактный телефон №1"/>
+							<input type="number" class="form-control" id="phone1Contragent" name="phone1Contragent" placeholder="Контактный телефон №1"/>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="phone2Contragent">Контактный телефон №2</label>
-							<input type="text" class="form-control" id="phone2Contragent" name="phone2Contragent" placeholder="Контактный телефон №2"/>
+							<input type="number" class="form-control" id="phone2Contragent" name="phone2Contragent" placeholder="Контактный телефон №2"/>
 						</div>
 					</div>
 					<br><br>
 					<div class="row">
 						<div class="col-md-4 mb-3">
 							<label for="innContragent">ИНН*</label>
-							<input type="text" class="form-control" id="innContragent" name="innContragent" placeholder="ИНН"/>
+							<input type="number" class="form-control" id="innContragent" name="innContragent" placeholder="ИНН"/>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="unkContragent">УНК*</label>
-							<input type="text" class="form-control" id="unkContragent" name="unkContragent" placeholder="УНК"/>
+							<input type="number" class="form-control" id="unkContragent" name="unkContragent" placeholder="УНК"/>
 						</div>
 					</div>
 				</div>
