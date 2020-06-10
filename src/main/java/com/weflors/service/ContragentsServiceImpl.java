@@ -14,16 +14,14 @@ public class ContragentsServiceImpl {
     private ContragentsRepository contragentsRepository;
 
     public List<ContragentsEntity> loadContragents() {
-       // contragentsRepository.findByContragentID(1);
-        List<ContragentsEntity> contragents = contragentsRepository.findAll();
-        return contragents;
+        return contragentsRepository.findAll();
     }
 
     public ContragentsEntity loadContragentByContragentID(Integer contragentId)  {
         return contragentsRepository.findByContragentID(contragentId);
     }
     
-    public ContragentsEntity saveNewContagent(ContragentsEntity contragentsEntity)  {
+    public ContragentsEntity saveNewContragent(ContragentsEntity contragentsEntity)  {
         return contragentsRepository.save(contragentsEntity);
     }
     
@@ -34,5 +32,10 @@ public class ContragentsServiceImpl {
     
     public void deleteContragent(Integer contragentId) {
     	contragentsRepository.deleteByContragentId(contragentId);
+    }
+    
+    public void updateContragentInfo(ContragentsEntity contragentsEntity) {
+    	contragentsRepository.updateContragentById(contragentsEntity.getAddress(), contragentsEntity.getContragentName(), contragentsEntity.getPhone1(),
+    			contragentsEntity.getPhone2(), contragentsEntity.getUnk(), contragentsEntity.getInn(),contragentsEntity.getZipCode(), contragentsEntity.getContragentId());
     }
 }

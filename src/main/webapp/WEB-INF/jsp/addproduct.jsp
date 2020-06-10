@@ -53,7 +53,7 @@
                         </div>
                         <div class="col-md-6 mb-4">
                             <label for="productheight">Высота</label>
-                            <input type="number" class="form-control" id="productheight" placeholder="Высота">
+                            <input type="number" class="form-control" id="productheight" placeholder="Высота" value="0">
                         </div>
                     </div>
 
@@ -397,6 +397,12 @@
     		} else {
     			$("#addproduct").attr("disabled", "disabled");
     		}
+/*    		
+    		if($('#productheight').val() ==''){
+    			$('#productheight').val(0);
+    		}
+*/    		
+    		
     	});
         
         

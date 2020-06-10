@@ -38,14 +38,22 @@ public class ProductTypeController {
 	@PostMapping("/addNewProductType")
 	@ResponseBody
 	public String addNewProductType(@RequestBody ProductTypesEntity productTypesEntity) {
-		if(productTypesEntity.getProductTypeName().isEmpty()) {
-			return "Поле Наименование категории обязательно к заполнению";
-		}
-		if(productTypeService.existByProductName(productTypesEntity.getProductTypeName())  != null) { 
+		if(productTypeService.existByProductName(productTypesEntity.getProductTypeName()) != null) { 
 			return "Категория товара с таким именем уже существует в БД";
 		} else {
 			productTypeService.saveNewProductType(productTypesEntity);
 			return "Новая категория товара добавлена";
+		}
+	}
+	
+	@PostMapping("/updateProductType")
+	@ResponseBody
+	public String updateProductType(@RequestBody ProductTypesEntity productTypesEntity) {
+		productTypeService.updateProductType(productTypesEntity);
+		if(productTypeService.existByProductName(productTypesEntity.getProductTypeName()) != null) { 
+			return "Категория товара обновлена в базе данных";
+		} else {
+			return "Ошибка обновления данных о категории товара";
 		}
 	}
 	

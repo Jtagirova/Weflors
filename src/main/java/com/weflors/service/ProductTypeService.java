@@ -30,7 +30,11 @@ public class ProductTypeService {
     }
     
     public void deleteProductType(Integer productTypeId) {
-    	productTypeRepository.deleteByProductTypeId(productTypeId);
+    	productTypeRepository.deleteByProductTypeById(productTypeId);
+    }
+    
+    public void updateProductType(ProductTypesEntity productTypesEntity) {
+    	productTypeRepository.updateProductTypeById(productTypesEntity.getProductTypeName(), productTypesEntity.getProductTypeId());
     }
 
 }

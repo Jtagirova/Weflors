@@ -18,7 +18,20 @@ public interface ContragentsRepository extends JpaRepository<ContragentsEntity, 
     @Modifying
     @Transactional
     @Query("delete from ContragentsEntity where contragentId = :contragentId")
-//    @Query(value ="delete from flowershop.contragents where contragent_id = :contragentId", nativeQuery = true)
     public void deleteByContragentId(@Param("contragentId") Integer contragentId);
+    
+    @Modifying
+	@Transactional
+	@Query(value ="update flowershop.contragents set address = :address, contragent_name = :contragentName, phone_1 = :phone1, phone_2 = :phone2,"
+			+ "unk = :unk, inn = :inn, zip_code = :zipCode where contragent_id = :contragentId",
+			nativeQuery = true)
+	void updateContragentById(@Param("address") String address, 
+							@Param("contragentName") String contragentName,
+							@Param("phone1") String string, 
+							@Param("phone2") String string2,
+							@Param("unk") String string3, 
+							@Param("inn") String string4, 
+							@Param("zipCode") String string5,
+							@Param("contragentId") Integer contragentId);
      
 }

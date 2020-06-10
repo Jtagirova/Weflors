@@ -35,19 +35,31 @@ public class ContragentsController {
 	    return contragentsServiceImpl.loadContragents();
 	}
 	
-	@PostMapping("/addNewContagent")
+	@PostMapping("/addNewContragent")
 	@ResponseBody
-	public String addNewContagent(@RequestBody ContragentsEntity contragentsEntity) {
-		if(contragentsEntity.getContragentName().isEmpty() || contragentsEntity.getInn().isEmpty() || contragentsEntity.getUnk().isEmpty()) {
-			return "Поля Наименования поставщика, ИНН и УНК обязательны к заполнению";
-		}
+	public String addNewContragent(@RequestBody ContragentsEntity contragentsEntity) {
 		if(contragentsServiceImpl.existByContragentName(contragentsEntity.getContragentName()) != null) {
 			return "Поставщик с таким именем уже существует в БД";
 		} else {
-			contragentsServiceImpl.saveNewContagent(contragentsEntity);
+			contragentsServiceImpl.saveNewContragent(contragentsEntity);
+		}
+		if(contragentsServiceImpl.existByContragentName(contragentsEntity.getContragentName()) != null) {
 			return "Новый поставщик добавлен";
+		} else {
+			return "Ошибка добавления";
 		}
 	}	
+	
+	@PostMapping("/updateContragent")
+	@ResponseBody
+	public String updateContragentInfo(@RequestBody ContragentsEntity contragentsEntity) {
+		contragentsServiceImpl.updateContragentInfo(contragentsEntity);
+		if(contragentsServiceImpl.existByContragentName(contragentsEntity.getContragentName()) != null) {
+			return "Данные о поставщике обновлены в базе данных";
+		} else {
+			return "Ошибка обновления данных о поставщике";
+		}	
+	}
 	
 	@DeleteMapping("/deleteContragent")
 	@ResponseBody
@@ -57,5 +69,3 @@ public class ContragentsController {
 	}
 	
 }
-
-

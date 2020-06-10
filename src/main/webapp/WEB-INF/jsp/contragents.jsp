@@ -50,6 +50,7 @@
 						<div class="col-md-4 mb-3">
 							<label for="nameContragent">Наименование поставщика*</label>
 							<input type="text" class="form-control" id="nameContragent" name="nameContragent" placeholder="Наименование поставщика"/>
+							<input type="hidden" id="contragentId" name="contragentId"/>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="addressContragent">Адрес*</label>
@@ -92,6 +93,7 @@
 						<div class="col-md-4 col-md-offset-8">
 							<div class="text-right">
 								<button class="btn btn-primary" type="submit" id="addContragent" disabled>Добавить</button>
+  								<button class="btn btn-primary" type="submit" id="updateContragent" disabled>Сохранить изменения</button>
 							</div>
 						</div>
 					</div>
@@ -114,7 +116,7 @@
 										<th scope="col" class="text-center">Контактный телефон №1</th>
 										<th scope="col" class="text-center">ИНН</th>
 										<th scope="col" class="text-center">УНК</th>
-										<th scope="col" class="text-center">Удаление</th>
+										<th scope="col" class="text-center">Изменение / Удаление</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -134,6 +136,8 @@
 
 $(document).ready(function() {
 	
+	$('#updateContragent').hide();
+	
 	$.ajax({ 
 	    type: 'GET', 
 	    url: "/contragents/listContragents",
@@ -145,13 +149,27 @@ $(document).ready(function() {
 				'<td>' + item.phone1 + '</td>' +
 				'<td>' + item.inn + '</td>' +
 				'<td>' + item.unk + '</td>' + 
-				'<td class="text-center"><button id="'+ item.contragentId +'" class="delete btn btn-primary" type="submit">Удалить</button></td></tr>';
+				'<td class="text-center"><input type="button" changeId="'+ item.contragentId +'" class="btn btn-primary" value="Изменить">' + ' / ' +
+				'<button deleteId="'+ item.contragentId +'" class="btn btn-primary" type="submit">Удалить</button></td></tr>';
 			$('#contragentTable > tbody').append(rowl);
-			var sel = "[id='" + item.contragentId + "']";
-			$(sel).click(function (id) {	
+			var cid = "[changeId='" + item.contragentId + "']";
+			$(cid).click(function (id) {
+				$('#contragentId').val(item.contragentId);
+				$('#nameContragent').val(item.contragentName);
+				$('#addressContragent').val(item.address);
+				$('#phone1Contragent').val(item.phone1);
+				$('#phone2Contragent').val(item.phone2);
+				$('#innContragent').val(item.inn);
+				$('#unkContragent').val(item.unk);
+				$('#zipCodeContragent').val(item.zipCode);	
+				$('#addContragent').hide();
+				$('#updateContragent').show();	
+			});
+			var did = "[deleteId='" + item.contragentId + "']";
+			$(did).click(function (id) {	
 				var json = { "contragentId" : item.contragentId };
-		        if (confirm('Вы желаете удалить данного поставщика из вашей базы?')) {
-		        	$.ajax({
+			    if (confirm('Вы желаете удалить данного поставщика из вашей базы данных?')) {
+			       	$.ajax({
 						type : "DELETE",
 						contentType : "application/json",
 						url : "/contragents/deleteContragent",
@@ -166,7 +184,7 @@ $(document).ready(function() {
 							alert(data.responseText);
 						}
 					});
-		        }
+			    }
 			});
 			});    	
 	    }
@@ -190,11 +208,11 @@ $(document).ready(function() {
 			"zipCode" : zipCode		
 		}; 
 		var contragentsEntity = JSON.stringify(json);
-        if (confirm('Вы желаете добавить данного поставщика в вашу базу?')) {
+        if (confirm('Вы желаете добавить данного поставщика в вашу базу данных?')) {
         	$.ajax({
     			type : "POST",
     			contentType : "application/json",
-    			url : "/contragents/addNewContagent",
+    			url : "/contragents/addNewContragent",
     			data : contragentsEntity,
     			dataType : 'json',
     			cache : false,
@@ -211,17 +229,68 @@ $(document).ready(function() {
         $("#addContragent").attr("disabled", "disabled");
 	});
 	
+	$("#updateContragent").click(function() {
+		var contragentId = $('#contragentId').val();
+		var contragentName = $('#nameContragent').val();
+		var address = $('#addressContragent').val();
+		var phone1 = $('#phone1Contragent').val();
+		var phone2 = $('#phone2Contragent').val();
+		var inn = $('#innContragent').val();
+		var unk = $('#unkContragent').val();
+		var zipCode = $('#zipCodeContragent').val();
+		var json = {
+				"contragentId" : contragentId,
+				"contragentName" : contragentName,
+				"address" : address,
+				"phone1" : phone1,
+				"phone2" : phone2,
+				"inn" : inn,
+				"unk" : unk,
+				"zipCode" : zipCode		
+		}; 
+		var contragentsEntity = JSON.stringify(json);
+        if (confirm('Вы желаете изменить данные поставщике в вашей базе данных?')) {
+        	$.ajax({
+    			type : "POST",
+    			contentType : "application/json",
+    			url : "/contragents/updateContragent",
+    			data : contragentsEntity,
+    			dataType : 'json',
+    			cache : false,
+    			timeout : 600000,
+    			success : function(data) {
+    				alert(data.responseText);
+    			},
+    			error : function(data) {	
+    				alert(data.responseText);
+    			}
+    		});	
+        	location.reload(true);
+        }
+        $("#addContragent").attr("disabled", "disabled");
+        $('#updateContragent').hide();
+	});	
+					
 	$('input').change(function(){
 		var contragentName = $('#nameContragent').val();
 		var address = $('#addressContragent').val();
 		var phone1 = $('#phone1Contragent').val();
+		var phone2 = $('#phone2Contragent').val();
 		var inn = $('#innContragent').val();
 		var unk = $('#unkContragent').val();
+		var zip = $('#zipCodeContragent').val();
 		if ( contragentName !='' && address !='' && phone1 !='' && inn !='' && unk !=''){
 			$("#addContragent").removeAttr("disabled");
+			$("#updateContragent").removeAttr("disabled");
 		} else {
 			$("#addContragent").attr("disabled", "disabled");
 		}
+		if (zip ==''){
+			$('#zipCodeContragent').val(0);
+		} 
+		if (phone2 ==''){
+			$('#phone2Contragent').val(0);
+		} 
 	});
 	
 	$("#contragentTable").searcher({

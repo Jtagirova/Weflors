@@ -50,6 +50,7 @@
 						<div class="col-md-4 mb-3">
 							<label for="productTypeName">Наименование категории*</label>
 							<input type="text" class="form-control" id="productTypeName" name="productTypeName" placeholder="Наименование категории"/>
+							<input type="hidden" id="productTypeId" name="productTypeId"/>
 						</div>
 					</div>
 				</div>
@@ -61,6 +62,7 @@
 						<div class="col-md-4 col-md-offset-8">
 							<div class="text-right">
 								<button class="btn btn-primary" type="submit" id="addNewProductType" disabled>Добавить</button>
+								<button class="btn btn-primary" type="submit" id="updateProductType" disabled>Сохранить изменения</button>
 							</div>
 						</div>
 					</div>
@@ -81,7 +83,7 @@
 								<thead>
 									<tr>
 										<th scope="col" class="text-center">Наименование категории товара</th>
-										<th scope="col" class="text-center">Удаление</th>
+										<th scope="col" class="text-center">Изменение / Удаление</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -101,6 +103,8 @@
 
 $(document).ready(function() {
 	
+	$('#updateProductType').hide();
+	
 	$.ajax({ 
 	    type: 'GET', 
 	    url: "/typeproduct/listProductTypes",
@@ -109,13 +113,21 @@ $(document).ready(function() {
 	    success: function (data) {
 			data.forEach(function (item){	
 			var rowl = '<tr><td>' + item.productTypeName + '</td>' +
-				'<td class="text-center"><button id="'+ item.productTypeId +'" class="delete btn btn-primary" type="submit">Удалить</button></td></tr>';
+				'<td class="text-center"><input type="button" changeId="'+ item.productTypeId +'" class="btn btn-primary" value="Изменить">' + ' / ' +
+				'<button deleteId="'+ item.productTypeId +'" class="btn btn-primary" type="submit">Удалить</button></td></tr>';
 			$('#typeProductTable > tbody').append(rowl);
-			var sel = "[id='" + item.productTypeId + "']";
-			$(sel).click(function (id) {	
+			var cid = "[changeId='" + item.productTypeId + "']";
+			$(cid).click(function (id) {
+				$('#productTypeId').val(item.productTypeId);	
+				$('#productTypeName').val(item.productTypeName);
+				$('#addNewProductType').hide();
+				$('#updateProductType').show();	
+			});
+			var did = "[deleteId='" + item.productTypeId + "']";
+			$(did).click(function (id) {	
 				var json = { "productTypeId" : item.productTypeId };
-		        if (confirm('Вы желаете удалить данную категорию товара из вашей базы?')) {
-		        	$.ajax({
+			    if (confirm('Вы желаете удалить данную категорию товара из вашей базы данных?')) {
+			       	$.ajax({
 						type : "DELETE",
 						contentType : "application/json",
 						url : "/typeproduct/deleteProductType",
@@ -130,8 +142,8 @@ $(document).ready(function() {
 							alert(data.responseText);
 						}
 					});
-		        }	
-			});
+			    }
+			});	
 			});    	
 	    }
 	});	
@@ -139,7 +151,7 @@ $(document).ready(function() {
 	$("#addNewProductType").click(function() {		
 		var json = { "productTypeName" : $('#productTypeName').val()	}; 
 		var productTypeEntity = JSON.stringify(json);
-        if (confirm('Вы желаете добавить новую категорию товара в вашу базу?')) {
+        if (confirm('Вы желаете добавить новую категорию товара в вашу базу данных?')) {
         	$.ajax({
     			type : "POST",
     			contentType : "application/json",
@@ -160,14 +172,41 @@ $(document).ready(function() {
         $("#addNewProductType").attr("disabled", "disabled");
 	});
 	
+	
+	$("#updateProductType").click(function() {
+		var productTypeId = $('#productTypeId').val();
+		var productTypeName = $('#productTypeName').val();
+		var json = {
+				"productTypeId" : productTypeId,
+				"productTypeName" : productTypeName	
+		}; 
+        if (confirm('Вы желаете изменить данные о категории товара в вашей базе данных?')) {
+        	$.ajax({
+    			type : "POST",
+    			contentType : "application/json",
+    			url : "/typeproduct/updateProductType",
+    			data : JSON.stringify(json),
+    			dataType : 'json',
+    			cache : false,
+    			timeout : 600000,
+    			success : function(data) {
+    				alert(data.responseText);
+    			},
+    			error : function(data) {	
+    				alert(data.responseText);
+    			}
+    		});	
+        	location.reload(true);
+        }
+        $("#addNewProductType").attr("disabled", "disabled");
+        $('#updateProductType').hide();
+	});	
+	
 	$('input').change(function(){
-		var contragentName = $('#nameContragent').val();
-		var address = $('#addressContragent').val();
-		var phone1 = $('#phone1Contragent').val();
-		var inn = $('#innContragent').val();
-		var unk = $('#unkContragent').val();
-		if ( contragentName !='' && address !='' && phone1 !='' && inn !='' && unk !=''){
+		var productTypeName = $('#productTypeName').val();
+		if (productTypeName !=''){
 			$("#addNewProductType").removeAttr("disabled");
+			$("#updateProductType").removeAttr("disabled");
 		} else {
 			$("#addNewProductType").attr("disabled", "disabled");
 		}

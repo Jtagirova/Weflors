@@ -196,7 +196,6 @@ $(document).ready(function () {
             var clientDiscount = $('#clientDiscount').val();
             var clientAddress = $('#clientAddress').val();
             var clientZipCode = $('#clientZipCode').val();
-
             var clientJSON = {
                 "clientName": clientName,
                 "clientSurname": clientSurname,

@@ -20,6 +20,11 @@ public interface ProductTypeRepository extends JpaRepository<ProductTypesEntity,
     @Modifying
     @Transactional
     @Query("delete from ProductTypesEntity where productTypeId = :productTypeId")
-    public void deleteByProductTypeId(@Param("productTypeId") Integer productTypeId);
+    public void deleteByProductTypeById(@Param("productTypeId") Integer productTypeId);
+    
+    @Modifying
+   	@Transactional
+   	@Query(value ="update flowershop.product_types set product_type_name = :productTypeName where product_type_id = :productTypeId", nativeQuery = true)
+   	void updateProductTypeById(@Param("productTypeName") String productTypeName, @Param("productTypeId") Integer productTypeId);
 
 }
