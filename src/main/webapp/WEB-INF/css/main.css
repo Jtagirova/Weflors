@@ -54,19 +54,8 @@ ul.nav li.active a {
     background-color: #5160b4 !important;
 }
 
-h4 {
-    color: #5160b4 !important;
-    font-weight: bold; !important;
-    font-size: 27px !important;
-}
-h2 { color: #5160b4;
-    font-family: 'Rouge Script',
-    cursive; font-size: 34px;
-    font-weight: normal;
-    line-height: 24px;
-    margin: 0 0 30px;
-    text-align: center;
-    text-shadow: 1px 1px 2px #082b34; !important}
+
+
 
 h1 { color: #5160b4;
     font-family: 'Rouge Script', cursive;
@@ -75,15 +64,36 @@ h1 { color: #5160b4;
     line-height: 32px;
     margin: 0 0 30px;
     text-align: center;
-    text-shadow: 1px 1px 2px #082b34; !important}
+    text-shadow: 1px 1px 2px #082b34; !important
+}
+
+h2 { color: #5160b4;
+    font-family: 'Rouge Script',
+    cursive; font-size: 34px;
+    font-weight: normal;
+    line-height: 24px;
+    margin: 0 0 30px;
+    text-align: center;
+    text-shadow: 1px 1px 2px #082b34; !important
+}
+
+h4 {
+    color: #5160b4 !important;
+    font-weight: bold; !important;
+    font-size: 27px !important;
+}
 
 
+/*main page zoom image*/
 
+.zoom {
+    transition: transform .3s; /* Animation */
+}
+.zoom:hover {
+    transform: scale(1.2); /* (120% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
 
-
-
-/*///////////
-[ login ]*/
+/*[ login ]*/
 .limiter {
     width: 100%;
     margin: 0 auto;

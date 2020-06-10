@@ -5,7 +5,7 @@
     <!-- It can be fixed with bootstrap affix http://getbootstrap.com/javascript/#affix-->
     <nav class="navbar navbar-collapse" >
         <ul id="sidebar" style="padding-bottom: 25%;" class="well sidebar-nav bg">
-            <a href="/" class="navbar-center">
+            <a href="/main" class="navbar-center">
                 <h2>Цветочный магазин</h2>
                 <h1>WeFlors</h1></span>
             </a>
