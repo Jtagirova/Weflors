@@ -21,7 +21,7 @@ public class ContragentsEntity {
 	private Collection<ProductEntity> productsByContragentId;
 
 	@Basic
-	@Column(name = "address", nullable = true, length = 100)
+	@Column(name = "address", nullable = false, length = 100)
 	public String getAddress() {
 		return address;
 	}
@@ -52,7 +52,7 @@ public class ContragentsEntity {
 	}
 
 	@Basic
-	@Column(name = "phone_1", nullable = true, length = 50)
+	@Column(name = "phone_1", nullable = false, length = 50)
 	public String getPhone1() {
 		return phone1;
 	}

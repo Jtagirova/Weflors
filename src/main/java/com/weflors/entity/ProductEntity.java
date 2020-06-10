@@ -122,7 +122,7 @@ public class ProductEntity {
 //    }
 
     @Basic
-    @Column(name = "origin_of_product", nullable = true, length = 50)
+    @Column(name = "origin_of_product", nullable = false, length = 50)
     public String getOriginOfProduct() {
         return originOfProduct;
     }

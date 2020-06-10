@@ -60,7 +60,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "user_name", nullable = true, length = 50)
+    @Column(name = "user_name", nullable = false, length = 50)
     public String getUserName() {
         return userName;
     }
@@ -90,7 +90,7 @@ public class UserEntity {
 	}
 
     @Basic
-    @Column(name = "user_lastname", nullable = true, length = 50)
+    @Column(name = "user_lastname", nullable = false, length = 50)
     public String getUserLastname() {
         return userLastname;
     }
@@ -100,7 +100,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "login", nullable = true, length = 50)
+    @Column(name = "login", nullable = false, length = 50)
     public String getLogin() {
         return login;
     }
@@ -110,7 +110,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "phone", nullable = true, length = 15)
+    @Column(name = "phone", nullable = false, length = 15)
     public String getPhone() {
         return phone;
     }

@@ -35,7 +35,7 @@ public class ClientEntity {
     }
 
     @Basic
-    @Column(name = "client_name", nullable = true, length = 50)
+    @Column(name = "client_name", nullable = false, length = 50)
     public String getClientName() {
         return clientName;
     }
@@ -45,7 +45,7 @@ public class ClientEntity {
     }
 
     @Basic
-    @Column(name = "client_surname", nullable = true, length = 50)
+    @Column(name = "client_surname", nullable = false, length = 50)
     public String getClientSurname() {
         return clientSurname;
     }
@@ -55,7 +55,7 @@ public class ClientEntity {
     }
 
     @Basic
-    @Column(name = "date_of_birth", nullable = true)
+    @Column(name = "date_of_birth", nullable = false)
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -75,7 +75,7 @@ public class ClientEntity {
     }
 
     @Basic
-    @Column(name = "phone", nullable = true, length = 15)
+    @Column(name = "phone", nullable = false, length = 15)
     public String getPhone() {
         return phone;
     }

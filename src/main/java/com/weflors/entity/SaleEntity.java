@@ -84,7 +84,7 @@ public class SaleEntity {
     }
 
     @Basic
-    @Column(name = "product_price", nullable = true, precision = 2)
+    @Column(name = "product_price", nullable = false, precision = 2)
     public BigDecimal getProductPrice() {
         return productPrice;
     }
