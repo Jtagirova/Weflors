@@ -39,10 +39,10 @@ public class ProductTypeController {
 	@ResponseBody
 	public String addNewProductType(@RequestBody ProductTypesEntity productTypesEntity) {
 		if(productTypeService.existByProductName(productTypesEntity.getProductTypeName()) != null) { 
-			return "Категория товара с таким именем уже существует в БД";
+			return "Категория товара с таким именем уже существует в вашей базе данных";
 		} else {
 			productTypeService.saveNewProductType(productTypesEntity);
-			return "Новая категория товара добавлена";
+			return "Новая категория товара добавлена в вашу базу данных";
 		}
 	}
 	
@@ -51,7 +51,7 @@ public class ProductTypeController {
 	public String updateProductType(@RequestBody ProductTypesEntity productTypesEntity) {
 		productTypeService.updateProductType(productTypesEntity);
 		if(productTypeService.existByProductName(productTypesEntity.getProductTypeName()) != null) { 
-			return "Категория товара обновлена в базе данных";
+			return "Категория товара была обновлена в вашей базе данных";
 		} else {
 			return "Ошибка обновления данных о категории товара";
 		}
@@ -61,7 +61,7 @@ public class ProductTypeController {
 	@ResponseBody
 	public String deleteProductType(@RequestBody ProductTypesEntity productTypesEntity) {
 		productTypeService.deleteProductType(productTypesEntity.getProductTypeId());
-		return "Категория товара была удалена";
+		return "Категория товара была удалена из вашей базы данных";
 	}
 	
 }

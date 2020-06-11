@@ -109,6 +109,7 @@
                             <div class="text-right">
                                 <button class="btn btn-primary" type="submit" id="addClient" disabled>Добавить</button>
                                 <button class="btn btn-primary" type="submit" id="updateClient" disabled>Сохранить изменения</button>
+                                <button class="btn btn-primary" type="submit" id="cancel">Отменить</button>
                             </div>
                         </div>
                     </div>
@@ -152,6 +153,7 @@
 $(document).ready(function () {
 	
 		$('#updateClient').hide();
+		$('#cancel').hide();
 	
         $.ajax({
             type: 'GET',
@@ -184,6 +186,7 @@ $(document).ready(function () {
         	            
         				$('#addClient').hide();
         				$('#updateClient').show();	
+        				$('#cancel').show();	
         			});
         			var did = "[deleteId='" + item.clientId + "']";
         			$(did).click(function (id) {	
@@ -295,6 +298,9 @@ $(document).ready(function () {
             $('#updateClient').hide();
     	});	
         
+        $("#cancel").click(function() {	
+    		location.reload(true);
+    	});
 
         $('input').change(function(){
     		var clientName = $('#clientName').val();
@@ -302,15 +308,26 @@ $(document).ready(function () {
     		var clientBirthday = $('#clientBirthday').val();
     		var clientEmail = $('#clientEmail').val();
     		var clientPhone = $('#clientPhone').val();
+    		var clientDiscount = $('#clientDiscount').val();
+            var clientAddress = $('#clientAddress').val();
+            var clientZipCode = $('#clientZipCode').val();
     		if ( clientName !='' && clientSurname !='' && clientBirthday !='' && clientEmail !='' && clientPhone !=''){
     			$("#addClient").removeAttr("disabled");
     			$('#updateClient').removeAttr("disabled");
     		} else {
     			$("#addClient").attr("disabled", "disabled");
     		}
+    		if (clientDiscount ==''){
+    			$('#clientDiscount').val(0);
+    		} 
+    		if (clientAddress ==''){
+    			$('#clientAddress').val(0);
+    		} 
+    		if (clientZipCode ==''){
+    			$('#clientZipCode').val(0);
+    		} 
     	});
         
-
         $("#clientTable").searcher({
             inputSelector: "#findClient"
         });

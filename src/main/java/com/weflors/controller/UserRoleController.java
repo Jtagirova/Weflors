@@ -42,7 +42,7 @@ public class UserRoleController {
 	@ResponseBody
 	public String deleteUser(@RequestBody UserEntity userEntity) {
 		userDetailsServiceImpl.deleteUser(userEntity.getUserId());
-		return "Пользователь был удалена";
+		return "Пользователь был удален из вашей базы данных";
 	}
 	
 	@PostMapping("/updateUser")
@@ -51,14 +51,10 @@ public class UserRoleController {
 		if(!userDetailsServiceImpl.existUser(userEntity.getUserId())) {
 			return "Такого пользователя нет в базе данных";
 		}
-		if(userEntity.getUserName().isEmpty() || userEntity.getUserLastname().isEmpty() ||
-		   userEntity.geteMail().isEmpty() || userEntity.getPassword().isEmpty() || userEntity.getLogin().isEmpty()) {
-			return "Поля Имя, Фамилия, Email, Логин, Пароль и Роль обязательна к заполнению";
-		}
 		if(userDetailsServiceImpl.updateUser(userEntity) == true) {;
-			return "Данные пользователя обновлены в базе";
+			return "Данные пользователя обновлены в  вашей базе данных";
 		}
-		return "Проблема с обновлением данных пользователя в базе";
+		return "Проблема с обновлением данных пользователя в базе данных";
 	}
 	
 }

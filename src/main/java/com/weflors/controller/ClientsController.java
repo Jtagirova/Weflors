@@ -32,14 +32,11 @@ public class ClientsController {
     @PostMapping("/addNewClient")
     @ResponseBody
     public String addNewClient(@RequestBody ClientEntity clientEntity) {
-//        if(clientEntity.geteMail().isEmpty()) {
-//            return "Поля E-Mail обязательны к заполнению";
-//        }
         if(clientsServiceImpl.existByClientEMail(clientEntity.geteMail()) != null) {
-            return "Клиент с таким E-mail уже существует в БД";
+            return "Клиент с таким E-mail уже существует в вашей базе данных";
         } else {
             clientsServiceImpl.saveNewClient(clientEntity);
-            return "Новый клент добавлен";
+            return "Новый клиент добавлен в вашу базу данных";
         }
     }
     
@@ -58,6 +55,6 @@ public class ClientsController {
     @ResponseBody
     public String deleteClient(@RequestBody ClientEntity clientEntity) {
         clientsServiceImpl.deleteClient(clientEntity.getClientId());
-        return "Клиент был удален";
+        return "Клиент был удален из вашей базы данных";
     }
 }

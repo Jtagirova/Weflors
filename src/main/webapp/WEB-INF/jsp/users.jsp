@@ -100,7 +100,8 @@
 						</div>
 						<div class="col-md-4 col-md-offset-8">
 							<div class="text-right">
-								<button class="btn btn-primary" type="submit" id="saveChangedUser" disabled>Добавить</button>
+ 								<button class="btn btn-primary" type="submit" id="saveChangedUser" disabled>Добавить</button>
+  								<button class="btn btn-primary" type="submit" id="cancel">Отменить</button>
 							</div>
 						</div>
 					</div>
@@ -148,6 +149,9 @@
 
 $(document).ready(function() {
 	
+	$('#saveChangedUser').hide();
+	$('#cancel').hide();
+	
 	$.ajax({ 
 	    type: 'GET', 
 	    url: "/users/listUsers",
@@ -170,9 +174,6 @@ $(document).ready(function() {
 				'<td>' + roleName + '</td>' + 
 				'<td class="text-center"><input type="button" changeId="'+ item.userId +'" class="change btn btn-primary" value="Изменить">' + ' / ' +
 				'<button deleteId="'+ item.userId +'" class="delete btn btn-primary" type="submit">Удалить</button></td></tr>';
-<!--				'<td class="text-center"><input type="button" changeId="'+ item.userId +'" class="change btn btn-primary" value="Изменить"></td>' +
-				'<td class="text-center"><button deleteId="'+ item.userId +'" class="delete btn btn-primary" type="submit">Удалить</button></td></tr>'; 
-				-->	
 			$('#usersTable > tbody').append(rowl);	
 			var did = "[deleteId='" + item.userId + "']";
 			$(did).click(function (id) {	
@@ -203,6 +204,8 @@ $(document).ready(function() {
 				$('#userLogin').val(item.login);
 				$('#userEmail').val(item.eMail);
 				$('#userPhone').val(item.phone);	
+				$('#saveChangedUser').show();
+				$('#cancel').show();
 				item.userRoleMapsByUserId.forEach(function (item){
 					if(item.roleId == 1){
 						document.querySelector('#adminRole').checked = true;
@@ -257,7 +260,7 @@ $(document).ready(function() {
     			}
     		});	
         	 location.reload(true);
-             $("#addNewProductType").attr("disabled", "disabled");
+//             $("#addNewProductType").attr("disabled", "disabled");
         }
 	});
 	
@@ -269,6 +272,10 @@ $(document).ready(function() {
 		if($("#userPass").val() != $("#userRepeatPass").val() ) { 
 			alert("Пароли не совпадают!"); 
 		}
+	});
+	
+	$("#cancel").click(function() {	
+		location.reload(true);
 	});
 	
 	$('input').change(function(){
