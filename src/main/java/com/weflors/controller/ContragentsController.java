@@ -39,26 +39,22 @@ public class ContragentsController {
 	@ResponseBody
 	public String addNewContragent(@RequestBody ContragentsEntity contragentsEntity) {
 		if(contragentsServiceImpl.existByContragentName(contragentsEntity.getContragentName()) != null) {
-			return "Поставщик с таким именем уже существует в БД";
+			return "Поставщик с таким именем уже существует в БД";			
 		} else {
 			contragentsServiceImpl.saveNewContragent(contragentsEntity);
-		}
-		if(contragentsServiceImpl.existByContragentName(contragentsEntity.getContragentName()) != null) {
 			return "Новый поставщик добавлен";
-		} else {
-			return "Ошибка добавления";
-		}
+		}	
 	}	
 	
 	@PostMapping("/updateContragent")
 	@ResponseBody
-	public String updateContragentInfo(@RequestBody ContragentsEntity contragentsEntity) {
+	public String updateContragent(@RequestBody ContragentsEntity contragentsEntity) {
 		contragentsServiceImpl.updateContragentInfo(contragentsEntity);
-		if(contragentsServiceImpl.existByContragentName(contragentsEntity.getContragentName()) != null) {
+		if(contragentsServiceImpl.loadContragentByContragentID(contragentsEntity.getContragentId()).equals(contragentsEntity)) {
 			return "Данные о поставщике обновлены в базе данных";
 		} else {
 			return "Ошибка обновления данных о поставщике";
-		}	
+		}		
 	}
 	
 	@DeleteMapping("/deleteContragent")

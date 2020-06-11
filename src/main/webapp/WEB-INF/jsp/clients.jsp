@@ -51,6 +51,7 @@
                             <label for="clientName">Имя*</label>
                             <input type="text" class="form-control" id="clientName" name="clientName"
                                    placeholder="Имя клиента"/>
+                            <input type="hidden" id="clientId" name="clientId"/>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="clientSurname">Фамилия*</label>
@@ -107,6 +108,7 @@
                         <div class="col-md-4 col-md-offset-8">
                             <div class="text-right">
                                 <button class="btn btn-primary" type="submit" id="addClient" disabled>Добавить</button>
+                                <button class="btn btn-primary" type="submit" id="updateClient" disabled>Сохранить изменения</button>
                             </div>
                         </div>
                     </div>
@@ -132,7 +134,7 @@
                                     <th scope="col" class="text-center">Почтовый адрес</th>
                                     <th scope="col" class="text-center">Скидка</th>
                                     <th scope="col" class="text-center">Дата рождения</th>
-                                    <th scope="col" class="text-center">Удаление</th>
+                                    <th scope="col" class="text-center">Изменение / Удаление</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -148,6 +150,9 @@
 </div>
 <script>
 $(document).ready(function () {
+	
+		$('#updateClient').hide();
+	
         $.ajax({
             type: 'GET',
             url: "/clients/listClients",
@@ -160,29 +165,47 @@ $(document).ready(function () {
                         '<td>' + item.eMail + '</td>' +
                         '<td>' + item.discount + '</td>' +
                         '<td>' + item.dateOfBirth + '</td>' +
-                        '<td class="text-center"><button id="' + item.clientId + '" class="delete btn btn-primary" type="submit">Удалить</button></td></tr>';
+        				'<td class="text-center"><input type="button" changeId="'+ item.clientId +'" class="btn btn-primary" value="Изменить">' + ' / ' +
+        				'<button deleteId="'+ item.clientId +'" class="btn btn-primary" type="submit">Удалить</button></td></tr>';
+//                        '<td class="text-center"><button id="' + item.clientId + '" class="delete btn btn-primary" type="submit">Удалить</button></td></tr>';
                     $('#clientTable > tbody').append(rowl);
-                    var sel = "[id='" + item.clientId + "']";
-                    $(sel).click(function (id) {
-                        var json = {"cclientId": item.clientId};
-                        if (confirm('Вы желаете удалить данного клиента из вашей базы?')) {
-                            $.ajax({
-                                type: "DELETE",
-                                contentType: "application/json",
-                                url: "/clients/deleteClient",
-                                data: JSON.stringify(json),
-                                dataType: 'json',
-                                cache: false,
-                                timeout: 600000,
-                                success: function (data) {
-                                    alert(data.responseText);
-                                },
-                                error: function (data) {
-                                    alert(data.responseText);
-                                }
-                            });
-                        }
-                    });
+
+                    var cid = "[changeId='" + item.clientId + "']";
+        			$(cid).click(function (id) {
+        				$('#clientId').val(item.clientId);
+        				$('#clientName').val(item.clientName);
+        	            $('#clientSurname').val(item.clientSurname);
+        	            $('#clientBirthday').val(item.dateOfBirth);
+        	            $('#clientEmail').val(item.eMail);
+        	            $('#clientPhone').val(item.phone);
+        	            $('#clientDiscount').val(item.discount);
+        	            $('#clientAddress').val(item.address);
+        	            $('#clientZipCode').val(item.zipCode);
+        	            
+        				$('#addClient').hide();
+        				$('#updateClient').show();	
+        			});
+        			var did = "[deleteId='" + item.clientId + "']";
+        			$(did).click(function (id) {	
+        				var json = { "clientId" : item.clientId };
+        			    if (confirm('Вы желаете удалить данного клиента из вашей базы данных?')) {
+        			       	$.ajax({
+        						type : "DELETE",
+        						contentType : "application/json",
+        						url : "/clients/deleteClient",
+        						data : JSON.stringify(json),
+        						dataType : 'json',
+        						cache : false,
+        						timeout : 600000,
+        						success : function(data) {
+        							alert(data.responseText);
+        						},
+        						error : function(data) {	
+        							alert(data.responseText);
+        						}
+        					});
+        			    }
+        			});
                 });
             }
         });
@@ -207,7 +230,7 @@ $(document).ready(function () {
                 "zipCode": clientZipCode
             };
             var clientsEntity = JSON.stringify(clientJSON);
-            if (confirm('Вы желаете добавить данного клиента в вашу базу?')) {
+            if (confirm('Вы желаете добавить данного клиента в вашу базу данных?')) {
                 $.ajax({
                     type: "POST",
                     contentType: "application/json",
@@ -227,7 +250,52 @@ $(document).ready(function () {
             }
             $("#addClient").attr("disabled", "disabled");
         });
-         
+        
+        $("#updateClient").click(function() {
+        	var clientId = $('#clientId').val();
+        	var clientName = $('#clientName').val();
+            var clientSurname = $('#clientSurname').val();
+            var clientBirthday = $('#clientBirthday').val();
+            var clientEmail = $('#clientEmail').val();
+            var clientPhone = $('#clientPhone').val();
+            var clientDiscount = $('#clientDiscount').val();
+            var clientAddress = $('#clientAddress').val();
+            var clientZipCode = $('#clientZipCode').val();
+            var json = {
+            	"clientId" : clientId,	
+                "clientName": clientName,
+                "clientSurname": clientSurname,
+                "dateOfBirth": clientBirthday,
+                "eMail": clientEmail,
+                "phone": clientPhone,
+                "discount": clientDiscount,
+                "address": clientAddress,
+                "zipCode": clientZipCode
+            }; 
+    		var clientEntity = JSON.stringify(json);
+            if (confirm('Вы желаете изменить данные о клиенте в вашей базе данных?')) {
+            	$.ajax({
+        			type : "POST",
+        			contentType : "application/json",
+        			url : "/clients/updateClient",
+        			data : clientEntity,
+        			dataType : 'json',
+        			cache : false,
+        			timeout : 600000,
+        			success : function(data) {
+        				alert(data.responseText);
+        			},
+        			error : function(data) {	
+        				alert(data.responseText);
+        			}
+        		});	
+            	location.reload(true);
+            }
+            $("#addClient").attr("disabled", "disabled");
+            $('#updateClient').hide();
+    	});	
+        
+
         $('input').change(function(){
     		var clientName = $('#clientName').val();
     		var clientSurname = $('#clientSurname').val();
@@ -236,6 +304,7 @@ $(document).ready(function () {
     		var clientPhone = $('#clientPhone').val();
     		if ( clientName !='' && clientSurname !='' && clientBirthday !='' && clientEmail !='' && clientPhone !=''){
     			$("#addClient").removeAttr("disabled");
+    			$('#updateClient').removeAttr("disabled");
     		} else {
     			$("#addClient").attr("disabled", "disabled");
     		}

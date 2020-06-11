@@ -1,14 +1,13 @@
 package com.weflors.repository;
 
 import com.weflors.entity.ClientEntity;
-import com.weflors.entity.ContragentsEntity;
-import com.weflors.entity.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface ClientRepository extends JpaRepository<ClientEntity, Integer> {
@@ -29,4 +28,19 @@ public interface ClientRepository extends JpaRepository<ClientEntity, Integer> {
     @Transactional
     @Query("delete from ClientEntity where clientId = :clientId")
     public void deleteByClientId(@Param("clientId") Integer clientId);
+    
+    @Modifying
+	@Transactional
+	@Query(value ="update flowershop.client set client_name = :clientName, client_surname = :clientSurname, date_of_birth = :dateOfBirth, e_mail = :eMail,"
+			+ "phone = :phone, discount = :discount, address = :address, zip_code = :zipCode where client_id = :clientId",
+			nativeQuery = true)
+	void updateClientById(@Param("clientName") String clientName, 
+							@Param("clientSurname") String clientSurname,
+							@Param("dateOfBirth") Date dateOfBirth, 
+							@Param("eMail") String eMail,
+							@Param("phone") String phone, 
+							@Param("discount") Integer discount, 
+							@Param("address") String address,
+							@Param("zipCode") String zipCode,
+							@Param("clientId") Integer clientId);
 }

@@ -1,7 +1,6 @@
 package com.weflors.service;
 
 import com.weflors.entity.ClientEntity;
-import com.weflors.entity.ContragentsEntity;
 import com.weflors.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,19 +14,15 @@ public class ClientServiceImpl {
     private ClientRepository clientRepository;
 
     public List<String> getAllClientsEmail(){
-        List<String> allEmails = clientRepository.getAllClientEmail();
-        return allEmails;
+        return clientRepository.getAllClientEmail();
     }
 
     public List<ClientEntity> getAllClients(){
-        List<ClientEntity> allClients = clientRepository.findAll();
-        return allClients;
+        return clientRepository.findAll();
     }
 
-
     public ClientEntity getClientByEmail(String eMail){
-        ClientEntity client = clientRepository.getClientByEmail(eMail);
-        return client;
+        return clientRepository.getClientByEmail(eMail);
     }
 
     public ClientEntity saveNewClient(ClientEntity clientEntity)  {
@@ -38,8 +33,6 @@ public class ClientServiceImpl {
         return clientRepository.existByEMail(clientEMail);
     }
 
-
-
     public Integer getClientDiscount(String email){
         return clientRepository.getDiscountByClientEmail(email);
     }
@@ -47,7 +40,11 @@ public class ClientServiceImpl {
     public void deleteClient(Integer clientId) {
         clientRepository.deleteByClientId(clientId);
     }
-
-
+    
+    public void updateClientInfo(ClientEntity clientEntity) {
+        clientRepository.updateClientById(clientEntity.getClientName(), clientEntity.getClientSurname(), clientEntity.getDateOfBirth(),
+        		clientEntity.geteMail(), clientEntity.getPhone(), clientEntity.getDiscount(), clientEntity.getAddress(),
+        		clientEntity.getZipCode(), clientEntity.getClientId());
+    }
 
 }

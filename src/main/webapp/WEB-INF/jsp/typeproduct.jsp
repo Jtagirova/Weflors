@@ -63,6 +63,7 @@
 							<div class="text-right">
 								<button class="btn btn-primary" type="submit" id="addNewProductType" disabled>Добавить</button>
 								<button class="btn btn-primary" type="submit" id="updateProductType" disabled>Сохранить изменения</button>
+								<button class="btn btn-primary" type="submit" id="cancel">Отменить</button>
 							</div>
 						</div>
 					</div>
@@ -104,6 +105,7 @@
 $(document).ready(function() {
 	
 	$('#updateProductType').hide();
+	$('#cancel').hide();
 	
 	$.ajax({ 
 	    type: 'GET', 
@@ -122,6 +124,7 @@ $(document).ready(function() {
 				$('#productTypeName').val(item.productTypeName);
 				$('#addNewProductType').hide();
 				$('#updateProductType').show();	
+				$('#cancel').show();	
 			});
 			var did = "[deleteId='" + item.productTypeId + "']";
 			$(did).click(function (id) {	
@@ -201,6 +204,10 @@ $(document).ready(function() {
         $("#addNewProductType").attr("disabled", "disabled");
         $('#updateProductType').hide();
 	});	
+	
+	$("#cancel").click(function() {	
+		location.reload(true);
+	});
 	
 	$('input').change(function(){
 		var productTypeName = $('#productTypeName').val();

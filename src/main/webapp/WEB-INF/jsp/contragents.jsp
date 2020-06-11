@@ -94,6 +94,7 @@
 							<div class="text-right">
 								<button class="btn btn-primary" type="submit" id="addContragent" disabled>Добавить</button>
   								<button class="btn btn-primary" type="submit" id="updateContragent" disabled>Сохранить изменения</button>
+  								<button class="btn btn-primary" type="submit" id="cancel">Отменить</button>
 							</div>
 						</div>
 					</div>
@@ -137,6 +138,7 @@
 $(document).ready(function() {
 	
 	$('#updateContragent').hide();
+	$('#cancel').hide();
 	
 	$.ajax({ 
 	    type: 'GET', 
@@ -163,7 +165,8 @@ $(document).ready(function() {
 				$('#unkContragent').val(item.unk);
 				$('#zipCodeContragent').val(item.zipCode);	
 				$('#addContragent').hide();
-				$('#updateContragent').show();	
+				$('#updateContragent').show();
+				$('#cancel').show();	
 			});
 			var did = "[deleteId='" + item.contragentId + "']";
 			$(did).click(function (id) {	
@@ -248,13 +251,13 @@ $(document).ready(function() {
 				"unk" : unk,
 				"zipCode" : zipCode		
 		}; 
-		var contragentsEntity = JSON.stringify(json);
-        if (confirm('Вы желаете изменить данные поставщике в вашей базе данных?')) {
+		var contragentEntity = JSON.stringify(json);
+        if (confirm('Вы желаете изменить данные о поставщике в вашей базе?')) {
         	$.ajax({
     			type : "POST",
     			contentType : "application/json",
     			url : "/contragents/updateContragent",
-    			data : contragentsEntity,
+    			data : contragentEntity,
     			dataType : 'json',
     			cache : false,
     			timeout : 600000,
@@ -270,6 +273,10 @@ $(document).ready(function() {
         $("#addContragent").attr("disabled", "disabled");
         $('#updateContragent').hide();
 	});	
+	
+	$("#cancel").click(function() {	
+		location.reload(true);
+	});
 					
 	$('input').change(function(){
 		var contragentName = $('#nameContragent').val();

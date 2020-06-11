@@ -27,11 +27,11 @@ public interface ContragentsRepository extends JpaRepository<ContragentsEntity, 
 			nativeQuery = true)
 	void updateContragentById(@Param("address") String address, 
 							@Param("contragentName") String contragentName,
-							@Param("phone1") String string, 
-							@Param("phone2") String string2,
-							@Param("unk") String string3, 
-							@Param("inn") String string4, 
-							@Param("zipCode") String string5,
+							@Param("phone1") String phone1, 
+							@Param("phone2") String phone2,
+							@Param("unk") String unk, 
+							@Param("inn") String inn, 
+							@Param("zipCode") String zipCode,
 							@Param("contragentId") Integer contragentId);
      
 }

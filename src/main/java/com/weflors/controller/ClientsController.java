@@ -2,7 +2,6 @@ package com.weflors.controller;
 
 
 import com.weflors.entity.ClientEntity;
-import com.weflors.entity.ContragentsEntity;
 import com.weflors.service.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,14 +32,25 @@ public class ClientsController {
     @PostMapping("/addNewClient")
     @ResponseBody
     public String addNewClient(@RequestBody ClientEntity clientEntity) {
-        if(clientEntity.geteMail().isEmpty()) {
-            return "Поля E-Mail обязательны к заполнению";
-        }
+//        if(clientEntity.geteMail().isEmpty()) {
+//            return "Поля E-Mail обязательны к заполнению";
+//        }
         if(clientsServiceImpl.existByClientEMail(clientEntity.geteMail()) != null) {
             return "Клиент с таким E-mail уже существует в БД";
         } else {
             clientsServiceImpl.saveNewClient(clientEntity);
             return "Новый клент добавлен";
+        }
+    }
+    
+    @PostMapping("/updateClient")
+    @ResponseBody
+    public String updateClient(@RequestBody ClientEntity clientEntity) {
+    	clientsServiceImpl.updateClientInfo(clientEntity);
+        if(clientsServiceImpl.existByClientEMail(clientEntity.geteMail()) != null) {
+            return "Информация о клиенте была обновлена в вашей базе данных";
+        } else {
+            return "Ошибка обновления данных клиента";
         }
     }
 
@@ -51,5 +61,3 @@ public class ClientsController {
         return "Клиент был удален";
     }
 }
-
-
