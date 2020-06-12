@@ -70,7 +70,7 @@
 						</div>
 						<div class="col-md-4 mb-4">
 							<label for="userPhone">Телефон*</label>
-							<input type="number" class="form-control" id="userPhone" name="userPhone" placeholder="Телефон"/>
+							<input type="tel" class="form-control" id="userPhone" name="userPhone" placeholder="Телефон"/>
 						</div>
 						<div class="col-md-4 mb-4">
 						<br>
@@ -151,6 +151,7 @@ $(document).ready(function() {
 	
 	$('#saveChangedUser').hide();
 	$('#cancel').hide();
+	$('#userPhone').mask('+375(29)0000000');
 	
 	$.ajax({ 
 	    type: 'GET', 
@@ -228,11 +229,18 @@ $(document).ready(function() {
 		var userPhone = $('#userPhone').val();
 		var userPass = $('#userPass').val();
 		var userRoleMap = [];
-		var roleId = $('input:radio:checked').val();
-		var userRole = {
+		var roleId = $('input:radio:checked').val();	
+/*		var userRole = {
 			"userId" : userId,
 			"roleId" : roleId
 		};
+*/	
+		var userRole = [];
+		var currentRole = {
+			"userId" : userId,
+			"roleId" : roleId
+		};
+		userRole.push(currentRole);
 		var json = {
 			"eMail" : userEmail,	
 			"login" : userLogin,	
@@ -253,7 +261,7 @@ $(document).ready(function() {
     			cache : false,
     			timeout : 600000,
     			success : function(data) {
-    				alert(data.responseText);
+   					alert(data.responseText);
     			},
     			error : function(data) {	
     				alert(data.responseText);

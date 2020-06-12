@@ -73,8 +73,8 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="clientPhone">Tелефон*</label>
-                            <input type="number" class="form-control" id="clientPhone" name="clientPhone"
-                                   placeholder="Телефон"/>
+                          	<input type="tel" class="form-control" id="clientPhone" name="clientPhone"
+                                   placeholder="Телефон"/>     
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="clientDiscount">Скидка%</label>
@@ -154,6 +154,7 @@ $(document).ready(function () {
 	
 		$('#updateClient').hide();
 		$('#cancel').hide();
+		$('#clientPhone').mask('+375(29)0000000');
 	
         $.ajax({
             type: 'GET',
@@ -169,7 +170,6 @@ $(document).ready(function () {
                         '<td>' + item.dateOfBirth + '</td>' +
         				'<td class="text-center"><input type="button" changeId="'+ item.clientId +'" class="btn btn-primary" value="Изменить">' + ' / ' +
         				'<button deleteId="'+ item.clientId +'" class="btn btn-primary" type="submit">Удалить</button></td></tr>';
-//                        '<td class="text-center"><button id="' + item.clientId + '" class="delete btn btn-primary" type="submit">Удалить</button></td></tr>';
                     $('#clientTable > tbody').append(rowl);
 
                     var cid = "[changeId='" + item.clientId + "']";
@@ -182,8 +182,7 @@ $(document).ready(function () {
         	            $('#clientPhone').val(item.phone);
         	            $('#clientDiscount').val(item.discount);
         	            $('#clientAddress').val(item.address);
-        	            $('#clientZipCode').val(item.zipCode);
-        	            
+        	            $('#clientZipCode').val(item.zipCode.replace(/\s+/g, ' ').trim());
         				$('#addClient').hide();
         				$('#updateClient').show();	
         				$('#cancel').show();	
@@ -221,7 +220,8 @@ $(document).ready(function () {
             var clientPhone = $('#clientPhone').val();
             var clientDiscount = $('#clientDiscount').val();
             var clientAddress = $('#clientAddress').val();
-            var clientZipCode = $('#clientZipCode').val();
+            var zipCode = $('#clientZipCode').val();
+            var clientZipCode = zipCode.replace(/\s+/g, ' ').trim();
             var clientJSON = {
                 "clientName": clientName,
                 "clientSurname": clientSurname,
@@ -263,7 +263,8 @@ $(document).ready(function () {
             var clientPhone = $('#clientPhone').val();
             var clientDiscount = $('#clientDiscount').val();
             var clientAddress = $('#clientAddress').val();
-            var clientZipCode = $('#clientZipCode').val();
+            var zipCode = $('#clientZipCode').val();
+            var clientZipCode = zipCode.replace(/\s+/g, ' ').trim();
             var json = {
             	"clientId" : clientId,	
                 "clientName": clientName,
@@ -316,6 +317,7 @@ $(document).ready(function () {
     			$('#updateClient').removeAttr("disabled");
     		} else {
     			$("#addClient").attr("disabled", "disabled");
+    			$("#updateClient").attr("disabled", "disabled");
     		}
     		if (clientDiscount ==''){
     			$('#clientDiscount').val(0);
@@ -331,6 +333,7 @@ $(document).ready(function () {
         $("#clientTable").searcher({
             inputSelector: "#findClient"
         });
+        
 
 });
 

@@ -65,11 +65,11 @@
 					<div class="row">
 						<div class="col-md-4 mb-3">
 							<label for="phone1Contragent">Контактный телефон №1*</label>
-							<input type="number" class="form-control" id="phone1Contragent" name="phone1Contragent" placeholder="Контактный телефон №1"/>
+							<input type="tel" class="form-control" id="phone1Contragent" name="phone1Contragent" placeholder="Контактный телефон №1"/>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="phone2Contragent">Контактный телефон №2</label>
-							<input type="number" class="form-control" id="phone2Contragent" name="phone2Contragent" placeholder="Контактный телефон №2"/>
+							<input type="tel" class="form-control" id="phone2Contragent" name="phone2Contragent" placeholder="Контактный телефон №2"/>
 						</div>
 					</div>
 					<br><br>
@@ -139,6 +139,8 @@ $(document).ready(function() {
 	
 	$('#updateContragent').hide();
 	$('#cancel').hide();
+	$('#phone1Contragent').mask('+375(29)0000000');
+	$('#phone2Contragent').mask('+375(29)0000000');
 	
 	$.ajax({ 
 	    type: 'GET', 
@@ -291,6 +293,7 @@ $(document).ready(function() {
 			$("#updateContragent").removeAttr("disabled");
 		} else {
 			$("#addContragent").attr("disabled", "disabled");
+			$("#updateContragent").attr("disabled", "disabled");
 		}
 		if (zip ==''){
 			$('#zipCodeContragent').val(0);

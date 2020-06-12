@@ -48,13 +48,32 @@ public class UserRoleController {
 	@PostMapping("/updateUser")
 	@ResponseBody
 	public String updateUserInfo(@RequestBody UserEntity userEntity) {
+		userDetailsServiceImpl.updateUser(userEntity);
+		if(userDetailsServiceImpl.loadUserByUsername(userEntity.getLogin()) == userEntity ) {
+			return "Данные пользователя обновлены в  вашей базе данных";
+		} else {
+			return "Проблема с обновлением данных пользователя в базе данных";
+		}
+	}
+	
+	
+	
+	
+/*	
+	public String updateUserInfo(@RequestBody UserEntity userEntity) {
 		if(!userDetailsServiceImpl.existUser(userEntity.getUserId())) {
 			return "Такого пользователя нет в базе данных";
-		}
+	}
 		if(userDetailsServiceImpl.updateUser(userEntity) == true) {;
 			return "Данные пользователя обновлены в  вашей базе данных";
 		}
 		return "Проблема с обновлением данных пользователя в базе данных";
 	}
+	
+*/	
+	
+	
+	
+	
 	
 }

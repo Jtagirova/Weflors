@@ -216,6 +216,7 @@ $(document).ready(function() {
 			$("#updateProductType").removeAttr("disabled");
 		} else {
 			$("#addNewProductType").attr("disabled", "disabled");
+			$("#updateProductType").attr("disabled", "disabled");
 		}
 	});
 	
