@@ -53,7 +53,7 @@
                         </div>
                         <div class="col-md-6 mb-4">
                             <label for="productheight">Высота</label>
-                            <input type="number" class="form-control" id="productheight" placeholder="Высота" value="0">
+                            <input type="number" class="form-control" id="productheight" placeholder="Высота">
                         </div>
                     </div>
 
@@ -396,13 +396,25 @@
     			$("#addproduct").removeAttr("disabled");
     		} else {
     			$("#addproduct").attr("disabled", "disabled");
-    		}
-/*    		
+    		}    		
     		if($('#productheight').val() ==''){
     			$('#productheight').val(0);
     		}
-*/    		
-    		
+    		if($('#productlength').val() ==''){
+    			$('#productlength').val(0);
+    		}
+    		if($('#productwidth').val() ==''){
+    			$('#productwidth').val(0);
+    		}
+    		if($('#productcolor').val() ==''){
+    			$('#productcolor').val("none");
+    		}
+    		if($('#productdescription').val() ==''){
+    			$('#productdescription').val("none");
+    		}
+    		if($('#procurementdetails').val() ==''){
+    			$('#procurementdetails').val("none");
+    		}	
     	});
         
         
