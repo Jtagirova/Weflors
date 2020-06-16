@@ -16,8 +16,8 @@
 
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="#">Юлия Тагирова</a></li>
-                        <li class="active"><a href="#">Выход</a></li>
+                        <li class="active"><a href="#"><sec:authentication property="principal.username" /><%=request.getUserPrincipal().getName()%></a></li>
+                        <li class="active"><a href="/logout">Выход</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="active"></li>
 

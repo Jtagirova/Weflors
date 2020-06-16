@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +13,9 @@
     <meta name="author" content="">
 
     <title>Страница входа</title>
+    <sec:authorize access="isAuthenticated()">
+        <% response.sendRedirect("main"); %>
+    </sec:authorize>
     <jsp:include page="/WEB-INF/jsp/base_layout/head_links.jsp"></jsp:include>
 </head>
 

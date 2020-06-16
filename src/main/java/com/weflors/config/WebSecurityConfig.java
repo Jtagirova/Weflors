@@ -1,5 +1,6 @@
 package com.weflors.config;
 
+import com.weflors.entity.UserEntity;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,6 +11,8 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.weflors.service.UserDetailsServiceImpl;
@@ -29,13 +32,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
     }
+
+	@Bean
+	GrantedAuthorityDefaults grantedAuthorityDefaults() {
+		return new GrantedAuthorityDefaults(""); // Remove the ROLE_ prefix
+	}
 	
 	 @Autowired
 	 public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception { 
 	 
 	        // Setting Service to find User in the database.
 	        // And Setting PassswordEncoder
-	        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());     
+	        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+
 	 
 	    }
 	 
@@ -43,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	    protected void configure(HttpSecurity http) throws Exception {
 	 
 	        http.csrf().disable();
-	 
+
 	        // The pages does not require login
 	        http.authorizeRequests().antMatchers("/", "/login", "/logout", "/registration").permitAll();
 	 
@@ -51,10 +60,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	        // If no login, it will redirect to /login page.
 	       //TO_DO
 	        http.authorizeRequests().antMatchers("/hello").access("hasAnyRole('user', 'admin')");
-	 
+
 	        // For ADMIN only.
 	        //TO_DO
-	        //http.authorizeRequests().antMatchers("/admin").access("hasRole('admin')");
+	        http.authorizeRequests().antMatchers("/addproduct").access("hasRole('admin')");
 	 
 	        // When the user has logged in as XX.
 	        // But access a page that requires role YY,
@@ -71,7 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	                .usernameParameter("j_username")//
 	                .passwordParameter("j_password")
 	                // Config for Logout Page
-	                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
+	                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login");
 	 
 	    }
 	    
