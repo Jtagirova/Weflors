@@ -23,17 +23,20 @@ public class ProductStatusService {
         return productStatusRepository.getValidityDateByProdictId(productId);
     }
 
-    public void updateQuantityShopSaleAndQuantityWarehouse(Integer productId,
-                                                           Integer quantityShopSale){
-        productStatusRepository.updateQuantityShopSaleAndQuantityWarehouse(productId, quantityShopSale);
+    public void updateQuantityShopSaleAndQuantityWarehouse(Integer productId, Integer quantityShopSale){
+        productStatusRepository.updateQuantityShopSaleAndWarehouse(productId, quantityShopSale);
     }
 
-    public void updateQuantity(int quantity, int productId){
-        productStatusRepository.updateQuantityWriteoff(quantity, productId);
+    public void updateQuantity(Integer quantity, Integer productId){
+        productStatusRepository.updateQuantityWriteoffAndWarehouse(quantity, productId);
     }
 
     public ProductStatusEntity getOne(ProductStatusEntityPK productStatusEntityPK){
         return productStatusRepository.getOne(productStatusEntityPK);
+    }
+    
+    public ProductStatusEntity findOneProductStatusEntity(Integer productId){
+        return productStatusRepository.findOneById(productId);
     }
 
 }

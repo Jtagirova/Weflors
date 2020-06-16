@@ -21,7 +21,6 @@
 <%--            <form>--%>
                 <div class="col-md-8 form-group">
                     <div class="row">
-
                             <div class="col-md-4 mb-4">
                                 <label for="products">Наименование*</label>
                                 <form:select id="products" class="form-control" path="products">
@@ -30,7 +29,6 @@
                                                   itemLabel="productName" />
                                 </form:select>
                             </div>
-
                             <div class="col-md-4 mb-4">
                                 <label for="products">Срок годности</label>
                                 <select id="productValidityDate" class="form-control" >
@@ -38,22 +36,18 @@
 <%--                                    <options items="${productValidityDate}"  />--%>
                                 </select>
                             </div>
-
                             <div class="col-md-4 mb-4">
                                 <label for="articul">Артикул</label>
                                 <input type="text" class="form-control" id="articul" name="articul" />
                             </div>
-
-
-
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-4 mb-4">
                             <label for="productPrice">Цена*</label>
-                            <input type="number" class="form-control" id="productPrice" name="productPrice"/>
+                            <input type="number" class="form-control" id="productPrice" name="productPrice" 
+                            oninput="this.value=this.value.replace(/[^0-9]/g,'');" />
                         </div>
-
                         <div class="col-md-4 mb-4">
                             <label for="allClientsEmail">Клиент</label>
                             <form:select id="allClientsEmail" class="form-control" path="allClientsEmail">
@@ -62,24 +56,22 @@
                                               itemLabel="eMail"/>
                             </form:select>
                         </div>
-
                         <div class="col-md-4 mb-4">
                             <label for="discount">Скидка %</label>
-                            <input type="number" class="form-control" id="discount" name="discount" />
+                            <input type="text" class="form-control" id="discount" name="discount" maxlength="3" 
+                           oninput="this.value=this.value.replace(/[^0-9]/g,'');" />  
                         </div>
-
                     </div>
                     <br>
                     <div class="row">
-
                         <div class="col-md-4 mb-4">
                             <label for="productQuantity">Количество товара*</label>
-                            <input type="number" class="form-control" id="productQuantity" name="productQuantity" />
+                            <input type="number" class="form-control" id="productQuantity" name="productQuantity" 
+                            oninput="this.value=this.value.replace(/[^0-9]/g,'');" />
                         </div>
-
                         <div class="col-md-4 mb-4">
                             <label for="productPriceAfterDiscount">Стоимость товара</label>
-                            <input type="number" class="form-control" id="productPriceAfterDiscount" name="productPriceAfterDiscount"/>
+                            <input type="number" class="form-control" id="productPriceAfterDiscount" name="productPriceAfterDiscount" />
                         </div>
                     </div>
                 </div>
@@ -116,7 +108,6 @@
                     </div>
                 </div>
             </div>
-
                 <div class="col-md-12 form-group">
                     <br><br>
                     <div class="row">
@@ -140,26 +131,19 @@
                                 <th scope="col" class="text-center">Удаление</th>
                                 <th scope="col" hidden>Email</th>
                             </tr>
-
                             </thead>
-
                             <tfoot>
                             <tr>
                                 <th class="text-center">Всего: </th>
-                                <td>0</td>
+                                <td><input type="number"  id="totalSum" name="totalSum" readonly/></td>
                             </tr>
                             </tfoot>
                             <tbody>
-
                             </tbody>
-
                         </table>
                         </div>
-
                     </div>
-
                 </div>
-
             <div class="col-md-12 form-group">
                 <div class="row">
                     <div class="col-md-4 col-md-offset-8">
@@ -170,23 +154,14 @@
                 </div>
             </div>
 <%--            </form>--%>
-
         </div>
-
     </div>
 </div>
-
-
-
-
-
-
-
 
 	
 <script>
 	$(document).ready(function() {
-
+		
 		$("#products").change(function() {
 			var products = $(this).find(":selected").val();
 			var json = { "productId" : products	};
@@ -201,16 +176,13 @@
 				success : function(data) {
 				    $('#articul').val(data.articul);
                     $('#productPrice').val(data.productPrice);
-                    //$('#productValidityDate').val(data.productStatusByProductId);
+//                    $('#productValidityDate').val(data.productStatusByProductId);
                     let validityDateOptions = document.getElementById('productValidityDate').options;
                     $('#productValidityDate').find('option:not(:first)').remove();
                     let productStatusArray = data.productStatusByProductId;
-
                     for (let i=0; i<productStatusArray.length; i++) {
                         let value = productStatusArray[i].validityDate;
-                        validityDateOptions.add(
-                            new Option(value, value)
-                        );
+                        validityDateOptions.add(new Option(value, value));
                     }
 				},
 				 error : function(e) {
@@ -257,8 +229,6 @@
 		+'<td><a href='#' id = productId class='table-delete-row'>Delete</a></td>'*/
 		let tableNumOfRows = 0;
 		let tableTotalSum = 0;
-
-		//var productArr = [];
         var saleArr = [];
 		$( "#addtocheck" ).click(function() {
             var productStatusArr = [];
@@ -309,29 +279,33 @@
 			var rowId = '$<tr id="' + ++tableNumOfRows + '">';
 			var rowl = rowId + '<td>' + productName + '</td>'
 					+'<td>' + articul + '</td>'
-					+'<td>' + productQuantity + '</td>'
+					+'<td><input type="number" class="productQuantityChange" value="' + productQuantity + '"/></td>'
 					+'<td>' + productPrice + '</td>'
 					+'<td>' + discount + '</td>'
 					+'<td>' + priceForOneAfterDiscont + '</td>'
-					+'<td class="summPrices">' + productPriceAfterDiscount + '</td>'
+					+'<td><input type="number" class="summPrices" value="' + productPriceAfterDiscount + '" readonly></td>'
 					+'<td class="text-center"> <button class="deleteRow btn btn-primary" id="' + tableNumOfRows + ' type="submit"">Удалить</button></td>'
-					+'</tr>';
-					
+					+'</tr>';	
 			tableTotalSum = tableTotalSum + Number(productPriceAfterDiscount);
 			saleTable.addEventListener('click', function(evt){
 	          	if(evt.target.closest('.deleteRow')) {
 	          		evt.target.closest('tr').remove();
-	          		var elems = $(".summPrices"); 	
-	          		let sum = 0;
+	          		var elems = document.querySelectorAll(".summPrices");
+	          		tableTotalSum = 0;
 	          		for (var i = 0; i < elems.length; ++i){
-	          			sum = sum + Number(elems[i].innerText);
+	          			tableTotalSum = tableTotalSum + Number(elems[i].value);
 	          		};
-	          	  	$('#saleTable > tfoot > tr > td').text(sum);
+	          		$('#totalSum').val(tableTotalSum);
 	          	};           	
 	        }); 
+			var elems = document.querySelectorAll(".summPrices");
+      		tableTotalSum = 0;
+      		for (var i = 0; i < elems.length; ++i){
+      			tableTotalSum = tableTotalSum + Number(elems[i].value);
+      		};
+      		$('#totalSum').val(tableTotalSum);
+			$('#totalSum').val(tableTotalSum);
 			$('#saleTable > tbody').append(rowl);
-			//var totalRowCount = $('#saleTable > tbody').rows.length;
-      		$('#saleTable > tfoot > tr > td').text(tableTotalSum);
 			$('#products').prop('selectedIndex',0);
 			$('#articul').val("");
 			$('#productPrice').val("");
@@ -344,12 +318,12 @@
 		});
 
 		addtocheck.addEventListener('click', function(){
-          	var elems = $(".summPrices"); 	
-          	tableTotalSum = 0;
-          	for (var i = 0; i < elems.length; ++i){
-          		tableTotalSum = tableTotalSum + Number(elems[i].innerText);
-          	};
-          	$('#saleTable > tfoot > tr > td').text(tableTotalSum);
+			var elems = document.querySelectorAll(".summPrices");
+      		tableTotalSum = 0;
+      		for (var i = 0; i < elems.length; ++i){
+      			tableTotalSum = tableTotalSum + Number(elems[i].value);
+      		};
+      		$('#totalSum').val(tableTotalSum);
         });
 
 		$( "#addSaleProducts" ).click(function() {
@@ -364,16 +338,11 @@
 					cache : false,
 					timeout : 600000,
 					success : function(data) {
-						tableTotalSum = 0;
-						tableNumOfRows = 0;
-						$('#saleTable > tbody').empty();
-	
-						$('#saleTable > tfoot > tr > td').text(tableTotalSum);
+						alert(data.responseText);
 					},
-					error : function(e) {
-						alert("error occured while trying update the database");
-						// $('#discount').val("");
-						// $("#productPriceAfterDiscount").val($('#productPrice').val());
+					error : function(data) {
+						alert(data.responseText);
+//						alert("error occured while trying update the database");
 					}
 				});
 			}
@@ -390,11 +359,6 @@
 	// 	document.querySelector('#discount').value = clientElement.value;
 	// });
 
-
-	$("#allClientsEmail").change('click', function () {
-        $('#productQuantity').val("0");
-    });
-
 	$('input').change(function(){
 		var productQuantity  = $('#productQuantity').val();
 		var productPrice = $("#productPrice").val();
@@ -405,8 +369,38 @@
 			$("#addtocheck").removeAttr("disabled");
 		} else {
 			$("#addtocheck").attr("disabled", "disabled");
-		}
+		}	
+		saleTable.addEventListener('click', function(evt){
+		    if(evt.target.closest('.productQuantityChange')) {
+		    	$(".productQuantityChange").on("blur", function(){ 
+		    		var a = evt.target.closest('tr');
+			        a.cells[6].lastChild.value = a.cells[2].childNodes[0].value * a.cells[5].childNodes[0].data; 
+			        var elems = document.querySelectorAll(".summPrices");
+		      		tableTotalSum = 0;
+		      		for (var i = 0; i < elems.length; ++i){
+		      			tableTotalSum = tableTotalSum + Number(elems[i].value);
+		      		};
+		      		$('#totalSum').val(tableTotalSum);    
+		    	}); 
+		    };   		
+		});
+		if ($('#discount').val() < 0) $('#discount').val(0);
+	    if ($('#discount').val() > 100) $('#discount').val(100);
+	    if ($('.productQuantityChange').val() < 0) $('.productQuantityChange').val(0);
 	});
+	
+	$('#products').change(function(){
+		$('#productQuantity').val('');
+		$('#discount').val('');
+		$('#productPriceAfterDiscount').val('');
+		$("#addtocheck").attr("disabled", "disabled");
+	});
+	
+	$('#allClientsEmail').change(function(){
+		$('#discount').val('0');
+		$('#productQuantity').val('0');
+	});
+
 
 });
 

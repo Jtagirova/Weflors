@@ -40,10 +40,9 @@ public class ContragentsController {
 	public String addNewContragent(@RequestBody ContragentsEntity contragentsEntity) {
 		if(contragentsServiceImpl.existByContragentName(contragentsEntity.getContragentName()) != null) {
 			return "Поставщик с таким именем уже существует в вашей базе данных";			
-		} else {
-			contragentsServiceImpl.saveNewContragent(contragentsEntity);
-			return "Новый поставщик добавлен в вашу базу данных";
-		}
+		} 
+		contragentsServiceImpl.saveNewContragent(contragentsEntity);
+		return "Новый поставщик добавлен в вашу базу данных";
 	}	
 	
 	@PostMapping("/updateContragent")
