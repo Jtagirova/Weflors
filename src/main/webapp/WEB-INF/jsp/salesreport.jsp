@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Клиенты</title>
+    <title>Отчет о продажах</title>
     <jsp:include page="/WEB-INF/jsp/base_layout/head_links.jsp"></jsp:include>
 </head>
 
@@ -26,21 +26,29 @@
             <div class="col-md-12 form-group">
                 <div class="row">
                     <div class="col-md-4 mb-4">
-                        <label for="date">Выберите период*</label>
-                        <select id="date" class="form-control" path="">
+                        <label for="datefilter">Выберите период*</label>
+                        <input type="text" class="form-control" name="datefilter" value="" />
+
+<%--                        <select id="date" class="form-control">
                             <option value="Day" label="За Сегодня" />
                             <option value="Week" label="За Неделю" />
                             <option value="Month" label="За Месяц" />
                             <option value="Year" label="За Год" />
-                        </select>
+                        </select>--%>
                     </div>
                     <div class="col-md-4 mb-4">
                         <label for="allproducts">Выберите Продукты*</label>
-                        <form:select id="allproducts" class="form-control" path="allproducts">
-                            <form:option value="ALL" label="Все" />
+                        <form:select multiple="true" id="allproducts" class="selectpicker form-control" data-selected-text-format="count" data-none-selected-text="Все продукты" path="allproducts">
+
                             <form:options items="${allproducts}" itemValue="productId"
                                           itemLabel="productName" />
                         </form:select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+
+
                     </div>
                 </div>
             </div>
@@ -128,12 +136,12 @@
                             label: 'Покупки',
                             data: [12, 19, 3, 5, 2, 3],
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(54, 162, 235, 0.4)',
+                                'rgba(255, 206, 86, 0.4)',
+                                'rgba(75, 192, 192, 0.4)',
+                                'rgba(153, 102, 255, 0.4)',
+                                'rgba(255, 159, 64, 0.4)'
                             ],
                             borderColor: [
                                 'rgba(255, 99, 132, 1)',
@@ -149,8 +157,8 @@
                             label: 'Продажи',
                             data: [10, 17],
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)'
+                                'rgba(255, 99, 132, 0.7)',
+                                'rgba(54, 162, 235, 0.7)'
 
                             ],
                             borderColor: [
@@ -171,6 +179,38 @@
                         }
                     }
                 });
+
+
+$(function() {
+
+    $('input[name="datefilter"]').daterangepicker({
+        autoUpdateInput: false,
+        locale: {
+            cancelLabel: 'Clear'
+        }
+    });
+
+    $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+        $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+    });
+
+    $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+    });
+
+});
+
+let selectedDatePeriod = [];
+let selectedProductList = [];
+$('#allproducts').change(function(){
+    var selectedCountry = $(this).children("option:selected");
+    console.log(selectedCountry.length);
+    $.each(selectedCountry, function( index, value ) {
+        console.log( selectedCountry[index].value);
+    });
+    //selectedProductList =
+})
+
             </script>
 
 
