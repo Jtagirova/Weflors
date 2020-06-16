@@ -174,6 +174,7 @@ $(document).ready(function () {
 
                     var cid = "[changeId='" + item.clientId + "']";
         			$(cid).click(function (id) {
+        				$("#updateClient").attr("disabled", "disabled");
         				$('#clientId').val(item.clientId);
         				$('#clientName').val(item.clientName);
         	            $('#clientSurname').val(item.clientSurname);
@@ -313,8 +314,8 @@ $(document).ready(function () {
             var clientAddress = $('#clientAddress').val();
             var clientZipCode = $('#clientZipCode').val();
     		if ( clientName !='' && clientSurname !='' && clientBirthday !='' && clientEmail !='' && clientPhone !=''){
-    			$("#addClient").removeAttr("disabled");
-    			$('#updateClient').removeAttr("disabled");
+    			$('#addClient').removeAttr('disabled');
+    			$('#updateClient').removeAttr('disabled');
     		} else {
     			$("#addClient").attr("disabled", "disabled");
     			$("#updateClient").attr("disabled", "disabled");
@@ -330,8 +331,8 @@ $(document).ready(function () {
     		} 
     	});
         
-        $("#clientTable").searcher({
-            inputSelector: "#findClient"
+        $('#clientTable').searcher({
+            inputSelector: '#findClient'
         });
         
 

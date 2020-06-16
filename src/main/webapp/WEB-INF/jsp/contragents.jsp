@@ -58,7 +58,8 @@
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="zipCodeContragent">Индекс</label>
-							<input type="number" class="form-control" id="zipCodeContragent" name="zipCodeContragent" placeholder="Индекс"/>
+							<input type="number" class="form-control" id="zipCodeContragent" name="zipCodeContragent" placeholder="Индекс"
+							oninput="this.value=this.value.replace(/[^0-9]/g,'');" />
 						</div>
 					</div>					
 					<br><br>					
@@ -76,11 +77,13 @@
 					<div class="row">
 						<div class="col-md-4 mb-3">
 							<label for="innContragent">ИНН*</label>
-							<input type="number" class="form-control" id="innContragent" name="innContragent" placeholder="ИНН"/>
+							<input type="number" class="form-control" id="innContragent" name="innContragent" placeholder="ИНН"
+							oninput="this.value=this.value.replace(/[^0-9]/g,'');"/>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="unkContragent">УНК*</label>
-							<input type="number" class="form-control" id="unkContragent" name="unkContragent" placeholder="УНК"/>
+							<input type="number" class="form-control" id="unkContragent" name="unkContragent" placeholder="УНК"
+							oninput="this.value=this.value.replace(/[^0-9]/g,'');"/>
 						</div>
 					</div>
 				</div>
@@ -149,48 +152,49 @@ $(document).ready(function() {
 	    contentType: 'application/json',
 	    success: function (data) {
 			data.forEach(function (item){	
-			var rowl = '<tr><td>' + item.contragentName + '</td>' +
-				'<td>' + item.phone1 + '</td>' +
-				'<td>' + item.inn + '</td>' +
-				'<td>' + item.unk + '</td>' + 
-				'<td class="text-center"><input type="button" changeId="'+ item.contragentId +'" class="btn btn-primary" value="Изменить">' + ' / ' +
-				'<button deleteId="'+ item.contragentId +'" class="btn btn-primary" type="submit">Удалить</button></td></tr>';
-			$('#contragentTable > tbody').append(rowl);
-			var cid = "[changeId='" + item.contragentId + "']";
-			$(cid).click(function (id) {
-				$('#contragentId').val(item.contragentId);
-				$('#nameContragent').val(item.contragentName);
-				$('#addressContragent').val(item.address);
-				$('#phone1Contragent').val(item.phone1);
-				$('#phone2Contragent').val(item.phone2);
-				$('#innContragent').val(item.inn);
-				$('#unkContragent').val(item.unk);
-				$('#zipCodeContragent').val(item.zipCode);	
-				$('#addContragent').hide();
-				$('#updateContragent').show();
-				$('#cancel').show();	
-			});
-			var did = "[deleteId='" + item.contragentId + "']";
-			$(did).click(function (id) {	
-				var json = { "contragentId" : item.contragentId };
-			    if (confirm('Вы желаете удалить данного поставщика из вашей базы данных?')) {
-			       	$.ajax({
-						type : "DELETE",
-						contentType : "application/json",
-						url : "/contragents/deleteContragent",
-						data : JSON.stringify(json),
-						dataType : 'json',
-						cache : false,
-						timeout : 600000,
-						success : function(data) {
-							alert(data.responseText);
-						},
-						error : function(data) {	
-							alert(data.responseText);
-						}
-					});
-			    }
-			});
+				var rowl = '<tr><td>' + item.contragentName + '</td>' +
+					'<td>' + item.phone1 + '</td>' +
+					'<td>' + item.inn + '</td>' +
+					'<td>' + item.unk + '</td>' + 
+					'<td class="text-center"><input type="button" changeId="'+ item.contragentId +'" class="btn btn-primary" value="Изменить">' + ' / ' +
+					'<button deleteId="'+ item.contragentId +'" class="btn btn-primary" type="submit">Удалить</button></td></tr>';
+				$('#contragentTable > tbody').append(rowl);
+				var cid = "[changeId='" + item.contragentId + "']";
+				$(cid).click(function (id) {
+					$("#updateContragent").attr("disabled", "disabled");
+					$('#contragentId').val(item.contragentId);
+					$('#nameContragent').val(item.contragentName);
+					$('#addressContragent').val(item.address);
+					$('#phone1Contragent').val(item.phone1);
+					$('#phone2Contragent').val(item.phone2);
+					$('#innContragent').val(item.inn);
+					$('#unkContragent').val(item.unk);
+					$('#zipCodeContragent').val(item.zipCode);	
+					$('#addContragent').hide();
+					$('#updateContragent').show();
+					$('#cancel').show();	
+				});
+				var did = "[deleteId='" + item.contragentId + "']";
+				$(did).click(function (id) {	
+					var json = { "contragentId" : item.contragentId };
+				    if (confirm('Вы желаете удалить данного поставщика из вашей базы данных?')) {
+				       	$.ajax({
+							type : "DELETE",
+							contentType : "application/json",
+							url : "/contragents/deleteContragent",
+							data : JSON.stringify(json),
+							dataType : 'json',
+							cache : false,
+							timeout : 600000,
+							success : function(data) {
+								alert(data.responseText);
+							},
+							error : function(data) {	
+								alert(data.responseText);
+							}
+						});
+				    }
+				});
 			});    	
 	    }
 	});	
@@ -275,10 +279,6 @@ $(document).ready(function() {
         $("#addContragent").attr("disabled", "disabled");
         $('#updateContragent').hide();
 	});	
-	
-	$("#cancel").click(function() {	
-		location.reload(true);
-	});
 					
 	$('input').change(function(){
 		var contragentName = $('#nameContragent').val();
@@ -303,8 +303,12 @@ $(document).ready(function() {
 		} 
 	});
 	
-	$("#contragentTable").searcher({
-	    inputSelector: "#findContragent"
+	$('#contragentTable').searcher({
+	    inputSelector: '#findContragent'
+	});
+	
+	$('#cancel').click(function() {	
+		location.reload(true);
 	});
 	
 });

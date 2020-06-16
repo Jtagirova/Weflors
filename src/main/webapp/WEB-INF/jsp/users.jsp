@@ -100,7 +100,8 @@
 						</div>
 						<div class="col-md-4 col-md-offset-8">
 							<div class="text-right">
- 								<button class="btn btn-primary" type="submit" id="saveChangedUser" disabled>Добавить</button>
+								<button class="btn btn-primary" type="submit" id="saveUser" disabled>Добавить</button>
+ 								<button class="btn btn-primary" type="submit" id="saveChangedUser" disabled>Сохранить изменения</button>
   								<button class="btn btn-primary" type="submit" id="cancel">Отменить</button>
 							</div>
 						</div>
@@ -179,7 +180,7 @@ $(document).ready(function() {
 			var did = "[deleteId='" + item.userId + "']";
 			$(did).click(function (id) {	
 				var json = { "userId" : item.userId };
-		        if (confirm('Вы желаете удалить данного пользователя из вашей базы?')) {
+		        if (confirm('Вы желаете удалить данного пользователя из вашей базы данных?')) {
 		        	$.ajax({
 						type : "DELETE",
 						contentType : "application/json",
@@ -199,12 +200,14 @@ $(document).ready(function() {
 			});
 			var cid = "[changeId='" + item.userId + "']";
 			$(cid).click(function (cid) {
+				$('#saveChangedUser').attr('disabled', 'disabled');
 				$('#userId').val(item.userId);
 				$('#userName').val(item.userName);
 				$('#userLastName').val(item.userLastname);
 				$('#userLogin').val(item.login);
 				$('#userEmail').val(item.eMail);
-				$('#userPhone').val(item.phone);	
+				$('#userPhone').val(item.phone);
+				$('#saveUser').hide();
 				$('#saveChangedUser').show();
 				$('#cancel').show();
 				item.userRoleMapsByUserId.forEach(function (item){
@@ -220,7 +223,7 @@ $(document).ready(function() {
 	    }
 	});	
 	
-	$("#saveChangedUser").click(function() {	
+	$('#saveUser').click(function() {	
 		var userId = $('#userId').val();
 		var userName = $('#userName').val();
 		var userLastName = $('#userLastName').val();
@@ -230,11 +233,6 @@ $(document).ready(function() {
 		var userPass = $('#userPass').val();
 		var userRoleMap = [];
 		var roleId = $('input:radio:checked').val();	
-/*		var userRole = {
-			"userId" : userId,
-			"roleId" : roleId
-		};
-*/	
 		var userRole = [];
 		var currentRole = {
 			"userId" : userId,
@@ -251,7 +249,54 @@ $(document).ready(function() {
 			"userName" : userName,
 			"userRoleMapsByUserId" : userRole
 		}; 
-        if (confirm('Вы желаете изменить данные пользователя в вашей базе?')) {
+        if (confirm('Вы желаете сохранить нового пользователя в вашей базе данных?')) {
+        	$.ajax({
+    			type : "POST",
+    			contentType : "application/json",
+    			url : "/users/saveUser",
+    			data : JSON.stringify(json),
+    			dataType : 'json',
+    			cache : false,
+    			timeout : 600000,
+    			success : function(data) {
+   					alert(data.responseText);
+    			},
+    			error : function(data) {	
+    				alert(data.responseText);
+    			}
+    		});	
+        	location.reload(true);
+            $('#saveUser').attr('disabled', 'disabled');
+        }
+	});
+	
+	$('#saveChangedUser').click(function() {	
+		var userId = $('#userId').val();
+		var userName = $('#userName').val();
+		var userLastName = $('#userLastName').val();
+		var userLogin = $('#userLogin').val();
+		var userEmail = $('#userEmail').val();
+		var userPhone = $('#userPhone').val();
+		var userPass = $('#userPass').val();
+		var userRoleMap = [];
+		var roleId = $('input:radio:checked').val();	
+		var userRole = [];
+		var currentRole = {
+			"userId" : userId,
+			"roleId" : roleId
+		};
+		userRole.push(currentRole);
+		var json = {
+			"eMail" : userEmail,	
+			"login" : userLogin,	
+			"password" : userPass,
+			"phone" : userPhone,
+			"userId" : userId,
+			"userLastname" : userLastName,
+			"userName" : userName,
+			"userRoleMapsByUserId" : userRole
+		}; 
+        if (confirm('Вы желаете изменить данные пользователя в вашей базе данных?')) {
         	$.ajax({
     			type : "POST",
     			contentType : "application/json",
@@ -268,24 +313,10 @@ $(document).ready(function() {
     			}
     		});	
         	 location.reload(true);
-//             $("#addNewProductType").attr("disabled", "disabled");
+        	 $('#saveUser').attr('disabled', 'disabled');
         }
 	});
-	
-	$("#usersTable").searcher({
-	    inputSelector: "#findUser"
-	});
-	
-	$("#userRepeatPass").on("blur", function(){ 
-		if($("#userPass").val() != $("#userRepeatPass").val() ) { 
-			alert("Пароли не совпадают!"); 
-		}
-	});
-	
-	$("#cancel").click(function() {	
-		location.reload(true);
-	});
-	
+
 	$('input').change(function(){
 		var userName = $('#userName').val();
 		var userLastName = $('#userLastName').val();
@@ -297,9 +328,30 @@ $(document).ready(function() {
 		var roleId = $('input:radio:checked').val();
 		if ( userName !='' && userLastName !='' && userEmail !='' && userPhone !='' && 
 			 userLogin !='' && userPass !='' && passwordRepeatValue !='' && roleId !=null){
-			$("#saveChangedUser").removeAttr("disabled");
+			$('#saveChangedUser').removeAttr('disabled');
+			$('#saveUser').removeAttr('disabled');
 		} else {
+			$('#saveChangedUser').attr('disabled', 'disabled');
+			$('#saveUser').attr('disabled', 'disabled');
+		}
+/*		
+		if!(userPhone.chaged){
 			$("#saveChangedUser").attr("disabled", "disabled");
+		}
+	*/	
+	});
+	
+	$('#cancel').click(function() {	
+		location.reload(true);
+	});
+
+	$('#usersTable').searcher({
+	    inputSelector: '#findUser'
+	});
+	
+	$('#userRepeatPass').on('blur', function(){ 
+		if($('#userPass').val() != $('#userRepeatPass').val() ) { 
+			alert("Пароли не совпадают!"); 
 		}
 	});
 	

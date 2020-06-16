@@ -120,6 +120,7 @@ $(document).ready(function() {
 			$('#typeProductTable > tbody').append(rowl);
 			var cid = "[changeId='" + item.productTypeId + "']";
 			$(cid).click(function (id) {
+				$("#updateProductType").attr("disabled", "disabled");
 				$('#productTypeId').val(item.productTypeId);	
 				$('#productTypeName').val(item.productTypeName);
 				$('#addNewProductType').hide();

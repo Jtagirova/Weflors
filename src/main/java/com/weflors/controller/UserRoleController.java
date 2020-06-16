@@ -37,12 +37,15 @@ public class UserRoleController {
 		List<UserEntity> list = userDetailsServiceImpl.getAllUsers();
 	    return list;
 	}
-
-	@DeleteMapping("/deleteUser")
+	
+	@PostMapping("/saveUser")
 	@ResponseBody
-	public String deleteUser(@RequestBody UserEntity userEntity) {
-		userDetailsServiceImpl.deleteUser(userEntity.getUserId());
-		return "Пользователь был удален из вашей базы данных";
+	public String saveUser(@RequestBody UserEntity userEntity) {
+		if(userDetailsServiceImpl.saveUser(userEntity) == true) {;
+			return "Новый пользователь добавлен в вашу базу данных";
+		} else {
+			return "Ошибка добавления нового пользователя";
+		}
 	}
 	
 	@PostMapping("/updateUser")
@@ -50,30 +53,17 @@ public class UserRoleController {
 	public String updateUserInfo(@RequestBody UserEntity userEntity) {
 		userDetailsServiceImpl.updateUser(userEntity);
 		if(userDetailsServiceImpl.loadUserByUsername(userEntity.getLogin()) == userEntity ) {
-			return "Данные пользователя обновлены в  вашей базе данных";
+			return "Данные пользователя обновлены в вашей базе данных";
 		} else {
 			return "Проблема с обновлением данных пользователя в базе данных";
 		}
 	}
-	
-	
-	
-	
-/*	
-	public String updateUserInfo(@RequestBody UserEntity userEntity) {
-		if(!userDetailsServiceImpl.existUser(userEntity.getUserId())) {
-			return "Такого пользователя нет в базе данных";
+
+	@DeleteMapping("/deleteUser")
+	@ResponseBody
+	public String deleteUser(@RequestBody UserEntity userEntity) {
+		userDetailsServiceImpl.deleteUser(userEntity.getUserId());
+		return "Пользователь был удален из вашей базы данных";
 	}
-		if(userDetailsServiceImpl.updateUser(userEntity) == true) {;
-			return "Данные пользователя обновлены в  вашей базе данных";
-		}
-		return "Проблема с обновлением данных пользователя в базе данных";
-	}
-	
-*/	
-	
-	
-	
-	
 	
 }
