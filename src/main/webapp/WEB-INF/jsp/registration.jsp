@@ -31,7 +31,7 @@
                 <div class="col-md-4 mb-4 col-md-offset-2">
                     <label for="userName">Имя*</label>
                     <form:input type="text" id="userName" class="form-control" path="userName"
-                                placeholder="Имя"></form:input>
+                                placeholder="Имя" autofocus="true"></form:input>
 
                 </div>
                 <div class="col-md-4 mb-4">
@@ -60,8 +60,8 @@
             <div class="row">
                 <div class="col-md-8 mb-4 col-md-offset-2">
                     <label for="login">Логин*</label>
-                    <form:input type="text" шв="login" class="form-control" path="login" placeholder="Логин"
-                                autofocus="true"></form:input>
+                    <form:input type="text" шв="login" class="form-control" path="login"
+                                placeholder="Логин"></form:input>
                 </div>
 
 
@@ -79,11 +79,20 @@
                                 placeholder="Повторить пароль"></form:input>
                 </div>
             </div>
-            <br><br>
+
             <div class="row">
                 <div class="text-left col-md-4 mb-4 col-md-offset-2">
                     <h6>*поля обязательны к заполнению</h6>
                 </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4 mb-4 col-md-offset-2">
+                    <div class="text-left">
+                        <button class="btn btn-primary btn-block" name="backtologin">Вход в систему</button>
+                    </div>
+                </div>
+
                 <div class="col-md-4 mb-4">
                     <div class="text-right">
                         <button class="btn btn-primary btn-block" type="submit">Зарегистрироваться</button>
@@ -102,3 +111,16 @@
 
 </body>
 </html>
+
+<%--
+<script>
+    $(document).ready(function() {
+        console.log('kyku');
+        $("#backtologin").click(function(){
+            console.log('kyku');
+            document.location.href="login"
+
+        });
+    });
+
+</script>--%>

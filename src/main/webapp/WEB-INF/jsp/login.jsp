@@ -22,10 +22,11 @@
 <body>
 
     <c:url value="/j_spring_security_check" var="loginUrl" />
-    <form action="${loginUrl}" class="limiter" method="post">
+
 
         <div class="container-login100">
             <div class="wrap-login100">
+                <form id="loginform" action="${loginUrl}" class="limiter" method="post">
                 <div class="login100-form-title" style="background-image: url('../img/background_theme2_opacity70.png')">
 					<span class="login100-form-title-1">
                       <h4>  Вход в систему учета деятельности цветочного магазина </h4>
@@ -49,13 +50,17 @@
                     </div>
                 </div>
                 <br>
+            </form>
 
                 <div class="row">
                     <div class="col-md-4 mb-4 col-md-offset-2">
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" form="loginform">Войти</button>
                     </div>
                     <div class="col-md-4 mb-4">
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Регистрация</button>
+                        <form action="registration" method="get">
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Регистрация</button>
+                        </form>
+
                     </div>
 
                 </div>
@@ -75,7 +80,7 @@
 
 
         </div>
-    </form>
+
 
 </body>
 </html>
