@@ -317,8 +317,8 @@ $(document).ready(function () {
     			$('#addClient').removeAttr('disabled');
     			$('#updateClient').removeAttr('disabled');
     		} else {
-    			$("#addClient").attr("disabled", "disabled");
-    			$("#updateClient").attr("disabled", "disabled");
+    			$('#addClient').attr('disabled', 'disabled');
+    			$('#updateClient').attr('disabled', 'disabled');
     		}
     		if (clientDiscount ==''){
     			$('#clientDiscount').val(0);

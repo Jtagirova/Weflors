@@ -60,7 +60,7 @@
             <div class="row">
                 <div class="col-md-8 mb-4 col-md-offset-2">
                     <label for="login">Логин*</label>
-                    <form:input type="text" шв="login" class="form-control" path="login" placeholder="Логин"
+                    <form:input type="text" id="login" class="form-control" path="login" placeholder="Логин"
                                 autofocus="true"></form:input>
                 </div>
 

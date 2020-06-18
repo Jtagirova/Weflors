@@ -55,11 +55,19 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         if (userFromDB != null) {
             return false;
         }
-
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        
         userRepository.save(user);
-        userRoleMapRepository.saveUserRoleMap(user.getUserId(), 2);
+        
+//        userRoleMapRepository.saveUserRoleMap(user.getUserId(), 2);	
+      
+        if(user.getUserRoleMapsByUserId() == null) {
+        	userRoleMapRepository.saveUserRoleMap(user.getUserId(), 2);	
+        } else {     	     	
+        	for(UserRoleMapEntity role : user.getUserRoleMapsByUserId()) {  
+   			 	userRoleMapRepository.saveUserRoleMap(user.getUserId(), role.getRoleId());	
+   		 	} 		 	
+        }          
+     
         return true;
     }
 	
@@ -82,7 +90,6 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		 for(UserRoleMapEntity role : userEntity.getUserRoleMapsByUserId()) {
 			 userRoleMapRepository.saveUserRoleMap(role.getUserId(), role.getRoleId());
 		 }
-//	     userRoleMapRepository.saveUserRoleMap(userEntity.getUserId(), userEntity.getUserId());
 		 return true;
 	 }
 	 

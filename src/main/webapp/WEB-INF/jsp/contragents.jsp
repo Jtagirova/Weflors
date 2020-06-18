@@ -66,11 +66,11 @@
 					<div class="row">
 						<div class="col-md-4 mb-3">
 							<label for="phone1Contragent">Контактный телефон №1*</label>
-							<input type="tel" class="form-control" id="phone1Contragent" name="phone1Contragent" placeholder="Контактный телефон №1"/>
+							<input type="text" class="telephone form-control" id="phone1Contragent" name="phone1Contragent" placeholder="Контактный телефон №1"/>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="phone2Contragent">Контактный телефон №2</label>
-							<input type="tel" class="form-control" id="phone2Contragent" name="phone2Contragent" placeholder="Контактный телефон №2"/>
+							<input type="text" class="telephone form-control" id="phone2Contragent" name="phone2Contragent" placeholder="Контактный телефон №2"/>
 						</div>
 					</div>
 					<br><br>
@@ -142,8 +142,6 @@ $(document).ready(function() {
 	
 	$('#updateContragent').hide();
 	$('#cancel').hide();
-	$('#phone1Contragent').mask('+375(29)0000000');
-	$('#phone2Contragent').mask('+375(29)0000000');
 	
 	$.ajax({ 
 	    type: 'GET', 
@@ -279,7 +277,10 @@ $(document).ready(function() {
         $("#addContragent").attr("disabled", "disabled");
         $('#updateContragent').hide();
 	});	
-					
+		
+	
+	var oldPhone = document.querySelector("#phone1Contragent");
+	
 	$('input').change(function(){
 		var contragentName = $('#nameContragent').val();
 		var address = $('#addressContragent').val();
@@ -300,9 +301,24 @@ $(document).ready(function() {
 		} 
 		if (phone2 ==''){
 			$('#phone2Contragent').val(0);
-		} 
+		}
+		
+		  var newPhone = document.querySelector("#phone1Contragent");
+		  oldPhone.addEventListener("blur", function() {
+			  if(oldPhone.textContent == newPhone.textContent){
+				  $("#updateContragent").attr("disabled", "disabled"); 
+			  }
+		  });
 	});
 	
+
+	
+	$('.telephone').mask("+375 (29) 999-99-99");
+//	$('.telephone').focus(function(){
+//		$("#updateContragent").attr("disabled", "disabled");		
+//	});
+	
+
 	$('#contragentTable').searcher({
 	    inputSelector: '#findContragent'
 	});
@@ -310,6 +326,8 @@ $(document).ready(function() {
 	$('#cancel').click(function() {	
 		location.reload(true);
 	});
+	
+	
 	
 });
 	

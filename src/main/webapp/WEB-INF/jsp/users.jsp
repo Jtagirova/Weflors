@@ -224,7 +224,7 @@ $(document).ready(function() {
 	});	
 	
 	$('#saveUser').click(function() {	
-		var userId = $('#userId').val();
+//		var userId = $('#userId').val();
 		var userName = $('#userName').val();
 		var userLastName = $('#userLastName').val();
 		var userLogin = $('#userLogin').val();
@@ -235,7 +235,7 @@ $(document).ready(function() {
 		var roleId = $('input:radio:checked').val();	
 		var userRole = [];
 		var currentRole = {
-			"userId" : userId,
+//			"userId" : userId,
 			"roleId" : roleId
 		};
 		userRole.push(currentRole);
@@ -244,7 +244,7 @@ $(document).ready(function() {
 			"login" : userLogin,	
 			"password" : userPass,
 			"phone" : userPhone,
-			"userId" : userId,
+//			"userId" : userId,
 			"userLastname" : userLastName,
 			"userName" : userName,
 			"userRoleMapsByUserId" : userRole
@@ -334,11 +334,7 @@ $(document).ready(function() {
 			$('#saveChangedUser').attr('disabled', 'disabled');
 			$('#saveUser').attr('disabled', 'disabled');
 		}
-/*		
-		if!(userPhone.chaged){
-			$("#saveChangedUser").attr("disabled", "disabled");
-		}
-	*/	
+
 	});
 	
 	$('#cancel').click(function() {	
