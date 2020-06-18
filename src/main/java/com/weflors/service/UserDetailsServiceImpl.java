@@ -63,7 +63,9 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         if(user.getUserRoleMapsByUserId() == null) {
         	userRoleMapRepository.saveUserRoleMap(user.getUserId(), 2);	
         } else {     	     	
-        	for(UserRoleMapEntity role : user.getUserRoleMapsByUserId()) {  
+        	for(UserRoleMapEntity role : user.getUserRoleMapsByUserId()) { 
+        		Integer a = user.getUserId();
+        		Integer b = role.getRoleId();
    			 	userRoleMapRepository.saveUserRoleMap(user.getUserId(), role.getRoleId());	
    		 	} 		 	
         }          
