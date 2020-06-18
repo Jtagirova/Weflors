@@ -59,7 +59,6 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         userRepository.save(user);
         
 //        userRoleMapRepository.saveUserRoleMap(user.getUserId(), 2);	
-      
         if(user.getUserRoleMapsByUserId() == null) {
         	userRoleMapRepository.saveUserRoleMap(user.getUserId(), 2);	
         } else {     	     	
