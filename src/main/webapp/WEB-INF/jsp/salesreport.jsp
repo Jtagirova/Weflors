@@ -53,78 +53,12 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <canvas id="myChart" width="100" height="100"></canvas>
-            </div>
-            <div class="col-md-4">
-                <canvas id="myChart2" width="100" height="100"></canvas>
-            </div>
-            <div class="col-md-4">
+
+            <div class="col-md-6 col-md-offset-3">
                 <canvas id="myChart3" width="100" height="100"></canvas>
             </div>
 
             <script>
-/*                var ctx = document.getElementById('myChart').getContext('2d');
-                var stackedLine = new Chart(ctx, {
-                    type: 'line',
-                    data: [20, 10, 7, 12, 15],
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                stacked: true
-                            }]
-                        }
-                    }
-                });*/
-                var data = {
-                    datasets: [{
-                        data: [10, 20, 30],
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                        ]
-                    }],
-
-                    // These labels appear in the legend and in the tooltips when hovering different arcs
-                    labels: [
-                        'Red',
-                        'Yellow',
-                        'Blue'
-                    ]
-                };
-                var ctx = document.getElementById('myChart');
-                // For a pie chart
-                var myPieChart = new Chart(ctx, {
-                    type: 'pie',
-                    data: data,
-
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }
-                });
-
-                // And for a doughnut chart
-                var ctx2 = document.getElementById('myChart2');
-                var myDoughnutChart = new Chart(ctx2, {
-                    type: 'doughnut',
-                    data: data,
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }
-                });
 
 
                 var ctx3 = document.getElementById('myChart3').getContext('2d');
@@ -136,12 +70,12 @@
                             label: 'Покупки',
                             data: [12, 19, 3, 5, 2, 3],
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(54, 162, 235, 0.4)',
-                                'rgba(255, 206, 86, 0.4)',
-                                'rgba(75, 192, 192, 0.4)',
-                                'rgba(153, 102, 255, 0.4)',
-                                'rgba(255, 159, 64, 0.4)'
+                                'rgba(255, 99, 132, 0.7)',
+                                'rgba(54, 162, 235, 0.7)',
+                                'rgba(255, 206, 86, 0.7)',
+                                'rgba(75, 192, 192, 0.7)',
+                                'rgba(153, 102, 255, 0.7)',
+                                'rgba(255, 159, 64, 0.7)'
                             ],
                             borderColor: [
                                 'rgba(255, 99, 132, 1)',
@@ -157,8 +91,8 @@
                             label: 'Продажи',
                             data: [10, 17],
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0.7)',
-                                'rgba(54, 162, 235, 0.7)'
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)'
 
                             ],
                             borderColor: [
@@ -191,16 +125,23 @@ $(function() {
     });
 
     $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
-        $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+        $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+        selectedDatePeriodArr = [picker.startDate.format('YYYY-MM-DD'), picker.endDate.format('YYYY-MM-DD')];
+        console.log('1' + selectedDatePeriodArr[0]);
+        console.log('2' + selectedDatePeriodArr[1]);
     });
 
     $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
         $(this).val('');
+        selectedDatePeriodArr = [];
     });
 
 });
 
-let selectedDatePeriod = [];
+let selectedDatePeriodArr = [];
+
+
+
 let selectedProductList = [];
 $('#allproducts').change(function(){
     var selectedCountry = $(this).children("option:selected");

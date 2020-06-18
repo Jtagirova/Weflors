@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -38,6 +39,8 @@
 					</div>	
 					<br>
 				</div>
+
+				<sec:authorize access="hasRole('admin')">
 
 				<div class="col-md-12 form-group">
 					<div class="row">
@@ -102,6 +105,7 @@
 						</div>
 					</div>
 				</div>
+				</sec:authorize>
 				<div class="col-md-12 form-group">
 					<br><br>
 					<div class="row">

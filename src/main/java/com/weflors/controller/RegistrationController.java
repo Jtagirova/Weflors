@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.weflors.entity.UserEntity;
 import com.weflors.service.UserDetailsServiceImpl;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping(value = { "/registration" })
 public class RegistrationController {
@@ -23,6 +25,11 @@ public class RegistrationController {
 		model.addAttribute("userForm", new UserEntity());
 
 		return "registration";
+	}
+
+	@RequestMapping(params = "backtologin", method = RequestMethod.POST)
+	public String backToLogin(HttpServletRequest request) {
+		return "redirect:/login";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <div class="col-md-3">
 
@@ -37,6 +38,7 @@
                 <li><a href="/contragents">Поставщики</a></li>
                 <li><a href="/typeproduct">Категории товара</a></li>
                 <li><a href="/clients">Клиенты</a></li>
+                <sec:authorize access="hasRole('admin')">
                 <li><a href="/users">Пользователи</a></li>
             </ul>
             <hr>
@@ -46,7 +48,7 @@
             <ul class="nav nav-pills nav-stacked">
                 <li><a href="/salesreport">Отчет о продажах</a></li>
                 <li><a href="#">Отчет о списанном товаре</a></li>
-
+                </sec:authorize>
             </ul>
     </nav>
 
