@@ -32,14 +32,12 @@
                     <label for="userName">Имя*</label>
                     <form:input type="text" id="userName" class="form-control" path="userName"
                                 placeholder="Имя" autofocus="true"></form:input>
-
                 </div>
                 <div class="col-md-4 mb-4">
                     <label for="userLastname">Фамилия*</label>
                     <form:input type="text" id="userLastname" class="form-control" path="userLastname"
                                 placeholder="Фамилия"></form:input>
                 </div>
-
             </div>
             <br>
             <div class="row">
@@ -47,24 +45,20 @@
                     <label for="eMail">E-mail*</label>
                     <form:input type="text" id="eMail" class="form-control" path="eMail"
                                 placeholder="E-mail"></form:input>
-
                 </div>
                 <div class="col-md-4 mb-4">
                     <label for="phone">Телефон*</label>
                     <form:input type="text" id="phone" class="form-control" path="phone"
                                 placeholder="Телефон"></form:input>
                 </div>
-
             </div>
             <br>
             <div class="row">
                 <div class="col-md-8 mb-4 col-md-offset-2">
                     <label for="login">Логин*</label>
-                    <form:input type="text" шв="login" class="form-control" path="login"
+                    <form:input type="text" id="login" class="form-control" path="login"
                                 placeholder="Логин"></form:input>
                 </div>
-
-
             </div>
             <br>
             <div class="row">
@@ -79,7 +73,6 @@
                                 placeholder="Повторить пароль"></form:input>
                 </div>
             </div>
-
             <div class="row">
                 <div class="text-left col-md-4 mb-4 col-md-offset-2">
                     <h6>*поля обязательны к заполнению</h6>
@@ -92,25 +85,51 @@
                         <button class="btn btn-primary btn-block" name="backtologin">Вход в систему</button>
                     </div>
                 </div>
-
                 <div class="col-md-4 mb-4">
                     <div class="text-right">
-                        <button class="btn btn-primary btn-block" type="submit">Зарегистрироваться</button>
+                        <button class="btn btn-primary btn-block" type="submit" id="registration" disabled
+                        title="Заполните все поля с *">Зарегистрироваться</button>
                     </div>
                 </div>
             </div>
             <br>
             <br>
         </div>
-
-
     </div>
-
 </form:form>
-
 
 </body>
 </html>
+
+<script>
+$(document).ready(function() {
+
+	$('input').change(function(){
+		var userName = $('#userName').val();
+		var userLastname = $('#userLastname').val();
+		var eMail = $('#eMail').val();
+		var phone = $('#phone').val();
+		var login = $('#login').val();
+		var password = $('#password').val();
+		var passwordConfirm = $('#passwordConfirm').val();
+		if ( userName !='' && userLastname !='' && eMail !='' && 
+			 phone !='' && login !='' && password !='' && passwordConfirm !=''){
+			$("#registration").removeAttr("disabled");
+		} else {
+			$("#registration").attr("disabled", "disabled");
+		}
+	});
+	
+	$('#passwordConfirm').on('blur', function(){ 
+		if($('#password').val() != $('#passwordConfirm').val() ) { 
+			alert("Пароли не совпадают!"); 
+		}
+	});
+		
+});
+
+</script>
+
 
 <%--
 <script>

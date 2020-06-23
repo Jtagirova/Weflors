@@ -8,21 +8,19 @@ import javax.persistence.*;
 @Table(name = "user_role_map", schema = "flowershop", catalog = "postgres")
 @IdClass(UserRoleMapEntityPK.class)
 public class UserRoleMapEntity {
+	
     private Integer userId;
     private Integer roleId;
     private UserEntity userByUserId;
     private RoleEntity roleByRoleId;
     
-    
-
     public UserRoleMapEntity() {
 		
 	}
 
 	public UserRoleMapEntity( int roleId, int userId) {
 		this.roleId = roleId;
-		this.userId = userId;
-		
+		this.userId = userId;	
 	}
 
 	@Id
@@ -44,27 +42,38 @@ public class UserRoleMapEntity {
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
-
+    
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((roleId == null) ? 0 : roleId.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		return result;
+	}
 
-        UserRoleMapEntity that = (UserRoleMapEntity) o;
-
-        if (userId != that.userId) return false;
-        if (roleId != that.roleId) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = userId;
-        result = 31 * result + roleId;
-        return result;
-    }
-
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserRoleMapEntity other = (UserRoleMapEntity) obj;
+		if (roleId == null) {
+			if (other.roleId != null)
+				return false;
+		} else if (!roleId.equals(other.roleId))
+			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		return true;
+	}  
+	
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     @JsonBackReference(value = "user-userrolemap")
@@ -72,7 +81,7 @@ public class UserRoleMapEntity {
         return userByUserId;
     }
 
-    public void setUserByUserId(UserEntity userByUserId) {
+	public void setUserByUserId(UserEntity userByUserId) {
         this.userByUserId = userByUserId;
     }
 

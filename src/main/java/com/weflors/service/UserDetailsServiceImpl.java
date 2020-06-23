@@ -1,6 +1,7 @@
 package com.weflors.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.weflors.entity.UserEntity;
@@ -57,19 +58,15 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        
 //        userRoleMapRepository.saveUserRoleMap(user.getUserId(), 2);	
         if(user.getUserRoleMapsByUserId() == null) {
         	userRoleMapRepository.saveUserRoleMap(user.getUserId(), 2);	
-        } else {     	     	
+        } else {           	
         	for(UserRoleMapEntity role : user.getUserRoleMapsByUserId()) { 
-        		Integer a = user.getUserId();
-        		Integer b = role.getRoleId();
-   			 	userRoleMapRepository.saveUserRoleMap(user.getUserId(), role.getRoleId());	
-   		 	} 		 	
-        }          
-     
-        return true;
+  			 	userRoleMapRepository.saveUserRoleMap(user.getUserId(), role.getRoleId());	
+   		 	} 	   		 		 	
+        }
+		return true;              
     }
 	
 	public List<UserEntity> getAllUsers(){

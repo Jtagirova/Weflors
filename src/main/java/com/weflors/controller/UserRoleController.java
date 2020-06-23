@@ -39,7 +39,7 @@ public class UserRoleController {
 	@PostMapping("/saveUser")
 	@ResponseBody
 	public String saveUser(@RequestBody UserEntity userEntity) {
-		if(userDetailsServiceImpl.saveUser(userEntity) == true) {;
+		if(userDetailsServiceImpl.saveUser(userEntity)) {;
 			return "Новый пользователь добавлен в вашу базу данных";
 		} else {
 			return "Ошибка добавления нового пользователя";

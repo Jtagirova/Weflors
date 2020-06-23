@@ -40,7 +40,7 @@
 					<br>
 				</div>
 
-				<sec:authorize access="hasRole('admin')">
+<%-- 				<sec:authorize access="hasRole('admin')"> --%>
 
 				<div class="col-md-12 form-group">
 					<div class="row">
@@ -105,7 +105,7 @@
 						</div>
 					</div>
 				</div>
-				</sec:authorize>
+<%-- 				</sec:authorize> --%>
 				<div class="col-md-12 form-group">
 					<br><br>
 					<div class="row">
@@ -281,10 +281,7 @@ $(document).ready(function() {
         $("#addContragent").attr("disabled", "disabled");
         $('#updateContragent').hide();
 	});	
-		
-	
-	var oldPhone = document.querySelector("#phone1Contragent");
-	
+			
 	$('input').change(function(){
 		var contragentName = $('#nameContragent').val();
 		var address = $('#addressContragent').val();
@@ -306,22 +303,9 @@ $(document).ready(function() {
 		if (phone2 ==''){
 			$('#phone2Contragent').val(0);
 		}
-		
-		  var newPhone = document.querySelector("#phone1Contragent");
-		  oldPhone.addEventListener("blur", function() {
-			  if(oldPhone.textContent == newPhone.textContent){
-				  $("#updateContragent").attr("disabled", "disabled"); 
-			  }
-		  });
 	});
-	
 
-	
 	$('.telephone').mask("+375 (29) 999-99-99");
-//	$('.telephone').focus(function(){
-//		$("#updateContragent").attr("disabled", "disabled");		
-//	});
-	
 
 	$('#contragentTable').searcher({
 	    inputSelector: '#findContragent'
@@ -330,8 +314,6 @@ $(document).ready(function() {
 	$('#cancel').click(function() {	
 		location.reload(true);
 	});
-	
-	
 	
 });
 	

@@ -224,7 +224,6 @@ $(document).ready(function() {
 	});	
 	
 	$('#saveUser').click(function() {	
-//		var userId = $('#userId').val();
 		var userName = $('#userName').val();
 		var userLastName = $('#userLastName').val();
 		var userLogin = $('#userLogin').val();
@@ -235,7 +234,6 @@ $(document).ready(function() {
 		var roleId = $('input:radio:checked').val();	
 		var userRole = [];
 		var currentRole = {
-//			"userId" : userId,
 			"roleId" : roleId
 		};
 		userRole.push(currentRole);
@@ -244,7 +242,6 @@ $(document).ready(function() {
 			"login" : userLogin,	
 			"password" : userPass,
 			"phone" : userPhone,
-//			"userId" : userId,
 			"userLastname" : userLastName,
 			"userName" : userName,
 			"userRoleMapsByUserId" : userRole
@@ -259,13 +256,21 @@ $(document).ready(function() {
     			cache : false,
     			timeout : 600000,
     			success : function(data) {
-   					alert(data.responseText);
+   					if(alert(data.responseText)){
+	   					 $(this).closest('form').find('input')
+	   			         .not(':button, :submit, :reset, :hidden')
+	   			         .val('')
+	   			         .removeAttr('checked')
+	   			         .removeAttr('selected');
+	   			     	return false;
+    				}
+// 	  					location.reload(true);
     			},
     			error : function(data) {	
     				alert(data.responseText);
     			}
     		});	
-        	location.reload(true);
+        	
             $('#saveUser').attr('disabled', 'disabled');
         }
 	});

@@ -37,8 +37,8 @@
             <ul class="nav nav-pills nav-stacked">
                 <li><a href="/contragents">Поставщики</a></li>
                 <li><a href="/typeproduct">Категории товара</a></li>
-                <li><a href="/clients">Клиенты</a></li>
-                <sec:authorize access="hasRole('admin')">
+                 <li><a href="/clients">Клиенты</a></li> 
+<!--                 <sec:authorize access="hasRole('admin')">--> 
                 <li><a href="/users">Пользователи</a></li>
             </ul>
             <hr>
@@ -48,7 +48,7 @@
             <ul class="nav nav-pills nav-stacked">
                 <li><a href="/salesreport">Отчет о продажах</a></li>
                 <li><a href="#">Отчет о списанном товаре</a></li>
-                </sec:authorize>
+  <!--              </sec:authorize>--> 
             </ul>
     </nav>
 

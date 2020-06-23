@@ -19,7 +19,7 @@ public interface UserRoleMapRepository extends JpaRepository<UserRoleMapEntity, 
 	@Modifying
 	@Query(value = "insert into postgres.flowershop.user_role_map(user_id, role_id) values (:userId,:roleId)", nativeQuery = true)
 	@Transactional 
-	void saveUserRoleMap(@Param("userId") Integer userID, @Param("roleId") Integer roleID);
+	void saveUserRoleMap(@Param("userId") Integer userId, @Param("roleId") Integer roleId);
 	
 	@Query(value = "select b.roleId from UserRoleMapEntity b where b.userId = :userId")
 	List<Integer> getUserRoleId(@Param("userId") Integer userID);
