@@ -405,15 +405,6 @@
     		}
     		if($('#productwidth').val() ==''){
     			$('#productwidth').val(0);
-    		}
-    		if($('#productcolor').val() ==''){
-    			$('#productcolor').val("none");
-    		}
-    		if($('#productdescription').val() ==''){
-    			$('#productdescription').val("none");
-    		}
-    		if($('#procurementdetails').val() ==''){
-    			$('#procurementdetails').val("none");
     		}	
     	});
         
