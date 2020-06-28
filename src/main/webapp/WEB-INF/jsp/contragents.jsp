@@ -225,17 +225,17 @@ $(document).ready(function() {
     			contentType : "application/json",
     			url : "/contragents/addNewContragent",
     			data : contragentsEntity,
-    			dataType : 'json',
+    			dataType : 'text',
     			cache : false,
     			timeout : 600000,
     			success : function(data) {
-    				alert(data.responseText);
+    				alert(data);
+    				location.reload(true);
     			},
     			error : function(data) {	
-    				alert(data.responseText);
+    				alert(data);
     			}
     		});	
-        	location.reload(true);
         }
         $("#addContragent").attr("disabled", "disabled");
 	});
@@ -266,17 +266,17 @@ $(document).ready(function() {
     			contentType : "application/json",
     			url : "/contragents/updateContragent",
     			data : contragentEntity,
-    			dataType : 'json',
+    			dataType : 'text',
     			cache : false,
     			timeout : 600000,
     			success : function(data) {
-    				alert(data.responseText);
+    				alert(data);
+    				location.reload(true);
     			},
     			error : function(data) {	
-    				alert(data.responseText);
+    				alert(data);
     			}
     		});	
-        	location.reload(true);
         }
         $("#addContragent").attr("disabled", "disabled");
         $('#updateContragent').hide();

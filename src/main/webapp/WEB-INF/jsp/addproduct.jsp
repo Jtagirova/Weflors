@@ -56,7 +56,6 @@
                             <input type="number" class="form-control" id="productheight" placeholder="Высота">
                         </div>
                     </div>
-
                     <br>
                     <div class="row">
                         <div class="col-md-6 mb-4">
@@ -69,7 +68,6 @@
                             <input type="number" class="form-control" id="productlength" placeholder="Длина">
                         </div>
                     </div>
-
                     <br>
                     <div class="row">
                         <div class="col-md-6 mb-4">
@@ -82,7 +80,6 @@
                             <input type="number" class="form-control" id="productwidth" placeholder="Ширина">
                         </div>
                     </div>
-
                     <br>
                     <div class="row">
                         <div class="col-md-6 mb-4">
@@ -99,7 +96,6 @@
                             <input type="text" class="form-control" id="productcolor" placeholder="Цвет">
                         </div>
                     </div>
-
                 </div>
                 <div class="col-md-4 form-group">
                     <div class="row">
@@ -122,12 +118,8 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-
                 <div class="col-md-12 form-group">
-
                     <br>
                     <div class="row">
                         <div class="col-md-12 mb-3">
@@ -136,7 +128,6 @@
                                       placeholder="Опишите товар кратко" rows="3"></textarea>
                         </div>
                     </div>
-
                     <br>
                     <div class="row">
                         <div class="col-md-4 mb-4">
@@ -144,7 +135,6 @@
                             <input type="text" class="form-control" id="procurementcountry"
                                    placeholder="Страна поставки">
                         </div>
-
                         <div class="col-md-4 mb-4">
                             <label class="custom-file-label" for="contragents">Поставщик*</label>
                             <form:select class="form-control" path="contragents" id="contragents">
@@ -158,10 +148,8 @@
                             <input type="date" class="form-control" id="procurementdate">
                         </div>
                     </div>
-
                     <br>
                     <div class="row">
-
                         <div class="col-md-2 mb-4">
                             <label for="productquantity">Количество*</label>
                             <input type="number" class="form-control" id="productquantity" placeholder="Количество">
@@ -170,18 +158,15 @@
                             <label for="validitydate">Срок годности</label>
                             <input type="date" class="form-control" id="validitydate">
                         </div>
-
                         <div class="col-md-3 mb-4">
                             <label for="procurementprice">Цена закупки*</label>
                             <input type="number" class="form-control" id="procurementprice" placeholder="Цена закупки">
                         </div>
-
                         <div class="col-md-3 mb-4">
                             <label for="productprice">Цена продажи*</label>
                             <input type="number" class="form-control" id="productprice" placeholder="Цена продажи">
                         </div>
                     </div>
-
                     <br>
                     <div class="row">
                         <div class="col-md-12 mb-3">
@@ -190,9 +175,7 @@
                                       placeholder="Детали поставки" rows="1"></textarea>
                         </div>
                     </div>
-
                 </div>
-
                 <div class="col-md-12 form-group">
                     <div class="row">
                         <div class="text-left col-md-4 mb-4">
@@ -205,16 +188,10 @@
                         </div>
                     </div>
                 </div>
-
-
             </form>
-
         </div>
-
     </div>
 </div>
-
-
 
 </body>
 
@@ -298,8 +275,6 @@
             };
 
             productStatus.push(productStatusByProductId);
-
-
             // productStatus : {
             //     productId : "",
             //     articul : productarticul,
@@ -324,14 +299,8 @@
             };
                // procurement : procurement,
                // contragents : contragents
-
-
-
             //var productStr = JSON.stringify(product);
-
             //var stringifyproduct = JSON.stringify(product);
-
-
 
             $.ajax({
                 type : "POST",
@@ -376,8 +345,6 @@
             //
             // };
         });
-        
-        
         
         $('input').change(function(){
     		var nomernakladnoj = $('#nomernakladnoj').val();

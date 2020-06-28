@@ -256,22 +256,14 @@ $(document).ready(function() {
     			cache : false,
     			timeout : 600000,
     			success : function(data) {
-   					if(alert(data.responseText)){
-	   					 $(this).closest('form').find('input')
-	   			         .not(':button, :submit, :reset, :hidden')
-	   			         .val('')
-	   			         .removeAttr('checked')
-	   			         .removeAttr('selected');
-	   			     	return false;
-    				}
-// 	  					location.reload(true);
-    			},
+    				alert(data);	
+    				alert(data.responseText);	 
+    			},    			
     			error : function(data) {	
-    				alert(data.responseText);
-    			}
+ //   				alert(data.responseText);
+    			}	
     		});	
         	
-            $('#saveUser').attr('disabled', 'disabled');
         }
 	});
 	
@@ -317,7 +309,7 @@ $(document).ready(function() {
     				alert(data.responseText);
     			}
     		});	
-        	 location.reload(true);
+ //       	 location.reload(true);
         	 $('#saveUser').attr('disabled', 'disabled');
         }
 	});
@@ -339,7 +331,6 @@ $(document).ready(function() {
 			$('#saveChangedUser').attr('disabled', 'disabled');
 			$('#saveUser').attr('disabled', 'disabled');
 		}
-
 	});
 	
 	$('#cancel').click(function() {	

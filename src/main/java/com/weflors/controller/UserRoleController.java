@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.weflors.entity.UserEntity;
 import com.weflors.service.UserDetailsServiceImpl;
 
-
 @Controller
 @RequestMapping("/users")
 public class UserRoleController {
