@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 public interface SaleRepository extends JpaRepository<SaleEntity, SaleEntityPK> {
@@ -20,7 +21,8 @@ public interface SaleRepository extends JpaRepository<SaleEntity, SaleEntityPK> 
     List<SaleEntity> findAllSalesByDate(@Param("date") Timestamp date);
 
     @Query("select sale from SaleEntity sale where sale.productId = :productID and " +
-            "sale.saleDate >= :date")
-    List<SaleEntity> findAllSalesByProductIDAndDate(@Param("productID") Integer productID, @Param("date") Timestamp date);
+            "sale.saleDate >= :startDatePeriod and sale.saleDate <= :endDatePeriod")
+    List<SaleEntity> findAllSalesByProductIDAndDatePeriod(
+            @Param("productID") Integer productID, @Param("startDatePeriod") Timestamp startDatePeriod, @Param("endDatePeriod") Timestamp endDatePeriod);
 
 }

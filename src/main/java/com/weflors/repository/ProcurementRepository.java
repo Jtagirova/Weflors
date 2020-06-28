@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 public interface ProcurementRepository extends JpaRepository<ProcurementEntity, ProcurementEntityPK> {
@@ -23,8 +24,8 @@ public interface ProcurementRepository extends JpaRepository<ProcurementEntity, 
     List<ProcurementEntity> findAllProcurementsByDate(@Param("date") Timestamp date);
 
     @Query("select procurement from ProcurementEntity procurement where procurement.productId = :productID and " +
-            "procurement.procurementDate >= :date")
-    List<ProcurementEntity> findAllProcurementsByProductIDAndDate(@Param("productID") Integer productID, @Param("date") Timestamp date);
-
+            "procurement.procurementDate >= :startDatePeriod and procurement.procurementDate <= :endDatePeriod")
+    List<ProcurementEntity> findAllProcurementsByProductIDAndDatePeriod(@Param(
+            "productID") Integer productID, @Param("startDatePeriod") Timestamp startDatePeriod, @Param("endDatePeriod") Timestamp endDatePeriod);
 
 }

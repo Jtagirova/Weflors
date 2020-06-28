@@ -66,7 +66,6 @@ public class RoleEntity {
     }
 
     @OneToMany(mappedBy = "roleByRoleId")
-//    @OneToOne(mappedBy = "roleByRoleId")
     @JsonManagedReference(value = "role-userrolemap")
     public Collection<UserRoleMapEntity> getUserRoleMapsByRoleId() {
         return userRoleMapsByRoleId;

@@ -1,0 +1,26 @@
+--INSERT INTO flowershop.product (product_id, product_name, product_type, articul, picture_url)
+--VALUES (1, 'rose', 'flower', '789123', 'http.d.dsf');
+
+-- select *
+-- from flowershop.product
+
+
+-- INSERT INTO flowershop.product_details (product_id, product_description, height, color)
+-- VALUES (1, 'British Yorkshire rose', 100, 'red');
+
+--DELETE FROM flowershop.product WHERE product_id = 1;
+
+-- SELECT *
+-- FROM flowershop.product_details
+
+
+<springform:select path="myObjectList" id="selected_company">
+    <springform:option value="0" label="--- Select One ---"></springform:option>
+    <springform:options items="${myObjectList}" itemValue="company" itemLabel="company"></springform:options>
+</springform:select>
+
+	name = Atagiro2
+	email = Atagiro2@ru.ibm.com
+
+	name = Jtagirova
+	email = jtagirova2.18@gmail.com

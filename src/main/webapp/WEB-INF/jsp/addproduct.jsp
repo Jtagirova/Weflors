@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+
 <%--<dependency>
     <groupId>org.springframework.security</groupId>
     <artifactId>spring-security-taglibs</artifactId>
@@ -106,7 +107,7 @@
                         <div class="col-md-12 mb-4">
                             <div class="fileinput fileinput-new" data-provides="fileinput">
                                 <div class="fileinput-new thumbnail" style="width: 384px; height: 243px;">
-                                    <img src="/img/product_photo.png" alt="...">
+                                    <img id="image" src="/img/product_photo.png" alt="...">
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"
                                      style="max-width: 384px; max-height: 243px;"></div>

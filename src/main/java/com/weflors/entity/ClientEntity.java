@@ -3,6 +3,7 @@ package com.weflors.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Collection;
 
@@ -18,6 +19,7 @@ public class ClientEntity {
     private Integer discount;
     private String address;
     private String zipCode;
+    private BigDecimal amountPurchased;
     private Collection<SaleEntity> salesByClientId;
 
     public ClientEntity() {
@@ -114,6 +116,16 @@ public class ClientEntity {
         this.zipCode = zipCode;
     }
 
+    @Basic
+    @Column(name = "amount_purchased", nullable = true, precision = 2)
+    public BigDecimal getAmountPurchased() {
+        return amountPurchased;
+    }
+
+    public void setAmountPurchased(BigDecimal amountPurchased) {
+        this.amountPurchased = amountPurchased;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -131,6 +143,8 @@ public class ClientEntity {
         if (discount != null ? !discount.equals(that.discount) : that.discount != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (zipCode != null ? !zipCode.equals(that.zipCode) : that.zipCode != null) return false;
+        if (amountPurchased != null ? !amountPurchased.equals(that.amountPurchased) : that.amountPurchased != null)
+            return false;
 
         return true;
     }
@@ -146,6 +160,7 @@ public class ClientEntity {
         result = 31 * result + (discount != null ? discount.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (zipCode != null ? zipCode.hashCode() : 0);
+        result = 31 * result + (amountPurchased != null ? amountPurchased.hashCode() : 0);
         return result;
     }
 

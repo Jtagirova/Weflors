@@ -1,6 +1,7 @@
 package com.weflors.service;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import com.weflors.entity.ProcurementEntity;
@@ -49,8 +50,8 @@ public class SaleServiceImpl {
 		return saleRepository.findAllSalesByDate(date);
 	}
 
-	public List<SaleEntity> findAllSalesByProductDate(Integer productId, Timestamp date) {
-		return saleRepository.findAllSalesByProductIDAndDate(productId, date);
+	public List<SaleEntity> findAllSalesByProductDatePeriod(Integer productId, Timestamp startDatePeriod, Timestamp endDatePeriod) {
+		return saleRepository.findAllSalesByProductIDAndDatePeriod(productId, startDatePeriod, endDatePeriod);
 	}
 
 

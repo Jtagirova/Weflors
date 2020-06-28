@@ -75,7 +75,7 @@ public class UserRoleMapEntity {
 	}  
 	
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false, nullable = false)
     @JsonBackReference(value = "user-userrolemap")
     public UserEntity getUserByUserId() {
         return userByUserId;
@@ -86,7 +86,7 @@ public class UserRoleMapEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "role_id", nullable = false)
+    @JoinColumn(name = "role_id", referencedColumnName = "role_id", insertable = false, updatable = false, nullable = false)
     @JsonBackReference(value = "role-userrolemap")
     public RoleEntity getRoleByRoleId() {
         return roleByRoleId;
