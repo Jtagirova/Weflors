@@ -39,7 +39,7 @@
 					</div>	
 					<br>
 				</div>
-				<sec:authorize access="hasRole('admin')">
+				<sec:authorize access="hasAuthority('admin')">
 				<div class="col-md-12 form-group">
 					<div class="row">
 						<div class="col-md-4 mb-4">

@@ -16,7 +16,9 @@
 
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="#"><sec:authentication property="principal.username" /><%=request.getUserPrincipal().getName()%></a></li>
+                    <c:set var="userdetails" value="(UserDetails) request.getUserPrincipal().getAuthorities()" scope="request">
+                        </c:set>
+                        <li class="active"><a href="#"><sec:authentication property="principal.Authorities" /><%=request.getUserPrincipal().getName()%></a></li>
                         <li class="active"><a href="/logout">Выход</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="active"></li>

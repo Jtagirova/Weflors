@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -53,17 +54,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	 
 	        http.csrf().disable();
 
+
+/*			http.sessionManagement().sessionCreationPolicy(
+					SessionCreationPolicy.STATELESS);*/
+
 	        // The pages does not require login
 	        http.authorizeRequests().antMatchers("/", "/login", "/logout", "/registration").permitAll();
 	 
 	        // /hello(любая другая после админа) page requires login as ROLE_USER or ROLE_ADMIN.
 	        // If no login, it will redirect to /login page.
 	       //TO_DO
-	        http.authorizeRequests().antMatchers("/hello").access("hasAnyRole('user', 'admin')");
+	        //http.authorizeRequests().antMatchers("/hello").access("hasAnyRole('user', 'admin')");
 
 	        // For ADMIN only.
 	        //TO_DO
-	        http.authorizeRequests().antMatchers("/addproduct").access("hasRole('admin')");
+	        http.authorizeRequests().antMatchers("/users").access("hasRole('admin')");
+
+			http.authorizeRequests().antMatchers("/hello").access("hasRole('user')");
 	 
 	        // When the user has logged in as XX.
 	        // But access a page that requires role YY,
@@ -80,7 +87,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	                .usernameParameter("j_username")//
 	                .passwordParameter("j_password")
 	                // Config for Logout Page
-	                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login");
+	                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login")
+					.clearAuthentication(true)
+					.invalidateHttpSession(true).permitAll();
 	 
 	    }
 	    
