@@ -41,7 +41,7 @@
                     <br>
                 </div>
 
-                <sec:authorize access="hasRole('admin')">
+                <sec:authorize access="hasAuthority('admin')">
 
 
                 <div class="col-md-12">

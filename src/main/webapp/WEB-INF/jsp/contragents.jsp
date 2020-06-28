@@ -40,7 +40,7 @@
 					<br>
 				</div>
 
-<%-- 				<sec:authorize access="hasRole('admin')"> --%>
+ 				<sec:authorize access="hasAuthority('admin')">
 
 				<div class="col-md-12 form-group">
 					<div class="row">
@@ -105,7 +105,7 @@
 						</div>
 					</div>
 				</div>
-<%-- 				</sec:authorize> --%>
+ 				</sec:authorize>
 				<div class="col-md-12 form-group">
 					<br><br>
 					<div class="row">

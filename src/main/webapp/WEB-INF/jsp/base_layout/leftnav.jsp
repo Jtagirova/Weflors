@@ -5,7 +5,7 @@
 
     <!-- It can be fixed with bootstrap affix http://getbootstrap.com/javascript/#affix-->
     <nav class="navbar navbar-collapse" >
-        <ul id="sidebar" style="padding-bottom: 25%;" class="well sidebar-nav bg">
+        <ul id="sidebar" style="padding-bottom: 90%"  class="well sidebar-nav bg">
             <a href="/main" class="navbar-center">
                 <h2>Цветочный магазин</h2>
                 <h1>WeFlors</h1></span>
@@ -37,8 +37,8 @@
             <ul class="nav nav-pills nav-stacked">
                 <li><a href="/contragents">Поставщики</a></li>
                 <li><a href="/typeproduct">Категории товара</a></li>
-                 <li><a href="/clients">Клиенты</a></li> 
-<!--                 <sec:authorize access="hasRole('admin')">--> 
+                 <li><a href="/clients">Клиенты</a></li>
+                 <sec:authorize access="hasAuthority('admin')">
                 <li><a href="/users">Пользователи</a></li>
             </ul>
             <hr>
@@ -48,7 +48,7 @@
             <ul class="nav nav-pills nav-stacked">
                 <li><a href="/salesreport">Отчет о продажах</a></li>
                 <li><a href="#">Отчет о списанном товаре</a></li>
-  <!--              </sec:authorize>--> 
+                </sec:authorize>
             </ul>
     </nav>
 
