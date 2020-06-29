@@ -137,14 +137,14 @@ $(document).ready(function() {
 						contentType : "application/json",
 						url : "/typeproduct/deleteProductType",
 						data : JSON.stringify(json),
-						dataType : 'json',
+						dataType : 'text',
 						cache : false,
 						timeout : 600000,
 						success : function(data) {
-							alert(data.responseText);
+							alert(data);
 						},
 						error : function(data) {	
-							alert(data.responseText);
+							alert(data);
 						}
 					});
 			    }
@@ -162,18 +162,18 @@ $(document).ready(function() {
     			contentType : "application/json",
     			url : "/typeproduct/addNewProductType",
     			data : productTypeEntity,
-    			dataType : 'json',
+    			dataType : 'text',
     			cache : false,
     			timeout : 600000,
     			success : function(data) {
-    				alert(data.responseText);
+    				alert(data);
+    				location.reload(true);
     			},
     			error : function(data) {	
-    				alert(data.responseText);
+    				alert(data);
     			}
     		});	
         };
-        location.reload(true);
         $("#addNewProductType").attr("disabled", "disabled");
 	});
 	
@@ -191,17 +191,17 @@ $(document).ready(function() {
     			contentType : "application/json",
     			url : "/typeproduct/updateProductType",
     			data : JSON.stringify(json),
-    			dataType : 'json',
+    			dataType : 'text',
     			cache : false,
     			timeout : 600000,
     			success : function(data) {
-    				alert(data.responseText);
+    				alert(data);
+    				location.reload(true);
     			},
     			error : function(data) {	
-    				alert(data.responseText);
+    				alert(data);
     			}
-    		});	
-        	location.reload(true);
+    		});		
         }
         $("#addNewProductType").attr("disabled", "disabled");
         $('#updateProductType').hide();

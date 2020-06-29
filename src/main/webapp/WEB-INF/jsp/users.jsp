@@ -186,14 +186,14 @@ $(document).ready(function() {
 						contentType : "application/json",
 						url : "/users/deleteUser",
 						data : JSON.stringify(json),
-						dataType : 'json',
+						dataType : 'text',
 						cache : false,
 						timeout : 600000,
 						success : function(data) {
-							alert(data.responseText);
+							alert(data);
 						},
-						error : function(data) {	
-							alert(data.responseText);
+						error : function(data) {
+							alert(data);
 						}
 					});
 		        }
@@ -252,15 +252,15 @@ $(document).ready(function() {
     			contentType : "application/json",
     			url : "/users/saveUser",
     			data : JSON.stringify(json),
-    			dataType : 'json',
+    			dataType : 'text',
     			cache : false,
     			timeout : 600000,
     			success : function(data) {
     				alert(data);	
-    				alert(data.responseText);	 
+    				location.reload(true);
     			},    			
     			error : function(data) {	
- //   				alert(data.responseText);
+    				alert(data);
     			}	
     		});	
         	
