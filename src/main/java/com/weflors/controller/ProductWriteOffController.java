@@ -60,7 +60,6 @@ public class ProductWriteOffController {
     @PostMapping(value = "/addWriteOffs", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String addWriteOffProduct(@RequestBody List <SaleEntity> saleEntitylist){ 
-    	
     	Map<Integer, Integer> mapProductId = new HashMap<>();
     	for(SaleEntity entity : saleEntitylist) {
     		if(mapProductId.containsKey(entity.getProductId())) {
@@ -69,17 +68,17 @@ public class ProductWriteOffController {
     			mapProductId.put(entity.getProductId(), entity.getQuantity());
     		}
     	}
-    	
+    	String responseText = "Вы списали: " + "\n";
     	for(Map.Entry<Integer, Integer> item : mapProductId.entrySet()) {
     		if(item.getValue() > productStatusService.findOneProductStatusEntity(item.getKey()).getQuantityWarehouse()) {
     			return "Вы хотите списать " + productService.findByProductId(item.getKey()).getProductName() + " в количестве " + item.getValue() +
     					" На складе есть: " + productStatusService.findOneProductStatusEntity(item.getKey()).getQuantityWarehouse() + " единиц товара.";
     		} else {
     			productStatusService.updateQuantity(item.getValue(),item.getKey());
+    			responseText = responseText +  productService.findByProductId(item.getKey()).getProductName() + " в количестве " + item.getValue() + "\n";
     		}
     		
     	}
-		return "Товар Списан"; 	
-	
+		return responseText; 	
     }
 }

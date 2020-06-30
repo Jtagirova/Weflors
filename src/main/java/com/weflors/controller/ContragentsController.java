@@ -35,7 +35,7 @@ public class ContragentsController {
 	    return contragentsServiceImpl.loadContragents();
 	}
 	
-	@PostMapping("/addNewContragent")
+	@PostMapping(path = "/addNewContragent")
 	@ResponseBody
 	public String addNewContragent(@RequestBody ContragentsEntity contragentsEntity) {
 		if(contragentsServiceImpl.existByContragentName(contragentsEntity.getContragentName()) != null) {

@@ -125,7 +125,7 @@
 
 $(document).ready(function() {
 	
-		$("#products").change(function() {
+		$('#products').change(function() {
 			var products = $(this).find(":selected").val();
 			var json = { "productId" : products };
 			$.ajax({
@@ -163,7 +163,7 @@ $(document).ready(function() {
 		let tableNumOfRows = 0;
 		var writeOffArr = [];
 		
-		$("#addtocheck").click(function() {
+		$('#addtocheck').click(function() {
 			var productName = $("#products").find('option:selected').text();
 			var productId = $("#products").find('option:selected').val();
 			var articul = $('#articul').val();
@@ -218,15 +218,16 @@ $(document).ready(function() {
 			});	
 			$('#saleTable > tbody').append(rowl);
 			$('#products').prop('selectedIndex',0);
-			$('#articul').val("");
 			$('#productValidityDate').find('option:not(:first)').remove();
+			$('#articul').val("");
 			$('#saleDate').val("");
 			$('#productPrice').val("");
 			$('#productQuantity').val(""); 
-			$("#addtocheck").attr("disabled", "disabled");
+			$('#details').val(""); 
+			$('#addtocheck').attr('disabled', 'disabled');
 		});
 		
-		$("#addWriteOffs").click(function() {	
+		$('#addWriteOffs').click(function() {	
 			var saleEntitylist = JSON.stringify(writeOffArr);
 			if (confirm('Вы действительно желаете списать данный товар?')) {
 				$.ajax({
@@ -234,19 +235,19 @@ $(document).ready(function() {
 					contentType : "application/json",
 					url : "/productwriteoff/addWriteOffs",
 					data : saleEntitylist,
-					dataType : 'json',
+					dataType : 'text',
 					cache : false,
 					timeout : 600000,
 					success : function(data) {
-						alert(data.responseText);
+						alert(data);
+						location.reload(true);
 					},
 					error : function(data) {	
-						alert(data.responseText);
+						alert(data);
 					}
 				});
 			};
-			location.reload(true);
-	        $("#addNewProductType").attr("disabled", "disabled");
+	        $('#addNewProductType').attr('disabled', 'disabled');
 		});
 		
 		$('input').change(function(){	
@@ -265,13 +266,13 @@ $(document).ready(function() {
 			    	}); 
 			    };   		
 			});
-			var productName = $("#products").find('option:selected').text();
+			var productName = $('#products').find('option:selected').text();
 			var productQuantity = Number($('#productQuantity').val());
 			var details = $('#details').val();
 			if ( productName !='' && productQuantity !='' && details !='' ){
-				$("#addtocheck").removeAttr("disabled");
+				$('#addtocheck').removeAttr('disabled');
 			} else {
-				$("#addtocheck").attr("disabled", "disabled");
+				$('#addtocheck').attr('disabled', 'disabled');
 			}
 		});
 		
