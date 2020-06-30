@@ -1,5 +1,8 @@
 package com.weflors.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +31,18 @@ public class ProductSaleController {
 
     @Autowired
     private ProductStatusService productStatusService;
+    
+	private static LocalDate getCurrentDate(){
+	    LocalDate currentDate = LocalDate.now();
+	    return currentDate;
+	}
 
 	@RequestMapping(value = {"/productsale"}, method = RequestMethod.GET)
     public String addProductPage(Model model) {
-        model.addAttribute("salesForThisDay", saleServiceImpl.getSalesForThisDay());
+        model.addAttribute("salesForThisDay", saleServiceImpl.getSalesForThisDay(getCurrentDate()));
+        
+        model.addAttribute("currentDate",getCurrentDate());
+        
         model.addAttribute("products", saleServiceImpl.getAllProduct());
         model.addAttribute("allClientsEmail", clientService.getAllClients());
         model.addAttribute("saleForm", new SaleEntity());

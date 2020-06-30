@@ -161,7 +161,7 @@
 				<br><br>
 				<div class="row">
 					<div class="text-left col-md-4 mb-4">
-						<h3>Продажи за день</h3>
+						<h3>Продажи за день: ${currentDate}</h3>
 					</div>
 				</div>
 				<br>
@@ -186,7 +186,10 @@
 										<td>${sale.articul}</td>
 										<td>${sale.quantity}</td>
 										<td>${sale.productPrice}</td>
+										<td>${sale.clientByClientId.discount}</td>
 										<td>${sale.salePrice}</td>
+										<td><input type="text" id="saleTotal"  value="${sale.productPrice}*${sale.quantity}"  name="saleTotal" readonly/>  </td>											
+<!--  									${sale.productPrice}*${sale.quantity}-${sale.productPrice}*${sale.clientByClientId.discount}/100   -->
 									</tr>								
 								</c:forEach>
 							</tbody>
@@ -194,7 +197,6 @@
 					</div>
 				</div>
 			</div>
-
         </div>
     </div>
 </div>
@@ -379,10 +381,11 @@
 					cache : false,
 					timeout : 600000,
 					success : function(data) {
-						alert(data.responseText);
+						alert(data);
+						location.reload(true)
 					},
 					error : function(data) {
-						alert(data.responseText);
+						alert(data);
 //						alert("error occured while trying update the database");
 					}
 				});
@@ -440,9 +443,8 @@
 	$('#allClientsEmail').change(function(){
 		$('#discount').val('0');
 		$('#productQuantity').val('0');
-	});
-
-
+	});	
+	
 });
 
 </script>

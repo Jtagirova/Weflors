@@ -1,12 +1,10 @@
 package com.weflors.service;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
-import com.weflors.entity.ProcurementEntity;
 import com.weflors.entity.SaleEntity;
 import com.weflors.repository.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,10 +54,8 @@ public class SaleServiceImpl {
 		return saleRepository.findAllSalesByProductIDAndDatePeriod(productId, startDatePeriod, endDatePeriod);
 	}
 
-	public List<SaleEntity> getSalesForThisDay() {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-	    LocalDateTime currentDateAndTime = LocalDateTime.now();
-		return saleRepository.findAllSalesForThisDay(currentDateAndTime);
+	public List<SaleEntity> getSalesForThisDay(LocalDate localDate) {
+		return saleRepository.findAllSalesForThisDay(localDate);
 	}
 
 }
