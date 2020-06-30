@@ -58,7 +58,7 @@
                         </div>
                         <div class="col-md-4 mb-4">
                             <label for="discount">Скидка %</label>
-                            <input type="text" class="form-control" id="discount" name="discount" maxlength="3" 
+                            <input type="number" class="form-control" id="discount" name="discount" maxlength="3" 
                            oninput="this.value=this.value.replace(/[^0-9]/g,'');" />  
                         </div>
                     </div>
@@ -154,6 +154,47 @@
                 </div>
             </div>
 <%--            </form>--%>
+
+
+
+			<div class="col-md-12 form-group">
+				<br><br>
+				<div class="row">
+					<div class="text-left col-md-4 mb-4">
+						<h3>Продажи за день</h3>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-md-12">
+						<table class="table table-striped table-bordered table-hover table-responsive" id="lastSales">
+							<thead>
+								<tr>
+									<th scope="col" class="text-center">Наименование товара</th>
+	                                <th scope="col" class="text-center">Артикул</th>
+	                                <th scope="col" class="text-center">Количество товара</th>
+	                                <th scope="col" class="text-center">Цена за единицу</th>
+	                                <th scope="col" class="text-center">Скидка %</th>
+	                                <th scope="col" class="text-center">Стоимость товара за единицу</th>
+	                                <th scope="col" class="text-center">Итого</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${salesForThisDay}" var="sale">
+									<tr>
+										<td>${sale.productByProductId.productName}</td>
+										<td>${sale.articul}</td>
+										<td>${sale.quantity}</td>
+										<td>${sale.productPrice}</td>
+										<td>${sale.salePrice}</td>
+									</tr>								
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
         </div>
     </div>
 </div>

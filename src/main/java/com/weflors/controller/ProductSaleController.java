@@ -31,9 +31,8 @@ public class ProductSaleController {
 
 	@RequestMapping(value = {"/productsale"}, method = RequestMethod.GET)
     public String addProductPage(Model model) {
-        List<ProductEntity> products = saleServiceImpl.getAllProduct();
-        
-        model.addAttribute("products", products);
+        model.addAttribute("salesForThisDay", saleServiceImpl.getSalesForThisDay());
+        model.addAttribute("products", saleServiceImpl.getAllProduct());
         model.addAttribute("allClientsEmail", clientService.getAllClients());
         model.addAttribute("saleForm", new SaleEntity());
         //model.addAllAttributes("productValidityDaty", null);
@@ -53,25 +52,19 @@ public class ProductSaleController {
 	    return selectedProduct;
     }
 
-    @RequestMapping(value = "/loadClientDiscont", method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/loadClientDiscont", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ClientEntity loadClientDiscont(@RequestBody String eMail) {
         return clientService.getClientByEmail(eMail);
     }
 
+    @RequestMapping(value = "/addSaleProduct", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public  boolean addSaleProduct(@RequestBody List<SaleEntity> saleEntityList) {
 
-
-    @RequestMapping(value = "/addSaleProduct", method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody boolean addSaleProduct(@RequestBody List<SaleEntity> saleEntityList) {
-
-        for (SaleEntity saleEntity:
-        saleEntityList) {
-            for (ProductStatusEntity productStatusEntity:
-                 saleEntity.getProductByProductId().getProductStatusByProductId()) {
-                 productStatusService.updateQuantityShopSaleAndQuantityWarehouse(productStatusEntity.getProductId(),
-                         productStatusEntity.getQuantityShopSale());
+        for (SaleEntity saleEntity : saleEntityList) {
+            for (ProductStatusEntity productStatusEntity : saleEntity.getProductByProductId().getProductStatusByProductId()) {
+                 productStatusService.updateQuantityShopSaleAndQuantityWarehouse(productStatusEntity.getProductId(), productStatusEntity.getQuantityShopSale());
             }
         }
 //        for (ProductEntity product:

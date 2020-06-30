@@ -31,8 +31,7 @@ public interface ProductStatusRepository extends JpaRepository<ProductStatusEnti
 	@Modifying
 	@Transactional
 	@Query(value ="update flowershop.product_status set quantity_warehouse = quantity_warehouse - :quantityShopSale,"
-			+ "quantity_shop_sale = quantity_shop_sale + :quantityShopSale where product_id = :productId",
-			nativeQuery = true)
+			+ "quantity_shop_sale = quantity_shop_sale + :quantityShopSale where product_id = :productId", nativeQuery = true)
 	void updateQuantityShopSaleAndWarehouse(@Param("productId") int productId, @Param("quantityShopSale") int quantityShopSale);	
 	
 	
