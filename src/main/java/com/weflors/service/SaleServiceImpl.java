@@ -3,8 +3,10 @@ package com.weflors.service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
+import com.weflors.entity.ProcurementEntity;
 import com.weflors.entity.SaleEntity;
 import com.weflors.repository.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +52,8 @@ public class SaleServiceImpl {
 		return saleRepository.findAllSalesByDate(date);
 	}
 
-	public List<SaleEntity> findAllSalesByProductDate(Integer productId, Timestamp date) {
-		return saleRepository.findAllSalesByProductIDAndDate(productId, date);
+	public List<SaleEntity> findAllSalesByProductDatePeriod(Integer productId, Timestamp startDatePeriod, Timestamp endDatePeriod) {
+		return saleRepository.findAllSalesByProductIDAndDatePeriod(productId, startDatePeriod, endDatePeriod);
 	}
 
 	public List<SaleEntity> getSalesForThisDay() {
