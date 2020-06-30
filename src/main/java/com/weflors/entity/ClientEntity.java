@@ -19,7 +19,7 @@ public class ClientEntity {
     private Integer discount;
     private String address;
     private String zipCode;
-    private BigDecimal amountPurchased;
+    private BigDecimal totalAmountPurchased;
     private Collection<SaleEntity> salesByClientId;
 
     public ClientEntity() {
@@ -117,13 +117,13 @@ public class ClientEntity {
     }
 
     @Basic
-    @Column(name = "amount_purchased", nullable = true, precision = 2)
+    @Column(name = "total_amount_purchased", nullable = true, precision = 2)
     public BigDecimal getAmountPurchased() {
-        return amountPurchased;
+        return totalAmountPurchased;
     }
 
     public void setAmountPurchased(BigDecimal amountPurchased) {
-        this.amountPurchased = amountPurchased;
+        this.totalAmountPurchased = amountPurchased;
     }
 
     @Override
@@ -143,7 +143,7 @@ public class ClientEntity {
         if (discount != null ? !discount.equals(that.discount) : that.discount != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (zipCode != null ? !zipCode.equals(that.zipCode) : that.zipCode != null) return false;
-        if (amountPurchased != null ? !amountPurchased.equals(that.amountPurchased) : that.amountPurchased != null)
+        if (totalAmountPurchased != null ? !totalAmountPurchased.equals(that.totalAmountPurchased) : that.totalAmountPurchased != null)
             return false;
 
         return true;
@@ -160,7 +160,7 @@ public class ClientEntity {
         result = 31 * result + (discount != null ? discount.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (zipCode != null ? zipCode.hashCode() : 0);
-        result = 31 * result + (amountPurchased != null ? amountPurchased.hashCode() : 0);
+        result = 31 * result + (totalAmountPurchased != null ? totalAmountPurchased.hashCode() : 0);
         return result;
     }
 
