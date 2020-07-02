@@ -17,7 +17,6 @@
 
 <!-- Form Content Here -->
 <form:form method="POST" modelAttribute="userForm">
-
     <div class="container-login100">
         <div class="wrap-login100">
             <div class="login100-form-title" style="background-image: url('../img/background_theme2_opacity70.png')">
@@ -31,25 +30,25 @@
                 <div class="col-md-4 mb-4 col-md-offset-2">
                     <label for="userName">Имя*</label>
                     <form:input type="text" id="userName" class="form-control" path="userName"
-                                placeholder="Имя" autofocus="true"></form:input>
+                                placeholder="Имя" autofocus="true" maxlength ="50"></form:input>
                 </div>
                 <div class="col-md-4 mb-4">
                     <label for="userLastname">Фамилия*</label>
                     <form:input type="text" id="userLastname" class="form-control" path="userLastname"
-                                placeholder="Фамилия"></form:input>
+                                placeholder="Фамилия" maxlength ="50"></form:input>
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="col-md-4 mb-4 col-md-offset-2">
                     <label for="eMail">E-mail*</label>
-                    <form:input type="text" id="eMail" class="form-control" path="eMail"
-                                placeholder="E-mail"></form:input>
+                    <form:input type="email" id="eMail" class="form-control" path="eMail"
+                                placeholder="E-mail" title="Email должен быть в формате example@google.com" maxlength ="50"></form:input>
                 </div>
                 <div class="col-md-4 mb-4">
                     <label for="phone">Телефон*</label>
                     <form:input type="text" id="phone" class="form-control" path="phone"
-                                placeholder="Телефон"></form:input>
+                                placeholder="Телефон" maxlength ="15"></form:input>
                 </div>
             </div>
             <br>
@@ -57,7 +56,7 @@
                 <div class="col-md-8 mb-4 col-md-offset-2">
                     <label for="login">Логин*</label>
                     <form:input type="text" id="login" class="form-control" path="login"
-                                placeholder="Логин"></form:input>
+                                placeholder="Логин" maxlength ="50"></form:input>
                 </div>
             </div>
             <br>
@@ -65,7 +64,7 @@
                 <div class="col-md-4 mb-4 col-md-offset-2">
                     <label for="password">Пароль*</label>
                     <form:input type="password" id="password" class="form-control" path="password"
-                                placeholder="Пароль"></form:input>
+                                placeholder="Пароль" maxlength ="100"></form:input>
                 </div>
                 <div class="col-md-4 mb-4 ">
                     <label for="passwordConfirm">Повторить пароль*</label>
@@ -96,13 +95,21 @@
             <br>
         </div>
     </div>
-</form:form>
+    
 
+    <div class="alert alert-success alert-dismissible" style='display:none;'>
+	  ${usernameError}
+	</div>
+    
+    
+</form:form>
 </body>
 </html>
 
 <script>
 $(document).ready(function() {
+	
+	$(".alert").alert();
 
 	$('input').change(function(){
 		var userName = $('#userName').val();
@@ -114,39 +121,19 @@ $(document).ready(function() {
 		var passwordConfirm = $('#passwordConfirm').val();
 		if ( userName !='' && userLastname !='' && eMail !='' && 
 			 phone !='' && login !='' && password !='' && passwordConfirm !=''){
-			$("#registration").removeAttr("disabled");
+			$('#registration').removeAttr('disabled');
 		} else {
-			$("#registration").attr("disabled", "disabled");
+			$('#registration').attr('disabled', 'disabled');
 		}
 	});
 	
 	$('#passwordConfirm').on('blur', function(){ 
 		if($('#password').val() != $('#passwordConfirm').val() ) { 
-			alert("Пароли не совпадают!"); 
+			alert('Пароли не совпадают!'); 
 		}
 	});
 	
-	$('#phone').mask('+375 (29) 999-99-99');
-	$('#eMail').mask("A", {
-		translation: {
-			"A": { pattern: /[\w@\-.+]/, recursive: true }
-		}
-	});
-		
+	$('#phone').mask('+375(29)9999999');
+	
 });
-
 </script>
-
-
-<%--
-<script>
-    $(document).ready(function() {
-        console.log('kyku');
-        $("#backtologin").click(function(){
-            console.log('kyku');
-            document.location.href="login"
-
-        });
-    });
-
-</script>--%>

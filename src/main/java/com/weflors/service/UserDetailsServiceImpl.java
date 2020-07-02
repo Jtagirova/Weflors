@@ -44,7 +44,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         for (Integer roleId : userRoleMapRepository.getUserRoleId(user.getUserId())) {
             grantList.add(new SimpleGrantedAuthority(roleRepository.getRoleNames(roleId)));
         }
-
         UserDetails userDetails = (UserDetails) new org.springframework.security.core.userdetails.User(
                 user.getUserName() + " " + user.getUserLastname() + " (" + getRuLocalizedAuthority(grantList.get(0).getAuthority()) + ")",
                 user.getPassword(), grantList);

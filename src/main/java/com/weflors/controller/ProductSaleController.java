@@ -1,8 +1,6 @@
 package com.weflors.controller;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +69,7 @@ public class ProductSaleController {
 
     @RequestMapping(value = "/addSaleProduct", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public  boolean addSaleProduct(@RequestBody List<SaleEntity> saleEntityList) {
+    public boolean addSaleProduct(@RequestBody List<SaleEntity> saleEntityList) {
 
         for (SaleEntity saleEntity : saleEntityList) {
             for (ProductStatusEntity productStatusEntity : saleEntity.getProductByProductId().getProductStatusByProductId()) {

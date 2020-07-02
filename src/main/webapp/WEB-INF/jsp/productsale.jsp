@@ -286,9 +286,13 @@
 			var saleDate = Date.now();
 			var clientEmail =  $("#allClientsEmail").find('option:selected').text();
 			var clientId =  $("#allClientsEmail").find('option:selected').val();
-			var clientByClientId = {
-				"clientId": clientId,
-				"eMail": clientEmail
+			if (clientId == "NONE"){
+				var clientByClientId = null;
+			} else {
+				var clientByClientId = {
+					"clientId": clientId,
+					"eMail": clientEmail
+				}
 			}
 			var productSaleDetails = '';
             var productStatus = {
@@ -377,16 +381,17 @@
 					contentType : "application/json",
 					url : "/addSaleProduct",
 					data : prod,
-					dataType : 'json',
+					dataType : 'text',
 					cache : false,
 					timeout : 600000,
 					success : function(data) {
-						alert(data);
+						if(data == "true"){
+							alert("Выбранный товар продан");
+						}
 						location.reload(true)
 					},
 					error : function(data) {
 						alert(data);
-//						alert("error occured while trying update the database");
 					}
 				});
 			}
