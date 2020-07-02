@@ -78,13 +78,13 @@ public class SalesReportController {
         List<ProductEntity> products = new ArrayList<ProductEntity>();
         List<Integer> productIDs = salesReportHelperBean.getProductIDs();
 
-
         if (productIDs != null && productIDs.size() == 0) {
-            products = productServiceImpl.getFullListOfProducts();
-            return products;
+            return productServiceImpl.getFullListOfProducts();
         }
 
-
+        if (productIDs != null && productIDs.size() > 0 && salesReportHelperBean.getReportStartDatePeriod() == null) {
+            return productServiceImpl.findAllProductsByProductId(productIDs);
+        }
 
         for (int productID: productIDs) {
             ProductEntity productEntity = productServiceImpl.findByProductId(productID);

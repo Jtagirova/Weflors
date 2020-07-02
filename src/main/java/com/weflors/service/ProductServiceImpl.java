@@ -25,6 +25,10 @@ public class ProductServiceImpl {
     public ProductEntity findByProductId(Integer productId){
         return productRepository.findByProductID(productId);
     }
+
+    public List<ProductEntity> findAllProductsByProductId(List<Integer> productIDs) {
+        return productRepository.findAllById(productIDs);
+    }
     
     public List<ProductEntity> getFullListOfProducts(){
     	List<ProductEntity> productList = productRepository.findAll();

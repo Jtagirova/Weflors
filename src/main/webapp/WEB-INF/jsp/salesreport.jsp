@@ -1,6 +1,6 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html>
@@ -27,14 +27,15 @@
                 <div class="row">
                     <div class="col-md-4 mb-4">
                         <label for="datefilter">Выберите период*</label>
-                        <input type="text" class="form-control" name="datefilter" placeholder="Весь период" value="" />
+                        <input type="text" class="form-control" id="datefilter" name="datefilter"
+                               placeholder="Весь период" value=""/>
 
-<%--                        <select id="date" class="form-control">
-                            <option value="Day" label="За Сегодня" />
-                            <option value="Week" label="За Неделю" />
-                            <option value="Month" label="За Месяц" />
-                            <option value="Year" label="За Год" />
-                        </select>--%>
+                        <%--                        <select id="date" class="form-control">
+                                                    <option value="Day" label="За Сегодня" />
+                                                    <option value="Week" label="За Неделю" />
+                                                    <option value="Month" label="За Месяц" />
+                                                    <option value="Year" label="За Год" />
+                                                </select>--%>
                     </div>
                     <div class="col-md-4 mb-4">
                         <label for="allproducts">Выберите товары*</label>
@@ -42,7 +43,7 @@
                                      data-live-search="true" data-none-selected-text="Все товары" path="allproducts">
 
                             <form:options items="${allproducts}" itemValue="productId"
-                                          itemLabel="productName" />
+                                          itemLabel="productName"/>
                         </form:select>
                     </div>
                 </div>
@@ -61,55 +62,183 @@
 
             <script>
 
+                function showInitialReport() {
+                    var ruFormat =
+                        new Intl.DateTimeFormat("ru-RU", {
+                            year: "numeric",
+                            month: "long"
+                        });
+                    let initialProcurementsByProductId = [
+                        <c:forEach items="${allproducts}" var="product">
+                        <c:forEach items="${product.procurementsByProductId}" var="procurement">
+                        {procurementDate: Date.parse("${procurement.procurementDate}"), quantity: parseInt("${procurement.quantity}")},
+                        //initialProcurementsByProductId.set(ruFormat1.format(moment("${procurement.procurementDate}")) , ${procurement.quantity});
+                        </c:forEach>
+                        </c:forEach>
+                    ];
+
+                    let initialSalesByProductId = [
+                        <c:forEach items="${allproducts}" var="product">
+                        <c:forEach items="${product.salesByProductId}" var="sale">
+                        {saleDate: Date.parse("${sale.saleDate}"), quantity: parseInt("${sale.quantity}")},
+                        </c:forEach>
+                        </c:forEach>
+                    ];
 
 
+                    jQuery.each(initialProcurementsByProductId, function (i, val) {
+                        var procurementDate = ruFormat.format(val.procurementDate);
+
+                        if (monthQuantityMapForProcurements.get(procurementDate) != null
+                            && monthQuantityMapForProcurements.get(procurementDate) != undefined) {
+
+                            monthQuantityMapForProcurements.set(procurementDate,
+                                monthQuantityMapForProcurements.get(procurementDate) + val.quantity);
+
+                        } else {
+                            monthQuantityMapForProcurements.set(procurementDate, val.quantity);
+                        }
+                    });
 
 
+                    jQuery.each(initialSalesByProductId, function (i, val) {
+                        var saleDate = ruFormat.format(val.saleDate);
 
+                        if (monthQuantityMapForSales.get(saleDate) != null
+                            && monthQuantityMapForSales.get(saleDate) != undefined) {
+
+                            monthQuantityMapForSales.set(saleDate,
+                                monthQuantityMapForSales.get(saleDate) + val.quantity);
+
+                        } else {
+                            monthQuantityMapForSales.set(saleDate, val.quantity);
+                        }
+                    });
+                }
+
+                var updateReportDateLabels = function () {
+
+                    reportLabelsForChart.clear();
+
+                    var ruFormat =
+                        new Intl.DateTimeFormat("ru-RU", {
+                            year: "numeric",
+                            month: "long"
+                        });
+
+                    var startDate, endDate;
+                    if (salesReportHelperJSON.reportStartDatePeriod == "" || salesReportHelperJSON.reportEndDatePeriod == "") {
+                        startDate = moment(new Date(2020, 0));
+                        endDate = moment(Date.now());
+                    } else {
+                        startDate = moment(salesReportHelperJSON.reportStartDatePeriod);
+                        endDate = moment(salesReportHelperJSON.reportEndDatePeriod);
+                    }
+
+                    while (startDate.isBefore(endDate)) {
+                        //allMonthsInPeriod.add(startDate.format("YYYY-MM"));
+                        reportLabelsForChart.add(ruFormat.format(startDate));
+                        startDate = startDate.add(1, "month");
+                    }
+                    ;
+
+                    console.log(reportLabelsForChart);
+                    reportLabelsForChartArray = Array.from(reportLabelsForChart);
+                    jQuery.each(reportLabelsForChartArray, function (i, value) {
+
+                        if (monthQuantityMapForProcurements.get(value) != undefined || monthQuantityMapForSales.get(value) != undefined) {
+
+                            if (!reportLabelsToShow.includes(value)) {
+                                reportLabelsToShow.push(value);
+                            }
+
+                            if (monthQuantityMapForProcurements.get(value) != undefined) {
+                                procurementsDataForChart.push(monthQuantityMapForProcurements.get(value));
+                            } else {
+                                procurementsDataForChart.push(0);
+                            }
+
+                            if (monthQuantityMapForSales.get(value) != undefined) {
+                                salesDataForChart.push(monthQuantityMapForSales.get(value));
+                            } else {
+                                salesDataForChart.push(0);
+                            }
+
+                        }
+
+                    });
+
+                }
+
+                var generateRandomColorPaletteForChart = function (internalData) {
+                    var internalDataLength = internalData.length;
+                    i = 0;
+                    while (i <= internalDataLength) {
+                        var randomR = Math.floor((Math.random() * 130) + 100);
+                        var randomG = Math.floor((Math.random() * 130) + 100);
+                        var randomB = Math.floor((Math.random() * 130) + 100);
+
+                        var graphBackground = "rgb("
+                            + randomR + ", "
+                            + randomG + ", "
+                            + randomB + ")";
+                        graphColors.push(graphBackground);
+
+                        var graphOutline = "rgb("
+                            + (randomR - 80) + ", "
+                            + (randomG - 80) + ", "
+                            + (randomB - 80) + ")";
+                        graphOutlines.push(graphOutline);
+
+                        var hoverColors = "rgb("
+                            + (randomR + 25) + ", "
+                            + (randomG + 25) + ", "
+                            + (randomB + 25) + ")";
+                        hoverColor.push(hoverColors);
+
+                        i++;
+                    }
+                    ;
+                }
+
+                var updateChartInformation = function () {
+                    //clear current view
+                    myChart.data.labels = new Array();
+                    myChart.data.datasets = new Array();
+
+                    //update data labels and prepare report colors
+                    myChart.data.labels = reportLabelsToShow;
+                    generateRandomColorPaletteForChart(myChart.data.labels);
+
+                    //update report data
+                    myChart.data.datasets =
+                        [{
+                            label: "Закупки",
+                            data: procurementsDataForChart,
+                            backgroundColor: graphColors,
+                            hoverColor: hoverColor,
+                            borderColor: graphOutlines,
+                            borderWidth: 1
+                        }, {
+                            label: "Продажи",
+                            data: salesDataForChart,
+                            backgroundColor: hoverColor,
+                            hoverColor: hoverColor,
+                            borderColor: graphOutlines,
+                            borderWidth: 1
+                        }
+                        ]
+
+                    //draw report data
+                    myChart.update();
+
+                }
 
 
                 var ctx3 = document.getElementById('myChart3').getContext('2d');
                 var myChart = new Chart(ctx3, {
                     type: 'bar',
-                    data: {
-                        labels: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь','Июль'],
-                        datasets: [{
-                            label: 'Покупки',
-                            data: [12, 19, 3, 5, 2, 3],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.7)',
-                                'rgba(54, 162, 235, 0.7)',
-                                'rgba(255, 206, 86, 0.7)',
-                                'rgba(75, 192, 192, 0.7)',
-                                'rgba(153, 102, 255, 0.7)',
-                                'rgba(255, 159, 64, 0.7)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        },
-                         {
-                            label: 'Продажи',
-                            data: [10, 17],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)'
-
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)'
-
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
+                    data: {},
                     options: {
                         scales: {
                             yAxes: [{
@@ -127,118 +256,152 @@
                     "reportEndDatePeriod": ""
                 };
 
-                var dataCame = {};
-                var procuremetsDataForChart = [];
+                let monthQuantityMapForProcurements = new Map();
+                let monthQuantityMapForSales = new Map();
+
+                let reportLabelsToShow = [];
+
+                var procurementsDataForChart = [];
                 var salesDataForChart = [];
                 var reportLabelsForChart = new Set();
+                var reportLabelsForChartArray = [];
 
+                var graphColors = [];
+                var graphOutlines = [];
+                var hoverColor = [];
 
-
-$(function() {
-
-    function updateReportDateLabels() {
-
-        reportLabelsForChart.clear();
-
-        var ruFormat =
-            new Intl.DateTimeFormat("ru-RU", {
-                year: "numeric",
-                month: "long"
-            });
-
-        var startDate = moment(salesReportHelperJSON.reportStartDatePeriod);
-        var endDate = moment(salesReportHelperJSON.reportEndDatePeriod);
-
-
-        while (startDate.isBefore(endDate)) {
-            //allMonthsInPeriod.add(startDate.format("YYYY-MM"));
-            reportLabelsForChart.add(ruFormat.format(startDate));
-            startDate = startDate.add(1, "month");
-        };
-
-        console.log(reportLabelsForChart);
-
-
-    }
-
-    function updateSalesReportView(salesReportHelperJSON) {
-        $.ajax({
-            type: "POST",
-            contentType: "application/json",
-            url: "/updateSalesReportView",
-            data: JSON.stringify(salesReportHelperJSON),
-            dataType: 'json',
-            cache: false,
-            timeout: 600000,
-            success: function (data) {
-                console.log(data + " has been successfully added")
-                dataCame = data;
-                procuremetsDataForChart = data.procurementsByProductId;
+                showInitialReport();
                 updateReportDateLabels();
-                removeChartData(myChart);
-            },
-            error: function (e) {
-                alert("error occured while trying update the database with " + e);
-            }
-        });
-    }
-
-    function addChartData(chart, label, data) {
-        chart.data.labels.push(label);
-        chart.data.datasets.forEach((dataset) => {
-            dataset.data.push(data);
-        });
-        chart.update();
-    }
-
-    function removeChartData(chart) {
-        chart.data.labels.pop();
-        chart.data.datasets.forEach((dataset) => {
-            dataset.data.pop();
-        });
-        chart.update();
-    }
-
-    $('input[name="datefilter"]').daterangepicker({
-        autoUpdateInput: false,
-        locale: {
-            cancelLabel: 'Очистить',
-            applyLabel: 'Применить'
-        }
-    });
-
-    $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
-        $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
-
-        salesReportHelperJSON.reportStartDatePeriod = picker.startDate.format('YYYY-MM-DD');
-        salesReportHelperJSON.reportEndDatePeriod = picker.endDate.format('YYYY-MM-DD');
-
-        updateReportDateLabels();
-
-    });
-
-    $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
-        $(this).val('');
-        salesReportHelperJSON.reportStartDatePeriod = "";
-        salesReportHelperJSON.reportEndDatePeriod = "";
-    });
-
-    let selectedProductList = [];
-    $('#allproducts').change(function(){
-        var selectedProduct = $(this).children("option:selected");
-        salesReportHelperJSON.productIDs = [];
-        console.log(selectedProduct.length);
-        $.each(selectedProduct, function( index, value ) {
-            salesReportHelperJSON.productIDs.push(selectedProduct[index].value);
-            console.log( selectedProduct[index].value);
-        });
-
-        updateSalesReportView(salesReportHelperJSON);
-
-    })
+                updateChartInformation();
 
 
-});
+
+
+                $(document).ready(function () {
+
+
+                    function updateSalesReportView(salesReportHelperJSON) {
+                        $.ajax({
+                            type: "POST",
+                            contentType: "application/json",
+                            url: "/updateSalesReportView",
+                            data: JSON.stringify(salesReportHelperJSON),
+                            dataType: 'json',
+                            cache: false,
+                            timeout: 600000,
+                            success: function (data) {
+                                console.log(data + " has been successfully added");
+
+                                reportLabelsToShow = [];
+                                monthQuantityMapForProcurements = new Map();
+                                monthQuantityMapForSales = new Map();
+                                procurementsDataForChart = [];
+                                salesDataForChart = [];
+                                reportLabelsForChart = new Set();
+                                reportLabelsForChartArray = [];
+
+                                //////////
+                                procuremetsDataForChart = data.procurementsByProductId;
+                                var ruFormat =
+                                    new Intl.DateTimeFormat("ru-RU", {
+                                        year: "numeric",
+                                        month: "long"
+                                    });
+                                if (data.length != undefined && data.length > 0) {
+
+                                    jQuery.each(data, function (j, value) {
+                                        if (value.procurementsByProductId != undefined && value.procurementsByProductId.length > 0) {
+                                            jQuery.each(value.procurementsByProductId, function (i, val) {
+                                                var procurementDate = ruFormat.format(moment(val.procurementDate));
+
+                                                if (monthQuantityMapForProcurements.get(procurementDate) != null
+                                                    && monthQuantityMapForProcurements.get(procurementDate) != undefined) {
+
+                                                    monthQuantityMapForProcurements.set(procurementDate,
+                                                        monthQuantityMapForProcurements.get(procurementDate) + val.quantity);
+
+                                                } else {
+                                                    monthQuantityMapForProcurements.set(procurementDate, val.quantity);
+                                                }
+                                            });
+                                        }
+
+                                        if (value.salesByProductId != undefined && value.salesByProductId.length > 0) {
+                                            jQuery.each(value.salesByProductId, function (i, val) {
+                                                var saleDate = ruFormat.format(moment(val.saleDate));
+
+                                                if (monthQuantityMapForSales.get(saleDate) != null
+                                                    && monthQuantityMapForSales.get(saleDate) != undefined) {
+
+                                                    monthQuantityMapForSales.set(saleDate,
+                                                        monthQuantityMapForSales.get(saleDate) + val.quantity);
+
+                                                } else {
+                                                    monthQuantityMapForSales.set(saleDate, val.quantity);
+                                                }
+                                            });
+                                        }
+                                    });
+
+                                }
+
+                                updateReportDateLabels();
+                                updateChartInformation();
+                            },
+                            error: function (e) {
+                                alert("error occured while trying update the database with " + e);
+                            }
+                        });
+                    }
+
+                    $('input[name="datefilter"]').daterangepicker({
+                        autoUpdateInput: false,
+                        locale: {
+                            cancelLabel: 'Очистить',
+                            applyLabel: 'Применить'
+                        }
+                    });
+
+                    $('input[name="datefilter"]').on('apply.daterangepicker', function (ev, picker) {
+                        $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+
+                        salesReportHelperJSON.reportStartDatePeriod = picker.startDate.format('YYYY-MM-DD');
+                        salesReportHelperJSON.reportEndDatePeriod = picker.endDate.format('YYYY-MM-DD');
+
+                        updateReportDateLabels();
+
+                        getSelectedProductIDsList();
+                        updateSalesReportView(salesReportHelperJSON);
+
+                    });
+
+                    $('input[name="datefilter"]').on('cancel.daterangepicker', function (ev, picker) {
+                        $(this).val('');
+                        salesReportHelperJSON.reportStartDatePeriod = "";
+                        salesReportHelperJSON.reportEndDatePeriod = "";
+
+                    });
+
+                    function getSelectedProductIDsList() {
+                        var selectedProduct = $('#allproducts').children("option:selected");
+                        salesReportHelperJSON.productIDs = [];
+                        console.log(selectedProduct.length);
+                        $.each(selectedProduct, function (index, value) {
+                            salesReportHelperJSON.productIDs.push(selectedProduct[index].value);
+                            console.log(selectedProduct[index].value);
+                        });
+                    }
+
+                    $('#allproducts').change(function () {
+
+                        getSelectedProductIDsList();
+
+                        updateSalesReportView(salesReportHelperJSON);
+
+                    })
+
+
+                });
 
             </script>
 
