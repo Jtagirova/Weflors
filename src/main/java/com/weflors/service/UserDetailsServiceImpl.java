@@ -1,8 +1,8 @@
 package com.weflors.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import com.weflors.entity.UserEntity;
 import com.weflors.entity.UserRoleMapEntity;
@@ -65,7 +65,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return authorityRU;
     }
 
-
     public boolean saveUser(UserEntity user) {
         UserEntity userFromDB = userRepository.findByUsername(user.getLogin());
         if (userFromDB != null) {
@@ -73,7 +72,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-//        userRoleMapRepository.saveUserRoleMap(user.getUserId(), 2);	
         if (user.getUserRoleMapsByUserId() == null) {
             userRoleMapRepository.saveUserRoleMap(user.getUserId(), 2);
         } else {
@@ -105,10 +103,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         return true;
     }
-
+/*
     public Boolean existUser(Integer userId) {
         userRepository.existById(userId);
         return true;
+    }
+  */  
+    public Optional <UserEntity> findUserByLoginAndEmail(UserEntity userEntity) {
+        return userRepository.findUserByLoginAndEmail(userEntity.getLogin(), userEntity.geteMail());
     }
 
 }

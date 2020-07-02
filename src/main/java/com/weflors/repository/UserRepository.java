@@ -1,13 +1,14 @@
 package com.weflors.repository;
 
 import com.weflors.entity.UserEntity;
+
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-
 
 
 //repository- это в спринге аналог DAO
@@ -22,7 +23,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer>{
     @Transactional
     @Query("delete from UserEntity where userId = :userId")
     void deleteByUserId(@Param("userId") Integer userId);
-    
     
     @Modifying
 	@Transactional
@@ -39,5 +39,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer>{
     
     @Query("select b from UserEntity b where b.userId = :userId")
 	UserEntity existById(@Param("userId") Integer userId);
+    
+    @Query("select b from UserEntity b where b.login = :login and b.eMail = :eMail")
+	Optional<UserEntity> findUserByLoginAndEmail(@Param("login") String login, @Param("eMail") String eMail);
 
 }

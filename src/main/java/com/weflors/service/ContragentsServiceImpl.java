@@ -2,17 +2,20 @@ package com.weflors.service;
 
 import com.weflors.entity.ContragentsEntity;
 import com.weflors.repository.ContragentsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ContragentsServiceImpl {
 
-    @Autowired
     private ContragentsRepository contragentsRepository;
-
+    
+    public ContragentsServiceImpl(ContragentsRepository contragentsRepository) {
+    	this.contragentsRepository = contragentsRepository;
+    }
+    
     public List<ContragentsEntity> loadContragents() {
         return contragentsRepository.findAll();
     }
@@ -25,9 +28,8 @@ public class ContragentsServiceImpl {
         return contragentsRepository.save(contragentsEntity);
     }
     
-    public Boolean existByContragentName(String contragentName) {
-    	Boolean exist = contragentsRepository.existByName(contragentName);
-    	return exist;
+    public Optional<ContragentsEntity> findByName(String contragentName) {
+    	return contragentsRepository.findByContragentName(contragentName);
     }
     
     public void deleteContragent(Integer contragentId) {

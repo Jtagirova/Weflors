@@ -110,7 +110,7 @@ $(document).ready(function() {
 	
 	$.ajax({ 
 	    type: 'GET', 
-	    url: "/typeproduct/listProductTypes",
+	    url: "/typeproduct/list",
 	    dataType: 'json',
 	    contentType: 'application/json',
 	    success: function (data) {
@@ -135,7 +135,7 @@ $(document).ready(function() {
 			       	$.ajax({
 						type : "DELETE",
 						contentType : "application/json",
-						url : "/typeproduct/deleteProductType",
+						url : "/typeproduct/delete",
 						data : JSON.stringify(json),
 						dataType : 'text',
 						cache : false,
@@ -160,7 +160,7 @@ $(document).ready(function() {
         	$.ajax({
     			type : "POST",
     			contentType : "application/json",
-    			url : "/typeproduct/addNewProductType",
+    			url : "/typeproduct/add",
     			data : productTypeEntity,
     			dataType : 'text',
     			cache : false,
@@ -189,7 +189,7 @@ $(document).ready(function() {
         	$.ajax({
     			type : "POST",
     			contentType : "application/json",
-    			url : "/typeproduct/updateProductType",
+    			url : "/typeproduct/update",
     			data : JSON.stringify(json),
     			dataType : 'text',
     			cache : false,

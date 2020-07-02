@@ -20,6 +20,7 @@ import com.weflors.service.SaleServiceImpl;
 
 @Controller
 public class ProductSaleController {
+	
 	@Autowired
     private SaleServiceImpl saleServiceImpl;
 
@@ -51,8 +52,7 @@ public class ProductSaleController {
         return "productsale";
     }
 
-    @RequestMapping(value = "/loadroductinfobyproductid", method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/loadroductinfobyproductid", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ProductEntity loadProductInfoByProductName(@RequestBody ProductEntity productEntity) {
 	    ProductEntity selectedProduct = saleServiceImpl.getProductByProductId(productEntity.getProductId());

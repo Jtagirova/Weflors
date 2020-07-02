@@ -41,7 +41,7 @@ public class AddProductController {
         model.addAttribute("name", name);
         List<ContragentsEntity> contragents = contragentsServiceImpl.loadContragents();
         model.addAttribute("contragents", contragents);
-        List<ProductTypesEntity> productTypeList = productTypeService.getAllProductType();
+        List<ProductTypesEntity> productTypeList = productTypeService.findAllProductType();
         model.addAttribute("productTypeList", productTypeList);
         model.addAttribute("formName", "Добавить товар");
 

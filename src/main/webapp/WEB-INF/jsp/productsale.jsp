@@ -170,25 +170,25 @@
 						<table class="table table-striped table-bordered table-hover table-responsive" id="lastSales">
 							<thead>
 								<tr>
+									<th scope="col" class="text-center">Номер чека</th>
 									<th scope="col" class="text-center">Наименование товара</th>
 	                                <th scope="col" class="text-center">Артикул</th>
 	                                <th scope="col" class="text-center">Количество товара</th>
 	                                <th scope="col" class="text-center">Цена за единицу</th>
-	                                <th scope="col" class="text-center">Скидка %</th>
-	                                <th scope="col" class="text-center">Стоимость товара за единицу</th>
+	                                <th scope="col" class="text-center">Стоимость товара за единицу(с учетом скидки)</th>
 	                                <th scope="col" class="text-center">Итого</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${salesForThisDay}" var="sale">
-									<tr>
+									<tr class="text-center">
+										<td></td>
 										<td>${sale.productByProductId.productName}</td>
 										<td>${sale.articul}</td>
 										<td>${sale.quantity}</td>
 										<td>${sale.productPrice}</td>
-										<td>${sale.clientByClientId.discount}</td>
 										<td>${sale.salePrice}</td>
-										<td><input type="text" id="saleTotal"  value="${sale.productPrice}*${sale.quantity}"  name="saleTotal" readonly/>  </td>											
+										<td>  </td>											
 <!--  									${sale.productPrice}*${sale.quantity}-${sale.productPrice}*${sale.clientByClientId.discount}/100   -->
 									</tr>								
 								</c:forEach>
@@ -443,6 +443,10 @@
 	$('#allClientsEmail').change(function(){
 		$('#discount').val('0');
 		$('#productQuantity').val('0');
+	});	
+	
+	$('table td:first-child').each(function (i) {
+		$(this).html(i+1);
 	});	
 	
 });

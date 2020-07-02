@@ -48,7 +48,7 @@
                 </div>
                 <div class="col-md-4 mb-4">
                     <label for="phone">Телефон*</label>
-                    <form:input type="text" id="phone" class="form-control telephone" path="phone"
+                    <form:input type="text" id="phone" class="form-control" path="phone"
                                 placeholder="Телефон"></form:input>
                 </div>
             </div>
@@ -126,7 +126,12 @@ $(document).ready(function() {
 		}
 	});
 	
-	$('.telephone').mask("+375 (29) 999-99-99");
+	$('#phone').mask('+375 (29) 999-99-99');
+	$('#eMail').mask("A", {
+		translation: {
+			"A": { pattern: /[\w@\-.+]/, recursive: true }
+		}
+	});
 		
 });
 

@@ -156,7 +156,7 @@ $(document).ready(function() {
 	
 	$.ajax({ 
 	    type: 'GET', 
-	    url: "/users/listUsers",
+	    url: "/users/list",
 	    dataType: 'json',
 	    contentType: 'application/json',
 	    success: function (data) {
@@ -184,7 +184,7 @@ $(document).ready(function() {
 		        	$.ajax({
 						type : "DELETE",
 						contentType : "application/json",
-						url : "/users/deleteUser",
+						url : "/users/delete",
 						data : JSON.stringify(json),
 						dataType : 'text',
 						cache : false,
@@ -207,6 +207,9 @@ $(document).ready(function() {
 				$('#userLogin').val(item.login);
 				$('#userEmail').val(item.eMail);
 				$('#userPhone').val(item.phone);
+				$('#userPass').val(item.password);
+				$('#userRepeatPass').val(item.password);
+				
 				$('#saveUser').hide();
 				$('#saveChangedUser').show();
 				$('#cancel').show();
@@ -250,16 +253,15 @@ $(document).ready(function() {
         	$.ajax({
     			type : "POST",
     			contentType : "application/json",
-    			url : "/users/saveUser",
+    			url : "/users/add",
     			data : JSON.stringify(json),
     			dataType : 'text',
     			cache : false,
     			timeout : 600000,
     			success : function(data) {
     				alert(data);	
-    				location.reload(true);
     			},    			
-    			error : function(data) {	
+    			error : function(data) {
     				alert(data);
     			}	
     		});	
@@ -297,20 +299,20 @@ $(document).ready(function() {
         	$.ajax({
     			type : "POST",
     			contentType : "application/json",
-    			url : "/users/updateUser",
+    			url : "/users/update",
     			data : JSON.stringify(json),
-    			dataType : 'json',
+    			dataType : 'text',
     			cache : false,
     			timeout : 600000,
     			success : function(data) {
-   					alert(data.responseText);
+   					alert(data);
+//   					location.reload(true);
     			},
     			error : function(data) {	
-    				alert(data.responseText);
+    				alert(data);
     			}
-    		});	
- //       	 location.reload(true);
-        	 $('#saveUser').attr('disabled', 'disabled');
+    		});	     	 
+        	$('#saveUser').attr('disabled', 'disabled');
         }
 	});
 

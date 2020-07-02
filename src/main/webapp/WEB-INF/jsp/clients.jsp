@@ -165,7 +165,7 @@ $(document).ready(function () {
 	
         $.ajax({
             type: 'GET',
-            url: "/clients/listClients",
+            url: "/clients/list",
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
@@ -202,7 +202,7 @@ $(document).ready(function () {
         			       	$.ajax({
         						type : "DELETE",
         						contentType : "application/json",
-        						url : "/clients/deleteClient",
+        						url : "/clients/delete",
         						data : JSON.stringify(json),
         						dataType : 'json',
         						cache : false,
@@ -245,7 +245,7 @@ $(document).ready(function () {
                 $.ajax({
                     type: "POST",
                     contentType: "application/json",
-                    url: "/clients/addNewClient",
+                    url: "/clients/add",
                     data: clientsEntity,
                     dataType: 'json',
                     cache: false,
@@ -289,7 +289,7 @@ $(document).ready(function () {
             	$.ajax({
         			type : "POST",
         			contentType : "application/json",
-        			url : "/clients/updateClient",
+        			url : "/clients/update",
         			data : clientEntity,
         			dataType : 'json',
         			cache : false,

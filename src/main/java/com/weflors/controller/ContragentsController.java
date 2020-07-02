@@ -2,7 +2,6 @@ package com.weflors.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,13 +14,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.weflors.entity.ContragentsEntity;
 import com.weflors.service.ContragentsServiceImpl;
 
-
 @Controller
 @RequestMapping("/contragents")
 public class ContragentsController {
 	
-	@Autowired
 	private ContragentsServiceImpl contragentsServiceImpl;
+	
+	public ContragentsController(ContragentsServiceImpl contragentsServiceImpl) {
+		this.contragentsServiceImpl = contragentsServiceImpl;
+	}
 		
 	@GetMapping
     public String addContragentPage(Model model) {
@@ -29,23 +30,23 @@ public class ContragentsController {
         return "contragents";
     }
 	
-	@GetMapping("/listContragents")
+	@GetMapping("/list")
 	@ResponseBody
-	public List<ContragentsEntity> addListOfContragents() {
+	public List<ContragentsEntity> getListOfContragents() {
 	    return contragentsServiceImpl.loadContragents();
 	}
 	
-	@PostMapping(path = "/addNewContragent")
+	@PostMapping("/add")
 	@ResponseBody
-	public String addNewContragent(@RequestBody ContragentsEntity contragentsEntity) {
-		if(contragentsServiceImpl.existByContragentName(contragentsEntity.getContragentName()) != null) {
+	public String addContragent(@RequestBody ContragentsEntity contragentsEntity) {
+		if(contragentsServiceImpl.findByName(contragentsEntity.getContragentName()).isPresent()) {
 			return "Поставщик с таким именем уже существует в вашей базе данных";			
 		} 
 		contragentsServiceImpl.saveNewContragent(contragentsEntity);
 		return "Новый поставщик добавлен в вашу базу данных";
 	}	
 	
-	@PostMapping("/updateContragent")
+	@PostMapping("/update")
 	@ResponseBody
 	public String updateContragent(@RequestBody ContragentsEntity contragentsEntity) {
 		contragentsServiceImpl.updateContragentInfo(contragentsEntity);
@@ -56,7 +57,7 @@ public class ContragentsController {
 		}		
 	}
 	
-	@DeleteMapping("/deleteContragent")
+	@DeleteMapping("/delete")
 	@ResponseBody
 	public String deleteContragent(@RequestBody ContragentsEntity contragentsEntity) {
 		contragentsServiceImpl.deleteContragent(contragentsEntity.getContragentId());

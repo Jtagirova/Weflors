@@ -33,12 +33,12 @@ public class RegistrationController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String addUser(@ModelAttribute("userForm") UserEntity userForm, Model model) {
-
+/*
 		if (!userForm.getPassword().equals(userForm.getPasswordConfirm())) {
 			model.addAttribute("passwordError", "Пароли не совпадают");
 			return "registration";
 		}
-		
+*/		
 		if (!userService.saveUser(userForm)) {
 			model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
 			return "registration";

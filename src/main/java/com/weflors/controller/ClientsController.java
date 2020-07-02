@@ -1,9 +1,7 @@
 package com.weflors.controller;
 
-
 import com.weflors.entity.ClientEntity;
 import com.weflors.service.ClientServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +11,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/clients")
 public class ClientsController {
-
-    @Autowired
+	
     private ClientServiceImpl clientsServiceImpl;
+    
+    public ClientsController(ClientServiceImpl clientsServiceImpl) {
+    	this.clientsServiceImpl = clientsServiceImpl;
+    }
 
     @GetMapping
     public String addClientPage(Model model) {
@@ -23,16 +24,16 @@ public class ClientsController {
         return "clients";
     }
 
-    @GetMapping("/listClients")
+    @GetMapping("/list")
     @ResponseBody
-    public List<ClientEntity> addListOfContragents() {
+    public List<ClientEntity> getListOfContragents() {
         return clientsServiceImpl.getAllClients();
     }
 
-    @PostMapping("/addNewClient")
+    @PostMapping("/add")
     @ResponseBody
     public String addNewClient(@RequestBody ClientEntity clientEntity) {
-        if(clientsServiceImpl.existByClientEMail(clientEntity.geteMail()) != null) {
+        if(clientsServiceImpl.getClientByEmail(clientEntity.geteMail()) != null) {
             return "Клиент с таким E-mail уже существует в вашей базе данных";
         } else {
             clientsServiceImpl.saveNewClient(clientEntity);
@@ -40,18 +41,18 @@ public class ClientsController {
         }
     }
     
-    @PostMapping("/updateClient")
+    @PostMapping("/update")
     @ResponseBody
     public String updateClient(@RequestBody ClientEntity clientEntity) {
     	clientsServiceImpl.updateClientInfo(clientEntity);
-        if(clientsServiceImpl.existByClientEMail(clientEntity.geteMail()) != null) {
+        if(clientsServiceImpl.getClientByEmail(clientEntity.geteMail()) != null) {
             return "Информация о клиенте была обновлена в вашей базе данных";
         } else {
             return "Ошибка обновления данных клиента";
         }
     }
 
-    @DeleteMapping("/deleteClient")
+    @DeleteMapping("/delete")
     @ResponseBody
     public String deleteClient(@RequestBody ClientEntity clientEntity) {
         clientsServiceImpl.deleteClient(clientEntity.getClientId());

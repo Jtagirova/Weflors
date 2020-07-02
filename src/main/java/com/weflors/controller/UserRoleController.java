@@ -2,7 +2,6 @@ package com.weflors.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,8 +18,11 @@ import com.weflors.service.UserDetailsServiceImpl;
 @RequestMapping("/users")
 public class UserRoleController {
 	
-	@Autowired
 	private UserDetailsServiceImpl userDetailsServiceImpl;
+	
+	public UserRoleController(UserDetailsServiceImpl userDetailsServiceImpl) {
+		this.userDetailsServiceImpl = userDetailsServiceImpl;
+	}
 	
 	@GetMapping
     public String addUsersPage(Model model) {
@@ -28,26 +30,26 @@ public class UserRoleController {
         return "users";
     }
 
-	@GetMapping("/listUsers")
+	@GetMapping("/list")
 	@ResponseBody
-	public List<UserEntity> addListOfUser() {
-		List<UserEntity> list = userDetailsServiceImpl.getAllUsers();
-	    return list;
+	public List<UserEntity> getListOfUsers() {
+	    return userDetailsServiceImpl.getAllUsers();
 	}
 	
-	@PostMapping("/saveUser")
+	@PostMapping("/add")
 	@ResponseBody
-	public String saveUser(@RequestBody UserEntity userEntity) {
-		if(userDetailsServiceImpl.saveUser(userEntity)) {;
-			return "Новый пользователь добавлен в вашу базу данных";
+	public String addUser(@RequestBody UserEntity userEntity) {
+		if(userDetailsServiceImpl.findUserByLoginAndEmail(userEntity).isPresent()){
+			return "Пользователь с таким Логин и EMail существует в вашей базе данных";
 		} else {
-			return "Ошибка добавления нового пользователя";
+			userDetailsServiceImpl.saveUser(userEntity);
+			return "Новый пользователь добавлен в вашу базу данных";
 		}
 	}
 	
-	@PostMapping("/updateUser")
+	@PostMapping("/update")
 	@ResponseBody
-	public String updateUserInfo(@RequestBody UserEntity userEntity) {
+	public String updateUser(@RequestBody UserEntity userEntity) {
 		userDetailsServiceImpl.updateUser(userEntity);
 		if(userDetailsServiceImpl.loadUserByUsername(userEntity.getLogin()) == userEntity ) {
 			return "Данные пользователя обновлены в вашей базе данных";
@@ -56,7 +58,7 @@ public class UserRoleController {
 		}
 	}
 
-	@DeleteMapping("/deleteUser")
+	@DeleteMapping("/delete")
 	@ResponseBody
 	public String deleteUser(@RequestBody UserEntity userEntity) {
 		userDetailsServiceImpl.deleteUser(userEntity.getUserId());

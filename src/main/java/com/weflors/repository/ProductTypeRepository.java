@@ -8,19 +8,20 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductTypeRepository extends JpaRepository<ProductTypesEntity, Integer> {
 
     @Query("select pt.productTypeName from ProductTypesEntity pt")
     List<String> getAllProductType();
     
-    @Query("select true from ProductTypesEntity pt where pt.productTypeName = :productTypeName")
-    public Boolean existByProductTypeName(@Param("productTypeName") String productTypeName);
+    @Query("select pt from ProductTypesEntity pt where pt.productTypeName = :productTypeName")
+    Optional<ProductTypesEntity> findByProductTypeName(@Param("productTypeName") String productTypeName);
     
     @Modifying
     @Transactional
     @Query("delete from ProductTypesEntity where productTypeId = :productTypeId")
-    public void deleteByProductTypeById(@Param("productTypeId") Integer productTypeId);
+    void deleteByProductTypeById(@Param("productTypeId") Integer productTypeId);
     
     @Modifying
    	@Transactional

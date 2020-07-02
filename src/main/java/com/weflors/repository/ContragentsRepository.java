@@ -1,6 +1,9 @@
 package com.weflors.repository;
 
 import com.weflors.entity.ContragentsEntity;
+
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,13 +15,13 @@ public interface ContragentsRepository extends JpaRepository<ContragentsEntity, 
     @Query("select DISTINCT ca from ContragentsEntity ca where ca.contragentId = :contragentID")
     ContragentsEntity findByContragentID(@Param("contragentID") Integer contragentID);
    
-    @Query("select true from ContragentsEntity ca where ca.contragentName = :contragentName")
-    public Boolean existByName(@Param("contragentName") String contragentName);
+    @Query("select ca from ContragentsEntity ca where ca.contragentName = :contragentName")
+    Optional<ContragentsEntity> findByContragentName(@Param("contragentName") String contragentName);
     
     @Modifying
     @Transactional
     @Query("delete from ContragentsEntity where contragentId = :contragentId")
-    public void deleteByContragentId(@Param("contragentId") Integer contragentId);
+    void deleteByContragentId(@Param("contragentId") Integer contragentId);
     
     @Modifying
 	@Transactional

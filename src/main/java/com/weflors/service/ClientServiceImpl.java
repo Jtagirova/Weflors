@@ -2,7 +2,6 @@ package com.weflors.service;
 
 import com.weflors.entity.ClientEntity;
 import com.weflors.repository.ClientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,8 +9,11 @@ import java.util.List;
 @Service
 public class ClientServiceImpl {
 
-    @Autowired
     private ClientRepository clientRepository;
+    
+    public ClientServiceImpl(ClientRepository clientRepository) {
+    	this.clientRepository = clientRepository;
+    }
 
     public List<String> getAllClientsEmail(){
         return clientRepository.getAllClientEmail();
@@ -27,10 +29,6 @@ public class ClientServiceImpl {
 
     public ClientEntity saveNewClient(ClientEntity clientEntity)  {
         return clientRepository.save(clientEntity);
-    }
-
-    public Boolean existByClientEMail(String clientEMail) {
-        return clientRepository.existByEMail(clientEMail);
     }
 
     public Integer getClientDiscount(String email){
