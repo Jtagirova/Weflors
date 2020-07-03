@@ -50,11 +50,13 @@
 						<div class="col-md-4 mb-4">
 							<input type="hidden" id="userId" name="userId" >
 							<label for="userName">Имя*</label>
-							<input type="text" class="form-control" id="userName" name="userName" placeholder="Имя" />
+							<input type="text" class="form-control" id="userName" name="userName"
+								placeholder="Имя" maxlength ="50" />
 						</div>
 						<div class="col-md-4 mb-4">
 							<label for="userLastName">Фамилия*</label>
-							<input type="text" class="form-control" id="userLastName" name="userLastName"  placeholder="Фамилия"/>
+							<input type="text" class="form-control" id="userLastName" name="userLastName"  
+								placeholder="Фамилия" maxlength ="50"/>
 						</div>
 						<div class="col-md-4 mb-4">
 							<label for="adminRole">Роль*</label>
@@ -66,11 +68,13 @@
 					<div class="row">
 						<div class="col-md-4 mb-4">
 							<label for="userEmail">E-mail*</label>
-							<input type="text" class="form-control" id="userEmail" name="userEmail"  value="" placeholder="E-mail"/>
+							<input type="email" class="form-control" id="userEmail" name="userEmail"  value="" 
+								placeholder="E-mail" title="Email должен быть в формате example@google.com" maxlength ="50"/>
 						</div>
 						<div class="col-md-4 mb-4">
 							<label for="userPhone">Телефон*</label>
-							<input type="tel" class="form-control" id="userPhone" name="userPhone" placeholder="Телефон"/>
+							<input type="tel" class="form-control" id="userPhone" name="userPhone" 
+								placeholder="Телефон" maxlength ="15"/>
 						</div>
 						<div class="col-md-4 mb-4">
 						<br>
@@ -81,15 +85,18 @@
 					<div class="row">
 						<div class="col-md-4 mb-4">
 							<label for="userLogin">Логин*</label>
-							<input type="text" class="form-control" id="userLogin" name="userLogin" placeholder="Логин"/>
+							<input type="text" class="form-control" id="userLogin" name="userLogin" 
+								placeholder="Логин" maxlength ="50"/>
 						</div>
 						<div class="col-md-4 mb-4">
 							<label for="userPass">Пароль*</label>
-							<input type="password" class="form-control" id="userPass" name="userPass" placeholder="Пароль"/>
+							<input type="password" class="form-control" id="userPass" name="userPass" 
+								placeholder="Пароль" maxlength ="100"/>
 						</div>
 						<div class="col-md-4 mb-4">
 							<label for="userRepeatPass">Повторить пароль*</label>
-							<input type="password" class="form-control" id="userRepeatPass" name="userRepeatPass" placeholder="Повторить пароль" />
+							<input type="password" class="form-control" id="userRepeatPass" name="userRepeatPass" 
+								placeholder="Повторить пароль" />
 						</div>
 					</div>
 				</div>

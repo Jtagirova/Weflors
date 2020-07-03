@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.weflors.entity.ProductTypesEntity;
 import com.weflors.service.ProductTypeService;
 
-
 @Controller
 @RequestMapping("/typeproduct")
 public class ProductTypeController {
@@ -56,7 +55,7 @@ public class ProductTypeController {
 			return "Категория товара была обновлена в вашей базе данных";
 		} else {
 			return "Ошибка обновления данных о категории товара";
-		}
+		}			
 	}
 	
 	@DeleteMapping("/delete")

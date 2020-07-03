@@ -50,7 +50,7 @@
                         <div class="col-md-6 mb-4">
                             <label for="nomernakladnoj">Номер накладной*</label>
                             <input type="number" class="form-control" id="nomernakladnoj" placeholder="Номер накладной"
-                                   required>
+                                   maxlength ="30" required>
                         </div>
                         <div class="col-md-6 mb-4">
                             <label for="productheight">Высота</label>
@@ -61,8 +61,8 @@
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <label for="productarticul">Артикул*</label>
-                            <input type="text" class="form-control" id="productarticul" placeholder="Артикул товара"
-                                   required>
+                            <input type="text" class="form-control" id="productarticul" 
+                            	placeholder="Артикул товара" maxlength ="50" required>
                         </div>
                         <div class="col-md-6 mb-4">
                             <label for="productlength">Длина</label>
@@ -74,7 +74,7 @@
                         <div class="col-md-6 mb-4">
                             <label for="productname">Наименование товара*</label>
                             <input type="text" class="form-control" id="productname" placeholder="Наименование товара"
-                                   required>
+                                   maxlength ="50" required>
                         </div>
                         <div class="col-md-6 mb-4">
                             <label for="productwidth">Ширина</label>
@@ -94,7 +94,8 @@
                         </div>
                         <div class="col-md-6 mb-4">
                             <label for="productcolor">Цвет</label>
-                            <input type="text" class="form-control" id="productcolor" placeholder="Цвет">
+                            <input type="text" class="form-control" id="productcolor" placeholder="Цвет"
+                            	maxlength ="50">
                         </div>
                     </div>
                 </div>
@@ -126,7 +127,7 @@
                         <div class="col-md-12 mb-3">
                             <label for="productdescription">Описание товара</label>
                             <textarea class="form-control rounded-0" id="productdescription"
-                                      placeholder="Опишите товар кратко" rows="3"></textarea>
+                                      placeholder="Опишите товар кратко" rows="3" maxlength ="300"></textarea>
                         </div>
                     </div>
                     <br>

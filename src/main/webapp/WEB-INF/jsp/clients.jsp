@@ -35,15 +35,15 @@
                     <br>
                     <div class="row">
                         <div class="col-md-4 mb-4">
-                            <input type="text" class="form-control" id="findClient" placeholder="Введите имя клиента"/>
+                            <input type="text" class="form-control" id="findClient" 
+                            	placeholder="Введите имя клиента"/>
                         </div>
                     </div>
                     <br>
                 </div>
 
                 <sec:authorize access="hasAuthority('admin')">
-
-
+                
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-4 mb-4">
@@ -55,13 +55,13 @@
                         <div class="col-md-4 mb-3">
                             <label for="clientName">Имя*</label>
                             <input type="text" class="form-control" id="clientName" name="clientName"
-                                   placeholder="Имя клиента"/>
+                                   placeholder="Имя клиента" maxlength ="50"/>
                             <input type="hidden" id="clientId" name="clientId"/>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="clientSurname">Фамилия*</label>
                             <input type="text" class="form-control" id="clientSurname" name="clientSurname"
-                                   placeholder="Фамилия клиента"/>
+                                   placeholder="Фамилия клиента" maxlength ="50"/>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="clientBirthday">Дата Рождения*</label>
@@ -73,18 +73,18 @@
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label for="clientEmail">E-mail*</label>
-                            <input type="text" class="form-control" id="clientEmail" name="clientEmail"
-                                   placeholder="E-mail"/>
+                            <input type="email" class="form-control" id="clientEmail" name="clientEmail"
+                                   placeholder="E-mail" title="Email должен быть в формате example@google.com" maxlength ="50"/>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="clientPhone">Tелефон*</label>
                           	<input type="tel" class="form-control" id="clientPhone" name="clientPhone"
-                                   placeholder="Телефон"/>     
+                                   placeholder="Телефон" maxlength ="15"/>     
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="clientDiscount">Скидка%</label>
                             <input type="number" class="form-control" id="clientDiscount" name="clientDiscount"
-                                   placeholder="Скидка%"/>
+                                   placeholder="Скидка%" />
                         </div>
 
                     </div>
@@ -93,18 +93,15 @@
                         <div class="col-md-4 mb-3">
                             <label for="clientEmail">Адрес</label>
                             <input type="text" class="form-control" id="clientAddress" name="clientAddress"
-                                   placeholder="Адрес"/>
+                                   placeholder="Адрес" maxlength ="50"/>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="clientZipCode">Индекс</label>
                             <input type="number" class="form-control" id="clientZipCode" name="clientZipCode"
-                                   placeholder="Индекс"/>
+                                   placeholder="Индекс" maxlength ="15"/>
                         </div>
-
                     </div>
-
                 </div>
-
                 <div class="col-md-12 form-group">
                     <div class="row">
                         <div class="text-left col-md-4 mb-4">
@@ -151,7 +148,6 @@
                         </div>
                     </div>
                 </div>
-
         </form>
     </div>
 </div>

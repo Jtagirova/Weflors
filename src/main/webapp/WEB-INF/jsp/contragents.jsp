@@ -24,7 +24,7 @@
 			<jsp:include page="/WEB-INF/jsp/base_layout/topnav.jsp"></jsp:include>
 
 			<!-- Form Content Here -->
-			<form>			
+  						
 				<div class="col-md-12 form-group">
 					<div class="row">
 						<div class="col-md-4 mb-4">
@@ -34,12 +34,13 @@
 					<br>
 					<div class="row">
 						<div class="col-md-4 mb-4">
-							<input type="text" class="form-control" id="findContragent" placeholder="Введите наименование поставщика"/>
+							<input type="text" class="form-control" id="findContragent" 
+								placeholder="Введите наименование поставщика"/>
 						</div>
 					</div>	
 					<br>
 				</div>
-
+			<form>	
  				<sec:authorize access="hasAuthority('admin')">
 
 				<div class="col-md-12 form-group">
@@ -52,45 +53,56 @@
 					<div class="row">
 						<div class="col-md-4 mb-3">
 							<label for="nameContragent">Наименование поставщика*</label>
-							<input type="text" class="form-control" id="nameContragent" name="nameContragent" placeholder="Наименование поставщика"/>
+							<input type="text" class="form-control" id="nameContragent" name="nameContragent" 
+								placeholder="Наименование поставщика" maxlength ="50" required/>
 							<input type="hidden" id="contragentId" name="contragentId"/>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="addressContragent">Адрес*</label>
-							<input type="text" class="form-control" id="addressContragent" name="addressContragent" placeholder="Адрес"/>
+							<input type="text" class="form-control" id="addressContragent" name="addressContragent" 
+								placeholder="Адрес" maxlength ="100" required/>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="zipCodeContragent">Индекс</label>
-							<input type="number" class="form-control" id="zipCodeContragent" name="zipCodeContragent" placeholder="Индекс"
-							oninput="this.value=this.value.replace(/[^0-9]/g,'');" />
+							<input type="number" class="form-control" id="zipCodeContragent" name="zipCodeContragent" 
+								placeholder="Индекс" maxlength ="15"
+								oninput="this.value=this.value.replace(/[^0-9]/g,'');" required/>
 						</div>
 					</div>					
 					<br><br>					
 					<div class="row">
 						<div class="col-md-4 mb-3">
 							<label for="phone1Contragent">Контактный телефон №1*</label>
-							<input type="text" class="telephone form-control" id="phone1Contragent" name="phone1Contragent" placeholder="Контактный телефон №1"/>
+							<input type="tel" class="telephone form-control" id="phone1Contragent" name="phone1Contragent" 
+								placeholder="Контактный телефон №1" maxlength ="50"
+								pattern="\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}" 
+								title="Формат: +7 (900) 123-45-67" required/>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="phone2Contragent">Контактный телефон №2</label>
-							<input type="text" class="telephone form-control" id="phone2Contragent" name="phone2Contragent" placeholder="Контактный телефон №2"/>
+							<input type="tel" class="telephone form-control" id="phone2Contragent" name="phone2Contragent" 
+								placeholder="Контактный телефон №2" maxlength ="50"
+								pattern="\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}" 
+								title="Формат: +7 (900) 123-45-67"/>
 						</div>
 					</div>
 					<br><br>
 					<div class="row">
 						<div class="col-md-4 mb-3">
 							<label for="innContragent">ИНН*</label>
-							<input type="number" class="form-control" id="innContragent" name="innContragent" placeholder="ИНН"
-							oninput="this.value=this.value.replace(/[^0-9]/g,'');"/>
+							<input type="number" class="form-control" id="innContragent" name="innContragent" 
+								placeholder="ИНН" maxlength ="15"
+								oninput="this.value=this.value.replace(/[^0-9]/g,'');" required/>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="unkContragent">УНК*</label>
-							<input type="number" class="form-control" id="unkContragent" name="unkContragent" placeholder="УНК"
-							oninput="this.value=this.value.replace(/[^0-9]/g,'');"/>
+							<input type="number" class="form-control" id="unkContragent" name="unkContragent" 
+								placeholder="УНК" maxlength ="15"
+								oninput="this.value=this.value.replace(/[^0-9]/g,'');" required/>
 						</div>
 					</div>
 				</div>
-
+	 
 				<div class="col-md-12 form-group">
 					<div class="row">
 						<div class="text-left col-md-4 mb-4">
@@ -104,8 +116,9 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>	
  				</sec:authorize>
+ 			</form>	
 				<div class="col-md-12 form-group">
 					<br><br>
 					<div class="row">
@@ -116,7 +129,6 @@
 					<br>
 					<div class="row">
 						<div class="col-md-12">
-									<%--							<form:form method="POST" id="writeoffForm">--%>
 							<table class="table table-striped table-bordered table-hover table-responsive" id="contragentTable">
 								<thead>
 									<tr>
@@ -133,7 +145,6 @@
 						</div>
 					</div>
 				</div>
-			</form>
 		</div>
 	</div>
 </div>

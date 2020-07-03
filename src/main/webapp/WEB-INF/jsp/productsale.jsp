@@ -188,7 +188,7 @@
 										<td>${sale.quantity}</td>
 										<td>${sale.productPrice}</td>
 										<td>${sale.salePrice}</td>
-										<td>  </td>											
+										<td><input type="number" id="total" /> </td>											
 <!--  									${sale.productPrice}*${sale.quantity}-${sale.productPrice}*${sale.clientByClientId.discount}/100   -->
 									</tr>								
 								</c:forEach>

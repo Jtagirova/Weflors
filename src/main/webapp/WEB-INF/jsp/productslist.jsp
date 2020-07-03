@@ -174,18 +174,18 @@ $(document).ready(function() {
 					contentType : "application/json",
 					url : "/productslist/deleteProduct",
 					data : JSON.stringify(json),
-					dataType : 'json',
+					dataType : 'text',
 					cache : false,
 					timeout : 600000,
 					success : function(data) {	
-						alert(data.responseText);
+						alert(data);
+						location.reload(true)
 					},
 					error : function(data) {	
-						alert(data.responseText);
+						alert(data);
 					}
 				});	
 				row.parentElement.removeChild(row);	
-//				location.reload(true)
 			}
 	    });	
 	});
@@ -193,18 +193,13 @@ $(document).ready(function() {
 	$("#tableProducts").searcher({
 	    inputSelector: "#findProduct"
 	});
-	
 
-
-
-	
 /*	//var a = ${product.productId};
 	$('openProductPhoto' +  ${product.productId}).click(function(){
 		console.log('Modal view opened');
 		$('#myModalNorm').modal('show');
 	});
 */
-
 
 });
 </script>

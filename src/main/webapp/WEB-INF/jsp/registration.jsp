@@ -110,7 +110,6 @@
 $(document).ready(function() {
 	
 	$(".alert").alert();
-
 	$('input').change(function(){
 		var userName = $('#userName').val();
 		var userLastname = $('#userLastname').val();

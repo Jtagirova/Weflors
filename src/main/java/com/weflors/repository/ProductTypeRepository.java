@@ -26,6 +26,6 @@ public interface ProductTypeRepository extends JpaRepository<ProductTypesEntity,
     @Modifying
    	@Transactional
    	@Query(value ="update flowershop.product_types set product_type_name = :productTypeName where product_type_id = :productTypeId", nativeQuery = true)
-   	void updateProductTypeById(@Param("productTypeName") String productTypeName, @Param("productTypeId") Integer productTypeId);
+    void updateProductTypeById(@Param("productTypeName") String productTypeName, @Param("productTypeId") Integer productTypeId);
 
 }

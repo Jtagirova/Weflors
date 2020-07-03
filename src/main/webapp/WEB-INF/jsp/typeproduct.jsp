@@ -34,7 +34,8 @@
 					<br>
 					<div class="row">
 						<div class="col-md-4 mb-4">
-							<input type="text" class="form-control" id="findNameProductType" placeholder="Введите наименование категории"/>
+							<input type="text" class="form-control" id="findNameProductType" 
+								placeholder="Введите наименование категории" maxlength ="30"/>
 						</div>
 					</div>	
 					<br>
@@ -50,7 +51,8 @@
 					<div class="row">
 						<div class="col-md-4 mb-3">
 							<label for="productTypeName">Наименование категории*</label>
-							<input type="text" class="form-control" id="productTypeName" name="productTypeName" placeholder="Наименование категории"/>
+							<input type="text" class="form-control" id="productTypeName" name="productTypeName" 
+								placeholder="Наименование категории" maxlength ="30"/>
 							<input type="hidden" id="productTypeId" name="productTypeId"/>
 						</div>
 					</div>
@@ -176,7 +178,6 @@ $(document).ready(function() {
         };
         $("#addNewProductType").attr("disabled", "disabled");
 	});
-	
 	
 	$("#updateProductType").click(function() {
 		var productTypeId = $('#productTypeId').val();
