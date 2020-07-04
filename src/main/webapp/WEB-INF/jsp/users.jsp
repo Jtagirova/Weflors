@@ -89,12 +89,12 @@
 								placeholder="Логин" maxlength ="50"/>
 						</div>
 						<div class="col-md-4 mb-4">
-							<label for="userPass">Пароль*</label>
+							<label for="userPass" id="userPassLabel">Пароль*</label>
 							<input type="password" class="form-control" id="userPass" name="userPass" 
 								placeholder="Пароль" maxlength ="100"/>
 						</div>
 						<div class="col-md-4 mb-4">
-							<label for="userRepeatPass">Повторить пароль*</label>
+							<label for="userRepeatPass" id="userRepeatPassLabel">Повторить пароль*</label>
 							<input type="password" class="form-control" id="userRepeatPass" name="userRepeatPass" 
 								placeholder="Повторить пароль" />
 						</div>
@@ -198,6 +198,7 @@ $(document).ready(function() {
 						timeout : 600000,
 						success : function(data) {
 							alert(data);
+							location.reload(true);
 						},
 						error : function(data) {
 							alert(data);
@@ -214,9 +215,12 @@ $(document).ready(function() {
 				$('#userLogin').val(item.login);
 				$('#userEmail').val(item.eMail);
 				$('#userPhone').val(item.phone);
-				$('#userPass').val(item.password);
-				$('#userRepeatPass').val(item.password);
-				
+				$('#userPass').val("qwe");
+				$('#userRepeatPass').val("qwe");
+				$('#userPass').hide();
+				$('#userPassLabel').hide();
+				$('#userRepeatPass').hide();
+				$('#userRepeatPassLabel').hide();
 				$('#saveUser').hide();
 				$('#saveChangedUser').show();
 				$('#cancel').show();
@@ -267,6 +271,7 @@ $(document).ready(function() {
     			timeout : 600000,
     			success : function(data) {
     				alert(data);	
+    				location.reload(true);
     			},    			
     			error : function(data) {
     				alert(data);
@@ -283,7 +288,6 @@ $(document).ready(function() {
 		var userLogin = $('#userLogin').val();
 		var userEmail = $('#userEmail').val();
 		var userPhone = $('#userPhone').val();
-		var userPass = $('#userPass').val();
 		var userRoleMap = [];
 		var roleId = $('input:radio:checked').val();	
 		var userRole = [];
@@ -295,7 +299,6 @@ $(document).ready(function() {
 		var json = {
 			"eMail" : userEmail,	
 			"login" : userLogin,	
-			"password" : userPass,
 			"phone" : userPhone,
 			"userId" : userId,
 			"userLastname" : userLastName,
@@ -313,7 +316,7 @@ $(document).ready(function() {
     			timeout : 600000,
     			success : function(data) {
    					alert(data);
-//   					location.reload(true);
+  					location.reload(true);
     			},
     			error : function(data) {	
     				alert(data);
@@ -330,10 +333,10 @@ $(document).ready(function() {
 		var userPhone = $('#userPhone').val();
 		var userLogin = $('#userLogin').val();
 		var userPass = $('#userPass').val();
-		var passwordRepeatValue = $("#userRepeatPass").val();
+		var userRepeatPass = $('#userRepeatPass').val();
 		var roleId = $('input:radio:checked').val();
 		if ( userName !='' && userLastName !='' && userEmail !='' && userPhone !='' && 
-			 userLogin !='' && userPass !='' && passwordRepeatValue !='' && roleId !=null){
+			 userLogin !=''  && userPass !='' && userRepeatPass !='' && roleId != null){
 			$('#saveChangedUser').removeAttr('disabled');
 			$('#saveUser').removeAttr('disabled');
 		} else {
@@ -343,6 +346,10 @@ $(document).ready(function() {
 	});
 	
 	$('#cancel').click(function() {	
+		$('#userPass').show();
+		$('#userRepeatPass').show();
+		$('#userPassLabel').show();
+		$('#userRepeatPassLabel').show();
 		location.reload(true);
 	});
 

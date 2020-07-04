@@ -51,7 +51,8 @@ public class UserRoleController {
 	@ResponseBody
 	public String updateUser(@RequestBody UserEntity userEntity) {
 		userDetailsServiceImpl.updateUser(userEntity);
-		if(userDetailsServiceImpl.loadUserByUsername(userEntity.getLogin()) == userEntity ) {
+		if(userDetailsServiceImpl.findUserByLoginAndEmail(userEntity).get().getLogin().equals(userEntity.getLogin())  && 
+			userDetailsServiceImpl.findUserByLoginAndEmail(userEntity).get().geteMail().equals(userEntity.geteMail())) {
 			return "Данные пользователя обновлены в вашей базе данных";
 		} else {
 			return "Проблема с обновлением данных пользователя в базе данных";

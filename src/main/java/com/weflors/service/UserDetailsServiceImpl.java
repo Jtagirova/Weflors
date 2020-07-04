@@ -90,8 +90,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     public Boolean updateUser(UserEntity userEntity) {
-        String password = bCryptPasswordEncoder.encode(userEntity.getPassword());
-        userRepository.updateUserInformation(userEntity.geteMail(), userEntity.getUserName(), password,
+//        String password = bCryptPasswordEncoder.encode(userEntity.getPassword());
+        userRepository.updateUserInformation(userEntity.geteMail(), userEntity.getUserName(),
                 userEntity.getUserLastname(), userEntity.getLogin(), userEntity.getPhone(), userEntity.getUserId());
 
         for (UserRoleMapEntity role : userEntity.getUserRoleMapsByUserId()) {
