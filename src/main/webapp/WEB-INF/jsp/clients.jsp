@@ -43,7 +43,7 @@
                 </div>
 
                 <sec:authorize access="hasAuthority('admin')">
-                
+               
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-4 mb-4">
@@ -74,7 +74,8 @@
                         <div class="col-md-4 mb-3">
                             <label for="clientEmail">E-mail*</label>
                             <input type="email" class="form-control" id="clientEmail" name="clientEmail"
-                                   placeholder="E-mail" title="Email должен быть в формате example@google.com" maxlength ="50"/>
+                                   placeholder="E-mail" title="Email должен быть в формате example@google.com" 
+                                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" maxlength ="50"/>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="clientPhone">Tелефон*</label>
@@ -83,22 +84,21 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="clientDiscount">Скидка%</label>
-                            <input type="number" class="form-control" id="clientDiscount" name="clientDiscount"
-                                   placeholder="Скидка%" />
+                            <input type="text" class="form-control" id="clientDiscount" name="clientDiscount"
+                                   placeholder="Скидка%" pattern="\d+" maxlength ="3"/>
                         </div>
-
                     </div>
                     <br><br>
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label for="clientEmail">Адрес</label>
                             <input type="text" class="form-control" id="clientAddress" name="clientAddress"
-                                   placeholder="Адрес" maxlength ="50"/>
+                                   placeholder="Адрес" max ="50"/>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="clientZipCode">Индекс</label>
                             <input type="number" class="form-control" id="clientZipCode" name="clientZipCode"
-                                   placeholder="Индекс" maxlength ="15"/>
+                                   oninput="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="Индекс" max ="15"/>
                         </div>
                     </div>
                 </div>

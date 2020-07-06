@@ -188,8 +188,8 @@
 										<td>${sale.articul}</td>
 										<td>${sale.quantity}</td>
 										<td>${sale.productPrice}</td>
-										<td>${sale.salePrice}</td>
-										<td></td>	
+										<td></td>
+										<td>${sale.salePrice}</td>	
 										<td>${sale.saleDate}</td>									
 									</tr>								
 								</c:forEach>
@@ -209,8 +209,8 @@
 		$('#salesForDay').each(function() {
 			var elems = document.querySelectorAll('#salesForDay > tbody > tr');
       		for (var i = 0; i < elems.length; ++i){
-      			elems[i].cells[6].innerText = elems[i].cells[5].innerText * elems[i].cells[3].innerText;
-      		};
+     			elems[i].cells[5].innerText = Number(elems[i].cells[6].innerText / elems[i].cells[3].innerText).toFixed(2);
+     		};
 		});
 		
 		$("#products").change(function() {
@@ -373,6 +373,7 @@
 
 		$( "#addSaleProducts" ).click(function() {
 			var prod = JSON.stringify(saleArr);
+			var a = saleArr;
 			if (confirm('Вы желаете продать выбранные товары?')) {
 				$.ajax({
 					type : "POST",
@@ -405,34 +406,17 @@
 	// clientElement.addEventListener('change', (event) => {
 	// 	document.querySelector('#discount').value = clientElement.value;
 	// });
-/*
-	saleTable.addEventListener('click', function(evt){
-		if(evt.target.closest('.deleteRow')) {
-	    	evt.target.closest('tr').remove();
-	    	var productId = parseInt(evt.target.closest('.deleteRow').getAttribute('id'));
-	    	for(var i = 0; i < saleArr.length; ++i){
-		       	if(saleArr[i].productId == productId){
-		       		saleArr.splice(i, 1);
-		       	}
-		    }
-	        var elems = document.querySelectorAll(".summPrices");
-	        tableTotalSum = 0;
-	        for (var i = 0; i < elems.length; ++i){
-	        	tableTotalSum = tableTotalSum + Number(elems[i].value);
-	        };
-	        $('#totalSum').val(tableTotalSum);
-	    };           	
-	}); 
-*/
 	saleTable.addEventListener('click', function(evt){
 		if(evt.target.closest('.productQuantityChange')) {
 		    $('.productQuantityChange').on("blur", function(){ 
 		    	var a = this.closest('tr');
 			    a.cells[6].lastChild.value = a.cells[2].childNodes[0].value * a.cells[5].childNodes[0].data; 
 			    for(var i = 0; i < saleArr.length; ++i){
-			       	if(saleArr[i].articul == a.cells[1].innerText || saleArr[i].quantity == a.cells[2].innerText){
-			       		saleArr[i].quantity = $('.productQuantityChange').val();
-				        saleArr[i].productByProductId.productStatusByProductId[0].quantityShopSale = $('.productQuantityChange').val();
+			    	var productId = parseInt(a.cells[7].children[0].id);
+			       	if(saleArr[i].productId == productId){
+			       		saleArr[i].quantity = a.cells[2].children[0].value;
+			       		saleArr[i].productByProductId.productStatusByProductId[0].quantityShopSale = a.cells[2].children[0].value;
+				        saleArr[i].salePrice = a.cells[6].childNodes[0].value;
 			       	}
 			    }
 			    var elems = document.querySelectorAll(".summPrices");

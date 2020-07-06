@@ -60,6 +60,15 @@
                 </div>
             </div>
             <br>
+            
+            
+            <div class="alert alert-success">
+			  ${usernameError}
+			</div>
+            
+            
+            
+            
             <div class="row">
                 <div class="col-md-4 mb-4 col-md-offset-2">
                     <label for="password">Пароль*</label>
@@ -97,9 +106,7 @@
     </div>
     
 
-    <div class="alert alert-success alert-dismissible" style='display:none;'>
-	  ${usernameError}
-	</div>
+    
     
     
 </form:form>
