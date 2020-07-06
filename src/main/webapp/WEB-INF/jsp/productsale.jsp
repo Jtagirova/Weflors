@@ -167,7 +167,7 @@
 				<br>
 				<div class="row">
 					<div class="col-md-12">
-						<table class="table table-striped table-bordered table-hover table-responsive" id="lastSales">
+						<table class="table table-striped table-bordered table-hover table-responsive" id="salesForDay">
 							<thead>
 								<tr>
 									<th scope="col" class="text-center">Номер чека</th>
@@ -177,6 +177,7 @@
 	                                <th scope="col" class="text-center">Цена за единицу</th>
 	                                <th scope="col" class="text-center">Стоимость товара за единицу(с учетом скидки)</th>
 	                                <th scope="col" class="text-center">Итого</th>
+	                                <th scope="col" class="text-center">Дата продажи</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -188,8 +189,8 @@
 										<td>${sale.quantity}</td>
 										<td>${sale.productPrice}</td>
 										<td>${sale.salePrice}</td>
-										<td><input type="number" id="total" /> </td>											
-<!--  									${sale.productPrice}*${sale.quantity}-${sale.productPrice}*${sale.clientByClientId.discount}/100   -->
+										<td></td>	
+										<td>${sale.saleDate}</td>									
 									</tr>								
 								</c:forEach>
 							</tbody>
@@ -200,10 +201,17 @@
         </div>
     </div>
 </div>
-
+</body>
 	
 <script>
 	$(document).ready(function() {
+		
+		$('#salesForDay').each(function() {
+			var elems = document.querySelectorAll('#salesForDay > tbody > tr');
+      		for (var i = 0; i < elems.length; ++i){
+      			elems[i].cells[6].innerText = elems[i].cells[5].innerText * elems[i].cells[3].innerText;
+      		};
+		});
 		
 		$("#products").change(function() {
 			var products = $(this).find(":selected").val();
@@ -331,20 +339,10 @@
 					+'<td>' + discount + '</td>'
 					+'<td>' + priceForOneAfterDiscont + '</td>'
 					+'<td><input type="number" class="summPrices" value="' + productPriceAfterDiscount + '" readonly></td>'
-					+'<td class="text-center"> <button class="deleteRow btn btn-primary" id="' + tableNumOfRows + ' type="submit"">Удалить</button></td>'
+					+'<td class="text-center"> <button class="deleteRow btn btn-primary" id="' + productId + ' type="submit"">Удалить</button></td>'
+//					+'<td class="text-center"> <button class="deleteRow btn btn-primary" id="' + tableNumOfRows + ' type="submit"">Удалить</button></td>'
 					+'</tr>';	
 			tableTotalSum = tableTotalSum + Number(productPriceAfterDiscount);
-			saleTable.addEventListener('click', function(evt){
-	          	if(evt.target.closest('.deleteRow')) {
-	          		evt.target.closest('tr').remove();
-	          		var elems = document.querySelectorAll(".summPrices");
-	          		tableTotalSum = 0;
-	          		for (var i = 0; i < elems.length; ++i){
-	          			tableTotalSum = tableTotalSum + Number(elems[i].value);
-	          		};
-	          		$('#totalSum').val(tableTotalSum);
-	          	};           	
-	        }); 
 			var elems = document.querySelectorAll(".summPrices");
       		tableTotalSum = 0;
       		for (var i = 0; i < elems.length; ++i){
@@ -407,6 +405,59 @@
 	// clientElement.addEventListener('change', (event) => {
 	// 	document.querySelector('#discount').value = clientElement.value;
 	// });
+/*
+	saleTable.addEventListener('click', function(evt){
+		if(evt.target.closest('.deleteRow')) {
+	    	evt.target.closest('tr').remove();
+	    	var productId = parseInt(evt.target.closest('.deleteRow').getAttribute('id'));
+	    	for(var i = 0; i < saleArr.length; ++i){
+		       	if(saleArr[i].productId == productId){
+		       		saleArr.splice(i, 1);
+		       	}
+		    }
+	        var elems = document.querySelectorAll(".summPrices");
+	        tableTotalSum = 0;
+	        for (var i = 0; i < elems.length; ++i){
+	        	tableTotalSum = tableTotalSum + Number(elems[i].value);
+	        };
+	        $('#totalSum').val(tableTotalSum);
+	    };           	
+	}); 
+*/
+	saleTable.addEventListener('click', function(evt){
+		if(evt.target.closest('.productQuantityChange')) {
+		    $('.productQuantityChange').on("blur", function(){ 
+		    	var a = this.closest('tr');
+			    a.cells[6].lastChild.value = a.cells[2].childNodes[0].value * a.cells[5].childNodes[0].data; 
+			    for(var i = 0; i < saleArr.length; ++i){
+			       	if(saleArr[i].articul == a.cells[1].innerText || saleArr[i].quantity == a.cells[2].innerText){
+			       		saleArr[i].quantity = $('.productQuantityChange').val();
+				        saleArr[i].productByProductId.productStatusByProductId[0].quantityShopSale = $('.productQuantityChange').val();
+			       	}
+			    }
+			    var elems = document.querySelectorAll(".summPrices");
+		      	tableTotalSum = 0;
+		      	for (var i = 0; i < elems.length; ++i){
+		      		tableTotalSum = tableTotalSum + Number(elems[i].value);
+		      	};
+		      	$('#totalSum').val(tableTotalSum);    
+		    }); 
+		 } else if(evt.target.closest('.deleteRow')) {
+		    	evt.target.closest('tr').remove();
+		    	var productId = parseInt(evt.target.closest('.deleteRow').getAttribute('id'));
+		    	for(var i = 0; i < saleArr.length; ++i){
+			       	if(saleArr[i].productId == productId){
+			       		saleArr.splice(i, 1);
+			       	}
+			    }
+		        var elems = document.querySelectorAll(".summPrices");
+		        tableTotalSum = 0;
+		        for (var i = 0; i < elems.length; ++i){
+		        	tableTotalSum = tableTotalSum + Number(elems[i].value);
+		        };
+		        $('#totalSum').val(tableTotalSum);
+		 };    		
+	});
 
 	$('input').change(function(){
 		var productQuantity  = $('#productQuantity').val();
@@ -419,20 +470,6 @@
 		} else {
 			$("#addtocheck").attr("disabled", "disabled");
 		}	
-		saleTable.addEventListener('click', function(evt){
-		    if(evt.target.closest('.productQuantityChange')) {
-		    	$(".productQuantityChange").on("blur", function(){ 
-		    		var a = evt.target.closest('tr');
-			        a.cells[6].lastChild.value = a.cells[2].childNodes[0].value * a.cells[5].childNodes[0].data; 
-			        var elems = document.querySelectorAll(".summPrices");
-		      		tableTotalSum = 0;
-		      		for (var i = 0; i < elems.length; ++i){
-		      			tableTotalSum = tableTotalSum + Number(elems[i].value);
-		      		};
-		      		$('#totalSum').val(tableTotalSum);    
-		    	}); 
-		    };   		
-		});
 		if ($('#discount').val() < 0) $('#discount').val(0);
 	    if ($('#discount').val() > 100) $('#discount').val(100);
 	    if ($('.productQuantityChange').val() < 0) $('.productQuantityChange').val(0);
@@ -458,4 +495,3 @@
 
 </script>
 
-</body>

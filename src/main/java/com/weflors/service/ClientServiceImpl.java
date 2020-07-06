@@ -19,7 +19,7 @@ public class ClientServiceImpl {
         return clientRepository.getAllClientEmail();
     }
 
-    public List<ClientEntity> getAllClients(){
+    public List<ClientEntity> findAllClients(){
         return clientRepository.findAll();
     }
 

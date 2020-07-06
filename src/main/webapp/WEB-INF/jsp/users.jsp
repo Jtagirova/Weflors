@@ -136,8 +136,6 @@
 										<th scope="col" class="text-center">Телефон</th>
 										<th scope="col" class="text-center">Роль</th>
 										<th scope="col" class="text-center">Изменение / Удаление</th>
-<!--  									<th scope="col">Изменить</th>
-										<th scope="col">Удалить</th>-->	
 									</tr>
 								</thead>
 								<tbody>

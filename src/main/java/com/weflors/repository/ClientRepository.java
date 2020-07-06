@@ -28,9 +28,8 @@ public interface ClientRepository extends JpaRepository<ClientEntity, Integer> {
     
     @Modifying
 	@Transactional
-	@Query(value ="update flowershop.client set client_name = :clientName, client_surname = :clientSurname, date_of_birth = :dateOfBirth, e_mail = :eMail,"
-			+ "phone = :phone, discount = :discount, address = :address, zip_code = :zipCode where client_id = :clientId",
-			nativeQuery = true)
+	@Query("update ClientEntity set clientName = :clientName, clientSurname = :clientSurname, dateOfBirth = :dateOfBirth, eMail = :eMail,"
+			+ "phone = :phone, discount = :discount, address = :address, zipCode = :zipCode where clientId = :clientId")
 	void updateClientById(@Param("clientName") String clientName, 
 							@Param("clientSurname") String clientSurname,
 							@Param("dateOfBirth") Date dateOfBirth, 

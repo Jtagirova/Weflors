@@ -2,17 +2,18 @@ package com.weflors.service;
 
 import com.weflors.entity.ProductEntity;
 import com.weflors.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 public class ProductServiceImpl {
 
-    @Autowired
     private ProductRepository productRepository;
+    
+    public ProductServiceImpl(ProductRepository productRepository) {
+    	this.productRepository = productRepository;
+    }
 
     public ProductEntity saveProduct(ProductEntity productEntity){
         return productRepository.save(productEntity);
@@ -38,5 +39,4 @@ public class ProductServiceImpl {
     public void deleteProduct(Integer productId) {
     	productRepository.deleteByProductId(productId);
     }
-
 }

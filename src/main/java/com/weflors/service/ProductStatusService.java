@@ -1,9 +1,7 @@
 package com.weflors.service;
 
 import com.weflors.entity.ProductStatusEntity;
-import com.weflors.entity.ProductStatusEntityPK;
 import com.weflors.repository.ProductStatusRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -12,8 +10,11 @@ import java.util.List;
 @Service
 public class ProductStatusService {
 
-    @Autowired
     private ProductStatusRepository productStatusRepository;
+    
+    public ProductStatusService(ProductStatusRepository productStatusRepository){
+    	this.productStatusRepository = productStatusRepository;
+    }
 
     public ProductStatusEntity saveProductStatus(ProductStatusEntity productStatusEntity){
         return productStatusRepository.save(productStatusEntity);
@@ -30,12 +31,12 @@ public class ProductStatusService {
     public void updateQuantity(Integer quantity, Integer productId){
         productStatusRepository.updateQuantityWriteoffAndWarehouse(quantity, productId);
     }
-
+/*
     public ProductStatusEntity getOne(ProductStatusEntityPK productStatusEntityPK){
         return productStatusRepository.getOne(productStatusEntityPK);
     }
-    
-    public ProductStatusEntity findOneProductStatusEntity(Integer productId){
+ */   
+    public ProductStatusEntity findProductStatusEntity(Integer productId){
         return productStatusRepository.findOneById(productId);
     }
 

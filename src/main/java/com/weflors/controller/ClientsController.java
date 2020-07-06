@@ -26,8 +26,8 @@ public class ClientsController {
 
     @GetMapping("/list")
     @ResponseBody
-    public List<ClientEntity> getListOfContragents() {
-        return clientsServiceImpl.getAllClients();
+    public List<ClientEntity> findListOfContragents() {
+        return clientsServiceImpl.findAllClients();
     }
 
     @PostMapping("/add")

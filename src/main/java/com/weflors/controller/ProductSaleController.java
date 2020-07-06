@@ -38,12 +38,10 @@ public class ProductSaleController {
 
 	@RequestMapping(value = {"/productsale"}, method = RequestMethod.GET)
     public String addProductPage(Model model) {
-        model.addAttribute("salesForThisDay", saleServiceImpl.getSalesForThisDay(getCurrentDate()));
-        
+        model.addAttribute("salesForThisDay", saleServiceImpl.findSalesForThisDay(getCurrentDate()));
         model.addAttribute("currentDate",getCurrentDate());
-        
         model.addAttribute("products", saleServiceImpl.getAllProduct());
-        model.addAttribute("allClientsEmail", clientService.getAllClients());
+        model.addAttribute("allClientsEmail", clientService.findAllClients());
         model.addAttribute("saleForm", new SaleEntity());
         //model.addAllAttributes("productValidityDaty", null);
         model.addAttribute("formName", "Продажа товара");
