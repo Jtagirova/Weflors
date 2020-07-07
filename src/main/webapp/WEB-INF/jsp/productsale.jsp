@@ -249,12 +249,12 @@
 				timeout : 600000,
 				success : function(data) {
 					$('#discount').val(data.discount);
-/*					if(data.discount != '' && data.discount != 0) {
+					if(data.discount != '' && data.discount != 0) {
 						$("#productPriceAfterDiscount").val($('#productPrice').val() - ($('#productPrice').val() * ($('#discount').val() / 100)));
 					}else{
 						$("#productPriceAfterDiscount").val($('#productPrice').val());
 					}
-*/
+
 				},
 				error : function(e) {
 					$('#discount').val("");
@@ -385,9 +385,7 @@
 					cache : false,
 					timeout : 600000,
 					success : function(data) {
-						if(data == "true"){
-							alert("Выбранный товар продан");
-						}
+                        alert(data);
 						location.reload(true)
 					},
 					error : function(data) {

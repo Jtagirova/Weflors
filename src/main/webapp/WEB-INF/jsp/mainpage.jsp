@@ -33,31 +33,31 @@
                 <br>
                 <div class="row">
                     <div class="col-md-3 mb-3 zoom">
-                        <a href="#"><img src="/img/mainpage_bouquet1.png" class="img-responsive"></a>
+                        <a href="#"><img src="/img/mainpage/mainpage_bouquet1.png" class="img-responsive"></a>
                     </div>
                     <div class="col-md-3 mb-3 zoom">
-                        <a href="#"><img src="/img/mainpage_bouquet2.png" class="img-responsive"></a>
+                        <a href="#"><img src="/img/mainpage/mainpage_bouquet2.png" class="img-responsive"></a>
                     </div>
                     <div class="col-md-3 mb-3 zoom">
-                        <a href="#"><img src="/img/mainpage_bouquet3.png" class="img-responsive"></a>
+                        <a href="#"><img src="/img/mainpage/mainpage_bouquet3.png" class="img-responsive"></a>
                     </div>
                     <div class="col-md-3 mb-3 zoom">
-                        <a href="#"><img src="/img/mainpage_bouquet4.png" class="img-responsive"></a>
+                        <a href="#"><img src="/img/mainpage/mainpage_bouquet4.png" class="img-responsive"></a>
                     </div>
                 </div>
                 <br>
                 <div class="row">
                     <div class="col-md-3 mb-3 zoom">
-                        <a href="#"><img src="/img/mainpage_bouquet5.png" class="img-responsive"></a>
+                        <a href="#"><img src="/img/mainpage/mainpage_bouquet5.png" class="img-responsive"></a>
                     </div>
                     <div class="col-md-3 mb-3 zoom">
-                        <a href="#"><img src="/img/mainpage_bouquet6.png" class="img-responsive"></a>
+                        <a href="#"><img src="/img/mainpage/mainpage_bouquet6.png" class="img-responsive"></a>
                     </div>
                     <div class="col-md-3 mb-3 zoom">
-                        <a href="#"><img src="/img/mainpage_bouquet7.png" class="img-responsive"></a>
+                        <a href="#"><img src="/img/mainpage/mainpage_bouquet7.png" class="img-responsive"></a>
                     </div>
                     <div class="col-md-3 mb-3 zoom">
-                        <a href="#"><img src="/img/mainpage_bouquet8.png" class="img-responsive"></a>
+                        <a href="#"><img src="/img/mainpage/mainpage_bouquet8.png" class="img-responsive"></a>
                     </div>
                 </div>
             </div>

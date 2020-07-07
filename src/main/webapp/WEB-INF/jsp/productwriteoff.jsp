@@ -102,7 +102,7 @@
 									<th scope="col" class="text-center">Цена товара</th>
 									<th scope="col" class="text-center">Количество</th>
 									<th scope="col" class="text-center">Итого</th>
-									<th scope="col" class="text-center">Удалить из чека</th>
+									<th scope="col" class="text-center">Удалить</th>
 								</tr>
 							</thead>
 							<tbody>
