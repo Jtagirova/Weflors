@@ -192,7 +192,7 @@ $(document).ready(function () {
         	            $('#clientPhone').val(item.phone);
         	            $('#clientDiscount').val(item.discount);
         	            $('#clientAddress').val(item.address);
-        	            $('#clientZipCode').val(item.zipCode.replace(/\s+/g, ' ').trim());
+        	            $('#clientZipCode').val(item.zipCode);
         				$('#addClient').hide();
         				$('#updateClient').show();	
         				$('#cancel').show();	
