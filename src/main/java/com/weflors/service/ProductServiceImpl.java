@@ -31,7 +31,7 @@ public class ProductServiceImpl {
         return productRepository.findAllById(productIDs);
     }
     
-    public List<ProductEntity> getFullListOfProducts(){
+    public List<ProductEntity> findListOfProducts(){
     	List<ProductEntity> productList = productRepository.findAll();
         return productList;
     }

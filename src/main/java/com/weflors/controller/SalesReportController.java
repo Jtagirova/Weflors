@@ -79,7 +79,7 @@ public class SalesReportController {
         List<Integer> productIDs = salesReportHelperBean.getProductIDs();
 
         if (productIDs != null && productIDs.size() == 0) {
-            return productServiceImpl.getFullListOfProducts();
+            return productServiceImpl.findListOfProducts();
         }
 
         if (productIDs != null && productIDs.size() > 0 && salesReportHelperBean.getReportStartDatePeriod() == null) {

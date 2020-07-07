@@ -1,5 +1,6 @@
 package com.weflors.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +8,6 @@ import java.util.Map;
 
 import com.weflors.entity.*;
 import com.weflors.service.*;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,7 +48,7 @@ public class ProductWriteOffController {
         return "productwriteoff";
     }
 	
-	@PostMapping(value = "/loadproductinfobyproductid", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping("/loadproductinfobyproductid")
 	@ResponseBody
     public ProductEntity loadProductInfoByProductName(@RequestBody ProductEntity productEntity) {
 	    ProductEntity selectedProduct = saleServiceImpl.getProductByProductId(productEntity.getProductId());
@@ -70,16 +70,26 @@ public class ProductWriteOffController {
     			mapProductId.put(entity.getProductId(), entity.getQuantity());
     		}
     	}
+    	Map<Integer, String> mapDetails = new HashMap<>();
+    	for(SaleEntity entityDetails : saleEntitylist) {
+    		mapDetails.put(entityDetails.getProductId(), entityDetails.getDetails());
+    	}
     	String responseText = "Вы списали: " + "\n";
     	for(Map.Entry<Integer, Integer> item : mapProductId.entrySet()) {
     		if(item.getValue() > productStatusService.findProductStatusEntity(item.getKey()).getQuantityWarehouse()) {
     			return "Вы хотите списать " + productService.findByProductId(item.getKey()).getProductName() + " в количестве " + item.getValue() +
     					" На складе есть: " + productStatusService.findProductStatusEntity(item.getKey()).getQuantityWarehouse() + " единиц товара.";
-    		} else {
+    		} else {    			
+    			for(Map.Entry<Integer, String> detail : mapDetails.entrySet()) {
+    				for(SaleEntity saleEntity : saleServiceImpl.findAllSalesByProductID(detail.getKey())) {
+    					if(saleEntity.getDetails().isEmpty()) {
+    						saleServiceImpl.updateSale(detail.getValue(), saleEntity.getProductId());
+    					}
+    				}
+    			}
     			productStatusService.updateQuantity(item.getValue(),item.getKey());
     			responseText = responseText +  productService.findByProductId(item.getKey()).getProductName() + " в количестве " + item.getValue() + "\n";
     		}
-    		
     	}
 		return responseText; 	
     }

@@ -23,7 +23,7 @@ public class SaleServiceImpl {
 		this.saleRepository = saleRepository;
 	}
 	
-	public List<ProductEntity> getAllProduct() {
+	public List<ProductEntity> getAllProduct(){
 		return productRepository.findAll();
 	}
 
@@ -56,5 +56,14 @@ public class SaleServiceImpl {
 	public List<SaleEntity> findSalesForThisDay(LocalDate localDate) {
 		return saleRepository.findAllSalesForThisDay(localDate);
 	}
+	
+	//костыль обыкновенный
+	public List<Object> findAllSalesForReport() {
+		return saleRepository.findAllSalesForReport();
+	}
+	
+	public void updateSale(String details, Integer productId) {
+		saleRepository.updateSaleDetailsById(details, productId);
+    }
 
 }
