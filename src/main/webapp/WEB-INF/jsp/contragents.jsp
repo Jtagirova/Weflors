@@ -136,7 +136,7 @@
 										<th scope="col" class="text-center">Контактный телефон №1</th>
 										<th scope="col" class="text-center">ИНН</th>
 										<th scope="col" class="text-center">УНК</th>
-										<th scope="col" class="text-center">Изменение / Удаление</th>
+										<sec:authorize access="hasAuthority('admin')"><th scope="col" class="text-center">Изменение / Удаление</th></sec:authorize>
 									</tr>
 								</thead>
 								<tbody>
@@ -168,9 +168,12 @@ $(document).ready(function() {
 				var rowl = '<tr><td>' + item.contragentName + '</td>' +
 					'<td>' + item.phone1 + '</td>' +
 					'<td>' + item.inn + '</td>' +
-					'<td>' + item.unk + '</td>' + 
+					'<td>' + item.unk + '</td>' +
+					'<sec:authorize access="hasAuthority(\'admin\')">' +
 					'<td class="text-center"><input type="button" changeId="'+ item.contragentId +'" class="btn btn-primary" value="Изменить">' + ' / ' +
-					'<button deleteId="'+ item.contragentId +'" class="btn btn-primary" type="submit">Удалить</button></td></tr>';
+					'<button deleteId="'+ item.contragentId +'" class="btn btn-primary" type="submit">Удалить</button></td>' +
+					'</sec:authorize>' +
+						'</tr>';
 				$('#contragentTable > tbody').append(rowl);
 				var cid = "[changeId='" + item.contragentId + "']";
 				$(cid).click(function (id) {

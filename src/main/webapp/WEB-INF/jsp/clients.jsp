@@ -139,7 +139,7 @@
                                     <th scope="col" class="text-center">Почтовый адрес</th>
                                     <th scope="col" class="text-center">Скидка</th>
                                     <th scope="col" class="text-center">Дата рождения</th>
-                                    <th scope="col" class="text-center">Изменение / Удаление</th>
+                                    <sec:authorize access="hasAuthority('admin')"> <th scope="col" class="text-center">Изменение / Удаление</th> </sec:authorize>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -171,8 +171,11 @@ $(document).ready(function () {
                         '<td>' + item.eMail + '</td>' +
                         '<td>' + item.discount + '</td>' +
                         '<td>' + item.dateOfBirth + '</td>' +
+                        '<sec:authorize access="hasAuthority(\'admin\')">' +
         				'<td class="text-center"><input type="button" changeId="'+ item.clientId +'" class="btn btn-primary" value="Изменить">' + ' / ' +
-        				'<button deleteId="'+ item.clientId +'" class="btn btn-primary" type="submit">Удалить</button></td></tr>';
+        				'<button deleteId="'+ item.clientId +'" class="btn btn-primary" type="submit">Удалить</button></td>' +
+                        '</sec:authorize>' +
+                        '</tr>';
                     $('#clientTable > tbody').append(rowl);
 
                     var cid = "[changeId='" + item.clientId + "']";

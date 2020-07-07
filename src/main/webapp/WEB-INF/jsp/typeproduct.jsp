@@ -87,7 +87,7 @@
 								<thead>
 									<tr>
 										<th scope="col" class="text-center">Наименование категории товара</th>
-										<th scope="col" class="text-center">Изменение / Удаление</th>
+										<sec:authorize access="hasAuthority('admin')"><th scope="col" class="text-center">Изменение / Удаление</th></sec:authorize>
 									</tr>
 								</thead>
 								<tbody>
@@ -118,8 +118,11 @@ $(document).ready(function() {
 	    success: function (data) {
 			data.forEach(function (item){	
 			var rowl = '<tr><td>' + item.productTypeName + '</td>' +
+					'<sec:authorize access="hasAuthority(\'admin\')">' +
 				'<td class="text-center"><input type="button" changeId="'+ item.productTypeId +'" class="btn btn-primary" value="Изменить">' + ' / ' +
-				'<button deleteId="'+ item.productTypeId +'" class="btn btn-primary" type="submit">Удалить</button></td></tr>';
+				'<button deleteId="'+ item.productTypeId +'" class="btn btn-primary" type="submit">Удалить</button></td>' +
+					'</sec:authorize>' +
+					'</tr>';
 			$('#typeProductTable > tbody').append(rowl);
 			var cid = "[changeId='" + item.productTypeId + "']";
 			$(cid).click(function (id) {
