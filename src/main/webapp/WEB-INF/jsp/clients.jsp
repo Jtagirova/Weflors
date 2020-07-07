@@ -138,6 +138,7 @@
                                     <th scope="col" class="text-center">Телефон</th>
                                     <th scope="col" class="text-center">Почтовый адрес</th>
                                     <th scope="col" class="text-center">Скидка</th>
+                                    <th scope="col" class="text-center">Сумма покупок</th>
                                     <th scope="col" class="text-center">Дата рождения</th>
                                     <sec:authorize access="hasAuthority('admin')"> <th scope="col" class="text-center">Изменение / Удаление</th> </sec:authorize>
                                 </tr>
@@ -153,8 +154,9 @@
 </div>
 </div>
 <script>
+
 $(document).ready(function () {
-	
+
 		$('#updateClient').hide();
 		$('#cancel').hide();
 		$('#clientPhone').mask('+375(29)0000000');
@@ -170,6 +172,7 @@ $(document).ready(function () {
                         '<td>' + item.phone + '</td>' +
                         '<td>' + item.eMail + '</td>' +
                         '<td>' + item.discount + '</td>' +
+                        '<td>' + item.amountPurchased + '</td>' +
                         '<td>' + item.dateOfBirth + '</td>' +
                         '<sec:authorize access="hasAuthority(\'admin\')">' +
         				'<td class="text-center"><input type="button" changeId="'+ item.clientId +'" class="btn btn-primary" value="Изменить">' + ' / ' +
@@ -345,5 +348,5 @@ $(document).ready(function () {
 });
 
 </script>
-
+</body>
 </html>
