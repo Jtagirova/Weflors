@@ -16,18 +16,16 @@ import java.util.List;
 
 
 public interface ProductStatusRepository extends JpaRepository<ProductStatusEntity, ProductStatusEntityPK> {
-		
-//	updateQuantityWriteoffAndWarehouse	 updateQuantityWriteoff	
+
 	@Modifying
 	@Transactional
-	@Query(value ="update flowershop.product_status set quantity_warehouse = quantity_warehouse - :quantity,"
-			+ "total_quantity_writeoff = total_quantity_writeoff + :quantity where product_id = :productId", nativeQuery = true)
-	void updateQuantityWriteoffAndWarehouse(@Param("quantity") int quantity, @Param("productId") int productId);
+	@Query(value ="update flowershop.product_status set quantity_warehouse = quantity_warehouse - :quantityWriteoff,"
+			+ "total_quantity_writeoff = total_quantity_writeoff + :quantityWriteoff where product_id = :productId", nativeQuery = true)
+	void updateQuantityWriteoffAndWarehouse(@Param("productId") int productId, @Param("quantity") int quantityWriteoff);
 
 	@Query("select b.validityDate from ProductStatusEntity b where b.productId = :productId")
 	List<Date> getValidityDateByProdictId(@Param("productId")Integer productId);
 
-//	updateQuantityShopSaleAndWarehouse		  updateQuantityShopSaleAndQuantityWarehouse
 	@Modifying
 	@Transactional
 	@Query(value ="update flowershop.product_status set quantity_warehouse = quantity_warehouse - :quantityShopSale,"

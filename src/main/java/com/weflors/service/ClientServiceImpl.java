@@ -5,6 +5,7 @@ import com.weflors.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientServiceImpl {
@@ -26,6 +27,8 @@ public class ClientServiceImpl {
     public ClientEntity getClientByEmail(String eMail){
         return clientRepository.getClientByEmail(eMail);
     }
+
+    public ClientEntity getClientByClientID(int clientID){ return clientRepository.getClientByClientID(clientID); }
 
     public ClientEntity saveNewClient(ClientEntity clientEntity)  {
         return clientRepository.save(clientEntity);

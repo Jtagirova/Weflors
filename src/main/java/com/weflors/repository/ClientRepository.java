@@ -21,10 +21,16 @@ public interface ClientRepository extends JpaRepository<ClientEntity, Integer> {
     @Query("select c from ClientEntity c where c.eMail = :eMail")
     ClientEntity getClientByEmail(@Param("eMail") String eMail);
 
+    @Query("select c from ClientEntity c where c.clientId = :clientID")
+    ClientEntity getClientByClientID(@Param("clientID") Integer clientID);
+
+    @Query("select true from ClientEntity c where c.eMail = :eMail")
+    public Boolean existByEMail(@Param("eMail") String eMail);
+
     @Modifying
     @Transactional
     @Query("delete from ClientEntity where clientId = :clientId")
-    void deleteByClientId(@Param("clientId") Integer clientId);
+    public void deleteByClientId(@Param("clientId") Integer clientId);
     
     @Modifying
 	@Transactional

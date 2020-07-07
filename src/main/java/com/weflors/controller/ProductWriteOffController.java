@@ -49,17 +49,12 @@ public class ProductWriteOffController {
 	@PostMapping(value = "/loadproductinfobyproductid", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
     public ProductEntity loadProductInfoByProductName(@RequestBody ProductEntity productEntity) {
-	    ProductEntity selectedProduct = saleServiceImpl.getProductByProductId(productEntity.getProductId());
-	    ProcurementEntity selectedProductPocurementInfo = procurementServiceImpl.findProcurementByProductID(productEntity.getProductId());
-        ArrayList<ProcurementEntity> procurementEntityArrayList = new ArrayList<ProcurementEntity>();
-        procurementEntityArrayList.add(selectedProductPocurementInfo);
-        selectedProduct.setProcurementsByProductId(procurementEntityArrayList);
-	    return selectedProduct;
+	    return saleServiceImpl.getProductByProductId(productEntity.getProductId());
     }
 	
     @PostMapping(value = "/addWriteOffs", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String addWriteOffProduct(@RequestBody List <SaleEntity> saleEntitylist){ 
+    public String addWriteOffProduct(@RequestBody List <SaleEntity> saleEntitylist){
     	Map<Integer, Integer> mapProductId = new HashMap<>();
     	for(SaleEntity entity : saleEntitylist) {
     		if(mapProductId.containsKey(entity.getProductId())) {
@@ -74,7 +69,7 @@ public class ProductWriteOffController {
     			return "Вы хотите списать " + productService.findByProductId(item.getKey()).getProductName() + " в количестве " + item.getValue() +
     					" На складе есть: " + productStatusService.findOneProductStatusEntity(item.getKey()).getQuantityWarehouse() + " единиц товара.";
     		} else {
-    			productStatusService.updateQuantity(item.getValue(),item.getKey());
+    			productStatusService.updateQuantityWriteoffAndWarehouse(item.getKey(), item.getValue());
     			responseText = responseText +  productService.findByProductId(item.getKey()).getProductName() + " в количестве " + item.getValue() + "\n";
     		}
     		
