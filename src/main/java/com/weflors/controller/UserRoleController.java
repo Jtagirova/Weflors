@@ -33,7 +33,7 @@ public class UserRoleController {
 	@GetMapping("/list")
 	@ResponseBody
 	public List<UserEntity> getListOfUsers() {
-	    return userDetailsServiceImpl.getAllUsers();
+	    return userDetailsServiceImpl.findAllUsers();
 	}
 	
 	@PostMapping("/add")
@@ -62,7 +62,7 @@ public class UserRoleController {
 	@DeleteMapping("/delete")
 	@ResponseBody
 	public String deleteUser(@RequestBody UserEntity userEntity) {
-		userDetailsServiceImpl.deleteUser(userEntity.getUserId());
+		userDetailsServiceImpl.deleteUser(userEntity);
 		return "Пользователь был удален из вашей базы данных";
 	}
 	

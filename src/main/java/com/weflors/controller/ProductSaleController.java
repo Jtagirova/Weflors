@@ -8,7 +8,6 @@ import com.weflors.entity.*;
 import com.weflors.service.ClientServiceImpl;
 import com.weflors.service.ProcurementServiceImpl;
 import com.weflors.service.ProductStatusService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,18 +18,22 @@ import com.weflors.service.SaleServiceImpl;
 @Controller
 public class ProductSaleController {
 	
-	@Autowired
     private SaleServiceImpl saleServiceImpl;
 
-    @Autowired
     private ProcurementServiceImpl procurementServiceImpl;
 
-    @Autowired
     private ClientServiceImpl clientService;
 
-    @Autowired
     private ProductStatusService productStatusService;
     
+    public ProductSaleController(SaleServiceImpl saleServiceImpl, ProcurementServiceImpl procurementServiceImpl, 
+    		ClientServiceImpl clientService, ProductStatusService productStatusService) {
+    	this.saleServiceImpl = saleServiceImpl;
+    	this.procurementServiceImpl = procurementServiceImpl;
+    	this.clientService = clientService;
+    	this.productStatusService = productStatusService;
+    }
+
 	private static LocalDate getCurrentDate(){
 	    LocalDate currentDate = LocalDate.now();
 	    return currentDate;
@@ -43,7 +46,6 @@ public class ProductSaleController {
         model.addAttribute("products", saleServiceImpl.getAllProduct());
         model.addAttribute("allClientsEmail", clientService.findAllClients());
         model.addAttribute("saleForm", new SaleEntity());
-        //model.addAllAttributes("productValidityDaty", null);
         model.addAttribute("formName", "Продажа товара");
         return "productsale";
     }

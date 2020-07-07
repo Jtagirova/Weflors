@@ -21,7 +21,7 @@ public interface ContragentsRepository extends JpaRepository<ContragentsEntity, 
     @Modifying
     @Transactional
     @Query("delete from ContragentsEntity where contragentId = :contragentId")
-    void deleteByContragentId(@Param("contragentId") Integer contragentId);
+    void deleteContragentById(@Param("contragentId") Integer contragentId);
       
     @Modifying
 	@Transactional

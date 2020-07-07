@@ -31,11 +31,12 @@ public class ProductWriteOffController {
 	private ProcurementServiceImpl procurementServiceImpl;
 	
 	ProductWriteOffController(SaleServiceImpl saleServiceImpl, ProductStatusService productStatusService, 
-			ProductServiceImpl productService, ClientServiceImpl clientService){
+			ProductServiceImpl productService, ClientServiceImpl clientService, ProcurementServiceImpl procurementServiceImpl){
 		this.saleServiceImpl = saleServiceImpl;
 		this.productStatusService = productStatusService;
 		this.productService = productService;
 		this.clientService = clientService;
+		this.procurementServiceImpl = procurementServiceImpl;
 	}
 	
 	@GetMapping

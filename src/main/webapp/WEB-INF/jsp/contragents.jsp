@@ -96,7 +96,7 @@
 						<div class="col-md-4 mb-3">
 							<label for="unkContragent">УНК*</label>
 							<input type="text" class="form-control" id="unkContragent" name="unkContragent" 
-								placeholder="УНК" oninput="this.value=this.value.replace(/[^0-9]/g,'');"  pattern="\d+" maxlength ="15" />
+								placeholder="УНК" oninput="this.value=this.value.replace(/[^0-9]/g,'');" pattern="\d+" maxlength ="15" />
 						</div>
 					</div>
 				</div>

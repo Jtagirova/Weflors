@@ -81,12 +81,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return true;
     }
 
-    public List<UserEntity> getAllUsers() {
+    public List<UserEntity> findAllUsers() {
         return userRepository.findAll();
     }
 
-    public void deleteUser(Integer userId) {
-        userRepository.deleteByUserId(userId);
+    public void deleteUser(UserEntity userEntity) {
+        userRepository.deleteByUserId(userEntity.getUserId());
     }
 
     public Boolean updateUser(UserEntity userEntity) {
@@ -102,12 +102,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         return true;
     }
-/*
-    public Boolean existUser(Integer userId) {
-        userRepository.existById(userId);
-        return true;
-    }
-  */  
+ 
     public Optional <UserEntity> findUserByLoginAndEmail(UserEntity userEntity) {
         return userRepository.findUserByLoginAndEmail(userEntity.getLogin(), userEntity.geteMail());
     }

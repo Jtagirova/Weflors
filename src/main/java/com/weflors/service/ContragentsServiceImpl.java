@@ -16,7 +16,7 @@ public class ContragentsServiceImpl {
     	this.contragentsRepository = contragentsRepository;
     }
     
-    public List<ContragentsEntity> loadContragents() {
+    public List<ContragentsEntity> findAllContragents() {
         return contragentsRepository.findAll();
     }
 
@@ -24,19 +24,19 @@ public class ContragentsServiceImpl {
         return contragentsRepository.findByContragentID(contragentId);
     }
     
-    public ContragentsEntity saveNewContragent(ContragentsEntity contragentsEntity)  {
+    public ContragentsEntity saveContragent(ContragentsEntity contragentsEntity)  {
         return contragentsRepository.save(contragentsEntity);
     }
     
-    public Optional<ContragentsEntity> findByName(String contragentName) {
+    public Optional<ContragentsEntity> findContragentByName(String contragentName) {
     	return contragentsRepository.findByContragentName(contragentName);
     }
     
-    public void deleteContragent(Integer contragentId) {
-    	contragentsRepository.deleteByContragentId(contragentId);
+    public void deleteContragent(ContragentsEntity contragentsEntity) {
+    	contragentsRepository.deleteContragentById(contragentsEntity.getContragentId());
     }
     
-    public void updateContragentInfo(ContragentsEntity contragentsEntity) {
+    public void updateContragent(ContragentsEntity contragentsEntity) {
     	contragentsRepository.updateContragentById(contragentsEntity.getAddress(), contragentsEntity.getContragentName(), contragentsEntity.getPhone1(),
     			contragentsEntity.getPhone2(), contragentsEntity.getUnk(), contragentsEntity.getInn(),contragentsEntity.getZipCode(), contragentsEntity.getContragentId());
     }

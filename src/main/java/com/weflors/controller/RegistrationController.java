@@ -41,24 +41,18 @@ public class RegistrationController {
 		} else {
 			userService.saveUser(userForm);
 			return "redirect:/login";
-		}
-	
-		
+		}		
 /*
 		if (!userForm.getPassword().equals(userForm.getPasswordConfirm())) {
 			model.addAttribute("passwordError", "Пароли не совпадают");
 			return "registration";
 		}
-		
 		if (!userService.saveUser(userForm)) {
 			model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
 			return "registration";
 		}
-
 		return "redirect:/login";//To do
 */		
-		
-	
 
 	}
 

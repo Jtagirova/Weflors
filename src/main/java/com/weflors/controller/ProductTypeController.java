@@ -33,7 +33,7 @@ public class ProductTypeController {
 	@GetMapping("/list")
 	@ResponseBody
 	public List<ProductTypesEntity> getListOfProductTypes() {
-	    return productTypeService.findAllProductType();
+	    return productTypeService.findAllProductTypes();
 	}
 	
 	@PostMapping("/add")
@@ -42,7 +42,7 @@ public class ProductTypeController {
 		if(productTypeService.findByProductName(productTypesEntity.getProductTypeName()).isPresent()) { 
 			return "Категория товара с таким именем уже существует в вашей базе данных";
 		} else {
-			productTypeService.saveNewProductType(productTypesEntity);
+			productTypeService.saveProductType(productTypesEntity);
 			return "Новая категория товара добавлена в вашу базу данных";
 		}
 	}
@@ -61,7 +61,7 @@ public class ProductTypeController {
 	@DeleteMapping("/delete")
 	@ResponseBody
 	public String deleteProductType(@RequestBody ProductTypesEntity productTypesEntity) {
-		productTypeService.deleteProductType(productTypesEntity.getProductTypeId());
+		productTypeService.deleteProductType(productTypesEntity);
 		return "Категория товара была удалена из вашей базы данных";
 	}
 	

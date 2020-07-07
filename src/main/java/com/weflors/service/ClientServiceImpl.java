@@ -27,7 +27,7 @@ public class ClientServiceImpl {
         return clientRepository.getClientByEmail(eMail);
     }
 
-    public ClientEntity saveNewClient(ClientEntity clientEntity)  {
+    public ClientEntity saveClient(ClientEntity clientEntity)  {
         return clientRepository.save(clientEntity);
     }
 
@@ -35,11 +35,11 @@ public class ClientServiceImpl {
         return clientRepository.getDiscountByClientEmail(email);
     }
 
-    public void deleteClient(Integer clientId) {
-        clientRepository.deleteByClientId(clientId);
+    public void deleteClient(ClientEntity clientEntity) {
+        clientRepository.deleteByClientId(clientEntity.getClientId());
     }
     
-    public void updateClientInfo(ClientEntity clientEntity) {
+    public void updateClient(ClientEntity clientEntity) {
         clientRepository.updateClientById(clientEntity.getClientName(), clientEntity.getClientSurname(), clientEntity.getDateOfBirth(),
         		clientEntity.geteMail(), clientEntity.getPhone(), clientEntity.getDiscount(), clientEntity.getAddress(),
         		clientEntity.getZipCode(), clientEntity.getClientId());

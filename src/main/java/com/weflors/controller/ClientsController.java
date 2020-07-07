@@ -36,7 +36,7 @@ public class ClientsController {
         if(clientsServiceImpl.getClientByEmail(clientEntity.geteMail()) != null) {
             return "Клиент с таким E-mail уже существует в вашей базе данных";
         } else {
-            clientsServiceImpl.saveNewClient(clientEntity);
+            clientsServiceImpl.saveClient(clientEntity);
             return "Новый клиент добавлен в вашу базу данных";
         }
     }
@@ -44,7 +44,7 @@ public class ClientsController {
     @PostMapping("/update")
     @ResponseBody
     public String updateClient(@RequestBody ClientEntity clientEntity) {
-    	clientsServiceImpl.updateClientInfo(clientEntity);
+    	clientsServiceImpl.updateClient(clientEntity);
         if(clientsServiceImpl.getClientByEmail(clientEntity.geteMail()) != null) {
             return "Информация о клиенте была обновлена в вашей базе данных";
         } else {
@@ -55,7 +55,7 @@ public class ClientsController {
     @DeleteMapping("/delete")
     @ResponseBody
     public String deleteClient(@RequestBody ClientEntity clientEntity) {
-        clientsServiceImpl.deleteClient(clientEntity.getClientId());
+        clientsServiceImpl.deleteClient(clientEntity);
         return "Клиент был удален из вашей базы данных";
     }
 }
