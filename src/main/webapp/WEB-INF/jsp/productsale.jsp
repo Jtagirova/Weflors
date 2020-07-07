@@ -50,10 +50,17 @@
                         </div>
                         <div class="col-md-4 mb-4">
                             <label for="allClientsEmail">Клиент</label>
-                            <form:select id="allClientsEmail" class="form-control" path="allClientsEmail">
+<%--                            <form:select id="allClientsEmail" class="form-control" path="allClientsEmail">
                                 <form:option value="NONE" label="Клиент" />
                                 <form:options items="${allClientsEmail}" itemValue="clientId"
                                               itemLabel="eMail"/>
+                            </form:select>--%>
+
+                            <form:select id="allClientsEmail" class="form-control" name="allClientsEmail" path="allClientsEmail">
+                                <form:option value="NONE" label="Клиент" />
+                                <c:forEach var="client" items="${allClientsEmail}">
+                                    <form:option value="${client.clientId}"><c:out value="${client.clientName} ${client.clientSurname} (${client.eMail})"/></form:option>
+                                </c:forEach>
                             </form:select>
                         </div>
                         <div class="col-md-4 mb-4">
@@ -129,7 +136,6 @@
                                 <th scope="col" class="text-center">Стоимость товара за единицу</th>
                                 <th scope="col" class="text-center">Итого</th>
                                 <th scope="col" class="text-center">Удаление</th>
-                                <th scope="col" hidden>Email</th>
                             </tr>
                             </thead>
                             <tfoot>
@@ -237,17 +243,17 @@
 		});
 
 		$("#allClientsEmail").change(function() {
-			var eMail = $(this).find(":selected").text();
-			// var json = {"eMail" : eMail };
+			var clientID = $(this).find(":selected").val();
 			$.ajax({
 				type : "POST",
 				contentType : "application/json",
-				url : "/loadClientDiscont",
-				data : eMail.toString(),
+				url : "/loadclientdiscount",
+				data : clientID,
 				dataType : 'json',
 				cache : false,
 				timeout : 600000,
 				success : function(data) {
+
 					$('#discount').val(data.discount);
 					if(data.discount != '' && data.discount != 0) {
 						$("#productPriceAfterDiscount").val($('#productPrice').val() - ($('#productPrice').val() * ($('#discount').val() / 100)));
@@ -284,14 +290,13 @@
 			let discount = Number($('#discount').val());
             var productValidityDate = $('#productValidityDate').find('option:selected').text();
 			var saleDate = Date.now();
-			var clientEmail =  $("#allClientsEmail").find('option:selected').text();
+
 			var clientId =  $("#allClientsEmail").find('option:selected').val();
 			if (clientId == "NONE"){
 				var clientByClientId = null;
 			} else {
 				var clientByClientId = {
-					"clientId": clientId,
-					"eMail": clientEmail
+					"clientId": clientId
 				}
 			}
 			var productSaleDetails = '';
@@ -442,11 +447,11 @@
 		$('#productPriceAfterDiscount').val('');
 		$("#addtocheck").attr("disabled", "disabled");
 	});
-	
+
 	$('#allClientsEmail').change(function(){
 		$('#discount').val('0');
 		$('#productQuantity').val('0');
-	});	
+	});
 	
 	$('table td:first-child').each(function (i) {
 		$(this).html(i+1);

@@ -59,10 +59,10 @@ public class ProductSaleController {
 	    return saleServiceImpl.getProductByProductId(productEntity.getProductId());
     }
 
-    @RequestMapping(value = "/loadClientDiscont", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/loadclientdiscount", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    ClientEntity loadClientDiscont(@RequestBody String eMail) {
-        return clientService.getClientByEmail(eMail);
+    ClientEntity loadClientDiscount(@RequestBody Integer clientID) {
+        return clientService.getClientByClientID(clientID);
     }
 
     @RequestMapping(value = "/addSaleProduct", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
