@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductTypeService {
+public class ProductTypeServiceImpl {
 	
     private ProductTypeRepository productTypeRepository;
     
-    public ProductTypeService(ProductTypeRepository productTypeRepository) {
+    public ProductTypeServiceImpl(ProductTypeRepository productTypeRepository) {
     	this.productTypeRepository = productTypeRepository;
     }
 

@@ -2,6 +2,7 @@ package com.weflors.controller;
 
 import com.weflors.entity.ClientEntity;
 import com.weflors.service.ClientServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,8 @@ import java.util.List;
 public class ClientsController {
 	
     private ClientServiceImpl clientsServiceImpl;
-    
+
+    @Autowired
     public ClientsController(ClientServiceImpl clientsServiceImpl) {
     	this.clientsServiceImpl = clientsServiceImpl;
     }
@@ -54,8 +56,8 @@ public class ClientsController {
 
     @DeleteMapping("/delete")
     @ResponseBody
-    public String deleteClient(@RequestBody ClientEntity clientEntity) {
-        clientsServiceImpl.deleteClient(clientEntity);
+    public String deleteClient(@RequestBody Integer clientID) {
+        clientsServiceImpl.deleteClient(clientID);
         return "Клиент был удален из вашей базы данных";
     }
 }

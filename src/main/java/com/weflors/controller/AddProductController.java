@@ -25,10 +25,10 @@ public class AddProductController {
     private ProductDetailsServiceImpl productDetailsService;
 
     @Autowired
-    private ProductStatusService productStatusService;
+    private ProductStatusServiceImpl productStatusService;
 
     @Autowired
-    private ProductTypeService productTypeService;
+    private ProductTypeServiceImpl productTypeServiceImpl;
 
     private CheckForNull check = param -> {
         if(param == null)
@@ -41,7 +41,7 @@ public class AddProductController {
         model.addAttribute("name", name);
         List<ContragentsEntity> contragents = contragentsServiceImpl.findAllContragents();
         model.addAttribute("contragents", contragents);
-        List<ProductTypesEntity> productTypeList = productTypeService.findAllProductTypes();
+        List<ProductTypesEntity> productTypeList = productTypeServiceImpl.findAllProductTypes();
         model.addAttribute("productTypeList", productTypeList);
         model.addAttribute("formName", "Добавить товар");
 
@@ -110,8 +110,7 @@ public class AddProductController {
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ContragentsEntity getContragentById(@RequestBody Integer contragentId) {
-        ContragentsEntity a = contragentsServiceImpl.loadContragentByContragentID(contragentId);
-        return a;
+        return contragentsServiceImpl.loadContragentByContragentID(contragentId);
     }
 }
 

@@ -2,6 +2,7 @@ package com.weflors.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,7 +20,8 @@ import com.weflors.service.ContragentsServiceImpl;
 public class ContragentsController {
 	
 	private ContragentsServiceImpl contragentsServiceImpl;
-	
+
+	@Autowired
 	public ContragentsController(ContragentsServiceImpl contragentsServiceImpl) {
 		this.contragentsServiceImpl = contragentsServiceImpl;
 	}

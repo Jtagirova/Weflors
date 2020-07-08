@@ -2,6 +2,7 @@ package com.weflors.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,16 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.weflors.entity.ProductTypesEntity;
-import com.weflors.service.ProductTypeService;
+import com.weflors.service.ProductTypeServiceImpl;
 
 @Controller
 @RequestMapping("/typeproduct")
 public class ProductTypeController {
 	
-	private ProductTypeService productTypeService;
-	
-	public ProductTypeController(ProductTypeService productTypeService) {
-		this.productTypeService = productTypeService;
+	private ProductTypeServiceImpl productTypeServiceImpl;
+
+	@Autowired
+	public ProductTypeController(ProductTypeServiceImpl productTypeServiceImpl) {
+		this.productTypeServiceImpl = productTypeServiceImpl;
 	}
 	
 	@GetMapping
@@ -33,16 +35,16 @@ public class ProductTypeController {
 	@GetMapping("/list")
 	@ResponseBody
 	public List<ProductTypesEntity> getListOfProductTypes() {
-	    return productTypeService.findAllProductTypes();
+	    return productTypeServiceImpl.findAllProductTypes();
 	}
 	
 	@PostMapping("/add")
 	@ResponseBody
 	public String addProductType(@RequestBody ProductTypesEntity productTypesEntity) {
-		if(productTypeService.findByProductName(productTypesEntity.getProductTypeName()).isPresent()) { 
+		if(productTypeServiceImpl.findByProductName(productTypesEntity.getProductTypeName()).isPresent()) {
 			return "Категория товара с таким именем уже существует в вашей базе данных";
 		} else {
-			productTypeService.saveProductType(productTypesEntity);
+			productTypeServiceImpl.saveProductType(productTypesEntity);
 			return "Новая категория товара добавлена в вашу базу данных";
 		}
 	}
@@ -50,8 +52,8 @@ public class ProductTypeController {
 	@PostMapping("/update")
 	@ResponseBody
 	public String updateProductType(@RequestBody ProductTypesEntity productTypesEntity) {
-		productTypeService.updateProductType(productTypesEntity);
-		if(productTypeService.findByProductName(productTypesEntity.getProductTypeName()).isPresent()) { 
+		productTypeServiceImpl.updateProductType(productTypesEntity);
+		if(productTypeServiceImpl.findByProductName(productTypesEntity.getProductTypeName()).isPresent()) {
 			return "Категория товара была обновлена в вашей базе данных";
 		} else {
 			return "Ошибка обновления данных о категории товара";
@@ -61,7 +63,7 @@ public class ProductTypeController {
 	@DeleteMapping("/delete")
 	@ResponseBody
 	public String deleteProductType(@RequestBody ProductTypesEntity productTypesEntity) {
-		productTypeService.deleteProductType(productTypesEntity);
+		productTypeServiceImpl.deleteProductType(productTypesEntity);
 		return "Категория товара была удалена из вашей базы данных";
 	}
 	

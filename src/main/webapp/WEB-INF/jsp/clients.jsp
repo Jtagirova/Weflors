@@ -198,15 +198,14 @@ $(document).ready(function () {
         				$('#cancel').show();	
         			});
         			var did = "[deleteId='" + item.clientId + "']";
-        			$(did).click(function (id) {	
-        				var json = { "clientId" : item.clientId };
+        			$(did).click(function (id) {
         			    if (confirm('Вы желаете удалить данного клиента из вашей базы данных?')) {
-        			       	$.ajax({
+        			        $.ajax({
         						type : "DELETE",
         						contentType : "application/json",
         						url : "/clients/delete",
-        						data : JSON.stringify(json),
-        						dataType : 'json',
+        						data : JSON.stringify(item.clientId),
+        						dataType : 'text',
         						cache : false,
         						timeout : 600000,
         						success : function(data) {

@@ -3,7 +3,6 @@ package com.weflors.controller;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,11 +28,11 @@ public class ProductSaleController {
 
     private ClientServiceImpl clientService;
 
-    private ProductStatusService productStatusService;
+    private ProductStatusServiceImpl productStatusService;
 
     @Autowired
     public ProductSaleController(SaleServiceImpl saleServiceImpl, ProcurementServiceImpl procurementServiceImpl,
-                                 ProductServiceImpl productService, ClientServiceImpl clientService, ProductStatusService productStatusService) {
+                                 ProductServiceImpl productService, ClientServiceImpl clientService, ProductStatusServiceImpl productStatusService) {
     	this.saleServiceImpl = saleServiceImpl;
     	this.procurementServiceImpl = procurementServiceImpl;
         this.productService = productService;
@@ -83,9 +82,9 @@ public class ProductSaleController {
         }
         String responseText = "Вы продали: " + "\n";
         for(Map.Entry<Integer, Integer> item : productIdQuantityMap.entrySet()) {
-            if(item.getValue() > productStatusService.findOneProductStatusEntity(item.getKey()).getQuantityWarehouse()) {
+            if(item.getValue() > productStatusService.findProductStatusEntity(item.getKey()).getQuantityWarehouse()) {
                 return "Вы хотите продать " + productService.findByProductId(item.getKey()).getProductName() + " в количестве " + item.getValue() +
-                        " На складе есть: " + productStatusService.findOneProductStatusEntity(item.getKey()).getQuantityWarehouse() + " единиц товара.";
+                        " На складе есть: " + productStatusService.findProductStatusEntity(item.getKey()).getQuantityWarehouse() + " единиц товара.";
             } else {
                 productStatusService.updateQuantityShopSaleAndWarehouse(item.getKey(),item.getValue());
                 responseText = responseText +  productService.findByProductId(item.getKey()).getProductName() + " в количестве " + item.getValue() + "\n";

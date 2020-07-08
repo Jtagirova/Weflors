@@ -1,7 +1,5 @@
 package com.weflors.controller;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +7,6 @@ import java.util.Map;
 import com.weflors.entity.*;
 import com.weflors.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +21,7 @@ public class ProductWriteOffController {
 
     private SaleServiceImpl saleServiceImpl;
 
-	private ProductStatusService productStatusService;
+	private ProductStatusServiceImpl productStatusService;
 
 	private ProductServiceImpl productService;
 
@@ -33,8 +30,8 @@ public class ProductWriteOffController {
 	private ProcurementServiceImpl procurementServiceImpl;
 
 	@Autowired
-	ProductWriteOffController(SaleServiceImpl saleServiceImpl, ProductStatusService productStatusService,
-			ProductServiceImpl productService, ClientServiceImpl clientService, ProcurementServiceImpl procurementServiceImpl){
+	ProductWriteOffController(SaleServiceImpl saleServiceImpl, ProductStatusServiceImpl productStatusService,
+							  ProductServiceImpl productService, ClientServiceImpl clientService, ProcurementServiceImpl procurementServiceImpl){
 		this.saleServiceImpl = saleServiceImpl;
 		this.productStatusService = productStatusService;
 		this.productService = productService;
@@ -76,7 +73,7 @@ public class ProductWriteOffController {
     	for(Map.Entry<Integer, Integer> item : mapProductId.entrySet()) {
     		if(item.getValue() > productStatusService.findProductStatusEntity(item.getKey()).getQuantityWarehouse()) {
     			return "Вы хотите списать " + productService.findByProductId(item.getKey()).getProductName() + " в количестве " + item.getValue() +
-    					" На складе есть: " + productStatusService.findOneProductStatusEntity(item.getKey()).getQuantityWarehouse() + " единиц товара.";
+    					" На складе есть: " + productStatusService.findProductStatusEntity(item.getKey()).getQuantityWarehouse() + " единиц товара.";
     		} else {
 				for(Map.Entry<Integer, String> detail : mapDetails.entrySet()) {
 					for(SaleEntity saleEntity : saleServiceImpl.findAllSalesByProductID(detail.getKey())) {
