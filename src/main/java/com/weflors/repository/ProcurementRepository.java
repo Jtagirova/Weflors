@@ -1,15 +1,12 @@
 package com.weflors.repository;
 
-import com.weflors.entity.ContragentsEntity;
 import com.weflors.entity.ProcurementEntity;
 import com.weflors.entity.ProcurementEntityPK;
-import com.weflors.entity.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 public interface ProcurementRepository extends JpaRepository<ProcurementEntity, ProcurementEntityPK> {

@@ -24,12 +24,12 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(int userId, String eMail, String userName, String password, String userLastname, String login,
+    public UserEntity(int userId, String eMail, String userName, String userLastname, String login,
 			String phone, Collection<UserRoleMapEntity> userRoleMapsByUserId) {
 		this.userId = userId;
 		this.eMail = eMail;
 		this.userName = userName;
-		this.password = password;
+//		this.password = password;
 		this.userLastname = userLastname;
 		this.login = login;
 		this.phone = phone;

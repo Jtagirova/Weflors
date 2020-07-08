@@ -81,17 +81,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return true;
     }
 
-    public List<UserEntity> getAllUsers() {
+    public List<UserEntity> findAllUsers() {
         return userRepository.findAll();
     }
 
-    public void deleteUser(Integer userId) {
-        userRepository.deleteByUserId(userId);
+    public void deleteUser(UserEntity userEntity) {
+        userRepository.deleteByUserId(userEntity.getUserId());
     }
 
     public Boolean updateUser(UserEntity userEntity) {
-        String password = bCryptPasswordEncoder.encode(userEntity.getPassword());
-        userRepository.updateUserInformation(userEntity.geteMail(), userEntity.getUserName(), password,
+//        String password = bCryptPasswordEncoder.encode(userEntity.getPassword());
+        userRepository.updateUserInformation(userEntity.geteMail(), userEntity.getUserName(),
                 userEntity.getUserLastname(), userEntity.getLogin(), userEntity.getPhone(), userEntity.getUserId());
 
         for (UserRoleMapEntity role : userEntity.getUserRoleMapsByUserId()) {
@@ -102,12 +102,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         return true;
     }
-/*
-    public Boolean existUser(Integer userId) {
-        userRepository.existById(userId);
-        return true;
-    }
-  */  
+ 
     public Optional <UserEntity> findUserByLoginAndEmail(UserEntity userEntity) {
         return userRepository.findUserByLoginAndEmail(userEntity.getLogin(), userEntity.geteMail());
     }

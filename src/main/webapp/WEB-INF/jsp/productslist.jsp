@@ -396,7 +396,7 @@ $(document).ready(function() {
 				$.ajax({
 					type : "DELETE",
 					contentType : "application/json",
-					url : "/productslist/deleteProduct",
+					url : "/productslist/delete",
 					data : JSON.stringify(json),
 					dataType : 'text',
 					cache : false,

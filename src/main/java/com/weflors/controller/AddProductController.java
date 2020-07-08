@@ -39,9 +39,9 @@ public class AddProductController {
     @RequestMapping(value = {"/addproduct"}, method = RequestMethod.GET)
     public String addProductPage(Model model, @RequestParam(value="name", required=false, defaultValue="World") String name) {
         model.addAttribute("name", name);
-        List<ContragentsEntity> contragents = contragentsServiceImpl.loadContragents();
+        List<ContragentsEntity> contragents = contragentsServiceImpl.findAllContragents();
         model.addAttribute("contragents", contragents);
-        List<ProductTypesEntity> productTypeList = productTypeService.findAllProductType();
+        List<ProductTypesEntity> productTypeList = productTypeService.findAllProductTypes();
         model.addAttribute("productTypeList", productTypeList);
         model.addAttribute("formName", "Добавить товар");
 

@@ -2,12 +2,10 @@ package com.weflors.service;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.weflors.entity.SaleEntity;
 import com.weflors.repository.SaleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.weflors.entity.ProductEntity;
@@ -16,20 +14,21 @@ import com.weflors.repository.ProductRepository;
 @Service
 public class SaleServiceImpl {
 
-	@Autowired
 	private ProductRepository productRepository;
 
-	@Autowired
 	private SaleRepository saleRepository;
-
-	public List<ProductEntity> getAllProduct() {
-		List<ProductEntity> products = productRepository.findAll();
-		return products;
+	
+	public SaleServiceImpl(ProductRepository productRepository, SaleRepository saleRepository){
+		this.productRepository = productRepository;
+		this.saleRepository = saleRepository;
+	}
+	
+	public List<ProductEntity> getAllProduct(){
+		return productRepository.findAll();
 	}
 
-	public ProductEntity getProductByProductId(int id) {
-		ProductEntity product = productRepository.findByProductID(id);
-		return product;
+	public ProductEntity getProductByProductId(Integer productId) {
+		return productRepository.findByProductID(productId);
 	}
 
 	public boolean addAllToSales(List<SaleEntity> saleEntity){
@@ -54,8 +53,17 @@ public class SaleServiceImpl {
 		return saleRepository.findAllSalesByProductIDAndDatePeriod(productId, startDatePeriod, endDatePeriod);
 	}
 
-	public List<SaleEntity> getSalesForThisDay(LocalDate localDate) {
+	public List<SaleEntity> findSalesForThisDay(LocalDate localDate) {
 		return saleRepository.findAllSalesForThisDay(localDate);
 	}
+	
+	//костыль обыкновенный
+	public List<Object> findAllSalesForReport() {
+		return saleRepository.findAllSalesForReport();
+	}
+	
+	public void updateSale(String details, Integer productId) {
+		saleRepository.updateSaleDetailsById(details, productId);
+    }
 
 }

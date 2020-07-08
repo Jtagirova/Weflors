@@ -33,24 +33,24 @@ public class ContragentsController {
 	@GetMapping("/list")
 	@ResponseBody
 	public List<ContragentsEntity> getListOfContragents() {
-	    return contragentsServiceImpl.loadContragents();
+	    return contragentsServiceImpl.findAllContragents();
 	}
 	
 	@PostMapping("/add")
 	@ResponseBody
 	public String addContragent(@RequestBody ContragentsEntity contragentsEntity) {
-		if(contragentsServiceImpl.findByName(contragentsEntity.getContragentName()).isPresent()) {
+		if(contragentsServiceImpl.findContragentByName(contragentsEntity.getContragentName()).isPresent()) {
 			return "Поставщик с таким именем уже существует в вашей базе данных";			
 		} 
-		contragentsServiceImpl.saveNewContragent(contragentsEntity);
+		contragentsServiceImpl.saveContragent(contragentsEntity);
 		return "Новый поставщик добавлен в вашу базу данных";
 	}	
 	
 	@PostMapping("/update")
 	@ResponseBody
 	public String updateContragent(@RequestBody ContragentsEntity contragentsEntity) {
-		contragentsServiceImpl.updateContragentInfo(contragentsEntity);
-		if(contragentsServiceImpl.loadContragentByContragentID(contragentsEntity.getContragentId()).equals(contragentsEntity)) {
+		contragentsServiceImpl.updateContragent(contragentsEntity);
+		if(contragentsServiceImpl.findContragentByName(contragentsEntity.getContragentName()).isPresent()) {
 			return "Данные о поставщике обновлены в вашей базе данных";
 		} else {
 			return "Ошибка обновления данных о поставщике";
@@ -60,7 +60,7 @@ public class ContragentsController {
 	@DeleteMapping("/delete")
 	@ResponseBody
 	public String deleteContragent(@RequestBody ContragentsEntity contragentsEntity) {
-		contragentsServiceImpl.deleteContragent(contragentsEntity.getContragentId());
+		contragentsServiceImpl.deleteContragent(contragentsEntity);
 		return "Поставщик был удален из вашей базы данных";
 	}
 	

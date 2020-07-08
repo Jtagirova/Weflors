@@ -1,5 +1,6 @@
 package com.weflors.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,42 +18,46 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 @Controller
 @RequestMapping("/productwriteoff")
 public class ProductWriteOffController {
-	
-	@Autowired
+
     private SaleServiceImpl saleServiceImpl;
-	
-	@Autowired
+
 	private ProductStatusService productStatusService;
-	
-	@Autowired
+
 	private ProductServiceImpl productService;
-	
-	@Autowired
-    private ClientServiceImpl clientService;
-	
-	@Autowired
+
+	private ClientServiceImpl clientService;
+
 	private ProcurementServiceImpl procurementServiceImpl;
-    
+
+	@Autowired
+	ProductWriteOffController(SaleServiceImpl saleServiceImpl, ProductStatusService productStatusService,
+			ProductServiceImpl productService, ClientServiceImpl clientService, ProcurementServiceImpl procurementServiceImpl){
+		this.saleServiceImpl = saleServiceImpl;
+		this.productStatusService = productStatusService;
+		this.productService = productService;
+		this.clientService = clientService;
+		this.procurementServiceImpl = procurementServiceImpl;
+	}
+
 	@GetMapping
     public String addWriteOffPage(Model model) {
         List<ProductEntity> products = saleServiceImpl.getAllProduct();
         model.addAttribute("products", products);
-        model.addAttribute("allClientsEmail", clientService.getAllClients());
+        model.addAttribute("allClientsEmail", clientService.findAllClients());
 		model.addAttribute("formName", "Списание товара");
         return "productwriteoff";
     }
 	
-	@PostMapping(value = "/loadproductinfobyproductid", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping("/loadproductinfobyproductid")
 	@ResponseBody
     public ProductEntity loadProductInfoByProductName(@RequestBody ProductEntity productEntity) {
 	    return saleServiceImpl.getProductByProductId(productEntity.getProductId());
     }
 	
-    @PostMapping(value = "/addWriteOffs", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("/addWriteOffs")
     @ResponseBody
     public String addWriteOffProduct(@RequestBody List <SaleEntity> saleEntitylist){
     	Map<Integer, Integer> mapProductId = new HashMap<>();
@@ -63,16 +68,26 @@ public class ProductWriteOffController {
     			mapProductId.put(entity.getProductId(), entity.getQuantity());
     		}
     	}
+    	Map<Integer, String> mapDetails = new HashMap<>();
+    	for(SaleEntity entityDetails : saleEntitylist) {
+    		mapDetails.put(entityDetails.getProductId(), entityDetails.getDetails());
+    	}
     	String responseText = "Вы списали: " + "\n";
     	for(Map.Entry<Integer, Integer> item : mapProductId.entrySet()) {
-    		if(item.getValue() > productStatusService.findOneProductStatusEntity(item.getKey()).getQuantityWarehouse()) {
+    		if(item.getValue() > productStatusService.findProductStatusEntity(item.getKey()).getQuantityWarehouse()) {
     			return "Вы хотите списать " + productService.findByProductId(item.getKey()).getProductName() + " в количестве " + item.getValue() +
     					" На складе есть: " + productStatusService.findOneProductStatusEntity(item.getKey()).getQuantityWarehouse() + " единиц товара.";
     		} else {
+				for(Map.Entry<Integer, String> detail : mapDetails.entrySet()) {
+					for(SaleEntity saleEntity : saleServiceImpl.findAllSalesByProductID(detail.getKey())) {
+						if(saleEntity.getDetails().isEmpty()) {
+							saleServiceImpl.updateSale(detail.getValue(), saleEntity.getProductId());
+						}
+					}
+				}
     			productStatusService.updateQuantityWriteoffAndWarehouse(item.getKey(), item.getValue());
     			responseText = responseText +  productService.findByProductId(item.getKey()).getProductName() + " в количестве " + item.getValue() + "\n";
     		}
-    		
     	}
 		return responseText; 	
     }

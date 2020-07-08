@@ -5,7 +5,6 @@ import com.weflors.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClientServiceImpl {
@@ -20,7 +19,7 @@ public class ClientServiceImpl {
         return clientRepository.getAllClientEmail();
     }
 
-    public List<ClientEntity> getAllClients(){
+    public List<ClientEntity> findAllClients(){
         return clientRepository.findAll();
     }
 
@@ -30,7 +29,7 @@ public class ClientServiceImpl {
 
     public ClientEntity getClientByClientID(int clientID){ return clientRepository.getClientByClientID(clientID); }
 
-    public ClientEntity saveNewClient(ClientEntity clientEntity)  {
+    public ClientEntity saveClient(ClientEntity clientEntity)  {
         return clientRepository.save(clientEntity);
     }
 
@@ -42,7 +41,7 @@ public class ClientServiceImpl {
         clientRepository.deleteByClientId(clientId);
     }
     
-    public void updateClientInfo(ClientEntity clientEntity) {
+    public void updateClient(ClientEntity clientEntity) {
         clientRepository.updateClientById(clientEntity.getClientName(), clientEntity.getClientSurname(), clientEntity.getDateOfBirth(),
         		clientEntity.geteMail(), clientEntity.getPhone(), clientEntity.getDiscount(), clientEntity.getAddress(),
         		clientEntity.getZipCode(), clientEntity.getClientId());

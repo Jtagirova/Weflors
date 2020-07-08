@@ -21,10 +21,13 @@
         <div class="wrap-login100">
             <div class="login100-form-title" style="background-image: url('../img/background_theme2_opacity70.png')">
 					<span class="login100-form-title-1">
-                      <h4>Регистрация нового пользователя</h4>
+                      <h4 >Регистрация нового пользователя</h4>
 					</span>
             </div>
-            <br>
+            <div class="alert alert-success">
+				<h5 class="text-center">${usernameError}</h4>    
+			</div>
+			<br>
             <br>
             <div class="row">
                 <div class="col-md-4 mb-4 col-md-offset-2">
@@ -97,9 +100,7 @@
     </div>
     
 
-    <div class="alert alert-success alert-dismissible" style='display:none;'>
-	  ${usernameError}
-	</div>
+    
     
     
 </form:form>

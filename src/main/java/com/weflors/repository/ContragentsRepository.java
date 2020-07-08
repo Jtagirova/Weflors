@@ -21,13 +21,12 @@ public interface ContragentsRepository extends JpaRepository<ContragentsEntity, 
     @Modifying
     @Transactional
     @Query("delete from ContragentsEntity where contragentId = :contragentId")
-    void deleteByContragentId(@Param("contragentId") Integer contragentId);
-    
+    void deleteContragentById(@Param("contragentId") Integer contragentId);
+      
     @Modifying
 	@Transactional
-	@Query(value ="update flowershop.contragents set address = :address, contragent_name = :contragentName, phone_1 = :phone1, phone_2 = :phone2,"
-			+ "unk = :unk, inn = :inn, zip_code = :zipCode where contragent_id = :contragentId",
-			nativeQuery = true)
+	@Query("update ContragentsEntity set address = :address, contragentName = :contragentName, phone1 = :phone1, phone2 = :phone2,"
+			+ "unk = :unk, inn = :inn, zipCode = :zipCode where contragentId = :contragentId")
 	void updateContragentById(@Param("address") String address, 
 							@Param("contragentName") String contragentName,
 							@Param("phone1") String phone1, 

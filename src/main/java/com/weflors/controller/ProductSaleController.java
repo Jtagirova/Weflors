@@ -16,24 +16,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.weflors.service.SaleServiceImpl;
+
 @Controller
 public class ProductSaleController {
-	
-	@Autowired
+
     private SaleServiceImpl saleServiceImpl;
 
-    @Autowired
     private ProcurementServiceImpl procurementServiceImpl;
 
-    @Autowired
     private ProductServiceImpl productService;
 
-    @Autowired
     private ClientServiceImpl clientService;
 
-    @Autowired
     private ProductStatusService productStatusService;
-    
+
+    @Autowired
+    public ProductSaleController(SaleServiceImpl saleServiceImpl, ProcurementServiceImpl procurementServiceImpl,
+                                 ProductServiceImpl productService, ClientServiceImpl clientService, ProductStatusService productStatusService) {
+    	this.saleServiceImpl = saleServiceImpl;
+    	this.procurementServiceImpl = procurementServiceImpl;
+        this.productService = productService;
+    	this.clientService = clientService;
+    	this.productStatusService = productStatusService;
+    }
+
 	private static LocalDate getCurrentDate(){
 	    LocalDate currentDate = LocalDate.now();
 	    return currentDate;
@@ -41,14 +48,11 @@ public class ProductSaleController {
 
 	@RequestMapping(value = {"/productsale"}, method = RequestMethod.GET)
     public String addProductPage(Model model) {
-        model.addAttribute("salesForThisDay", saleServiceImpl.getSalesForThisDay(getCurrentDate()));
-        
+        model.addAttribute("salesForThisDay", saleServiceImpl.findSalesForThisDay(getCurrentDate()));
         model.addAttribute("currentDate",getCurrentDate());
-        
         model.addAttribute("products", saleServiceImpl.getAllProduct());
-        model.addAttribute("allClientsEmail", clientService.getAllClients());
+        model.addAttribute("allClientsEmail", clientService.findAllClients());
         model.addAttribute("saleForm", new SaleEntity());
-        //model.addAllAttributes("productValidityDaty", null);
         model.addAttribute("formName", "Продажа товара");
         return "productsale";
     }

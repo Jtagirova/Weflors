@@ -76,7 +76,7 @@
 							<input type="tel" class="telephone form-control" id="phone1Contragent" name="phone1Contragent" 
 								placeholder="Контактный телефон №1" maxlength ="50"
 								pattern="\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}" 
-								title="Формат: +7 (900) 123-45-67" required/>
+								title="Формат: +7 (900) 123-45-67" />
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="phone2Contragent">Контактный телефон №2</label>
@@ -90,15 +90,13 @@
 					<div class="row">
 						<div class="col-md-4 mb-3">
 							<label for="innContragent">ИНН*</label>
-							<input type="number" class="form-control" id="innContragent" name="innContragent" 
-								placeholder="ИНН" maxlength ="15"
-								oninput="this.value=this.value.replace(/[^0-9]/g,'');" required/>
+							<input type="text" class="form-control" id="innContragent" name="innContragent" 
+								placeholder="ИНН" oninput="this.value=this.value.replace(/[^0-9]/g,'');" pattern="\d+" maxlength ="15"/>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="unkContragent">УНК*</label>
-							<input type="number" class="form-control" id="unkContragent" name="unkContragent" 
-								placeholder="УНК" maxlength ="15"
-								oninput="this.value=this.value.replace(/[^0-9]/g,'');" required/>
+							<input type="text" class="form-control" id="unkContragent" name="unkContragent" 
+								placeholder="УНК" oninput="this.value=this.value.replace(/[^0-9]/g,'');" pattern="\d+" maxlength ="15" />
 						</div>
 					</div>
 				</div>

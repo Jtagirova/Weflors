@@ -33,7 +33,7 @@ public class UserRoleController {
 	@GetMapping("/list")
 	@ResponseBody
 	public List<UserEntity> getListOfUsers() {
-	    return userDetailsServiceImpl.getAllUsers();
+	    return userDetailsServiceImpl.findAllUsers();
 	}
 	
 	@PostMapping("/add")
@@ -51,7 +51,8 @@ public class UserRoleController {
 	@ResponseBody
 	public String updateUser(@RequestBody UserEntity userEntity) {
 		userDetailsServiceImpl.updateUser(userEntity);
-		if(userDetailsServiceImpl.loadUserByUsername(userEntity.getLogin()) == userEntity ) {
+		if(userDetailsServiceImpl.findUserByLoginAndEmail(userEntity).get().getLogin().equals(userEntity.getLogin())  && 
+			userDetailsServiceImpl.findUserByLoginAndEmail(userEntity).get().geteMail().equals(userEntity.geteMail())) {
 			return "Данные пользователя обновлены в вашей базе данных";
 		} else {
 			return "Проблема с обновлением данных пользователя в базе данных";
@@ -61,7 +62,7 @@ public class UserRoleController {
 	@DeleteMapping("/delete")
 	@ResponseBody
 	public String deleteUser(@RequestBody UserEntity userEntity) {
-		userDetailsServiceImpl.deleteUser(userEntity.getUserId());
+		userDetailsServiceImpl.deleteUser(userEntity);
 		return "Пользователь был удален из вашей базы данных";
 	}
 	

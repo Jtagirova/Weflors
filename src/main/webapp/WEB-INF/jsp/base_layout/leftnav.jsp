@@ -47,7 +47,7 @@
             </h4>
             <ul class="nav nav-pills nav-stacked">
                 <li><a href="/salesreport">Отчет о продажах</a></li>
-                <li><a href="#">Отчет о списанном товаре</a></li>
+                <li><a href="productwriteoffreport">Отчет о списанном товаре</a></li>
                 </sec:authorize>
             </ul>
     </nav>

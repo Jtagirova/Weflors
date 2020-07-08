@@ -21,7 +21,7 @@ public class ProductTypeService {
         return productTypeRepository.getAllProductType();
     }
 
-    public List<ProductTypesEntity> findAllProductType(){
+    public List<ProductTypesEntity> findAllProductTypes(){
         return productTypeRepository.findAll();
     }
     
@@ -29,12 +29,12 @@ public class ProductTypeService {
     	return productTypeRepository.findByProductTypeName(productTypeName);
     }
     
-    public ProductTypesEntity saveNewProductType(ProductTypesEntity productTypesEntity)  {
+    public ProductTypesEntity saveProductType(ProductTypesEntity productTypesEntity)  {
         return productTypeRepository.save(productTypesEntity);
     }
     
-    public void deleteProductType(Integer productTypeId) {
-    	productTypeRepository.deleteByProductTypeById(productTypeId);
+    public void deleteProductType(ProductTypesEntity productTypesEntity) {
+    	productTypeRepository.deleteProductTypeById(productTypesEntity.getProductTypeId());
     }
     
     public void updateProductType(ProductTypesEntity productTypesEntity) {
