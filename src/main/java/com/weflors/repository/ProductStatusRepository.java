@@ -21,7 +21,7 @@ public interface ProductStatusRepository extends JpaRepository<ProductStatusEnti
 	@Transactional
 	@Query(value ="update flowershop.product_status set quantity_warehouse = quantity_warehouse - :quantityWriteoff,"
 			+ "total_quantity_writeoff = total_quantity_writeoff + :quantityWriteoff where product_id = :productId", nativeQuery = true)
-	void updateQuantityWriteoffAndWarehouse(@Param("productId") int productId, @Param("quantity") int quantityWriteoff);
+	void updateQuantityWriteoffAndWarehouse(@Param("productId") int productId, @Param("quantityWriteoff") int quantityWriteoff);
 
 	@Query("select b.validityDate from ProductStatusEntity b where b.productId = :productId")
 	List<Date> getValidityDateByProdictId(@Param("productId")Integer productId);
