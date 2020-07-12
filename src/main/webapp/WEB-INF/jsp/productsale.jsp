@@ -263,7 +263,7 @@
 				success : function(data) {
 
 					$('#discount').val(data.discount);
-					var quantity = productQuantity.val();
+					var quantity = $('#productQuantity').val();
 
 					if(data.discount != '' && data.discount != 0) {
 						$("#productPriceAfterDiscount").val(quantity * ($('#productPrice').val() - ($('#productPrice').val() * ($('#discount').val() / 100))));
