@@ -1,5 +1,6 @@
 package com.weflors.service;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
@@ -56,10 +57,9 @@ public class SaleServiceImpl {
 	public List<SaleEntity> findSalesForThisDay(LocalDate localDate) {
 		return saleRepository.findAllSalesForThisDay(localDate);
 	}
-	
-	//костыль обыкновенный
-	public List<Object> findAllSalesForReport() {
-		return saleRepository.findAllSalesForReport();
+
+	public List<SaleEntity> findAllSalesBySalePrice(BigDecimal salePrice) {
+		return saleRepository.findAllSalesBySalePrice(salePrice);
 	}
 	
 	public void updateSale(String details, Integer productId) {

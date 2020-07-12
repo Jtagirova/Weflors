@@ -469,11 +469,6 @@
 		$("#addtocheck").attr("disabled", "disabled");
 	});
 
-	$('#allClientsEmail').change(function(){
-		$('#discount').val('0');
-		$('#productQuantity').val('0');
-	});
-	
 	$('table td:first-child').each(function (i) {
 		$(this).html(i+1);
 	});	

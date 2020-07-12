@@ -24,9 +24,13 @@
                       <h4 >Регистрация нового пользователя</h4>
 					</span>
             </div>
-            <div class="alert alert-success">
-				<h5 class="text-center">${usernameError}</h4>    
-			</div>
+
+            <c:if test="${usernameError != null && !usernameError.equals('')}">
+                <div class="alert alert-danger">
+                    <h5 class="text-center">${usernameError}</h5>
+                </div>
+            </c:if>
+
 			<br>
             <br>
             <div class="row">

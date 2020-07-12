@@ -40,24 +40,29 @@
 									<th scope="col" class="text-center">Наименование</th>
 									<th scope="col" class="text-center">Артикул</th>
 									<th scope="col" class="text-center">Срок годности</th>
-									<th scope="col" class="text-center">Дата продажи</th>
-									<th scope="col" class="text-center">Стоимость товара</th>
-									<th scope="col" class="text-center">Стоимость продажи</th>
+									<th scope="col" class="text-center">Дата списания</th>
+									<th scope="col" class="text-center">Стоимость закупки</th>
 									<th scope="col" class="text-center">Количество</th>
+									<th scope="col" class="text-center">Сумма списания</th>
 									<th scope="col" class="text-center">Причина</th>
 								</tr>
 							</thead>
 							<tbody>
-							<c:forEach items="${writeOffProductList}" var="product">
+							<c:forEach items="${productWriteOffList}" var="writeoff">
 								<tr>
-									<td>${product[0]}</td>
-									<td>${product[1]}</td>
-									<td>${product[2]}</td>
-									<td>${product[3]}</td>
-									<td>${product[4]}</td>
-									<td>${product[5]}</td>
-									<td>${product[6]}</td>
-									<td>${product[7]}</td>
+									<td>${writeoff.productByProductId.productName}</td>
+									<td>${writeoff.articul}</td>
+									<td>
+										<c:forEach var="status" items="${writeoff.productByProductId.productStatusByProductId}">
+											<c:out value="${status.validityDate}" />
+										</c:forEach>
+									</td>
+									<td>${writeoff.saleDate}</td>
+									<td>${writeoff.productPrice}</td>
+									<td>${writeoff.quantity}</td>
+									<td><c:out value="${writeoff.productPrice * writeoff.quantity}"></c:out></td>
+									<td>${writeoff.details}</td>
+
 								</tr>
 							</c:forEach>	
 							</tbody>
