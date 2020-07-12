@@ -58,7 +58,7 @@
 									<th scope="col" class="text-center">Количество</th>
 									<th scope="col" class="text-center">Цена за единицу</th>
 									<th scope="col" class="text-center">Срок годности</th>
-									<th scope="col" class="text-center">Посмотр / Удаление</th>
+									<th scope="col" class="text-center">Просмотр / Удаление</th>
 								</tr>
 							</thead>
 							<tbody>
