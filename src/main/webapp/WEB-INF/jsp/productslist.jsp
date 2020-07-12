@@ -58,7 +58,7 @@
 									<th scope="col" class="text-center">Количество</th>
 									<th scope="col" class="text-center">Цена за единицу</th>
 									<th scope="col" class="text-center">Срок годности</th>
-									<th scope="col" class="text-center">Фотография / Удаление</th>
+									<th scope="col" class="text-center">Посмотр / Удаление</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -71,7 +71,7 @@
 									<td>${product.productStatusByProductId[0].quantityWarehouse}</td>
 									<td>${product.productPrice}</td>
 									<td>${product.productStatusByProductId[0].validityDate}</td>
-									<td class="text-center"><button id="openProductInfo${product.productId}" data-toggle="modal" data-target="#myModalNorm" class="btn btn-primary">Посомтреть</button>
+									<td class="text-center"><button id="openProductInfo${product.productId}" data-toggle="modal" data-target="#myModalNorm" class="btn btn-primary">Посмотреть</button>
 										 / <button id="${product.productId}" class="Delete btn btn-primary">Удалить</button></td>
 									<script>
 										var productID = "${product.productId}";
