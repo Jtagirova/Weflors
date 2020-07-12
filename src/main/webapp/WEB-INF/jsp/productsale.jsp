@@ -73,7 +73,7 @@
                     <div class="row">
                         <div class="col-md-4 mb-4">
                             <label for="productQuantity">Количество товара*</label>
-                            <input type="number" class="form-control" id="productQuantity" name="productQuantity" 
+                            <input type="number" class="form-control" id="productQuantity" name="productQuantity"  value="0"
                             oninput="this.value=this.value.replace(/[^0-9]/g,'');" />
                         </div>
                         <div class="col-md-4 mb-4">
@@ -263,10 +263,12 @@
 				success : function(data) {
 
 					$('#discount').val(data.discount);
+					var quantity = productQuantity.val();
+
 					if(data.discount != '' && data.discount != 0) {
-						$("#productPriceAfterDiscount").val($('#productPrice').val() - ($('#productPrice').val() * ($('#discount').val() / 100)));
+						$("#productPriceAfterDiscount").val(quantity * ($('#productPrice').val() - ($('#productPrice').val() * ($('#discount').val() / 100))));
 					}else{
-						$("#productPriceAfterDiscount").val($('#productPrice').val());
+						$("#productPriceAfterDiscount").val(quantity * ($('#productPrice').val()));
 					}
 
 				},
@@ -463,7 +465,6 @@
 	});
 	
 	$('#products').change(function(){
-		$('#productQuantity').val('');
 		$('#discount').val('');
 		$('#productPriceAfterDiscount').val('');
 		$("#addtocheck").attr("disabled", "disabled");

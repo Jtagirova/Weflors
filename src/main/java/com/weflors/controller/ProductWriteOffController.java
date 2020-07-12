@@ -75,6 +75,7 @@ public class ProductWriteOffController {
     			return "Вы хотите списать " + productService.findByProductId(item.getKey()).getProductName() + " в количестве " + item.getValue() +
     					" На складе есть: " + productStatusService.findProductStatusEntity(item.getKey()).getQuantityWarehouse() + " единиц товара.";
     		} else {
+				saleServiceImpl.addAllToSales(saleEntitylist);
 				for(Map.Entry<Integer, String> detail : mapDetails.entrySet()) {
 					for(SaleEntity saleEntity : saleServiceImpl.findAllSalesByProductID(detail.getKey())) {
 						if(saleEntity.getDetails().isEmpty()) {
