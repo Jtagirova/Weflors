@@ -25,7 +25,7 @@ public interface SaleRepository extends JpaRepository<SaleEntity, SaleEntityPK> 
     List<SaleEntity> findAllSalesByProductIDAndDatePeriod(
             @Param("productID") Integer productID, @Param("startDatePeriod") Timestamp startDatePeriod, @Param("endDatePeriod") Timestamp endDatePeriod);
     
-    @Query("select sale from SaleEntity sale where DATE(sale.saleDate) = :localDate ORDER BY sale.saleDate DESC")
+    @Query("select sale from SaleEntity sale where DATE(sale.saleDate) = :localDate  and sale.salePrice <> 0 ORDER BY sale.saleDate DESC")
 	List<SaleEntity> findAllSalesForThisDay(@Param("localDate") LocalDate localDate);
 
     @Query("select sale from SaleEntity sale where sale.salePrice = :salePrice ORDER BY sale.articul, sale.saleDate DESC")
