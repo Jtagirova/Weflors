@@ -111,7 +111,7 @@
                                 <div>
                                     <span class="btn btn-primary btn-file">
                                         <span class="fileinput-new">Выбрать фотографию</span>
-                                        <span class="fileinput-exists">Изменить</span><input type="file" class="ephoto-upload" name="...">
+                                        <span class="fileinput-exists">Изменить</span><input type="file" name="...">
                                     </span>
                                     <span class="btn btn-default fileinput-exists" data-dismiss="fileinput">Удалить</span>
                                     <%--<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Удалить</a>--%>
@@ -190,7 +190,6 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-primary" id="saveproductimage">Сохранить имэйдж</button>
             </form>
         </div>
     </div>
@@ -201,7 +200,6 @@
 <script>
     $(document).ready(function() {
         function addDataToDatabase(dataToAdd, handleUrl, entity) {
-
             $.ajax({
                 type : "POST",
                 contentType : "application/json",
@@ -349,37 +347,6 @@
             //
             // };
         });
-        $("#saveproductimage").click(function() {
-
-            var formData1 = new FormData();
-            formData1.append("userinput", $('.ephoto-upload')[0].files[0]);
-
-            var fileReader = new FileReader();
-            fileReader.onload = function () {
-                var data = fileReader.result;  // data <-- in this var you have the file data in Base64 format
-            };
-            fileReader.readAsDataURL($('.ephoto-upload')[0].files[0]);
-
-            var dataToLoad = fileReader.result;
-
-            $.ajax({
-                type: "POST",
-                contentType: "image/jpg",
-                url: "/saveproductimage",
-                data: dataToLoad,
-                dataType: 'json',
-                cache: false,
-                timeout: 600000,
-                success: function (data) {
-                    console.log(data);
-                },
-                error: function (e) {
-                    console.log(e);
-                    alert("error occured while trying upload photo to the database");
-                }
-            });
-        });
-
         
         $('input').change(function(){
     		var nomernakladnoj = $('#nomernakladnoj').val();

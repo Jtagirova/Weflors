@@ -7,10 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -108,41 +105,6 @@ public class AddProductController {
         saveProductStatus(saveProduct);
         return saveProduct;
     }
-
-    @RequestMapping(value = "/saveproductimage", method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody
-    boolean uploadFiles(@RequestBody @RequestParam("files") MultipartFile[] files) {
-        boolean transferSuccessful = true;
-        String imageBasePath = "/img/products/";
-        for (MultipartFile file : files) {
-
-            String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
-
-            String newFileName = "ololo" + extension; //set unique name when saving on server
-            File newFile;
-
-            File imageFolder = new File(imageBasePath);
-            //check if parent folders exist else create it
-            if(imageFolder .exists() || imageFolder .mkdirs()) {
-                while ((newFile = new File(imageFolder .getAbsolutePath() + "\\" + newFileName)).exists()) {
-                    newFileName = "ololo2"; //generate new name if file already exists
-                }
-                try {
-                    file.transferTo(newFile);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    transferSuccessful = false;
-                }
-            } else {
-                transferSuccessful = false;
-            }
-        }
-
-
-        return transferSuccessful;
-    }
-
 
     @RequestMapping(value = "/getContragentById", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
