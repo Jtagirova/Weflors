@@ -83,7 +83,16 @@ public class SalesReportController {
         }
 
         if (productIDs != null && productIDs.size() > 0 && salesReportHelperBean.getReportStartDatePeriod() == null) {
-            return productServiceImpl.findAllProductsByProductId(productIDs);
+
+            for (int productID: productIDs) {
+                ProductEntity productEntity = productServiceImpl.findByProductId(productID);
+                List<SaleEntity> salesEntities = saleServiceImpl.findAllSalesByProductID(productID);
+                productEntity.setSalesByProductId(salesEntities);
+                products.add(productEntity);
+
+            }
+            return products;
+            //return productServiceImpl.findAllProductsByProductId(productIDs);
         }
 
         for (int productID: productIDs) {
