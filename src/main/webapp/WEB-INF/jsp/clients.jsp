@@ -239,7 +239,8 @@ $(document).ready(function () {
                 "phone": clientPhone,
                 "discount": clientDiscount,
                 "address": clientAddress,
-                "zipCode": clientZipCode
+                "zipCode": clientZipCode,
+                "totalAmountPurchased": 0
             };
             var clientsEntity = JSON.stringify(clientJSON);
             if (confirm('Вы желаете добавить данного клиента в вашу базу данных?')) {
