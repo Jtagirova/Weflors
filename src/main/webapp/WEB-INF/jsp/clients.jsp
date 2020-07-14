@@ -209,7 +209,7 @@ $(document).ready(function () {
         						cache : false,
         						timeout : 600000,
         						success : function(data) {
-        							alert(data.responseText);
+        							alert(data);
         						},
         						error : function(data) {	
         							alert(data.responseText);
@@ -253,7 +253,7 @@ $(document).ready(function () {
                     cache: false,
                     timeout: 600000,
                     success: function (data) {
-                        alert(data);
+                        alert(data.responseText);
                     },
                     error: function (data) {
                         alert(data.responseText);
