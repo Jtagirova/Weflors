@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -38,6 +39,7 @@ public class ClientsController {
         if(clientsServiceImpl.getClientByEmail(clientEntity.geteMail()) != null) {
             return "Клиент с таким E-mail уже существует в вашей базе данных";
         } else {
+            clientEntity.setAmountPurchased(BigDecimal.ZERO);
             clientsServiceImpl.saveClient(clientEntity);
             return "Новый клиент добавлен в вашу базу данных";
         }
